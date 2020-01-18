@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2020 Team 501 - The PowerKnights. All Rights Reserved.       */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
+/* must be accompanied by the 2020 Team 501 - The PowerKnights BSD license    */
+/* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -108,9 +108,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    // TODO - ADD inversion check
-    leftFrontMotor.setVoltage(leftVolts);
-    rightFrontMotor.setVoltage(rightVolts);
+    leftFrontMotor.setVoltage(leftVolts * (Constants.DriveConstants.kLeftReversed ? -1 : 1));
+    rightFrontMotor.setVoltage(rightVolts * (Constants.DriveConstants.kRightReversed ? -1 : 1));
   }
 
   /**
