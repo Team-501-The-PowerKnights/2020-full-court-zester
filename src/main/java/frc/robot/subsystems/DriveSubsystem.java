@@ -23,9 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider {
 
   private static final String myName = TelemetryNames.Drive.name;
 
@@ -207,5 +208,11 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getTurnRate() {
     return nav.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
   }
 }
