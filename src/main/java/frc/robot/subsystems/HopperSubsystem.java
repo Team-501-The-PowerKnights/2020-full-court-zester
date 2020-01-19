@@ -12,12 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class HopperSubsystem extends SubsystemBase {
-  /**
-   * Creates a new HopperSubsystem.
-   */
+public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider {
+  
   private static final String myName = TelemetryNames.Hopper.name;
 
   private static HopperSubsystem ourInstance;
@@ -34,6 +33,9 @@ public class HopperSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
   }
 
+  /**
+   * Creates a new HopperSubsystem.
+   */
   public static HopperSubsystem getInstance() {
     
     if (ourInstance == null) {
@@ -56,6 +58,11 @@ public class HopperSubsystem extends SubsystemBase {
 
   public void runAgitator(double speed) {
     agitator.set(ControlMode.PercentOutput, speed);
-    //may need take only a certain % of speed
+  }
+
+  @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
   }
 }
