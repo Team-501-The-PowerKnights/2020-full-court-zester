@@ -23,6 +23,11 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
     }
+    
+    public final class Intake {
+        public static final String name = "Intake";
+        public static final String status = name + ".status";
+    }
 
     public final class Misc {
         public static final String name = "Misc";
