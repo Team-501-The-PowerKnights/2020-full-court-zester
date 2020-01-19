@@ -23,8 +23,13 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
-    public final class Ballevator{
+    public final class Ballevator {
         public static final String name = "Ballevator";
+        public static final String status = name + ".status";
+    }
+
+    public final class Hopper {
+        public static final String name = "Hopper";
         public static final String status = name + ".status";
     }
 
