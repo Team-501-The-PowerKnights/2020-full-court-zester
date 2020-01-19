@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -48,7 +49,7 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
    * Creates a new IntakeSubsystem.
    */
   public IntakeSubsystem() {
-    intakeMotor = new TalonSRX(0);
+    intakeMotor = new TalonSRX(RobotMap.kIntakePort);
 
   }
 

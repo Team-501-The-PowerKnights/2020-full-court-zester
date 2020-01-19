@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
@@ -65,10 +66,12 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    shootMaster = new CANSparkMax(0, MotorType.kBrushless); // TODO - Determine actual motor ports
-    shootSlave0 = new CANSparkMax(0, MotorType.kBrushless);
-    // shootSlave1 = new CANSparkMax(0, MotorType.kBrushless);
-    // shootSlave2 = new CANSparkMax(0, MotorType.kBrushless);
+    shootMaster = new CANSparkMax(RobotMap.kShooterMasterPort, MotorType.kBrushless);
+    shootSlave0 = new CANSparkMax(RobotMap.kShooterSlave0Port, MotorType.kBrushless);
+    // shootSlave1 = new CANSparkMax(RobotMap.kShooterSlave1Port,
+    // MotorType.kBrushless);
+    // shootSlave2 = new CANSparkMax(RobotMap.kShooterSlave2Port,
+    // MotorType.kBrushless);
 
     shootSlave0.follow(shootMaster);
     // shootSlave1.follow(shootMaster);

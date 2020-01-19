@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
 import frc.robot.telemetry.TelemetryNames;
 
 public class BallevatorSubsystem extends SubsystemBase {
@@ -46,7 +47,7 @@ public class BallevatorSubsystem extends SubsystemBase {
   private TalonSRX ballevatorMotor;
 
   public BallevatorSubsystem() {
-    ballevatorMotor = new TalonSRX(0);
+    ballevatorMotor = new TalonSRX(RobotMap.kBallevatorPort);
   }
 
   @Override

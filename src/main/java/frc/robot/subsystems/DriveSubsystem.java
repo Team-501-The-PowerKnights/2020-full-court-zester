@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
@@ -71,10 +72,10 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   private ADIS16448_IMU nav;
 
   public DriveSubsystem() {
-    leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
-    leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
-    rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
-    rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
+    leftFrontMotor = new CANSparkMax(RobotMap.kLeftFrontDrivePort, MotorType.kBrushless);
+    leftRearMotor = new CANSparkMax(RobotMap.kLeftRearDrivePort, MotorType.kBrushless);
+    rightFrontMotor = new CANSparkMax(RobotMap.kRightFrontDrivePort, MotorType.kBrushless);
+    rightRearMotor = new CANSparkMax(RobotMap.kRightRearDrivePort, MotorType.kBrushless);
 
     left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
     right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);

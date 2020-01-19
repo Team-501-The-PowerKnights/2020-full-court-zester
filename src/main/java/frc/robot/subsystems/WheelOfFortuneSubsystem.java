@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -54,7 +55,7 @@ public class WheelOfFortuneSubsystem extends SubsystemBase implements ITelemetry
   public WheelOfFortuneSubsystem() {
     colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
 
-    wheel = new CANSparkMax(0, MotorType.kBrushless); // TODO - Add actual port number
+    wheel = new CANSparkMax(RobotMap.kWheelOfFortunePort, MotorType.kBrushless);
   }
 
   @Override
