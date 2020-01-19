@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2020 Team 501 - The PowerKnights. All Rights Reserved.       */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the 2020 Team 501 - The PowerKnights BSD license    */
-/* file in the root directory of the project.                                 */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
@@ -14,27 +14,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.telemetry.TelemetryNames;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class BallevatorSubsystem extends SubsystemBase {
   /**
-   * Creates a new IntakeSubsystem.
-  */
-  private static final String myName = TelemetryNames.Intake.name;
-  
-  private static IntakeSubsystem ourInstance;
+   * Creates a new BallevatorSubsystem.
+   */
+  private static final String myName = TelemetryNames.Ballevator.name;
+
+  private static BallevatorSubsystem ourInstance;
 
   public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Intake.status, false);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
 
     if (ourInstance != null) {
       throw new IllegalStateException(myName + " already constructed");
     }
 
-    ourInstance = new IntakeSubsystem();
+    ourInstance = new BallevatorSubsystem();
 
-    SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
   }
 
-  public static IntakeSubsystem getInstance() {
+  public static BallevatorSubsystem getInstance() {
     
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -42,14 +42,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
     return ourInstance;
   }
-  
-  //used TalonFX for now, and port 0
 
-  private TalonSRX intakeMotor;
+  private TalonSRX ballevatorMotor;
 
-  public IntakeSubsystem() {
-    intakeMotor = new TalonSRX(0);
-
+  public BallevatorSubsystem() {
+    ballevatorMotor = new TalonSRX(0);
   }
 
   @Override
@@ -57,8 +54,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void runIntake(double speed) {
-    intakeMotor.set(ControlMode.PercentOutput, speed);
-    //may need take only a certain % of speed
+  public void runBallevator(double speed){
+    ballevatorMotor.set(ControlMode.PercentOutput, speed);
   }
-} 
+}
