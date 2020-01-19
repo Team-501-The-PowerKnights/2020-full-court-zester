@@ -20,3 +20,6 @@
 
 Core application for Team 501 The PowerKnight's robot.
 
+# Contributing
+
+Look at `CONTRIBUTING.md` for more information
