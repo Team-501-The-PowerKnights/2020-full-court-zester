@@ -15,61 +15,53 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Add your docs here.
  */
 public class TelemetryManager {
-     /** Singleton instance of class for all to use **/
-  private static TelemetryManager ourInstance;
-  /** Name of our subsystem **/
-  private final static String myName = TelemetryNames.Telemetry.name;
+   /** Singleton instance of class for all to use **/
+   private static TelemetryManager ourInstance;
+   /** Name of our subsystem **/
+   private final static String myName = TelemetryNames.Telemetry.name;
 
-  private final ArrayList< ITelemetryProvider > providerList;
+   private final ArrayList<ITelemetryProvider> providerList;
 
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
+   public static synchronized void constructInstance() {
+      SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
 
-    if (ourInstance != null) {
-        throw new IllegalStateException(myName + " already constructed");
-    }
+      if (ourInstance != null) {
+         throw new IllegalStateException(myName + " already constructed");
+      }
 
-    ourInstance = new TelemetryManager();
+      ourInstance = new TelemetryManager();
 
-    SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
-  }
+      SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
+   }
 
-  public static TelemetryManager getInstance() {
+   public static TelemetryManager getInstance() {
       if (ourInstance == null) {
-          throw new IllegalStateException(myName + " not constructed yet");
+         throw new IllegalStateException(myName + " not constructed yet");
       }
       return ourInstance;
-  }
+   }
 
-  private TelemetryManager() {
-    providerList = new ArrayList< ITelemetryProvider >();
-  }
+   private TelemetryManager() {
+      providerList = new ArrayList<ITelemetryProvider>();
+   }
 
-  public void addProvider( ITelemetryProvider provider )
-   {
-      if ( provider != null )
-      {
-         providerList.add( provider );
+   public void addProvider(ITelemetryProvider provider) {
+      if (provider != null) {
+         providerList.add(provider);
       }
    }
 
    private int counter = 0;
 
-
    // This should get called from robotPeriodic() in robot
-   public void sendTelemetry()
-   {
-      if ( counter >= 10 )
-      {
+   public void sendTelemetry() {
+      if (counter >= 10) {
          counter = 0;
 
-         for ( ITelemetryProvider provider : providerList )
-         {
+         for (ITelemetryProvider provider : providerList) {
             provider.updateTelemetry();
          }
-      }
-      else
-      {
+      } else {
          counter++;
       }
    }

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
@@ -45,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   public static DriveSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -71,10 +72,10 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   private ADIS16448_IMU nav;
 
   public DriveSubsystem() {
-    leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
-    leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
-    rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
-    rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
+    leftFrontMotor = new CANSparkMax(RobotMap.kLeftFrontDrivePort, MotorType.kBrushless);
+    leftRearMotor = new CANSparkMax(RobotMap.kLeftRearDrivePort, MotorType.kBrushless);
+    rightFrontMotor = new CANSparkMax(RobotMap.kRightFrontDrivePort, MotorType.kBrushless);
+    rightRearMotor = new CANSparkMax(RobotMap.kRightRearDrivePort, MotorType.kBrushless);
 
     left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
     right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
@@ -84,7 +85,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
 
     leftEncoder = new CANEncoder(leftFrontMotor);
     rightEncoder = new CANEncoder(rightFrontMotor);
-    
+
     nav = new ADIS16448_IMU();
 
     drive = new DifferentialDrive(left, right);
@@ -99,7 +100,8 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   /**
-   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive function.
+   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
+   * function.
    * 
    * @param speed
    * @param turn
@@ -177,7 +179,8 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   /**
-   * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
    *
    * @param maxOutput the maximum output to which the drive will be constrained
    */

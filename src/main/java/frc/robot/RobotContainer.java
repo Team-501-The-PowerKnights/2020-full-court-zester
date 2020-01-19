@@ -70,25 +70,27 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create voltage constraint for trajectory following
-    DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(DriveConstants.kS, DriveConstants.kV, DriveConstants.kA),
+    DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(DriveConstants.kS, DriveConstants.kV, DriveConstants.kA),
         driveSubsystem.driveKinematics, 10);
-    
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(DriveConstants.kMaxSpeed, DriveConstants.kMaxAcceleration).setKinematics(driveSubsystem.driveKinematics).addConstraint(autoVoltageConstraint);
+
+    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(DriveConstants.kMaxSpeed, DriveConstants.kMaxAcceleration)
+        .setKinematics(driveSubsystem.driveKinematics).addConstraint(autoVoltageConstraint);
 
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(
-            new Translation2d(1, 1),
-            new Translation2d(2, -1)
-        ),
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
         // End 3 meters straight ahead of where we started, facing forward
         new Pose2d(3, 0, new Rotation2d(0)),
         // Pass config
-        trajectoryConfig
-    );
+        trajectoryConfig);
     // An ExampleCommand will run in autonomous
-    return new RamseteCommand(exampleTrajectory, driveSubsystem::getPose, new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta), new SimpleMotorFeedforward(DriveConstants.kS, DriveConstants.kV, DriveConstants.kA), driveSubsystem.driveKinematics, driveSubsystem::getVelocity, new PIDController(DriveConstants.kP, 0, 0), new PIDController(DriveConstants.kP, 0, 0), driveSubsystem::tankDriveVolts, driveSubsystem);
+    return new RamseteCommand(exampleTrajectory, driveSubsystem::getPose,
+        new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.kS, DriveConstants.kV, DriveConstants.kA),
+        driveSubsystem.driveKinematics, driveSubsystem::getVelocity, new PIDController(DriveConstants.kP, 0, 0),
+        new PIDController(DriveConstants.kP, 0, 0), driveSubsystem::tankDriveVolts, driveSubsystem);
   }
 }
