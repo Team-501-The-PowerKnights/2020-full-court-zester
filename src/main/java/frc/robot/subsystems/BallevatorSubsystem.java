@@ -35,7 +35,7 @@ public class BallevatorSubsystem extends SubsystemBase {
   }
 
   public static BallevatorSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -54,7 +54,7 @@ public class BallevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void runBallevator(double speed){
+  public void runBallevator(double speed) {
     ballevatorMotor.set(ControlMode.PercentOutput, speed);
   }
 }

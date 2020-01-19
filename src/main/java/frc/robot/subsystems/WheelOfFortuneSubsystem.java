@@ -53,7 +53,7 @@ public class WheelOfFortuneSubsystem extends SubsystemBase implements ITelemetry
    */
   public WheelOfFortuneSubsystem() {
     colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    
+
     wheel = new CANSparkMax(0, MotorType.kBrushless); // TODO - Add actual port number
   }
 

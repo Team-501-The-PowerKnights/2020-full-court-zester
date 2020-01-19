@@ -16,7 +16,7 @@ import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
 public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider {
-  
+
   private static final String myName = TelemetryNames.Hopper.name;
 
   private static HopperSubsystem ourInstance;
@@ -37,7 +37,7 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
    * Creates a new HopperSubsystem.
    */
   public static HopperSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
