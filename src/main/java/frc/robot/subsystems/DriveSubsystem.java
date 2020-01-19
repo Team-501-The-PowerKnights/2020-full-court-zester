@@ -23,9 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider {
 
   private static final String myName = TelemetryNames.Drive.name;
 
@@ -44,7 +45,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public static DriveSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -83,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftEncoder = new CANEncoder(leftFrontMotor);
     rightEncoder = new CANEncoder(rightFrontMotor);
-    
+
     nav = new ADIS16448_IMU();
 
     drive = new DifferentialDrive(left, right);
@@ -98,7 +99,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive function.
+   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
+   * function.
    * 
    * @param speed
    * @param turn
@@ -176,7 +178,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
    *
    * @param maxOutput the maximum output to which the drive will be constrained
    */
@@ -207,5 +210,11 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getTurnRate() {
     return nav.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
   }
 }
