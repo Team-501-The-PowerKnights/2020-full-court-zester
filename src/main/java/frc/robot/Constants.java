@@ -36,4 +36,26 @@ public final class Constants {
         public static final boolean kLeftReversed = false;
         public static final boolean kRightReversed = false;
     }
+
+    public final class ShooterConstants {
+
+        public final class Flywheel {
+            public static final double kFlywheelVPGearing = 1;
+            public static final double kFlywheelBeltGearing = 1;
+            public static final double kCountsPerRevolution = 1;
+            public static final double kP = 0;
+            public static final double kI = 0;
+            public static final double kD = 0;
+            public static final double kF = 0;
+        }
+
+        public final class Turret {
+            public static final double kMaxAngle = 270;
+            public static final double kMinAngle = 0;
+            public static final double kP = 0;
+            public static final double kI = 0;
+            public static final double kD = 0;
+            public static final double kF = 0;
+        }
+    }
 }

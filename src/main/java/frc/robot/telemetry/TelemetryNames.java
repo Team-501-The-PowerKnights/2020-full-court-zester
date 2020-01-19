@@ -18,6 +18,12 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
+    public final class Shooter {
+        public static final String name = "Shooter";
+        public static final String status = name + ".status";
+        public static final String angle = name + ".angle";
+    }
+
     public final class Misc {
         public static final String name = "Misc";
         public static final String programmer = name + ".programmer";
