@@ -29,6 +29,12 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
+    public final class WheelOfFortune {
+        public static final String name = "WheelOfFortune";
+        public static final String status = name + ".status";
+        public static final String color = name + ".color";
+    }
+
     public final class Misc {
         public static final String name = "Misc";
         public static final String programmer = name + ".programmer";
