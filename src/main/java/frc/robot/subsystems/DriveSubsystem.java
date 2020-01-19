@@ -45,7 +45,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   public static DriveSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -84,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
 
     leftEncoder = new CANEncoder(leftFrontMotor);
     rightEncoder = new CANEncoder(rightFrontMotor);
-    
+
     nav = new ADIS16448_IMU();
 
     drive = new DifferentialDrive(left, right);
@@ -99,7 +99,8 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   /**
-   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive function.
+   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
+   * function.
    * 
    * @param speed
    * @param turn
@@ -177,7 +178,8 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
   }
 
   /**
-   * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
    *
    * @param maxOutput the maximum output to which the drive will be constrained
    */

@@ -38,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
   }
 
   public static ShooterSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -103,11 +103,11 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
     shootPID.setReference(targetRPM, ControlType.kVelocity); // Set target velocity
   }
 
-/**
- * Sets the turret to a targetAngle (position).
- * 
- * @param targetAngle
- */
+  /**
+   * Sets the turret to a targetAngle (position).
+   * 
+   * @param targetAngle
+   */
   public void setTurretAngle(double targetAngle) {
 
     if (targetAngle >= ShooterConstants.Turret.kMaxAngle) {
@@ -118,7 +118,8 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
 
     double targetCounts = convertTurretAngleToCounts(targetAngle);
 
-    turretPID.setReference(targetCounts, ControlType.kPosition); // Tell the motor the encoder counts necessary to reach the specified angle
+    turretPID.setReference(targetCounts, ControlType.kPosition); // Tell the motor the encoder counts necessary to reach
+                                                                 // the specified angle
   }
 
   /**
@@ -129,14 +130,15 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
   }
 
   private double convertTurretAngleToCounts(double angle) {
-    double counts = angle * (1/360 /* 360 degrees per 1 revolution */) / VPGearing / beltGearing * countsPerRevolution;
+    double counts = angle * (1 / 360 /* 360 degrees per 1 revolution */) / VPGearing / beltGearing
+        * countsPerRevolution;
 
     return counts;
   }
 
   private double convertTurretCountsToAngle(double counts) {
     double angle = (counts / countsPerRevolution) * VPGearing * beltGearing * 360 /* 360 degrees per 1 revolution */;
-    
+
     return angle;
   }
 

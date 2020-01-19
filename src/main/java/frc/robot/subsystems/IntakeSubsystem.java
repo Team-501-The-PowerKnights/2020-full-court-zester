@@ -18,7 +18,7 @@ import frc.robot.telemetry.TelemetryNames;
 public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider {
 
   private static final String myName = TelemetryNames.Intake.name;
-  
+
   private static IntakeSubsystem ourInstance;
 
   public static synchronized void constructInstance() {
@@ -34,7 +34,7 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
   }
 
   public static IntakeSubsystem getInstance() {
-    
+
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
     }
@@ -46,7 +46,7 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
 
   /**
    * Creates a new IntakeSubsystem.
-  */
+   */
   public IntakeSubsystem() {
     intakeMotor = new TalonSRX(0);
 
@@ -69,4 +69,4 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
   @Override
   public void updateTelemetry() {
   }
-} 
+}
