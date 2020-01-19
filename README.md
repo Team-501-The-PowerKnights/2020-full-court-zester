@@ -1,6 +1,6 @@
 <div align="center">
 	<a href="http://powerknights.com/">
-		<img src="./powerknightsLogo.png" width="200" height="200">
+		<img src="./black-powerKnights-logo.png" width="200" height="200">
 	</a>
 	<h1>2020-Robot</h1>
 	<p>
