@@ -45,6 +45,11 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
+    public final class Climber {
+        public static final String name = "Climber";
+        public static final String status = name + ".status";
+    }
+
     public final class Misc {
         public static final String name = "Misc";
         public static final String programmer = name + ".programmer";
