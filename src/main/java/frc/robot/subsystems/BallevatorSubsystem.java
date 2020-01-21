@@ -13,9 +13,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class BallevatorSubsystem extends SubsystemBase {
+public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProvider {
   /**
    * Creates a new BallevatorSubsystem.
    */
@@ -57,5 +58,11 @@ public class BallevatorSubsystem extends SubsystemBase {
 
   public void runBallevator(double speed) {
     ballevatorMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
   }
 }
