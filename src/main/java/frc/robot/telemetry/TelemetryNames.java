@@ -8,6 +8,13 @@
 package frc.robot.telemetry;
 
 public final class TelemetryNames {
+
+    public final class Misc {
+        public static final String name = "Misc";
+        public static final String programmer = name + ".programmer";
+        public static final String codeVersion = "Misc.codeVersion";
+    }
+
     public final class Telemetry {
         public static final String name = "Telemetry";
         public static final String status = name + ".status";
@@ -50,8 +57,4 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
-    public final class Misc {
-        public static final String name = "Misc";
-        public static final String programmer = name + ".programmer";
-    }
 }
