@@ -57,6 +57,11 @@ dependencies {
     // Enable simulation gui support. Must check the box in vscode to enable support
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
+
+    // Tell the build system about Team 501 specific additions
+    compile(group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25')
+    compile(group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3')
+    compile(group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3')
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
