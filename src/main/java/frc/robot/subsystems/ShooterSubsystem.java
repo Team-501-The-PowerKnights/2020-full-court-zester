@@ -15,8 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotMap;
-import frc.robot.Constants.ShooterConstants;
+
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -47,6 +46,29 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
     return ourInstance;
   }
 
+  /**
+   * Shooter constant values
+   */
+
+  private static final double kFlywheelVPGearing = 1;
+  private static final double kFlywheelBeltGearing = 1;
+  private static final double kFlywheelCountsPerRevolution = 1;
+  private static final double kFlywheelP = 0;
+  private static final double kFlywheelI = 0;
+  private static final double kFlywheelD = 0;
+  private static final double kFlywheelF = 0;
+
+  private static final double kTurretMaxAngle = 270;
+  private static final double kTurretMinAngle = 0;
+  private static final double kTurretP = 0;
+  private static final double kTurretI = 0;
+  private static final double kTurretD = 0;
+  private static final double kTurretF = 0;
+
+  /**
+   * Mechanisms and sensors
+   */
+
   private CANSparkMax shootMaster;
   private CANSparkMax shootSlave0;
   // private CANSparkMax shootSlave1;
@@ -58,16 +80,16 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
   private CANPIDController turretPID;
 
   // Constants
-  private static final double VPGearing = ShooterConstants.Flywheel.kFlywheelVPGearing;
-  private static final double beltGearing = ShooterConstants.Flywheel.kFlywheelBeltGearing;
-  private static final double countsPerRevolution = ShooterConstants.Flywheel.kCountsPerRevolution;
+  private static final double VPGearing = kFlywheelVPGearing;
+  private static final double beltGearing = kFlywheelBeltGearing;
+  private static final double countsPerRevolution = kFlywheelCountsPerRevolution;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    shootMaster = new CANSparkMax(RobotMap.kShooterMasterPort, MotorType.kBrushless);
-    shootSlave0 = new CANSparkMax(RobotMap.kShooterSlave0Port, MotorType.kBrushless);
+    shootMaster = new CANSparkMax(0, MotorType.kBrushless);
+    shootSlave0 = new CANSparkMax(0, MotorType.kBrushless);
     // shootSlave1 = new CANSparkMax(RobotMap.kShooterSlave1Port,
     // MotorType.kBrushless);
     // shootSlave2 = new CANSparkMax(RobotMap.kShooterSlave2Port,
@@ -78,18 +100,18 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
     // shootSlave2.follow(shootMaster);
 
     shootPID = new CANPIDController(shootMaster);
-    shootPID.setP(ShooterConstants.Flywheel.kP);
-    shootPID.setI(ShooterConstants.Flywheel.kI);
-    shootPID.setD(ShooterConstants.Flywheel.kD);
-    shootPID.setFF(ShooterConstants.Flywheel.kF);
+    shootPID.setP(kFlywheelP);
+    shootPID.setI(kFlywheelI);
+    shootPID.setD(kFlywheelD);
+    shootPID.setFF(kFlywheelF);
 
     turret = new CANSparkMax(0, MotorType.kBrushless);
     turretEncoder = new CANEncoder(turret);
     turretPID = new CANPIDController(turret);
-    turretPID.setP(ShooterConstants.Turret.kP);
-    turretPID.setI(ShooterConstants.Turret.kI);
-    turretPID.setD(ShooterConstants.Turret.kD);
-    turretPID.setFF(ShooterConstants.Turret.kF);
+    turretPID.setP(kTurretP);
+    turretPID.setI(kTurretI);
+    turretPID.setD(kTurretD);
+    turretPID.setFF(kTurretF);
   }
 
   @Override
@@ -113,10 +135,10 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
    */
   public void setTurretAngle(double targetAngle) {
 
-    if (targetAngle >= ShooterConstants.Turret.kMaxAngle) {
-      targetAngle = ShooterConstants.Turret.kMaxAngle;
-    } else if (targetAngle <= ShooterConstants.Turret.kMinAngle) {
-      targetAngle = ShooterConstants.Turret.kMinAngle;
+    if (targetAngle >= kTurretMaxAngle) {
+      targetAngle = kTurretMaxAngle;
+    } else if (targetAngle <= kTurretMinAngle) {
+      targetAngle = kTurretMinAngle;
     }
 
     double targetCounts = convertTurretAngleToCounts(targetAngle);
