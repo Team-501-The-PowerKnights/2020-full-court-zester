@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotMap;
+
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -49,7 +49,7 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
   private TalonSRX agitator;
 
   public HopperSubsystem() {
-    agitator = new TalonSRX(RobotMap.kHopperPort);
+    agitator = new TalonSRX(0);
   }
 
   @Override

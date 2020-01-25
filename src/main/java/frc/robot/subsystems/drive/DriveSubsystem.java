@@ -7,215 +7,243 @@
 
 package frc.robot.subsystems.drive;
 
+import java.util.List;
+
 import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.RobotMap;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider {
 
-  private static final String myName = TelemetryNames.Drive.name;
+    private static final String myName = TelemetryNames.Drive.name;
 
-  private static DriveSubsystem ourInstance;
+    private static DriveSubsystem ourInstance;
 
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+    public static synchronized void constructInstance() {
+        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
 
-    if (ourInstance != null) {
-      throw new IllegalStateException(myName + " already constructed");
+        if (ourInstance != null) {
+            throw new IllegalStateException(myName + " already constructed");
+        }
+
+        ourInstance = new DriveSubsystem();
+
+        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
     }
 
-    ourInstance = new DriveSubsystem();
+    public static DriveSubsystem getInstance() {
 
-    SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
-  }
+        if (ourInstance == null) {
+            throw new IllegalStateException(myName + " not constructed yet");
+        }
 
-  public static DriveSubsystem getInstance() {
-
-    if (ourInstance == null) {
-      throw new IllegalStateException(myName + " not constructed yet");
+        return ourInstance;
     }
 
-    return ourInstance;
-  }
+    /**
+     * Drive Constants
+     */
+    private static final double kS = 0.16; // Volts
+    private static final double kV = 2.73; // VoltSeconds Per Meter
+    private static final double kA = 0.32; // VoltSecondsSquared Per Meter
+    private static final double kP = 2.55; // Drive Velocity
+    private static final double trackWidth = 0.568; // Meters
+    private static final double kRamseteB = 2;
+    private static final double kRamseteZeta = 0.7;
+    private static final double kMaxSpeed = 3.04; // Meters Per Second
+    private static final double kMaxAcceleration = 0.5; // Meters Per Second Squared
+    private static final boolean kGyroReversed = true;
+    private static final boolean kLeftReversed = false;
+    private static final boolean kRightReversed = false;
 
-  private CANSparkMax leftFrontMotor;
-  private CANSparkMax leftRearMotor;
-  private CANSparkMax rightFrontMotor;
-  private CANSparkMax rightRearMotor;
+    // Voltage constraint for trajectory following
+    private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
 
-  private SpeedControllerGroup left;
-  private SpeedControllerGroup right;
+    // Trajectory configuration for trajectory following
+    private final TrajectoryConfig trajectoryConfig;
 
-  private CANEncoder leftEncoder;
-  private CANEncoder rightEncoder;
+    /**
+     * Mechanisms and Sensors
+     */
 
-  private DifferentialDrive drive;
-  public DifferentialDriveKinematics driveKinematics;
-  public DifferentialDriveOdometry driveOdometry;
+    private final CANSparkMax leftFrontMotor;
+    private final CANSparkMax leftRearMotor;
+    private final CANSparkMax rightFrontMotor;
+    private final CANSparkMax rightRearMotor;
 
-  private ADIS16448_IMU nav;
+    private final SpeedControllerGroup left;
+    private final SpeedControllerGroup right;
 
-  public DriveSubsystem() {
-    leftFrontMotor = new CANSparkMax(RobotMap.kLeftFrontDrivePort, MotorType.kBrushless);
-    leftRearMotor = new CANSparkMax(RobotMap.kLeftRearDrivePort, MotorType.kBrushless);
-    rightFrontMotor = new CANSparkMax(RobotMap.kRightFrontDrivePort, MotorType.kBrushless);
-    rightRearMotor = new CANSparkMax(RobotMap.kRightRearDrivePort, MotorType.kBrushless);
+    private final CANEncoder leftEncoder;
+    private final CANEncoder rightEncoder;
 
-    left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
-    right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+    private final DifferentialDrive drive;
+    public DifferentialDriveKinematics driveKinematics;
+    public DifferentialDriveOdometry driveOdometry;
 
-    left.setInverted(false);
-    right.setInverted(true);
+    private final ADIS16448_IMU nav;
 
-    leftEncoder = new CANEncoder(leftFrontMotor);
-    rightEncoder = new CANEncoder(rightFrontMotor);
+    public DriveSubsystem() {
+        leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
+        leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
+        rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
+        rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
 
-    nav = new ADIS16448_IMU();
+        left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
+        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
 
-    drive = new DifferentialDrive(left, right);
-    driveKinematics = new DifferentialDriveKinematics(DriveConstants.trackWidth);
-    driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
-  }
+        left.setInverted(false);
+        right.setInverted(true);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(), rightEncoder.getPosition());
-  }
+        leftEncoder = new CANEncoder(leftFrontMotor);
+        rightEncoder = new CANEncoder(rightFrontMotor);
 
-  /**
-   * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
-   * function.
-   * 
-   * @param speed
-   * @param turn
-   */
-  public void arcadeDrive(double speed, double turn) {
-    drive.arcadeDrive(speed, turn);
-  }
+        nav = new ADIS16448_IMU();
 
-  public void tankDriveVolts(double leftVolts, double rightVolts) {
-    leftFrontMotor.setVoltage(leftVolts * (Constants.DriveConstants.kLeftReversed ? -1 : 1));
-    rightFrontMotor.setVoltage(rightVolts * (Constants.DriveConstants.kRightReversed ? -1 : 1));
-  }
+        drive = new DifferentialDrive(left, right);
+        driveKinematics = new DifferentialDriveKinematics(trackWidth);
+        driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
 
-  /**
-   * Returns the currently-estimated pose of the robot.
-   *
-   * @return The pose.
-   */
-  public Pose2d getPose() {
-    return driveOdometry.getPoseMeters();
-  }
+        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(kS, kV, kA),
+                driveKinematics, 10);
 
-  /**
-   * Returns the current wheel speeds of the robot.
-   *
-   * @return The current wheel speeds.
-   */
-  public DifferentialDriveWheelSpeeds getVelocity() {
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
-  }
+        trajectoryConfig = new TrajectoryConfig(kMaxSpeed, kMaxAcceleration).setKinematics(driveKinematics)
+                .addConstraint(autoVoltageConstraint);
+    }
 
-  /**
-   * Resets the odometry to the specified pose.
-   *
-   * @param pose The pose to which to set the odometry.
-   */
-  public void resetOdometry(Pose2d pose) {
-    resetEncoders();
-    driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
+                rightEncoder.getPosition());
+    }
 
-  /**
-   * Resets the drive encoders to currently read a position of 0.
-   */
-  public void resetEncoders() {
-    leftEncoder.setPosition(0);
-    rightEncoder.setPosition(0);
-  }
+    /**
+     * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
+     * function.
+     * 
+     * @param speed
+     * @param turn
+     */
+    public void arcadeDrive(final double speed, final double turn) {
+        drive.arcadeDrive(speed, turn);
+    }
 
-  /**
-   * Gets the average distance of the two encoders.
-   *
-   * @return the average of the two encoder readings
-   */
-  public double getAverageEncoderDistance() {
-    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
-  }
+    private void tankDriveVolts(final double leftVolts, final double rightVolts) {
+        leftFrontMotor.setVoltage(leftVolts * (kLeftReversed ? -1 : 1));
+        rightFrontMotor.setVoltage(rightVolts * (kRightReversed ? -1 : 1));
+    }
 
-  /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  public CANEncoder getLeftEncoder() {
-    return leftEncoder;
-  }
+    /**
+     * Returns the currently-estimated pose of the robot.
+     *
+     * @return The pose.
+     */
+    private Pose2d getPose() {
+        return driveOdometry.getPoseMeters();
+    }
 
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  public CANEncoder getRightEncoder() {
-    return rightEncoder;
-  }
+    /**
+     * Returns the current wheel speeds of the robot.
+     *
+     * @return The current wheel speeds.
+     */
+    private DifferentialDriveWheelSpeeds getVelocity() {
+        return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+    }
 
-  /**
-   * Sets the max output of the drive. Useful for scaling the drive to drive more
-   * slowly.
-   *
-   * @param maxOutput the maximum output to which the drive will be constrained
-   */
-  public void setMaxOutput(double maxOutput) {
-    drive.setMaxOutput(maxOutput);
-  }
+    /**
+     * Resets the odometry to the specified pose.
+     *
+     * @param pose The pose to which to set the odometry.
+     */
+    private void resetOdometry(final Pose2d pose) {
+        resetEncoders();
+        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    }
 
-  /**
-   * Zeroes the heading of the robot.
-   */
-  public void zeroHeading() {
-    nav.reset();
-  }
+    /**
+     * Resets the drive encoders to currently read a position of 0.
+     */
+    private void resetEncoders() {
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+    }
 
-  /**
-   * Returns the heading of the robot.
-   *
-   * @return the robot's heading in degrees, from 180 to 180
-   */
-  public double getHeading() {
-    return Math.IEEEremainder(nav.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-  }
+    /**
+     * Gets the average distance of the two encoders.
+     *
+     * @return the average of the two encoder readings
+     */
+    private double getAverageEncoderDistance() {
+        return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
+    }
 
-  /**
-   * Returns the turn rate of the robot.
-   *
-   * @return The turn rate of the robot, in degrees per second
-   */
-  public double getTurnRate() {
-    return nav.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-  }
+    /**
+     * Sets the max output of the drive. Useful for scaling the drive to drive more
+     * slowly.
+     *
+     * @param maxOutput the maximum output to which the drive will be constrained
+     */
+    private void setMaxOutput(final double maxOutput) {
+        drive.setMaxOutput(maxOutput);
+    }
 
-  @Override
-  public void updateTelemetry() {
-    // TODO Auto-generated method stub
+    /**
+     * Zeroes the heading of the robot.
+     */
+    private void zeroHeading() {
+        nav.reset();
+    }
 
-  }
+    /**
+     * Returns the heading of the robot.
+     *
+     * @return the robot's heading in degrees, from 180 to 180
+     */
+    private double getHeading() {
+        return Math.IEEEremainder(nav.getAngle(), 360) * (kGyroReversed ? -1.0 : 1.0);
+    }
+
+    public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
+            final Pose2d end) {
+
+        // Create trajectory to follow
+        final Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end,
+                trajectoryConfig);
+
+        // return the RamseteCommand to run
+        return new RamseteCommand(trajectory, this::getPose, new RamseteController(kRamseteB, kRamseteZeta),
+                new SimpleMotorFeedforward(kS, kV, kA), driveKinematics, this::getVelocity, new PIDController(kP, 0, 0),
+                new PIDController(kP, 0, 0), this::tankDriveVolts, this);
+    }
+
+    @Override
+    public void updateTelemetry() {
+        // TODO Auto-generated method stub
+
+    }
 }
