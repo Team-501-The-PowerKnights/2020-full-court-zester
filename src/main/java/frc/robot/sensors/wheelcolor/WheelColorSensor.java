@@ -7,6 +7,8 @@
 
 package frc.robot.sensors.wheelcolor;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -43,9 +45,21 @@ public class WheelColorSensor implements IWheelColorSensor {
     }
 
     private final ColorSensorV3 mySensor;
+    private final ColorMatch match;
+
+    private static final Color kBlueTarget = ColorMatch.makeColor(0, 1, 1);
+    private static final Color kGreenTarget = ColorMatch.makeColor(0, 1, 0);
+    private static final Color kRedTarget = ColorMatch.makeColor(1, 0, 0);
+    private static final Color kYellowTarget = ColorMatch.makeColor(1, 1, 0);
 
     public WheelColorSensor() {
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
+
+        match = new ColorMatch();
+        match.addColorMatch(kBlueTarget);
+        match.addColorMatch(kGreenTarget);
+        match.addColorMatch(kRedTarget);
+        match.addColorMatch(kYellowTarget);
     }
 
     @Override
@@ -62,8 +76,8 @@ public class WheelColorSensor implements IWheelColorSensor {
 
     @Override
     public void updateTelemetry() {
-        // TODO - Implement color telemetry as a string
-        SmartDashboard.putString(TelemetryNames.WheelColor.color, getColor().toString());
+        // TODO - Add String telemetry
+
     }
 
     @Override
@@ -73,22 +87,22 @@ public class WheelColorSensor implements IWheelColorSensor {
 
     @Override
     public boolean isBlue() {
-        return getColor().equals(Color.kBlue);
+        return getColor().equals(kBlueTarget);
     }
 
     @Override
     public boolean isGreen() {
-        return getColor().equals(Color.kGreen);
-    }
-
-    @Override
-    public boolean isYellow() {
-        return getColor().equals(Color.kYellow);
+        return getColor().equals(kGreenTarget);
     }
 
     @Override
     public boolean isRed() {
-        return getColor().equals(Color.kRed);
+        return getColor().equals(kRedTarget);
+    }
+
+    @Override
+    public boolean isYellow() {
+        return getColor().equals(kYellowTarget);
     }
 
 }
