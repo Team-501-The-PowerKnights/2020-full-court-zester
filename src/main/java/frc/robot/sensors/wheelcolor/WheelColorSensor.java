@@ -47,10 +47,10 @@ public class WheelColorSensor implements IWheelColorSensor {
     private final ColorSensorV3 mySensor;
     private final ColorMatch match;
 
-    private static final Color kBlueTarget = ColorMatch.makeColor(0, 1, 1);
-    private static final Color kGreenTarget = ColorMatch.makeColor(0, 1, 0);
-    private static final Color kRedTarget = ColorMatch.makeColor(1, 0, 0);
-    private static final Color kYellowTarget = ColorMatch.makeColor(1, 1, 0);
+    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     public WheelColorSensor() {
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
