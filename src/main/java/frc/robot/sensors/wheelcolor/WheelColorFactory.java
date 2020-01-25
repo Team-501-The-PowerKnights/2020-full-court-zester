@@ -43,7 +43,7 @@ public class WheelColorFactory {
 
         
         // FIXME - Replace with file based configuration
-        final String WheelColorClassName = "StubWheelColorSensor";
+        final String WheelColorClassName = "WheelColorSensor";
 
         switch (WheelColorClassName) {
 
