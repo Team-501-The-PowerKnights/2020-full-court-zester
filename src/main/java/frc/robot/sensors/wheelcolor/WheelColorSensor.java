@@ -76,8 +76,23 @@ public class WheelColorSensor implements IWheelColorSensor {
 
     @Override
     public void updateTelemetry() {
-        // TODO - Add String telemetry
+        String color;
 
+        ColorMatchResult matchResult = match.matchClosestColor(getColor());
+        
+        if (matchResult.color == kBlueTarget) {
+            color = "Blue";
+          } else if (matchResult.color == kRedTarget) {
+            color = "Red";
+          } else if (matchResult.color == kGreenTarget) {
+            color = "Green";
+          } else if (matchResult.color == kYellowTarget) {
+            color = "Yellow";
+          } else {
+            color = "Unknown";
+        }
+
+        SmartDashboard.putString(TelemetryNames.WheelColor.color, color);
     }
 
     @Override
