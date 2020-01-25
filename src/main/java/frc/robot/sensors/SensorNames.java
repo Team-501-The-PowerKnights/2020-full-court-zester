@@ -7,21 +7,15 @@
 
 package frc.robot.sensors;
 
-import frc.robot.telemetry.ITelemetryProvider;
-
 /**
- * Add your docs here.
- */
-public interface ISensor extends ITelemetryProvider {
+ * Provides a standard way of defining names for the <i>Sensors</i> used in
+ * the program. No code should define or use a hard-coded string outside of the
+ * ones defined in this class.
+ **/
+public class SensorNames {
 
-    /**
-     * Called to update any preferences associated with the sensor.
-     **/
-    public void updatePreferences();
+    public static final String gyroName = "Gyro";
 
-    /**
-     * Disable the sensor.
-     **/
-    public void disable();
+    public static final String wheelColorName = "WheelColor";
 
 }

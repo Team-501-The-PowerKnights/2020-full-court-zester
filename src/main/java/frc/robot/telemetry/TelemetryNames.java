@@ -40,6 +40,12 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
+    public final class Gyro {
+        public static final String name = "Gyro";
+
+        public static final String status = name + ".status";
+    }
+
     /***************
      * Power Cells
      ***************/
@@ -75,6 +81,12 @@ public final class TelemetryNames {
 
     public final class Wheel {
         public static final String name = "Wheel";
+
+        public static final String status = name + ".status";
+    }
+
+    public final class WheelColor {
+        public static final String name = "WheelColor";
 
         public static final String status = name + ".status";
         public static final String color = name + ".color";

@@ -113,6 +113,8 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         // initSubsystems();
         // m_robotContainer = new RobotContainer();
+
+        logger.info("initialized");
     }
 
     private void intializePreferences() {
@@ -175,6 +177,8 @@ public class Robot extends TimedRobot {
 
             logVisionData();
         }
+
+        logger.info("disabled");
     }
 
     /**
@@ -257,6 +261,8 @@ public class Robot extends TimedRobot {
             // FIXME - New method for new command implementation?
             // autoCommand.start();
         }
+
+        logger.info("initialized");
     }
 
     /**
@@ -264,7 +270,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        if ( ! autonomousFirstRun ) {
+        if (!autonomousFirstRun) {
             autonomousFirstRun = true;
             logger.info("first run of periodic");
         }
@@ -305,6 +311,7 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
+        logger.info("initialized");
     }
 
     /**
@@ -312,7 +319,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        if ( ! teleopFirstRun ) {
+        if (!teleopFirstRun) {
             teleopFirstRun = true;
             logger.info("first run of periodic");
         }
@@ -345,6 +352,8 @@ public class Robot extends TimedRobot {
         for (ISubsystem s : subsystems) {
             s.updatePreferences();
         }
+
+        logger.info("initialized");
     }
 
     /**

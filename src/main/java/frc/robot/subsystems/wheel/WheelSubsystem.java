@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.sensors.wheelcolor.IWheelColorSensor;
+import frc.robot.sensors.wheelcolor.WheelColorFactory;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -46,14 +48,15 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
         return ourInstance;
     }
 
-    private ColorSensorV3 colorSensor;
+    private IWheelColorSensor colorSensor;
+
     private CANSparkMax wheel;
 
     /**
      * Creates a new WheelSubsystem.
      */
     public WheelSubsystem() {
-        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+        colorSensor = WheelColorFactory.getInstance();
 
         // wheel = new CANSparkMax(RobotMap.kWheelPort, MotorType.kBrushless);
     }
@@ -61,47 +64,6 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-    }
-
-    /**
-     * Method providing a handle to access color values within the class.
-     * 
-     * @return The color the sensor is seeing
-     */
-    private Color getColor() {
-        return colorSensor.getColor();
-    }
-
-    /**
-     * 
-     * @return if the sensor senses that the wheel is on blue
-     */
-    private boolean isBlue() {
-        return getColor() == Color.kBlue;
-    }
-
-    /**
-     * 
-     * @return if the sensor senses that the wheel is on green
-     */
-    private boolean isGreen() {
-        return getColor() == Color.kGreen;
-    }
-
-    /**
-     * 
-     * @return if the sensor senses that the wheel is on yellow
-     */
-    private boolean isYellow() {
-        return getColor() == Color.kYellow;
-    }
-
-    /**
-     * 
-     * @return if the sensor senses that the wheel is on red
-     */
-    private boolean isRed() {
-        return getColor() == Color.kRed;
     }
 
     /**
@@ -115,7 +77,8 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putString(TelemetryNames.Wheel.color, getColor().toString());
+        // TODO Auto-generated method stub
+
     }
 
 }

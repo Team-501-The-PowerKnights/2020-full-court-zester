@@ -5,23 +5,13 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors;
+package frc.robot.sensors.gyro;
 
-import frc.robot.telemetry.ITelemetryProvider;
+import frc.robot.sensors.ISensor;
 
 /**
  * Add your docs here.
- */
-public interface ISensor extends ITelemetryProvider {
-
-    /**
-     * Called to update any preferences associated with the sensor.
-     **/
-    public void updatePreferences();
-
-    /**
-     * Disable the sensor.
-     **/
-    public void disable();
+ **/
+public interface IGyroSensor extends ISensor {
 
 }

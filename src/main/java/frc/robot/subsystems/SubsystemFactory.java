@@ -112,6 +112,7 @@ public class SubsystemFactory {
             subsystems.add(ss);
         }
 
+        logger.info("constructed");
         return subsystems;
     }
 
