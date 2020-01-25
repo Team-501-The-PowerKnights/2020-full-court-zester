@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.drive;
+package frc.robot.subsystems.climber;
 
 import org.slf4j.Logger;
 
@@ -20,15 +20,15 @@ import riolog.RioLogger;
 /**
  * 
  */
-public class DriveFactory {
+public class ClimberFactory {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DriveFactory.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ClimberFactory.class.getName());
 
     /** Singleton instance of class for all to use **/
-    private static IDriveSubsystem ourInstance;
+    private static IClimberSubsystem ourInstance;
     /** Name of our subsystem **/
-    private static final String myName = SubsystemNames.driveName;
+    private static final String myName = SubsystemNames.climberName;
 
     /**
      * Constructs instance of the subsystem. Assumed to be called before any usage
@@ -43,27 +43,27 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "StubDriveSubsystem";
+        final String ClimberClassName = "StubClimberSubsystem";
 
-        switch (driveClassName) {
+        switch (ClimberClassName) {
 
-        case "DriveSubsystem":
+        case "ClimberSubsystem":
             break;
 
-        case "StubDriveSubsystem":
+        case "StubClimberSubsystem":
             logger.info("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            StubClimberSubsystem.constructInstance();
+            ourInstance = StubClimberSubsystem.getInstance();
             break;
 
         default:
             logger.warn("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            StubClimberSubsystem.constructInstance();
+            ourInstance = StubClimberSubsystem.getInstance();
             break;
         }
 
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
+        SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
     }
 
     /**
@@ -73,7 +73,7 @@ public class DriveFactory {
      *
      * @return singleton instance of subsystem
      **/
-    public static IDriveSubsystem getInstance() {
+    public static IClimberSubsystem getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

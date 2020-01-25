@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.drive;
+package frc.robot.subsystems.shooter;
 
 import org.slf4j.Logger;
 
@@ -20,15 +20,15 @@ import riolog.RioLogger;
 /**
  * 
  */
-public class DriveFactory {
+public class ShooterFactory {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DriveFactory.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterFactory.class.getName());
 
     /** Singleton instance of class for all to use **/
-    private static IDriveSubsystem ourInstance;
+    private static IShooterSubsystem ourInstance;
     /** Name of our subsystem **/
-    private static final String myName = SubsystemNames.driveName;
+    private static final String myName = SubsystemNames.shooterName;
 
     /**
      * Constructs instance of the subsystem. Assumed to be called before any usage
@@ -36,34 +36,34 @@ public class DriveFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "StubDriveSubsystem";
+        final String ShooterClassName = "StubShooterSubsystem";
 
-        switch (driveClassName) {
+        switch (ShooterClassName) {
 
-        case "DriveSubsystem":
+        case "ShooterSubsystem":
             break;
 
-        case "StubDriveSubsystem":
+        case "StubShooterSubsystem":
             logger.info("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            StubShooterSubsystem.constructInstance();
+            ourInstance = StubShooterSubsystem.getInstance();
             break;
 
         default:
             logger.warn("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            StubShooterSubsystem.constructInstance();
+            ourInstance = StubShooterSubsystem.getInstance();
             break;
         }
 
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
     }
 
     /**
@@ -73,7 +73,7 @@ public class DriveFactory {
      *
      * @return singleton instance of subsystem
      **/
-    public static IDriveSubsystem getInstance() {
+    public static IShooterSubsystem getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }
