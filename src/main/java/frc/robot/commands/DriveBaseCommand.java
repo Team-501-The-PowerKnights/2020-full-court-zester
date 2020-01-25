@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.drive.IDriveSubsystem;
 
 public class DriveBaseCommand extends CommandBase {
 
-  private DriveSubsystem drive;
+  private IDriveSubsystem drive;
   private double speed;
   private double turn;
 
   /**
    * Creates a new DriveBaseCommand.
    */
-  public DriveBaseCommand(DriveSubsystem drive, double speed, double turn) {
+  public DriveBaseCommand(IDriveSubsystem drive, double speed, double turn) {
     this.drive = drive;
     this.speed = speed;
     this.turn = turn;
@@ -30,7 +30,7 @@ public class DriveBaseCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.arcadeDrive(speed, turn);
+    //drive.arcadeDrive(speed, turn);
   }
 
   // Returns true when the command should end.
@@ -38,4 +38,5 @@ public class DriveBaseCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
 }

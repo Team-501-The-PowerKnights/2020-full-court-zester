@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.ballevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -16,28 +16,27 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProvider {
+  /**
+   * Creates a new BallevatorSubsystem.
+   */
+  private static final String myName = TelemetryNames.Ballevator.name;
 
-  private static final String myName = TelemetryNames.Hopper.name;
-
-  private static HopperSubsystem ourInstance;
+  private static BallevatorSubsystem ourInstance;
 
   public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
 
     if (ourInstance != null) {
       throw new IllegalStateException(myName + " already constructed");
     }
 
-    ourInstance = new HopperSubsystem();
+    ourInstance = new BallevatorSubsystem();
 
-    SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
   }
 
-  /**
-   * Creates a new HopperSubsystem.
-   */
-  public static HopperSubsystem getInstance() {
+  public static BallevatorSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -46,10 +45,10 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
     return ourInstance;
   }
 
-  private TalonSRX agitator;
+  private TalonSRX ballevatorMotor;
 
-  public HopperSubsystem() {
-    agitator = new TalonSRX(0);
+  public BallevatorSubsystem() {
+    ballevatorMotor = new TalonSRX(0);
   }
 
   @Override
@@ -57,8 +56,8 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
     // This method will be called once per scheduler run
   }
 
-  public void runAgitator(double speed) {
-    agitator.set(ControlMode.PercentOutput, speed);
+  public void runBallevator(double speed) {
+    ballevatorMotor.set(ControlMode.PercentOutput, speed);
   }
 
   @Override

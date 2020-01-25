@@ -5,20 +5,17 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.config;
-
+package frc.robot.sensors;
 
 /**
- * This class provides a versioning string that can be used to determine the
- * build pedigree of a robot as loaded on the roboRIO.
- * <p>
- * Unfortunately, Git doesn't provide a way to automate this the way other CM
- * tools do with keyword expansions.
+ * Provides a standard way of defining names for the <i>Sensors</i> used in
+ * the program. No code should define or use a hard-coded string outside of the
+ * ones defined in this class.
  **/
-public class CodeVersionInfo
-{
+public class SensorNames {
 
-   // Provides a version string that gets incorporated into build
-   public static final String version = "501-RealBot 0.0.0 20200122 202600";
+    public static final String gyroName = "Gyro";
+
+    public static final String wheelColorName = "WheelColor";
 
 }

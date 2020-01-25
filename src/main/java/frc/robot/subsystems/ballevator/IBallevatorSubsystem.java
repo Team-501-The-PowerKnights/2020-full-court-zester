@@ -5,20 +5,15 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.config;
+package frc.robot.subsystems.ballevator;
 
+import frc.robot.subsystems.ISubsystem;
 
 /**
- * This class provides a versioning string that can be used to determine the
- * build pedigree of a robot as loaded on the roboRIO.
- * <p>
- * Unfortunately, Git doesn't provide a way to automate this the way other CM
- * tools do with keyword expansions.
+ * Add your docs here.
  **/
-public class CodeVersionInfo
-{
+public interface IBallevatorSubsystem extends ISubsystem {
 
-   // Provides a version string that gets incorporated into build
-   public static final String version = "501-RealBot 0.0.0 20200122 202600";
+    public void stop();
 
 }
