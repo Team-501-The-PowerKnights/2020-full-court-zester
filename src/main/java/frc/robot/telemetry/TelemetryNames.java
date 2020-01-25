@@ -17,16 +17,27 @@ public final class TelemetryNames {
 
     public final class Telemetry {
         public static final String name = "Telemetry";
+
         public static final String status = name + ".status";
+    }
+
+    public static class Scheduler {
+        public static final String name = "Scheduler";
+
+        public static final String status = name + ".status";
+        // The current commands running on the robot
+        public static final String currentCommands = name + ".currentCommands";
     }
 
     public final class Drive {
         public static final String name = "Drive";
+
         public static final String status = name + ".status";
     }
 
     public final class Shooter {
         public static final String name = "Shooter";
+
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
     }
@@ -38,22 +49,26 @@ public final class TelemetryNames {
 
     public final class WheelOfFortune {
         public static final String name = "WheelOfFortune";
+
         public static final String status = name + ".status";
         public static final String color = name + ".color";
     }
 
     public final class Ballevator {
         public static final String name = "Ballevator";
+
         public static final String status = name + ".status";
     }
 
     public final class Hopper {
         public static final String name = "Hopper";
+
         public static final String status = name + ".status";
     }
 
     public final class Climber {
         public static final String name = "Climber";
+
         public static final String status = name + ".status";
     }
 

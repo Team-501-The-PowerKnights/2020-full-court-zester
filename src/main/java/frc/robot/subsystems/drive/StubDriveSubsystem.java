@@ -48,14 +48,6 @@ public class StubDriveSubsystem implements IDriveSubsystem {
     }
 
     @Override
-    public Subsystem getWpiSubsystem() {
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
-    }
-
-    @Override
     public void validateCalibration() {
         // TODO Auto-generated method stub
 

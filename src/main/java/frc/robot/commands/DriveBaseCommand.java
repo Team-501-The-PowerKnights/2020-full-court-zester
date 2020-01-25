@@ -30,7 +30,7 @@ public class DriveBaseCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.arcadeDrive(speed, turn);
+    //drive.arcadeDrive(speed, turn);
   }
 
   // Returns true when the command should end.

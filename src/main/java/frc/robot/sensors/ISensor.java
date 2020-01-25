@@ -5,33 +5,23 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.sensors;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.telemetry.ITelemetryProvider;
 
 /**
- * Note that this now extends the official <i>WPILib</i> interface of
- * <code>Subsystem</code>.
- *
- * @see edu.wpi.first.wpilibj2.command.Subsystem
- **/
-public interface ISubsystem extends Subsystem, ITelemetryProvider {
+ * Add your docs here.
+ */
+public interface ISensor extends ITelemetryProvider {
 
     /**
-     * Called to validate that the calibration values in the properties match the
-     * physical values from the subsystem itself.
-     **/
-    public void validateCalibration();
-
-    /**
-     * Called to update any preferences associated with the subsystem. This will be
+     * Called to update any preferences associated with the sensor. This will be
      * used at a minimum to update any PID values.
      **/
     public void updatePreferences();
 
     /**
-     * Disable any active components in the subsystem.
+     * Disable the sensor.
      **/
     public void disable();
 
