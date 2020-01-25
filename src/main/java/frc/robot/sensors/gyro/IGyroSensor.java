@@ -14,4 +14,10 @@ import frc.robot.sensors.ISensor;
  **/
 public interface IGyroSensor extends ISensor {
 
+    public double getRoll();
+
+    public double getPitch();
+
+    public double getYaw();
+
 }
