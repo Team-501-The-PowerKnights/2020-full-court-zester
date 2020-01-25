@@ -44,6 +44,9 @@ public final class TelemetryNames {
         public static final String name = "Gyro";
 
         public static final String status = name + ".status";
+        public static final String roll = name + ".roll";
+        public static final String pitch = name + ".pitch";
+        public static final String yaw = name + ".yaw";
     }
 
     /***************

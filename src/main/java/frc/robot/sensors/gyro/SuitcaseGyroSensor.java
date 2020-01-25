@@ -15,10 +15,10 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-class StubGyroSensor implements IGyroSensor {
+class SuitcaseGyroSensor extends AHRSGyro implements IGyroSensor {
 
-    /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubGyroSensor.class.getName());
+    /* Our classes logger */
+    private static final Logger logger = RioLogger.getLogger(SuitcaseGyroSensor.class.getName());
 
     private static final String myName = TelemetryNames.Gyro.name;
 
@@ -31,7 +31,7 @@ class StubGyroSensor implements IGyroSensor {
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new StubGyroSensor();
+        ourInstance = new SuitcaseGyroSensor();
 
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
@@ -45,7 +45,7 @@ class StubGyroSensor implements IGyroSensor {
         return ourInstance;
     }
 
-    public StubGyroSensor() {
+    public SuitcaseGyroSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
@@ -53,32 +53,39 @@ class StubGyroSensor implements IGyroSensor {
 
     @Override
     public void updatePreferences() {
-        // Nothing to do here
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void disable() {
-        // Nothing to do here
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void updateTelemetry() {
-        // Nothing to do here
+        double value = getRoll();
+        SmartDashboard.putNumber(TelemetryNames.Gyro.roll, value);
+        value = getPitch();
+        SmartDashboard.putNumber(TelemetryNames.Gyro.pitch, value);
+        value = getYaw();
+        SmartDashboard.putNumber(TelemetryNames.Gyro.yaw, value);
     }
 
     @Override
     public double getRoll() {
-        return 0;
+        return ahrs.getRoll();
     }
 
     @Override
     public double getPitch() {
-        return 0;
+        return ahrs.getPitch();
     }
 
     @Override
     public double getYaw() {
-        return 0;
+        return ahrs.getYaw();
     }
 
 }
