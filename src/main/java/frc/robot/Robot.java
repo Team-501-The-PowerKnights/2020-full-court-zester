@@ -74,6 +74,9 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         logger.info("initializing");
 
+        // Wait until we get the configuration data from driver station
+        waitForDriverStationData();
+
         // Make sure Preferences are initialized
         intializePreferences();
 
@@ -115,6 +118,25 @@ public class Robot extends TimedRobot {
         // m_robotContainer = new RobotContainer();
 
         logger.info("initialized");
+    }
+
+    /**
+     * Holds the constructor until we receive at least one update of the control
+     * data, which holds the run-spinTime configuration.
+     **/
+    private void waitForDriverStationData() {
+        long count = 0;
+        while (!DriverStation.getInstance().isNewControlData()) {
+            if ((count % 100) == 0) {
+                logger.trace("Waiting ...");
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                logger.error("exception for sleep: ", ex);
+            }
+            count++;
+        }
     }
 
     private void intializePreferences() {
