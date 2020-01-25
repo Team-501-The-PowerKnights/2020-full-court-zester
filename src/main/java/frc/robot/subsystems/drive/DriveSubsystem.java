@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.drive;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;

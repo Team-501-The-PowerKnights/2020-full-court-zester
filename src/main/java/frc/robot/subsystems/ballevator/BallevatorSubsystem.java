@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.ballevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -16,25 +16,27 @@ import frc.robot.RobotMap;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
-public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProvider {
+  /**
+   * Creates a new BallevatorSubsystem.
+   */
+  private static final String myName = TelemetryNames.Ballevator.name;
 
-  private static final String myName = TelemetryNames.Intake.name;
-
-  private static IntakeSubsystem ourInstance;
+  private static BallevatorSubsystem ourInstance;
 
   public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Intake.status, false);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
 
     if (ourInstance != null) {
       throw new IllegalStateException(myName + " already constructed");
     }
 
-    ourInstance = new IntakeSubsystem();
+    ourInstance = new BallevatorSubsystem();
 
-    SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
+    SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
   }
 
-  public static IntakeSubsystem getInstance() {
+  public static BallevatorSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -43,14 +45,10 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
     return ourInstance;
   }
 
-  private TalonSRX intakeMotor;
+  private TalonSRX ballevatorMotor;
 
-  /**
-   * Creates a new IntakeSubsystem.
-   */
-  public IntakeSubsystem() {
-    intakeMotor = new TalonSRX(RobotMap.kIntakePort);
-
+  public BallevatorSubsystem() {
+    ballevatorMotor = new TalonSRX(RobotMap.kBallevatorPort);
   }
 
   @Override
@@ -58,16 +56,13 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
     // This method will be called once per scheduler run
   }
 
-  /**
-   * Runs the intake at the speed passed to the method.
-   * 
-   * @param speed
-   */
-  public void runIntake(double speed) {
-    intakeMotor.set(ControlMode.PercentOutput, speed);
+  public void runBallevator(double speed) {
+    ballevatorMotor.set(ControlMode.PercentOutput, speed);
   }
 
   @Override
   public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
   }
 }

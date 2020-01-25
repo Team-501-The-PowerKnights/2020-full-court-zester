@@ -19,6 +19,6 @@ public class CodeVersionInfo
 {
 
    // Provides a version string that gets incorporated into build
-   public static final String version = "501-SuitcaseBot 0.0.0 20200111 145800";
+   public static final String version = "501-RealBot 0.0.0 20200122 202600";
 
 }
