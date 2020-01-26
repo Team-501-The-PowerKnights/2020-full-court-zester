@@ -12,6 +12,7 @@ import java.util.List;
 import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -29,14 +30,13 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
 
     private static final String myName = TelemetryNames.Drive.name;
 
@@ -78,6 +78,9 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
     private static final boolean kGyroReversed = true;
     private static final boolean kLeftReversed = false;
     private static final boolean kRightReversed = false;
+    private static final double kWheelRadius = 0.1524; // Meters
+    private static final double kBeltGearing = 1;
+    private static final double kGearboxGearing = 10.71; // Standard AndyMark KoP chassis Toughbox Mini gearing
 
     // Voltage constraint for trajectory following
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
@@ -141,17 +144,15 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
                 rightEncoder.getPosition());
     }
 
-    /**
-     * Sends y-axis speed and z-axis rotation to the DifferentialDrive arcadeDrive
-     * function.
-     * 
-     * @param speed
-     * @param turn
+    /*
+     * RAMSETE Methods
      */
-    public void arcadeDrive(final double speed, final double turn) {
-        drive.arcadeDrive(speed, turn);
-    }
 
+    /**
+     * 
+     * @param leftVolts
+     * @param rightVolts
+     */
     private void tankDriveVolts(final double leftVolts, final double rightVolts) {
         leftFrontMotor.setVoltage(leftVolts * (kLeftReversed ? -1 : 1));
         rightFrontMotor.setVoltage(rightVolts * (kRightReversed ? -1 : 1));
@@ -167,6 +168,26 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
     }
 
     /**
+     * Resets the odometry to the current pose.
+     */
+    @Override
+    public void resetOdometry() {
+        resetEncoders();
+        driveOdometry.resetPosition(getPose(), Rotation2d.fromDegrees(getHeading()));
+    }
+
+    /**
+     * Resets the odometry to the specified pose.
+     *
+     * @param pose The pose to which to set the odometry.
+     */
+    @Override
+    public void resetOdometry(final Pose2d pose) {
+        resetEncoders();
+        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    }
+
+    /**
      * Returns the current wheel speeds of the robot.
      *
      * @return The current wheel speeds.
@@ -175,59 +196,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
     }
 
-    /**
-     * Resets the odometry to the specified pose.
-     *
-     * @param pose The pose to which to set the odometry.
-     */
-    private void resetOdometry(final Pose2d pose) {
-        resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
-    }
-
-    /**
-     * Resets the drive encoders to currently read a position of 0.
-     */
-    private void resetEncoders() {
-        leftEncoder.setPosition(0);
-        rightEncoder.setPosition(0);
-    }
-
-    /**
-     * Gets the average distance of the two encoders.
-     *
-     * @return the average of the two encoder readings
-     */
-    private double getAverageEncoderDistance() {
-        return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
-    }
-
-    /**
-     * Sets the max output of the drive. Useful for scaling the drive to drive more
-     * slowly.
-     *
-     * @param maxOutput the maximum output to which the drive will be constrained
-     */
-    private void setMaxOutput(final double maxOutput) {
-        drive.setMaxOutput(maxOutput);
-    }
-
-    /**
-     * Zeroes the heading of the robot.
-     */
-    private void zeroHeading() {
-        nav.reset();
-    }
-
-    /**
-     * Returns the heading of the robot.
-     *
-     * @return the robot's heading in degrees, from 180 to 180
-     */
-    private double getHeading() {
-        return Math.IEEEremainder(nav.getAngle(), 360) * (kGyroReversed ? -1.0 : 1.0);
-    }
-
+    @Override
     public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
             final Pose2d end) {
 
@@ -241,9 +210,106 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
                 new PIDController(kP, 0, 0), this::tankDriveVolts, this);
     }
 
+    /*
+     * Normal Drive Methods
+     */
+
+    /**
+     * Resets the drive encoders to currently read a position of 0.
+     */
+    @Override
+    public void resetEncoders() {
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+    }
+
     @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
+    }
 
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void stop() {
+        drive.tankDrive(0, 0);
+    }
+
+    /*
+     * Drive constraint values
+     */
+
+    private static final double speedFactor = 1;
+    private static final double turnFactor = 1;
+    private static final double speedConstraintFactor = 1;
+    private static final double turnConstraintFactor = 1;
+
+    @Override
+    public void drive(double hmiSpeed, double hmiTurn) {
+        drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
+    }
+
+    @Override
+    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
+        if (constrained) {
+            drive.arcadeDrive(hmiSpeed * speedConstraintFactor, hmiTurn * turnConstraintFactor);
+        } else {
+            drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
+        }
+    }
+
+    @Override
+    public double getLeftEncoderClicks() {
+        return leftEncoder.getPosition();
+    }
+
+    @Override
+    public double getRightEncoderClicks() {
+        return rightEncoder.getPosition();
+    }
+
+    /**
+     * Returns the robot's current heading (180 to -180) in degrees.
+     */
+    @Override
+    public double getHeading() {
+        return Math.IEEEremainder(nav.getAngle(), 360) * (kGyroReversed ? -1.0 : 1.0);
+    }
+
+    @Override
+    public double convertInchesToEncoderClicks(double inches) {
+        return inches * (1 / 12) // Conversion to feet
+                * 3.281 // Conversion to meters
+                * (1 / (2 * Math.PI * kWheelRadius)) // Convert to wheel revolutions (Circumference)
+                * (kBeltGearing) // Convert to output shaft revolutions (Belt gearing)
+                * (1 / kGearboxGearing); // Convert to motor revolutions (TB Mini gearing)
+    }
+
+    @Override
+    public void setBrake(boolean brakeOn) {
+        if (brakeOn) {
+            leftFrontMotor.setIdleMode(IdleMode.kBrake);
+            leftRearMotor.setIdleMode(IdleMode.kBrake);
+            rightFrontMotor.setIdleMode(IdleMode.kBrake);
+            rightRearMotor.setIdleMode(IdleMode.kBrake);
+        } else {
+            leftFrontMotor.setIdleMode(IdleMode.kCoast);
+            leftRearMotor.setIdleMode(IdleMode.kCoast);
+            rightFrontMotor.setIdleMode(IdleMode.kCoast);
+            rightRearMotor.setIdleMode(IdleMode.kCoast);
+        }
     }
 }
