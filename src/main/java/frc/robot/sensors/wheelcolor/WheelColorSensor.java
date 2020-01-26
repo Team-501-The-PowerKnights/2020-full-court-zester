@@ -8,7 +8,6 @@
 package frc.robot.sensors.wheelcolor;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -16,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKColor;
 
 public class WheelColorSensor implements IWheelColorSensor {
 
@@ -47,19 +47,14 @@ public class WheelColorSensor implements IWheelColorSensor {
     private final ColorSensorV3 mySensor;
     private final ColorMatch match;
 
-    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-
     public WheelColorSensor() {
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
 
         match = new ColorMatch();
-        match.addColorMatch(kBlueTarget);
-        match.addColorMatch(kGreenTarget);
-        match.addColorMatch(kRedTarget);
-        match.addColorMatch(kYellowTarget);
+        match.addColorMatch(PKColor.blueTarget);
+        match.addColorMatch(PKColor.greenTarget);
+        match.addColorMatch(PKColor.yellowTarget);
+        match.addColorMatch(PKColor.redTarget);
     }
 
     @Override
@@ -76,48 +71,50 @@ public class WheelColorSensor implements IWheelColorSensor {
 
     @Override
     public void updateTelemetry() {
-        String color;
-
-        ColorMatchResult matchResult = match.matchClosestColor(getColor());
-        
-        if (matchResult.color == kBlueTarget) {
-            color = "Blue";
-          } else if (matchResult.color == kRedTarget) {
-            color = "Red";
-          } else if (matchResult.color == kGreenTarget) {
-            color = "Green";
-          } else if (matchResult.color == kYellowTarget) {
-            color = "Yellow";
-          } else {
-            color = "Unknown";
-        }
-
-        SmartDashboard.putString(TelemetryNames.WheelColor.color, color);
+        SmartDashboard.putString(TelemetryNames.WheelColor.color, parseTarget(getColor()));
     }
 
     @Override
     public Color getColor() {
-        return mySensor.getColor();
+        return match.matchClosestColor(mySensor.getColor()).color;
     }
 
     @Override
     public boolean isBlue() {
-        return getColor().equals(kBlueTarget);
+        return getColor().equals(PKColor.blueTarget);
     }
 
     @Override
     public boolean isGreen() {
-        return getColor().equals(kGreenTarget);
+        return getColor().equals(PKColor.greenTarget);
     }
 
     @Override
     public boolean isRed() {
-        return getColor().equals(kRedTarget);
+        return getColor().equals(PKColor.redTarget);
     }
 
     @Override
     public boolean isYellow() {
-        return getColor().equals(kYellowTarget);
+        return getColor().equals(PKColor.yellowTarget);
+    }
+
+    private String parseTarget(Color color) {
+        String retColor;
+
+        if (color == PKColor.blueTarget) {
+            retColor = "Blue";
+        } else if (color == PKColor.greenTarget) {
+            retColor = "Green";
+        } else if (color == PKColor.yellowTarget) {
+            retColor = "Yellow";
+        } else if (color == PKColor.redTarget) {
+            retColor = "Red";
+        } else {
+            retColor = "Unknown";
+        }
+
+        return retColor;
     }
 
 }
