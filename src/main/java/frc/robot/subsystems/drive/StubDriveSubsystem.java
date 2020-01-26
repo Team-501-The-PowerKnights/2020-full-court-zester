@@ -136,12 +136,6 @@ public class StubDriveSubsystem implements IDriveSubsystem {
     }
 
     @Override
-    public double getHeading() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
     public Command getRamseteCommand(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
         // TODO Auto-generated method stub
         return null;

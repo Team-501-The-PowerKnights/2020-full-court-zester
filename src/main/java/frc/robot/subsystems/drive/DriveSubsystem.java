@@ -9,7 +9,6 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
-import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -30,6 +29,8 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.sensors.gyro.GyroFactory;
+import frc.robot.sensors.gyro.IGyroSensor;
 import frc.robot.telemetry.TelemetryNames;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -75,7 +76,6 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
     private static final double kRamseteZeta = 0.7;
     private static final double kMaxSpeed = 3.04; // Meters Per Second
     private static final double kMaxAcceleration = 0.5; // Meters Per Second Squared
-    private static final boolean kGyroReversed = true;
     private static final boolean kLeftReversed = false;
     private static final boolean kRightReversed = false;
     private static final double kWheelRadius = 0.1524; // Meters
@@ -103,11 +103,11 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
     private final CANEncoder leftEncoder;
     private final CANEncoder rightEncoder;
 
+    private final IGyroSensor nav;
+
     private final DifferentialDrive drive;
     public DifferentialDriveKinematics driveKinematics;
     public DifferentialDriveOdometry driveOdometry;
-
-    private final ADIS16448_IMU nav;
 
     public DriveSubsystem() {
         leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
@@ -124,7 +124,7 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
         leftEncoder = new CANEncoder(leftFrontMotor);
         rightEncoder = new CANEncoder(rightFrontMotor);
 
-        nav = new ADIS16448_IMU();
+        nav = GyroFactory.getInstance();
 
         drive = new DifferentialDrive(left, right);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
@@ -173,7 +173,7 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
     @Override
     public void resetOdometry() {
         resetEncoders();
-        driveOdometry.resetPosition(getPose(), Rotation2d.fromDegrees(getHeading()));
+        driveOdometry.resetPosition(getPose(), Rotation2d.fromDegrees(nav.getHeading()));
     }
 
     /**
@@ -184,7 +184,7 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
     @Override
     public void resetOdometry(final Pose2d pose) {
         resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(nav.getHeading()));
     }
 
     /**
@@ -279,14 +279,6 @@ public class DriveSubsystem extends SubsystemBase implements IDriveSubsystem {
     @Override
     public double getRightEncoderClicks() {
         return rightEncoder.getPosition();
-    }
-
-    /**
-     * Returns the robot's current heading (180 to -180) in degrees.
-     */
-    @Override
-    public double getHeading() {
-        return Math.IEEEremainder(nav.getAngle(), 360) * (kGyroReversed ? -1.0 : 1.0);
     }
 
     @Override

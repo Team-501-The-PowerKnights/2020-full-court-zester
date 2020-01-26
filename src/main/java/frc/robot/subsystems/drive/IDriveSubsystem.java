@@ -46,8 +46,6 @@ public interface IDriveSubsystem extends ISubsystem {
 
     public double getRightEncoderClicks();
 
-    public double getHeading();
-
     public double convertInchesToEncoderClicks(double inches);
 
     public void setBrake(boolean brakeOn);
