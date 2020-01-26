@@ -66,18 +66,18 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
     /**
      * Drive Constants
      */
-    private static final double kS = 0.16; // Volts
-    private static final double kV = 2.73; // VoltSeconds Per Meter
-    private static final double kA = 0.32; // VoltSecondsSquared Per Meter
-    private static final double kP = 2.55; // Drive Velocity
+    private static final double s = 0.16; // Volts
+    private static final double v = 2.73; // VoltSeconds Per Meter
+    private static final double a = 0.32; // VoltSecondsSquared Per Meter
+    private static final double p = 2.55; // Drive Velocity
     private static final double trackWidth = 0.568; // Meters
-    private static final double kRamseteB = 2;
-    private static final double kRamseteZeta = 0.7;
-    private static final double kMaxSpeed = 3.04; // Meters Per Second
-    private static final double kMaxAcceleration = 0.5; // Meters Per Second Squared
-    private static final boolean kGyroReversed = true;
-    private static final boolean kLeftReversed = false;
-    private static final boolean kRightReversed = false;
+    private static final double ramseteB = 2;
+    private static final double ramseteZeta = 0.7;
+    private static final double maxSpeed = 3.04; // Meters Per Second
+    private static final double maxAcceleration = 0.5; // Meters Per Second Squared
+    private static final boolean gyroReversed = true;
+    private static final boolean leftReversed = false;
+    private static final boolean rightReversed = false;
 
     // Voltage constraint for trajectory following
     private final DifferentialDriveVoltageConstraint autoVoltageConstraint;
@@ -127,10 +127,10 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
 
-        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(kS, kV, kA),
+        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(s, v, a),
                 driveKinematics, 10);
 
-        trajectoryConfig = new TrajectoryConfig(kMaxSpeed, kMaxAcceleration).setKinematics(driveKinematics)
+        trajectoryConfig = new TrajectoryConfig(maxSpeed, maxAcceleration).setKinematics(driveKinematics)
                 .addConstraint(autoVoltageConstraint);
     }
 
@@ -153,8 +153,8 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
     }
 
     private void tankDriveVolts(final double leftVolts, final double rightVolts) {
-        leftFrontMotor.setVoltage(leftVolts * (kLeftReversed ? -1 : 1));
-        rightFrontMotor.setVoltage(rightVolts * (kRightReversed ? -1 : 1));
+        leftFrontMotor.setVoltage(leftVolts * (leftReversed ? -1 : 1));
+        rightFrontMotor.setVoltage(rightVolts * (rightReversed ? -1 : 1));
     }
 
     /**
@@ -225,7 +225,7 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
      * @return the robot's heading in degrees, from 180 to 180
      */
     private double getHeading() {
-        return Math.IEEEremainder(nav.getAngle(), 360) * (kGyroReversed ? -1.0 : 1.0);
+        return Math.IEEEremainder(nav.getAngle(), 360) * (gyroReversed ? -1.0 : 1.0);
     }
 
     public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
@@ -236,9 +236,9 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
                 trajectoryConfig);
 
         // return the RamseteCommand to run
-        return new RamseteCommand(trajectory, this::getPose, new RamseteController(kRamseteB, kRamseteZeta),
-                new SimpleMotorFeedforward(kS, kV, kA), driveKinematics, this::getVelocity, new PIDController(kP, 0, 0),
-                new PIDController(kP, 0, 0), this::tankDriveVolts, this);
+        return new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
+                new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity, new PIDController(p, 0, 0),
+                new PIDController(p, 0, 0), this::tankDriveVolts, this);
     }
 
     @Override
