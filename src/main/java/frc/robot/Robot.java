@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         // initSubsystems();
-        // m_robotContainer = new RobotContainer();
+        m_robotContainer = new RobotContainer();
 
         logger.info("initialized");
     }
@@ -269,7 +269,9 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
-        autoCommand = autoChooser.getSelected();
+        // autoCommand = autoChooser.getSelected();
+        autoCommand = m_robotContainer.getAutonomousCommand();
+        autoCommand.schedule();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

@@ -7,11 +7,15 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.commands.DoNothing;
@@ -58,14 +62,15 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new DoNothing();
+        // return new DoNothing();
         // FIXME - Implement This
-        // return drive.getRamseteCommand(
-        // // Start at the origin facing the +X direction
-        // new Pose2d(0, 0, new Rotation2d(0)),
-        // // Pass through these two interior waypoints, making an 's' curve path
-        // List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // // End 3 meters straight ahead of where we started, facing forward
-        // new Pose2d(3, 0, new Rotation2d(0)));
+        drive.resetOdometry();
+        return drive.getRamseteCommand(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)));
     }
 }
