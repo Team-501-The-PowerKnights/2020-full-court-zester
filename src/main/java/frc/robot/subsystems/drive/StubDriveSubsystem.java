@@ -7,8 +7,12 @@
 
 package frc.robot.subsystems.drive;
 
+import java.util.List;
+
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.telemetry.TelemetryNames;
 
 public class StubDriveSubsystem implements IDriveSubsystem {
@@ -117,6 +121,30 @@ public class StubDriveSubsystem implements IDriveSubsystem {
     public void setBrake(boolean brakeOn) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void resetOdometry() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void resetOdometry(Pose2d pose) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public double getHeading() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public Command getRamseteCommand(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
