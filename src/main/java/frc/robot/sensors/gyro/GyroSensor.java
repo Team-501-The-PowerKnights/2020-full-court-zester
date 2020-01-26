@@ -15,10 +15,10 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-class SuitcaseGyroSensor extends AHRSGyro implements IGyroSensor {
+public class GyroSensor extends AHRSGyro implements IGyroSensor {
 
     /* Our classes logger */
-    private static final Logger logger = RioLogger.getLogger(SuitcaseGyroSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(GyroSensor.class.getName());
 
     private static final String myName = TelemetryNames.Gyro.name;
 
@@ -31,7 +31,7 @@ class SuitcaseGyroSensor extends AHRSGyro implements IGyroSensor {
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new SuitcaseGyroSensor();
+        ourInstance = new GyroSensor();
 
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
@@ -45,7 +45,9 @@ class SuitcaseGyroSensor extends AHRSGyro implements IGyroSensor {
         return ourInstance;
     }
 
-    public SuitcaseGyroSensor() {
+    private static final boolean kGyroReversed = true;
+
+    public GyroSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
@@ -86,6 +88,16 @@ class SuitcaseGyroSensor extends AHRSGyro implements IGyroSensor {
     @Override
     public double getYaw() {
         return ahrs.getYaw();
+    }
+
+    @Override
+    public double getHeading() {
+        return Math.IEEEremainder(ahrs.getAngle(), 360) * (kGyroReversed ? -1 : 1);
+    }
+
+    @Override
+    public double getAngle() {
+        return ahrs.getAngle();
     }
 
 }

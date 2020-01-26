@@ -20,4 +20,8 @@ public interface IGyroSensor extends ISensor {
 
     public double getYaw();
 
+    public double getHeading();
+
+    public double getAngle();
+
 }

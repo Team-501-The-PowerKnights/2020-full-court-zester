@@ -81,4 +81,14 @@ class StubGyroSensor implements IGyroSensor {
         return 0;
     }
 
+    @Override
+    public double getHeading() {
+        return 0;
+    }
+
+    @Override
+    public double getAngle() {
+        return 0;
+    }
+
 }
