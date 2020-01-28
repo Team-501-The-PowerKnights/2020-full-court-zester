@@ -17,6 +17,7 @@
 </div>
 
 # 2020-robot
+[![Actions Status](https://github.com/Team-501-The-PowerKnights/workflows/Gradle/badge.svg)](https://github.com/Team-501-The-PowerKnights/Gradle/actions)
 
 Core application for Team 501 The PowerKnight's robot.
 
