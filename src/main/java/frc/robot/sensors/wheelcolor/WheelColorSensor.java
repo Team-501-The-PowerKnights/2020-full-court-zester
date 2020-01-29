@@ -7,6 +7,7 @@
 
 package frc.robot.sensors.wheelcolor;
 
+import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKColor;
 
 public class WheelColorSensor implements IWheelColorSensor {
 
@@ -43,9 +45,16 @@ public class WheelColorSensor implements IWheelColorSensor {
     }
 
     private final ColorSensorV3 mySensor;
+    private final ColorMatch match;
 
     public WheelColorSensor() {
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
+
+        match = new ColorMatch();
+        match.addColorMatch(PKColor.blueTarget);
+        match.addColorMatch(PKColor.greenTarget);
+        match.addColorMatch(PKColor.yellowTarget);
+        match.addColorMatch(PKColor.redTarget);
     }
 
     @Override
@@ -62,33 +71,50 @@ public class WheelColorSensor implements IWheelColorSensor {
 
     @Override
     public void updateTelemetry() {
-        // TODO - Implement color telemetry as a string
-        SmartDashboard.putString(TelemetryNames.WheelColor.color, getColor().toString());
+        SmartDashboard.putString(TelemetryNames.WheelColor.color, parseTarget(getColor()));
     }
 
     @Override
     public Color getColor() {
-        return mySensor.getColor();
+        return match.matchClosestColor(mySensor.getColor()).color;
     }
 
     @Override
     public boolean isBlue() {
-        return getColor().equals(Color.kBlue);
+        return getColor().equals(PKColor.blueTarget);
     }
 
     @Override
     public boolean isGreen() {
-        return getColor().equals(Color.kGreen);
-    }
-
-    @Override
-    public boolean isYellow() {
-        return getColor().equals(Color.kYellow);
+        return getColor().equals(PKColor.greenTarget);
     }
 
     @Override
     public boolean isRed() {
-        return getColor().equals(Color.kRed);
+        return getColor().equals(PKColor.redTarget);
+    }
+
+    @Override
+    public boolean isYellow() {
+        return getColor().equals(PKColor.yellowTarget);
+    }
+
+    private String parseTarget(Color color) {
+        String retColor;
+
+        if (color == PKColor.blueTarget) {
+            retColor = "Blue";
+        } else if (color == PKColor.greenTarget) {
+            retColor = "Green";
+        } else if (color == PKColor.yellowTarget) {
+            retColor = "Yellow";
+        } else if (color == PKColor.redTarget) {
+            retColor = "Red";
+        } else {
+            retColor = "Unknown";
+        }
+
+        return retColor;
     }
 
 }
