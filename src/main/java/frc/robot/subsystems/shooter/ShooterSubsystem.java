@@ -50,20 +50,20 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
    * Shooter constant values
    */
 
-  private static final double kFlywheelVPGearing = 1;
-  private static final double kFlywheelBeltGearing = 1;
-  private static final double kFlywheelCountsPerRevolution = 1;
-  private static final double kFlywheelP = 0;
-  private static final double kFlywheelI = 0;
-  private static final double kFlywheelD = 0;
-  private static final double kFlywheelF = 0;
+  private static final double flywheelVPGearing = 1;
+  private static final double flywheelBeltGearing = 1;
+  private static final double flywheelCountsPerRevolution = 1;
+  private static final double flywheelP = 0;
+  private static final double flywheelI = 0;
+  private static final double flywheelD = 0;
+  private static final double flywheelF = 0;
 
-  private static final double kTurretMaxAngle = 270;
-  private static final double kTurretMinAngle = 0;
-  private static final double kTurretP = 0;
-  private static final double kTurretI = 0;
-  private static final double kTurretD = 0;
-  private static final double kTurretF = 0;
+  private static final double turretMaxAngle = 270;
+  private static final double turretMinAngle = 0;
+  private static final double turretP = 0;
+  private static final double turretI = 0;
+  private static final double turretD = 0;
+  private static final double turretF = 0;
 
   /**
    * Mechanisms and sensors
@@ -80,9 +80,9 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
   private CANPIDController turretPID;
 
   // Constants
-  private static final double VPGearing = kFlywheelVPGearing;
-  private static final double beltGearing = kFlywheelBeltGearing;
-  private static final double countsPerRevolution = kFlywheelCountsPerRevolution;
+  private static final double VPGearing = flywheelVPGearing;
+  private static final double beltGearing = flywheelBeltGearing;
+  private static final double countsPerRevolution = flywheelCountsPerRevolution;
 
   /**
    * Creates a new ShooterSubsystem.
@@ -100,18 +100,18 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
     // shootSlave2.follow(shootMaster);
 
     shootPID = new CANPIDController(shootMaster);
-    shootPID.setP(kFlywheelP);
-    shootPID.setI(kFlywheelI);
-    shootPID.setD(kFlywheelD);
-    shootPID.setFF(kFlywheelF);
+    shootPID.setP(flywheelP);
+    shootPID.setI(flywheelI);
+    shootPID.setD(flywheelD);
+    shootPID.setFF(flywheelF);
 
     turret = new CANSparkMax(0, MotorType.kBrushless);
     turretEncoder = new CANEncoder(turret);
     turretPID = new CANPIDController(turret);
-    turretPID.setP(kTurretP);
-    turretPID.setI(kTurretI);
-    turretPID.setD(kTurretD);
-    turretPID.setFF(kTurretF);
+    turretPID.setP(turretP);
+    turretPID.setI(turretI);
+    turretPID.setD(turretD);
+    turretPID.setFF(turretF);
   }
 
   @Override
@@ -135,10 +135,10 @@ public class ShooterSubsystem extends SubsystemBase implements ITelemetryProvide
    */
   public void setTurretAngle(double targetAngle) {
 
-    if (targetAngle >= kTurretMaxAngle) {
-      targetAngle = kTurretMaxAngle;
-    } else if (targetAngle <= kTurretMinAngle) {
-      targetAngle = kTurretMinAngle;
+    if (targetAngle >= turretMaxAngle) {
+      targetAngle = turretMaxAngle;
+    } else if (targetAngle <= turretMinAngle) {
+      targetAngle = turretMinAngle;
     }
 
     double targetCounts = convertTurretAngleToCounts(targetAngle);
