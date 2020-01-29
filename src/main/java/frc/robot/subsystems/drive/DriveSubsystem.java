@@ -66,11 +66,11 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
     /**
      * Drive Constants
      */
-    private static final double s = 0.16; // Volts
-    private static final double v = 2.73; // VoltSeconds Per Meter
-    private static final double a = 0.32; // VoltSecondsSquared Per Meter
-    private static final double p = 2.55; // Drive Velocity
-    private static final double trackWidth = 0.568; // Meters
+    private static final double s = 0.0645; // Volts
+    private static final double v = 2.84; // VoltSeconds Per Meter
+    private static final double a = 0.28; // VoltSecondsSquared Per Meter
+    private static final double p = 2.53; // Drive Velocity
+    private static final double trackWidth = 0.616; // Meters
     private static final double ramseteB = 2;
     private static final double ramseteZeta = 0.7;
     private static final double maxSpeed = 3.04; // Meters Per Second
@@ -173,59 +173,6 @@ public class DriveSubsystem extends SubsystemBase implements ITelemetryProvider 
      */
     private DifferentialDriveWheelSpeeds getVelocity() {
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
-    }
-
-    /**
-     * Resets the odometry to the specified pose.
-     *
-     * @param pose The pose to which to set the odometry.
-     */
-    private void resetOdometry(final Pose2d pose) {
-        resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
-    }
-
-    /**
-     * Resets the drive encoders to currently read a position of 0.
-     */
-    private void resetEncoders() {
-        leftEncoder.setPosition(0);
-        rightEncoder.setPosition(0);
-    }
-
-    /**
-     * Gets the average distance of the two encoders.
-     *
-     * @return the average of the two encoder readings
-     */
-    private double getAverageEncoderDistance() {
-        return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
-    }
-
-    /**
-     * Sets the max output of the drive. Useful for scaling the drive to drive more
-     * slowly.
-     *
-     * @param maxOutput the maximum output to which the drive will be constrained
-     */
-    private void setMaxOutput(final double maxOutput) {
-        drive.setMaxOutput(maxOutput);
-    }
-
-    /**
-     * Zeroes the heading of the robot.
-     */
-    private void zeroHeading() {
-        nav.reset();
-    }
-
-    /**
-     * Returns the heading of the robot.
-     *
-     * @return the robot's heading in degrees, from 180 to 180
-     */
-    private double getHeading() {
-        return Math.IEEEremainder(nav.getAngle(), 360) * (gyroReversed ? -1.0 : 1.0);
     }
 
     public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
