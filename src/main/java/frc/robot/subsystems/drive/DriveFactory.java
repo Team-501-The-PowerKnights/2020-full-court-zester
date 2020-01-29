@@ -43,11 +43,13 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "StubDriveSubsystem";
+        final String driveClassName = "DriveSubsystem";
 
         switch (driveClassName) {
 
         case "DriveSubsystem":
+            DriveSubsystem.constructInstance();
+            ourInstance = DriveSubsystem.getInstance();
             break;
 
         case "StubDriveSubsystem":
