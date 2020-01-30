@@ -10,14 +10,20 @@ package frc.robot.sensors.wheelcolor;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
+import riolog.RioLogger;
 
 public class WheelColorSensor implements IWheelColorSensor {
+
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(WheelColorSensor.class.getName());
 
     private static final String myName = TelemetryNames.WheelColor.name;
 

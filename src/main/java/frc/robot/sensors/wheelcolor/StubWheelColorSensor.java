@@ -7,11 +7,17 @@
 
 package frc.robot.sensors.wheelcolor;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
 public class StubWheelColorSensor implements IWheelColorSensor {
+
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubWheelColorSensor.class.getName());
 
     private static final String myName = TelemetryNames.WheelColor.name;
 

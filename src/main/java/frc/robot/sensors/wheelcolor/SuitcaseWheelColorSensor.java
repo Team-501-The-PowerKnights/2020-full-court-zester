@@ -13,11 +13,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
+import riolog.RioLogger;
 
 public class SuitcaseWheelColorSensor implements IWheelColorSensor {
+
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(StubWheelColorSensor.class.getName());
+
   private static final String myName = TelemetryNames.WheelColor.name;
 
   private static IWheelColorSensor ourInstance;
