@@ -7,31 +7,7 @@
 
 package frc.robot.subsystems.shooter;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.telemetry.TelemetryNames;
-
-public class StubShooterSubsystem extends BaseShooterSubsystem {
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubShooterSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
-    }
-
-    public static IShooterSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
+class StubShooterSubsystem extends BaseShooterSubsystem {
 
     public StubShooterSubsystem() {
     }

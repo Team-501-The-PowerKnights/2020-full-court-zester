@@ -12,32 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryNames;
-
-public class ProtoShooterSubsystem extends BaseShooterSubsystem {
-
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
-
-    if (ourInstance != null) {
-      throw new IllegalStateException(myName + " already constructed");
-    }
-
-    ourInstance = new ProtoShooterSubsystem();
-
-    SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
-  }
-
-  public static IShooterSubsystem getInstance() {
-
-    if (ourInstance == null) {
-      throw new IllegalStateException(myName + " not constructed yet");
-    }
-
-    return ourInstance;
-  }
+class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   /**
    * Shooter constant values
