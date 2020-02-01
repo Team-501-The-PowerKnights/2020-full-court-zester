@@ -14,7 +14,7 @@ import frc.robot.telemetry.TelemetryNames;
 /**
  * Add your docs here.
  */
-public abstract class BaseHopperSubsystem extends SubsystemBase implements IHopperSubsystem {
+abstract class BaseHopperSubsystem extends SubsystemBase implements IHopperSubsystem {
 
     protected static final String myName = TelemetryNames.Hopper.name;
 

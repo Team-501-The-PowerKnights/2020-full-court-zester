@@ -9,7 +9,7 @@ package frc.robot.subsystems.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.SubsystemNames;
@@ -96,18 +96,6 @@ public class ShooterFactory {
         return ourInstance;
     }
 
-    /**
-     * Returns the singleton instance of the subsystem, but in a <code>class</code>
-     * that the <i>WPILib</i> interface wants.
-     *
-     * @return singleton instance of subsystem
-     */
-    public static Subsystem getWpiSubsystem() {
-        // TODO - Can we get rid of this now?
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
-    }
+    
 
 }
