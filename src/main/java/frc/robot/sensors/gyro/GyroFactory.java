@@ -44,32 +44,25 @@ public class GyroFactory {
         // FIXME - Replace with file based configuration
         final String myClassName = "SuitcaseGyroSensor";
 
+        String myPkgName = GyroFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load {}", classToLoad);
+
         logger.info("constructing {} for {} sensor", myClassName, myName);
-        switch (myClassName) {
-
-        case "GyroSensor":
-            ourInstance = new GyroSensor();
-            break;
-
-        case "ProtoGyroSensor":
-            ourInstance = new ProtoGyroSensor();
-            break;
-
-        case "SuitcaseGyroSensor":
-            ourInstance = new SuitcaseGyroSensor();
-            break;
-
-        case "StubGyroSensor":
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IGyroSensor) myObject;
+            // TODO - Make this multi-state (this would be "success" / green)
+            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for {}", myName);
             ourInstance = new StubGyroSensor();
-            break;
-
-        default:
-            logger.warn("invalid/missing sensor class for ", myName);
-            ourInstance = new StubGyroSensor();
-            break;
+            // TODO - Make this multi-state (this would be "degraded" / yellow)
+            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
 
     /**

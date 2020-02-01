@@ -44,33 +44,25 @@ public class WheelColorFactory {
         // FIXME - Replace with file based configuration
         final String myClassName = "SuitcaseWheelColorSensor";
 
+        String myPkgName = WheelColorFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load {}", classToLoad);
+
         logger.info("constructing {} for {} sensor", myClassName, myName);
-        switch (myClassName) {
-
-        case "WheelColorSensor":
-            ourInstance = new WheelColorSensor();
-            break;
-
-        case "ProtoColorSensor":
-            ourInstance = new ProtoWheelColorSensor();
-            break;
-
-        case "SuitcaseWheelColorSensor":
-            ourInstance = new SuitcaseWheelColorSensor();
-            break;
-
-        case "StubWheelColorSensor":
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IWheelColorSensor) myObject;
+            // TODO - Make this multi-state (this would be "success" / green)
+            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for {}", myName);
             ourInstance = new StubWheelColorSensor();
-            break;
-
-        default:
-            logger.warn("invalid/missing sensor class for ", myName);
-            ourInstance = new StubWheelColorSensor();
-            break;
-
+            // TODO - Make this multi-state (this would be "degraded" / yellow)
+            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
     }
 
     /**
