@@ -52,6 +52,11 @@ public class DriveFactory {
             ourInstance = DriveSubsystem.getInstance();
             break;
 
+        case "ProtoDriveSubsystem":
+            ProtoDriveSubsystem.constructInstance();
+            ourInstance = ProtoDriveSubsystem.getInstance();
+            break;
+
         case "StubDriveSubsystem":
             logger.info("constructing stub {} subsystem", myName);
             StubDriveSubsystem.constructInstance();
