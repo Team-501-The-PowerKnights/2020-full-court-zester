@@ -16,7 +16,7 @@ import riolog.RioLogger;
 /**
  * Add your docs here.
  */
-public abstract class BaseClimberSubsystem extends SubsystemBase implements IClimberSubsystem {
+abstract class BaseClimberSubsystem extends SubsystemBase implements IClimberSubsystem {
 
     /** Our classes' logger **/
     @SuppressWarnings("unused")
