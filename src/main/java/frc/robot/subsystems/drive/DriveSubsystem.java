@@ -227,8 +227,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
                         new PIDController(p, 0, 0), new PIDController(p, 0, 0), this::tankDriveVolts, this));
     }
 
-    // FIXME - Can't be public if not interface (who else cares?)
-    public double convertInchesToEncoderClicks(double inches) {
+    protected double convertInchesToEncoderClicks(double inches) {
         return inches * (1 / 12) // Conversion to feet
                 * 3.281 // Conversion to meters
                 * (1 / (2 * Math.PI * wheelRadius)) // Convert to wheel revolutions (Circumference)
