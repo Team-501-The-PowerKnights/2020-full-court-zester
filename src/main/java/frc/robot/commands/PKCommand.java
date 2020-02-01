@@ -7,6 +7,9 @@
 
 package frc.robot.commands;
 
+import java.util.HashSet;
+import java.util.List;
+
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -23,15 +26,40 @@ public abstract class PKCommand extends CommandBase {
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(PKCommand.class.getName());
 
+    //
+    private static final HashSet<PKCommand> activeCommands;
+    //
+    private static PKCommand[] activeCommandsList = new PKCommand[0];
+
+    static {
+        activeCommands = new HashSet<PKCommand>();
+    }
+
+    private static void add(PKCommand c) {
+        activeCommands.add(c);
+        activeCommandsList = activeCommands.toArray(new PKCommand[0]);
+    }
+
+    private static void remove(PKCommand c) {
+        activeCommands.remove(c);
+        activeCommandsList = activeCommands.toArray(new PKCommand[0]);
+    }
+
+    public static PKCommand[] getActiveCommands() {
+        return activeCommandsList;
+    }
+
     // Handle to the preferences
     protected final Preferences prefs;
     // Flag for whether the first execution has happened
     private boolean executeOnce;
 
     protected PKCommand() {
-        logger.info("constructing {}", getName());
+        logger.info("constructing for {}", getName());
 
         prefs = Preferences.getInstance();
+
+        logger.info("constructed");
     }
 
     // Called once just before this Command runs the first time
@@ -52,6 +80,8 @@ public abstract class PKCommand extends CommandBase {
         if (!executeOnce) {
             executeOnce = true;
             logger.trace("first execution of {}", getName());
+
+            add(this);
         }
     }
 
@@ -60,6 +90,8 @@ public abstract class PKCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         logger.debug("ending {} interrupted={}", getName(), interrupted);
+
+        remove(this);
     }
 
 }

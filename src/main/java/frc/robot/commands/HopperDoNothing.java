@@ -9,15 +9,24 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.subsystems.hopper.HopperFactory;
+
 import riolog.RioLogger;
 
-public class DoNothing extends PKCommand {
+public class HopperDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(HopperDoNothing.class.getName());
 
-    public DoNothing() {
+    public HopperDoNothing() {
         logger.info("constructing {}", getName());
+
+        addRequirements(HopperFactory.getInstance());
+
+        // FIXME - Kind of hokey; but avoids code sprawl
+        HopperFactory.getInstance().setDefaultCommand(this);
+
+        logger.info("constructed");
     }
 
     // Called repeatedly when this Command is scheduled to run

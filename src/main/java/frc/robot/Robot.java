@@ -17,12 +17,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.BallevatorDoNothing;
+import frc.robot.commands.ClimberDoNothing;
+import frc.robot.commands.DriveDoNothing;
+import frc.robot.commands.HopperDoNothing;
+import frc.robot.commands.IntakeDoNothing;
+import frc.robot.commands.PKCommand;
+import frc.robot.commands.ShooterDoNothing;
+import frc.robot.commands.WheelDoNothing;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
-import frc.robot.subsystems.drive.IDriveSubsystem;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.subsystems.ISubsystem;
@@ -117,6 +123,15 @@ public class Robot extends TimedRobot {
         // initSubsystems();
         m_robotContainer = new RobotContainer();
 
+        // TODO - Remove these debug things
+        new BallevatorDoNothing();
+        new ClimberDoNothing();
+        new DriveDoNothing();
+        new HopperDoNothing();
+        new IntakeDoNothing();
+        new ShooterDoNothing();
+        new WheelDoNothing();
+
         logger.info("initialized");
     }
 
@@ -181,6 +196,9 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         tlmMgr.sendTelemetry();
+        for (PKCommand c : PKCommand.getActiveCommands()) {
+            System.out.println(c.getName());
+        }
     }
 
     /**

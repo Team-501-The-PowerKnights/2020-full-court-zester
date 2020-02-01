@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveDoNothing;
 import frc.robot.subsystems.drive.DriveFactory;
 import frc.robot.subsystems.drive.IDriveSubsystem;
 

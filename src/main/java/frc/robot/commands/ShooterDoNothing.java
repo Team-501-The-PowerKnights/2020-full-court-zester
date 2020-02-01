@@ -9,15 +9,24 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-public class DoNothing extends PKCommand {
+public class ShooterDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterDoNothing.class.getName());
 
-    public DoNothing() {
+    public ShooterDoNothing() {
         logger.info("constructing {}", getName());
+
+        addRequirements(ShooterFactory.getInstance());
+
+        // FIXME - Kind of hokey; but avoids code sprawl
+        ShooterFactory.getInstance().setDefaultCommand(this);
+
+        logger.info("constructed");
     }
 
     // Called repeatedly when this Command is scheduled to run
