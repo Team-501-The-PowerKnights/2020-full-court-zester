@@ -42,38 +42,30 @@ public class GyroFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String gyroClassName = "SuitcaseGyroSensor";
+        final String myClassName = "SuitcaseGyroSensor";
 
-        switch (gyroClassName) {
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        switch (myClassName) {
 
         case "GyroSensor":
-            logger.info("constructing real {} sensor", myName);
-            GyroSensor.constructInstance();
-            ourInstance = GyroSensor.getInstance();
+            ourInstance = new GyroSensor();
             break;
 
         case "ProtoGyroSensor":
-            logger.info("constructing proto {} sensor", myName);
-            ProtoGyroSensor.constructInstance();
-            ourInstance = ProtoGyroSensor.getInstance();
+            ourInstance = new ProtoGyroSensor();
             break;
 
         case "SuitcaseGyroSensor":
-            logger.info("constructing suitcase {} sensor", myName);
-            SuitcaseGyroSensor.constructInstance();
-            ourInstance = SuitcaseGyroSensor.getInstance();
+            ourInstance = new SuitcaseGyroSensor();
             break;
 
         case "StubGyroSensor":
-            logger.info("constructing stub {} sensor", myName);
-            StubGyroSensor.constructInstance();
-            ourInstance = StubGyroSensor.getInstance();
+            ourInstance = new StubGyroSensor();
             break;
 
         default:
-            logger.warn("constructing stub {} sensor", myName);
-            StubGyroSensor.constructInstance();
-            ourInstance = StubGyroSensor.getInstance();
+            logger.warn("invalid/missing sensor class for ", myName);
+            ourInstance = new StubGyroSensor();
             break;
         }
 
@@ -87,7 +79,7 @@ public class GyroFactory {
      *
      * @return singleton instance of sensor
      **/
-    public static IGyroSensor getInstance() {
+    public synchronized static IGyroSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

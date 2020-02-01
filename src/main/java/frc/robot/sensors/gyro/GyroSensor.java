@@ -9,10 +9,6 @@ package frc.robot.sensors.gyro;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
 /**
@@ -24,27 +20,7 @@ class GyroSensor extends SuitcaseGyroSensor {
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(GyroSensor.class.getName());
 
-    static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new GyroSensor();
-
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
-    }
-
-    static IGyroSensor getInstance() {
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
-
-    public GyroSensor() {
+    GyroSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

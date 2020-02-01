@@ -80,7 +80,7 @@ public class WheelColorFactory {
      *
      * @return singleton instance of sensor
      **/
-    public static IWheelColorSensor getInstance() {
+    public synchronized static IWheelColorSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }
