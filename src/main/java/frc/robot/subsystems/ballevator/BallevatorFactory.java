@@ -36,7 +36,7 @@ public class BallevatorFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+        SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -48,6 +48,9 @@ public class BallevatorFactory {
         switch (BallevatorClassName) {
 
         case "BallevatorSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            BallevatorSubsystem.constructInstance();
+            ourInstance = BallevatorSubsystem.getInstance();
             break;
 
         case "StubBallevatorSubsystem":

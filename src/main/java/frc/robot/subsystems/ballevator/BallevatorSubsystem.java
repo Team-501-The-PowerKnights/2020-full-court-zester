@@ -10,19 +10,17 @@ package frc.robot.subsystems.ballevator;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProvider {
-  /**
-   * Creates a new BallevatorSubsystem.
-   */
-  private static final String myName = TelemetryNames.Ballevator.name;
+public class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
-  private static BallevatorSubsystem ourInstance;
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(BallevatorSubsystem.class.getName());
 
   public static synchronized void constructInstance() {
     SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
@@ -36,7 +34,7 @@ public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProv
     SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
   }
 
-  public static BallevatorSubsystem getInstance() {
+  public static IBallevatorSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -45,10 +43,14 @@ public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProv
     return ourInstance;
   }
 
-  private TalonSRX ballevatorMotor;
+  private TalonSRX motor;
 
   public BallevatorSubsystem() {
-    ballevatorMotor = new TalonSRX(0);
+    logger.info("constructing");
+
+    motor = new TalonSRX(0);
+
+    logger.info("constructed");
   }
 
   @Override
@@ -56,8 +58,22 @@ public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProv
     // This method will be called once per scheduler run
   }
 
-  public void runBallevator(double speed) {
-    ballevatorMotor.set(ControlMode.PercentOutput, speed);
+  @Override
+  public void validateCalibration() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void updatePreferences() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void disable() {
+    // TODO Auto-generated method stub
+
   }
 
   @Override
@@ -65,4 +81,20 @@ public class BallevatorSubsystem extends SubsystemBase implements ITelemetryProv
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public void stop() {
+    motor.set(ControlMode.PercentOutput, 0);
+  }
+
+  @Override
+  public void lift() {
+    motor.set(ControlMode.PercentOutput, 0.2); // TODO - determine actual predefined value to run ballevator at
+  }
+
+  @Override
+  public void lower() {
+    motor.set(ControlMode.PercentOutput, -0.2); // TODO - determine actual predefined value to run ballevator at
+  }
+
 }

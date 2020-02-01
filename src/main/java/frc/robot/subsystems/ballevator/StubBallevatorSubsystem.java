@@ -7,14 +7,16 @@
 
 package frc.robot.subsystems.ballevator;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class StubBallevatorSubsystem implements IBallevatorSubsystem {
+public class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
 
-    private static final String myName = TelemetryNames.Drive.name;
-
-    private static IBallevatorSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubBallevatorSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
@@ -38,6 +40,9 @@ public class StubBallevatorSubsystem implements IBallevatorSubsystem {
     }
 
     public StubBallevatorSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
@@ -72,6 +77,18 @@ public class StubBallevatorSubsystem implements IBallevatorSubsystem {
 
     @Override
     public void stop() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void lift() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void lower() {
         // TODO Auto-generated method stub
 
     }
