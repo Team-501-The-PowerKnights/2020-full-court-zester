@@ -14,6 +14,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -28,20 +30,21 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.sensors.gyro.GyroFactory;
-import frc.robot.sensors.gyro.IGyroSensor;
-import frc.robot.telemetry.TelemetryNames;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsystem {
+import frc.robot.sensors.gyro.GyroFactory;
+import frc.robot.sensors.gyro.IGyroSensor;
+import frc.robot.telemetry.TelemetryNames;
 
-    private static final String myName = TelemetryNames.Drive.name;
+import riolog.RioLogger;
 
-    private static DriveSubsystem ourInstance;
+public class ProtoDriveSubsystem extends BaseDriveSubsystem {
+
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(ProtoDriveSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
@@ -50,12 +53,12 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new DriveSubsystem();
+        ourInstance = new ProtoDriveSubsystem();
 
         SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
     }
 
-    public static DriveSubsystem getInstance() {
+    public static IDriveSubsystem getInstance() {
 
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
@@ -110,6 +113,8 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
     public DifferentialDriveOdometry driveOdometry;
 
     public ProtoDriveSubsystem() {
+        logger.info("constructing");
+
         leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
         leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
         rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
@@ -135,6 +140,8 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
 
         trajectoryConfig = new TrajectoryConfig(maxSpeed, maxAcceleration).setKinematics(driveKinematics)
                 .addConstraint(autoVoltageConstraint);
+
+        logger.info("constructed");
     }
 
     @Override
@@ -168,26 +175,6 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
     }
 
     /**
-     * Resets the odometry to the current pose.
-     */
-    @Override
-    public void resetOdometry() {
-        resetEncoders();
-        driveOdometry.resetPosition(getPose(), Rotation2d.fromDegrees(nav.getHeading()));
-    }
-
-    /**
-     * Resets the odometry to the specified pose.
-     *
-     * @param pose The pose to which to set the odometry.
-     */
-    @Override
-    public void resetOdometry(final Pose2d pose) {
-        resetEncoders();
-        driveOdometry.resetPosition(pose, Rotation2d.fromDegrees(nav.getHeading()));
-    }
-
-    /**
      * Returns the current wheel speeds of the robot.
      *
      * @return The current wheel speeds.
@@ -197,31 +184,22 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
     }
 
     @Override
-    public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
-            final Pose2d end) {
+    public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end) {
 
         // Create trajectory to follow
         final Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end,
                 trajectoryConfig);
 
         // return the RamseteCommand to run
-        return new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
-                new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity, new PIDController(p, 0, 0),
-                new PIDController(p, 0, 0), this::tankDriveVolts, this);
+        CommandScheduler.getInstance()
+                .schedule(new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
+                        new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity,
+                        new PIDController(p, 0, 0), new PIDController(p, 0, 0), this::tankDriveVolts, this));
     }
 
     /*
      * Normal Drive Methods
      */
-
-    /**
-     * Resets the drive encoders to currently read a position of 0.
-     */
-    @Override
-    public void resetEncoders() {
-        leftEncoder.setPosition(0);
-        rightEncoder.setPosition(0);
-    }
 
     @Override
     public void updateTelemetry() {
@@ -271,17 +249,6 @@ public class ProtoDriveSubsystem extends SubsystemBase implements IDriveSubsyste
         }
     }
 
-    @Override
-    public double getLeftEncoderClicks() {
-        return leftEncoder.getPosition();
-    }
-
-    @Override
-    public double getRightEncoderClicks() {
-        return rightEncoder.getPosition();
-    }
-
-    @Override
     public double convertInchesToEncoderClicks(double inches) {
         return inches * (1 / 12) // Conversion to feet
                 * 3.281 // Conversion to meters

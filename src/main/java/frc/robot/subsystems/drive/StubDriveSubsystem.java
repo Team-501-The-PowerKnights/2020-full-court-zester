@@ -9,17 +9,18 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class StubDriveSubsystem implements IDriveSubsystem {
+public class StubDriveSubsystem extends BaseDriveSubsystem {
 
-    private static final String myName = TelemetryNames.Drive.name;
-
-    private static IDriveSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubDriveSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
@@ -43,102 +44,39 @@ public class StubDriveSubsystem implements IDriveSubsystem {
     }
 
     public StubDriveSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
-    public void periodic() {
-        // TODO Auto-generated method stub
-
-    }
+    public void periodic() {}
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
+    public void validateCalibration() {}
 
     @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updatePreferences() {}
 
     @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
+    public void disable() {}
 
     @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updateTelemetry() {}
 
     @Override
-    public void stop() {
-        // TODO Auto-generated method stub
-
-    }
+    public void stop() {}
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn) {
-        // TODO Auto-generated method stub
-
-    }
+    public void drive(double hmiSpeed, double hmiTurn) {}
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // TODO Auto-generated method stub
-
-    }
+    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {}
 
     @Override
-    public void resetEncoders() {
-        // TODO Auto-generated method stub
-
-    }
+    public void setBrake(boolean brakeOn) {}
 
     @Override
-    public double getLeftEncoderClicks() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public double getRightEncoderClicks() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public double convertInchesToEncoderClicks(double inches) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void setBrake(boolean brakeOn) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void resetOdometry() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void resetOdometry(Pose2d pose) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Command getRamseteCommand(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {}
 
 }

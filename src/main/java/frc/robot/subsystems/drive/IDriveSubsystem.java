@@ -11,7 +11,6 @@ import java.util.List;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ISubsystem;
 
 /**
@@ -36,21 +35,9 @@ public interface IDriveSubsystem extends ISubsystem {
      */
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained);
 
-    public void resetEncoders();
-
-    public void resetOdometry();
-
-    public void resetOdometry(final Pose2d pose);
-
-    public double getLeftEncoderClicks();
-
-    public double getRightEncoderClicks();
-
-    public double convertInchesToEncoderClicks(double inches);
-
     public void setBrake(boolean brakeOn);
 
-    public Command getRamseteCommand(final Pose2d start, final List<Translation2d> interiorWaypoints,
+    public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints,
     final Pose2d end);
 
 }
