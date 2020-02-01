@@ -9,15 +9,24 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.subsystems.drive.DriveFactory;
+
 import riolog.RioLogger;
 
-public class DoNothing extends PKCommand {
+public class DriveDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(DriveDoNothing.class.getName());
 
-    public DoNothing() {
+    public DriveDoNothing() {
         logger.info("constructing {}", getName());
+
+        addRequirements(DriveFactory.getInstance());
+
+        // FIXME - Kind of hokey; but avoids code sprawl
+        DriveFactory.getInstance().setDefaultCommand(this);
+
+        logger.info("constructed");
     }
 
     // Called repeatedly when this Command is scheduled to run

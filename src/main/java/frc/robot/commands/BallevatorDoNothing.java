@@ -9,15 +9,24 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.subsystems.ballevator.BallevatorFactory;
+
 import riolog.RioLogger;
 
-public class DoNothing extends PKCommand {
+public class BallevatorDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BallevatorDoNothing.class.getName());
 
-    public DoNothing() {
+    public BallevatorDoNothing() {
         logger.info("constructing {}", getName());
+
+        addRequirements(BallevatorFactory.getInstance());
+
+        // FIXME - Kind of hokey; but avoids code sprawl
+        BallevatorFactory.getInstance().setDefaultCommand(this);
+
+        logger.info("constructed");
     }
 
     // Called repeatedly when this Command is scheduled to run
