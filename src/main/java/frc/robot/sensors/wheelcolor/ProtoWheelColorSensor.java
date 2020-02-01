@@ -13,14 +13,14 @@ import riolog.RioLogger;
 
 /**
  * Provides implementation of <code>IWheelColorSensor</code> for the
- * <i>Real-Bot</i> which is based on the REV Robotics color sensor.
+ * <i>Proto-Bot</i> which is based on the REV Robotics color sensor.
  */
-class WheelColorSensor extends SuitcaseWheelColorSensor {
+class ProtoWheelColorSensor extends SuitcaseWheelColorSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(WheelColorSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ProtoWheelColorSensor.class.getName());
 
-    WheelColorSensor() {
+    ProtoWheelColorSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

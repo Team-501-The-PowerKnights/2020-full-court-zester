@@ -7,12 +7,8 @@
 
 package frc.robot.subsystems.shooter;
 
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
 
 public class SuitcaseShooterSubsystem extends BaseShooterSubsystem {
@@ -39,31 +35,10 @@ public class SuitcaseShooterSubsystem extends BaseShooterSubsystem {
   }
 
   /**
-   * Shooter constant values
-   */
-  private static final double flywheelP = 0;
-  private static final double flywheelI = 0;
-  private static final double flywheelD = 0;
-  private static final double flywheelF = 0;
-
-  /**
-   * Mechanisms and sensors
-   */
-
-  private CANSparkMax motor;
-  private CANPIDController shootPID;
-
-  /**
    * Creates a new ShooterSubsystem.
    */
   public SuitcaseShooterSubsystem() {
-    motor = new CANSparkMax(50, MotorType.kBrushless);
 
-    shootPID = new CANPIDController(motor);
-    shootPID.setP(flywheelP);
-    shootPID.setI(flywheelI);
-    shootPID.setD(flywheelD);
-    shootPID.setFF(flywheelF);
   }
 
   @Override
@@ -77,7 +52,6 @@ public class SuitcaseShooterSubsystem extends BaseShooterSubsystem {
    * @param targetRPM
    */
   public void setFlywheel(double targetRPM) {
-    shootPID.setReference(targetRPM, ControlType.kVelocity); // Set target velocity
   }
 
   @Override
@@ -106,20 +80,14 @@ public class SuitcaseShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void stop() {
-    shootPID.setReference(0, ControlType.kVelocity);
-    motor.set(0.0);
   }
 
   @Override
   public void shoot(double dist) {
-    // TODO - Trajectory generation for speed
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
 
   @Override
   public void shoot() {
-    // TODO - Trajectory generation from vision data
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
 
   @Override

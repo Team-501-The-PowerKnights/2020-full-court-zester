@@ -43,7 +43,7 @@ public class ShooterFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String ShooterClassName = "SuitcaseShooterSubsystem";
+        final String ShooterClassName = "StubShooterSubsystem";
 
         switch (ShooterClassName) {
 

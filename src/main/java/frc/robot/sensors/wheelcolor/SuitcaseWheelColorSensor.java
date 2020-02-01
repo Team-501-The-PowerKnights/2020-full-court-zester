@@ -14,38 +14,19 @@ import com.revrobotics.ColorSensorV3;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
 
 import riolog.RioLogger;
 
-public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
+/**
+ * Provides implementation of <code>IWheelColorSensor</code> for the
+ * <i>Suitcase-Bot</i> which is based on the REV Robotics color sensor.
+ */
+class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(SuitcaseWheelColorSensor.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new SuitcaseWheelColorSensor();
-
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
-    }
-
-    public static IWheelColorSensor getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     // Handle to the hardware sensor
     private final ColorSensorV3 mySensor;
@@ -53,11 +34,10 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
     // Set of colors from game we are trying to match
     private final ColorMatch targetMatches;
 
-
     // Last retreived result
     private ColorMatchResult result;
 
-    public SuitcaseWheelColorSensor() {
+    SuitcaseWheelColorSensor() {
         logger.info("constructing");
 
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -91,7 +71,16 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
     public PKColor getColor() {
         color = mySensor.getColor();
         result = targetMatches.matchClosestColor(color);
-        return (PKColor) result.color;
+
+        // FIXME - This throws occasional exception
+        PKColor pkColor;
+        try {
+            pkColor = (PKColor) result.color;
+        } catch (ClassCastException ex) {
+            logger.error("class of result: {}", result.color, ex);
+            pkColor = PKColor.invalidTarget;
+        }
+        return pkColor;
     }
 
     @Override
