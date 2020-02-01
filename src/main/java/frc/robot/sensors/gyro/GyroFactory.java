@@ -42,42 +42,27 @@ public class GyroFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String gyroClassName = "StubGyroSensor";
+        final String myClassName = "SuitcaseGyroSensor";
 
-        switch (gyroClassName) {
+        String myPkgName = GyroFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load {}", classToLoad);
 
-        case "GyroSensor":
-            logger.info("constructing real {} sensor", myName);
-            GyroSensor.constructInstance();
-            ourInstance = GyroSensor.getInstance();
-            break;
-
-        case "ProtoGyroSensor":
-            logger.info("constructing proto {} sensor", myName);
-            ProtoGyroSensor.constructInstance();
-            ourInstance = ProtoGyroSensor.getInstance();
-            break;
-
-        case "SuitcaseGyroSensor":
-            logger.info("constructing suitcase {} sensor", myName);
-            SuitcaseGyroSensor.constructInstance();
-            ourInstance = SuitcaseGyroSensor.getInstance();
-            break;
-
-        case "StubGyroSensor":
-            logger.info("constructing stub {} sensor", myName);
-            StubGyroSensor.constructInstance();
-            ourInstance = StubGyroSensor.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} sensor", myName);
-            StubGyroSensor.constructInstance();
-            ourInstance = StubGyroSensor.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IGyroSensor) myObject;
+            // TODO - Make this multi-state (this would be "success" / green)
+            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for {}", myName);
+            ourInstance = new StubGyroSensor();
+            // TODO - Make this multi-state (this would be "degraded" / yellow)
+            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
 
     /**
@@ -87,7 +72,7 @@ public class GyroFactory {
      *
      * @return singleton instance of sensor
      **/
-    public static IGyroSensor getInstance() {
+    public synchronized static IGyroSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

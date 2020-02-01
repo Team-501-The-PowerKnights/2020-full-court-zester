@@ -17,7 +17,7 @@ import frc.robot.utils.PKColor;
 
 import riolog.RioLogger;
 
-public abstract class BaseWheelColorSensor implements IWheelColorSensor {
+abstract class BaseWheelColorSensor implements IWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BaseWheelColorSensor.class.getName());
@@ -29,7 +29,7 @@ public abstract class BaseWheelColorSensor implements IWheelColorSensor {
     // Last retreived color (in raw form from sensor)
     protected Color color;
 
-    public BaseWheelColorSensor() {
+    BaseWheelColorSensor() {
         logger.info("constructing");
 
         // Seed first instance so won't be null

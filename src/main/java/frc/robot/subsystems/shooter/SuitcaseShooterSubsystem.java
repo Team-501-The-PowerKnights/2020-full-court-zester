@@ -42,31 +42,10 @@ public class SuitcaseShooterSubsystem implements IShooterSubsystem {
   }
 
   /**
-   * Shooter constant values
-   */
-  private static final double flywheelP = 0;
-  private static final double flywheelI = 0;
-  private static final double flywheelD = 0;
-  private static final double flywheelF = 0;
-
-  /**
-   * Mechanisms and sensors
-   */
-
-  private CANSparkMax shootMaster;
-  private CANPIDController shootPID;
-
-  /**
    * Creates a new ShooterSubsystem.
    */
   public SuitcaseShooterSubsystem() {
-    shootMaster = new CANSparkMax(50, MotorType.kBrushless);
 
-    shootPID = new CANPIDController(shootMaster);
-    shootPID.setP(flywheelP);
-    shootPID.setI(flywheelI);
-    shootPID.setD(flywheelD);
-    shootPID.setFF(flywheelF);
   }
 
   @Override
@@ -80,7 +59,6 @@ public class SuitcaseShooterSubsystem implements IShooterSubsystem {
    * @param targetRPM
    */
   public void setFlywheel(double targetRPM) {
-    shootPID.setReference(targetRPM, ControlType.kVelocity); // Set target velocity
   }
 
   @Override

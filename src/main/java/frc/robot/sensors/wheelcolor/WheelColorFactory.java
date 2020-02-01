@@ -42,36 +42,27 @@ public class WheelColorFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String WheelColorClassName = "SuitcaseWheelColorSensor";
+        final String myClassName = "SuitcaseWheelColorSensor";
 
-        switch (WheelColorClassName) {
+        String myPkgName = WheelColorFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load {}", classToLoad);
 
-        case "WheelColorSensor":
-            logger.info("constructing real {} sensor", myName);
-            WheelColorSensor.constructInstance();
-            ourInstance = WheelColorSensor.getInstance();
-            break;
-
-        case "SuitcaseWheelColorSensor":
-            logger.info("constructing suitcase {} sensor", myName);
-            SuitcaseWheelColorSensor.constructInstance();
-            ourInstance = SuitcaseWheelColorSensor.getInstance();
-            break;
-
-        case "StubWheelColorSensor":
-            logger.info("constructing stub {} sensor", myName);
-            StubWheelColorSensor.constructInstance();
-            ourInstance = StubWheelColorSensor.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} sensor", myName);
-            StubWheelColorSensor.constructInstance();
-            ourInstance = StubWheelColorSensor.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IWheelColorSensor) myObject;
+            // TODO - Make this multi-state (this would be "success" / green)
+            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for {}", myName);
+            ourInstance = new StubWheelColorSensor();
+            // TODO - Make this multi-state (this would be "degraded" / yellow)
+            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
     }
 
     /**
@@ -81,7 +72,7 @@ public class WheelColorFactory {
      *
      * @return singleton instance of sensor
      **/
-    public static IWheelColorSensor getInstance() {
+    public synchronized static IWheelColorSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

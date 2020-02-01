@@ -17,17 +17,20 @@ import edu.wpi.first.wpilibj.SPI;
 
 import riolog.RioLogger;
 
-abstract class AHRSGyro {
+/**
+ * A wrapper class around the navX-MXP sensor so some of the method calls which
+ * take a finite amount of time to execute can be managed (i.e., waited for).
+ */
+class AHRSGyro {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(AHRSGyro.class.getName());
 
-    protected AHRS ahrs;
+    AHRS ahrs;
 
-    protected boolean ahrsValid;
+    boolean ahrsValid;
 
-    protected AHRSGyro() {
-
+    AHRSGyro() {
         try {
             ahrs = new AHRS(SPI.Port.kMXP);
             ahrsValid = waitForAhrsConnection();
@@ -35,6 +38,7 @@ abstract class AHRSGyro {
             logger.error("Instantiating naxX MXP" + ex.getMessage());
             DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
 
+            ahrs = null;
             ahrsValid = false;
         }
         SmartDashboard.putBoolean("ahrsValid", ahrsValid);
