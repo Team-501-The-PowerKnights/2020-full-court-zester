@@ -58,7 +58,7 @@ public class ShooterFactory {
 
 
         case "SuitcaseShooterSubsystem":
-            logger.info("constructing {} subsystem", myName);
+            logger.info("constructing suitcase {} subsystem", myName);
             SuitcaseShooterSubsystem.constructInstance();
             ourInstance = SuitcaseShooterSubsystem.getInstance();
             break;
