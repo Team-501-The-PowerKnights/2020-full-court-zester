@@ -7,14 +7,19 @@
 
 package frc.robot.subsystems.wheel;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKColor;
 
-public class StubWheelSubsystem implements IWheelSubsystem {
+import riolog.RioLogger;
 
-    private static final String myName = TelemetryNames.Drive.name;
+public class StubWheelSubsystem extends BaseWheelSubsystem {
 
-    private static IWheelSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubWheelSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Wheel.status, false);
@@ -38,42 +43,57 @@ public class StubWheelSubsystem implements IWheelSubsystem {
     }
 
     public StubWheelSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void validateCalibration() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
+    }
 
+    @Override
+    public void runToColor(PKColor color) {
+    }
+
+    @Override
+    public void runRevolutions(double numRevolutions) {
+    }
+
+    @Override
+    public void runCounterClockwise() {
+    }
+
+    @Override
+    public void runCounterClockwise(double speed) {
+    }
+
+    @Override
+    public void runClockwise() {
+    }
+
+    @Override
+    public void runClockwise(double speed) {
     }
 
 }

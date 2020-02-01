@@ -48,6 +48,9 @@ public class WheelFactory {
         switch (WheelClassName) {
 
         case "WheelSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            WheelSubsystem.constructInstance();
+            ourInstance = WheelSubsystem.getInstance();
             break;
 
         case "StubWheelSubsystem":

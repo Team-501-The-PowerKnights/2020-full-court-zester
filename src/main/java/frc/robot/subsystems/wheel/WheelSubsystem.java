@@ -8,19 +8,22 @@
 package frc.robot.subsystems.wheel;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.sensors.wheelcolor.IWheelColorSensor;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
-import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKColor;
+import riolog.RioLogger;
 
-public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class WheelSubsystem extends BaseWheelSubsystem {
 
-    private static final String myName = TelemetryNames.Wheel.name;
-
-    private static WheelSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(WheelSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Wheel.status, false);
@@ -34,7 +37,7 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
         SmartDashboard.putBoolean(TelemetryNames.Wheel.status, true);
     }
 
-    public static WheelSubsystem getInstance() {
+    public static IWheelSubsystem getInstance() {
 
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
@@ -45,15 +48,19 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
 
     private IWheelColorSensor colorSensor;
 
-    private CANSparkMax wheel;
+    private CANSparkMax motor;
 
     /**
      * Creates a new WheelSubsystem.
      */
     public WheelSubsystem() {
+        logger.info("constructing");
+
         colorSensor = WheelColorFactory.getInstance();
 
-        // wheel = new CANSparkMax(RobotMap.kWheelPort, MotorType.kBrushless);
+        motor = new CANSparkMax(0, MotorType.kBrushless);
+
+        logger.info("constructed");
     }
 
     @Override
@@ -61,17 +68,68 @@ public class WheelSubsystem extends SubsystemBase implements ITelemetryProvider 
         // This method will be called once per scheduler run
     }
 
-    /**
-     * Runs the wheel at a given speed.
-     * 
-     * @param speed
-     */
-    public void runWheel(double speed) {
-        wheel.set(speed);
+    @Override
+    public void updateTelemetry() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public void updateTelemetry() {
+    public void stop() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runToColor(PKColor color) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runRevolutions(double numRevolutions) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runCounterClockwise() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runCounterClockwise(double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runClockwise() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void runClockwise(double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void disable() {
         // TODO Auto-generated method stub
 
     }

@@ -7,26 +7,15 @@
 
 package frc.robot.subsystems.wheel;
 
-import frc.robot.subsystems.ISubsystem;
-import frc.robot.utils.PKColor;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.telemetry.TelemetryNames;
 
 /**
  * Add your docs here.
- **/
-public interface IWheelSubsystem extends ISubsystem {
+ */
+public abstract class BaseWheelSubsystem extends SubsystemBase implements IWheelSubsystem {
 
-    public void stop();
+    protected static final String myName = TelemetryNames.Wheel.name;
 
-    public void runToColor(PKColor color);
-
-    public void runRevolutions(double numRevolutions);
-
-    public void runCounterClockwise();
-
-    public void runCounterClockwise(double speed);
-
-    public void runClockwise();
-
-    public void runClockwise(double speed);
-
+    protected static IWheelSubsystem ourInstance;
 }
