@@ -15,12 +15,16 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
+
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
 
 import riolog.RioLogger;
 
+/**
+ * Provides implementation of <code>IWheelColorSensor</code> for the
+ * <i>Suitcase-Bot</i> which is based on the REV Robotics color sensor.
+ */
 public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/
@@ -52,7 +56,6 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     // Set of colors from game we are trying to match
     private final ColorMatch targetMatches;
-
 
     // Last retreived result
     private ColorMatchResult result;

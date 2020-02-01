@@ -16,6 +16,11 @@ import frc.robot.utils.PKColor;
 
 import riolog.RioLogger;
 
+/**
+ * Provides implementation of <code>IWheelColorSensor</code> which has no sensor
+ * or other useful functionality; but which won't blow up if instantiated and
+ * 'used'.
+ */
 public class StubWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/

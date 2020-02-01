@@ -48,8 +48,14 @@ public class WheelColorFactory {
 
         case "WheelColorSensor":
             logger.info("constructing real {} sensor", myName);
-            WheelColorSensor.constructInstance();
-            ourInstance = WheelColorSensor.getInstance();
+            ProtoWheelColorSensor.constructInstance();
+            ourInstance = ProtoWheelColorSensor.getInstance();
+            break;
+
+        case "ProtoColorSensor":
+            logger.info("constructing proto {} sensor", myName);
+            ProtoWheelColorSensor.constructInstance();
+            ourInstance = ProtoWheelColorSensor.getInstance();
             break;
 
         case "SuitcaseWheelColorSensor":
