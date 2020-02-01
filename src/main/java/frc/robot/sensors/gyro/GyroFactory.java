@@ -52,6 +52,12 @@ public class GyroFactory {
             ourInstance = GyroSensor.getInstance();
             break;
 
+        case "ProtoGyroSensor":
+            logger.info("constructing proto {} sensor", myName);
+            ProtoGyroSensor.constructInstance();
+            ourInstance = ProtoGyroSensor.getInstance();
+            break;
+
         case "SuitcaseGyroSensor":
             logger.info("constructing {} sensor", myName);
             SuitcaseGyroSensor.constructInstance();

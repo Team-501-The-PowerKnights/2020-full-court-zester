@@ -43,11 +43,24 @@ public class ShooterFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String ShooterClassName = "StubShooterSubsystem";
+        final String ShooterClassName = "SuitcaseShooterSubsystem";
 
         switch (ShooterClassName) {
 
         case "ShooterSubsystem":
+            break;
+
+        case "ProtoShooterSubsystem":
+            logger.info("constructing proto {} subsystem", myName);
+            ProtoShooterSubsystem.constructInstance();
+            ourInstance = ProtoShooterSubsystem.getInstance();
+            break;
+
+
+        case "SuitcaseShooterSubsystem":
+            logger.info("constructing {} subsystem", myName);
+            SuitcaseShooterSubsystem.constructInstance();
+            ourInstance = SuitcaseShooterSubsystem.getInstance();
             break;
 
         case "StubShooterSubsystem":
