@@ -16,4 +16,12 @@ public interface IHopperSubsystem extends ISubsystem {
 
     public void stop();
 
+    public void agitate();
+
+    /**
+     * 
+     * @param speed
+     */
+    public void agitate(double speed);
+
 }

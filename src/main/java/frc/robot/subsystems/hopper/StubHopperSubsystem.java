@@ -7,14 +7,16 @@
 
 package frc.robot.subsystems.hopper;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class StubHopperSubsystem implements IHopperSubsystem {
+public class StubHopperSubsystem extends BaseHopperSubsystem {
 
-    private static final String myName = TelemetryNames.Drive.name;
-
-    private static IHopperSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubHopperSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
@@ -38,42 +40,33 @@ public class StubHopperSubsystem implements IHopperSubsystem {
     }
 
     public StubHopperSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
-    public void periodic() {
-        // TODO Auto-generated method stub
-
-    }
+    public void periodic() {}
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
+    public void validateCalibration() {}
 
     @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updatePreferences() {}
 
     @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
+    public void disable() {}
 
     @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updateTelemetry() {}
 
     @Override
-    public void stop() {
-        // TODO Auto-generated method stub
+    public void stop() {}
 
-    }
+    @Override
+    public void agitate() {}
+
+    @Override
+    public void agitate(double speed) {}
 
 }

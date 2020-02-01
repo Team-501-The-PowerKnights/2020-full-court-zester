@@ -10,17 +10,18 @@ package frc.robot.subsystems.hopper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.slf4j.Logger;
 
-import frc.robot.telemetry.ITelemetryProvider;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
 
-public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider {
+import riolog.RioLogger;
 
-  private static final String myName = TelemetryNames.Hopper.name;
+public class HopperSubsystem extends BaseHopperSubsystem {
 
-  private static HopperSubsystem ourInstance;
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(HopperSubsystem.class.getName());
 
   public static synchronized void constructInstance() {
     SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
@@ -34,10 +35,7 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
     SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
   }
 
-  /**
-   * Creates a new HopperSubsystem.
-   */
-  public static HopperSubsystem getInstance() {
+  public static IHopperSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -49,7 +47,11 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
   private TalonSRX agitator;
 
   public HopperSubsystem() {
+    logger.info("constructing");
+
     agitator = new TalonSRX(0);
+
+    logger.info("constructed");
   }
 
   @Override
@@ -57,13 +59,43 @@ public class HopperSubsystem extends SubsystemBase implements ITelemetryProvider
     // This method will be called once per scheduler run
   }
 
-  public void runAgitator(double speed) {
-    agitator.set(ControlMode.PercentOutput, speed);
-  }
-
   @Override
   public void updateTelemetry() {
     // TODO Auto-generated method stub
 
+  }
+
+  @Override
+  public void stop() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void validateCalibration() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void updatePreferences() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void disable() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void agitate() {
+    agitator.set(ControlMode.PercentOutput, 0.2); // TODO - Determine actual preset speed
+  }
+
+  @Override
+  public void agitate(double speed) {
+    agitator.set(ControlMode.PercentOutput, speed);
   }
 }

@@ -36,7 +36,7 @@ public class HopperFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+        SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -48,6 +48,9 @@ public class HopperFactory {
         switch (HopperClassName) {
 
         case "HopperSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            HopperSubsystem.constructInstance();
+            ourInstance = HopperSubsystem.getInstance();
             break;
 
         case "StubHopperSubsystem":
