@@ -23,6 +23,4 @@ abstract class BaseClimberSubsystem extends SubsystemBase implements IClimberSub
     private static final Logger logger = RioLogger.getLogger(BaseClimberSubsystem.class.getName());
 
     protected static final String myName = TelemetryNames.Climber.name;
-
-    protected static IClimberSubsystem ourInstance;
 }

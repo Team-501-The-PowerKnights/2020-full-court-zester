@@ -24,8 +24,6 @@ abstract class BaseWheelColorSensor implements IWheelColorSensor {
 
     protected static final String myName = TelemetryNames.WheelColor.name;
 
-    protected static IWheelColorSensor ourInstance;
-
     // Last retreived color (in raw form from sensor)
     protected Color color;
 

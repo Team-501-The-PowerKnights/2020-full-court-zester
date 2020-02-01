@@ -22,8 +22,6 @@ abstract class BaseGyroSensor implements IGyroSensor {
 
     protected static final String myName = TelemetryNames.Gyro.name;
 
-    protected static IGyroSensor ourInstance;
-
     protected final boolean gyroReversed;
 
     BaseGyroSensor() {

@@ -25,8 +25,6 @@ abstract class BaseDriveSubsystem extends SubsystemBase implements IDriveSubsyst
 
     protected static final String myName = TelemetryNames.Drive.name;
 
-    protected static IDriveSubsystem ourInstance;
-
     BaseDriveSubsystem() {
         logger.info("constructing");
 
