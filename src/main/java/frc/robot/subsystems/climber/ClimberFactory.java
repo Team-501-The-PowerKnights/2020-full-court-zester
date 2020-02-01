@@ -36,7 +36,7 @@ public class ClimberFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+        SmartDashboard.putBoolean(TelemetryNames.Climber.status, false);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -48,6 +48,9 @@ public class ClimberFactory {
         switch (ClimberClassName) {
 
         case "ClimberSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            ClimberSubsystem.constructInstance();
+            ourInstance = ClimberSubsystem.getInstance();
             break;
 
         case "StubClimberSubsystem":

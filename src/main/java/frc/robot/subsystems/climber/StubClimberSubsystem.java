@@ -7,73 +7,78 @@
 
 package frc.robot.subsystems.climber;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class StubClimberSubsystem implements IClimberSubsystem {
+public class StubClimberSubsystem extends BaseClimberSubsystem {
 
-    private static final String myName = TelemetryNames.Drive.name;
+  private static final Logger logger = RioLogger.getLogger(StubClimberSubsystem.class.getName());
 
-    private static IClimberSubsystem ourInstance;
+  public static synchronized void constructInstance() {
+    SmartDashboard.putBoolean(TelemetryNames.Climber.status, false);
 
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Climber.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubClimberSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
+    if (ourInstance != null) {
+      throw new IllegalStateException(myName + " already constructed");
     }
 
-    public static IClimberSubsystem getInstance() {
+    ourInstance = new ClimberSubsystem();
 
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
+    SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
+  }
 
-        return ourInstance;
+  public static IClimberSubsystem getInstance() {
+
+    if (ourInstance == null) {
+      throw new IllegalStateException(myName + " not constructed yet");
     }
 
-    public StubClimberSubsystem() {
-    }
+    return ourInstance;
+  }
 
-    @Override
-    public void periodic() {
-        // TODO Auto-generated method stub
+  /**
+   * Creates a new ClimberSubsystem.
+   */
+  public StubClimberSubsystem() {
+    logger.info("constructing");
 
-    }
+    logger.info("constructed");
+  }
 
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 
-    }
+  @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
 
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
+  }
 
-    }
+  @Override
+  public void stop() {
+    // TODO Auto-generated method stub
 
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
+  }
 
-    }
+  @Override
+  public void validateCalibration() {
+    // TODO Auto-generated method stub
 
-    @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
+  }
 
-    }
+  @Override
+  public void updatePreferences() {
+    // TODO Auto-generated method stub
 
-    @Override
-    public void stop() {
-        // TODO Auto-generated method stub
+  }
 
-    }
+  @Override
+  public void disable() {
+    // TODO Auto-generated method stub
 
+  }
 }

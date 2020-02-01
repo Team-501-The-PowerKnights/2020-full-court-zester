@@ -1,22 +1,21 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2020 Team 501 - The PowerKnights. All Rights Reserved.       */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
+/* must be accompanied by the 2020 Team 501 - The PowerKnights BSD license    */
+/* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems.climber;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class ClimberSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class ClimberSubsystem extends BaseClimberSubsystem {
 
-  private static final String myName = TelemetryNames.Climber.name;
-
-  private static ClimberSubsystem ourInstance;
+  private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
 
   public static synchronized void constructInstance() {
     SmartDashboard.putBoolean(TelemetryNames.Climber.status, false);
@@ -30,7 +29,7 @@ public class ClimberSubsystem extends SubsystemBase implements ITelemetryProvide
     SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
   }
 
-  public static ClimberSubsystem getInstance() {
+  public static IClimberSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -43,7 +42,9 @@ public class ClimberSubsystem extends SubsystemBase implements ITelemetryProvide
    * Creates a new ClimberSubsystem.
    */
   public ClimberSubsystem() {
+    logger.info("constructing");
 
+    logger.info("constructed");
   }
 
   @Override
@@ -53,6 +54,30 @@ public class ClimberSubsystem extends SubsystemBase implements ITelemetryProvide
 
   @Override
   public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void stop() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void validateCalibration() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void updatePreferences() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void disable() {
     // TODO Auto-generated method stub
 
   }
