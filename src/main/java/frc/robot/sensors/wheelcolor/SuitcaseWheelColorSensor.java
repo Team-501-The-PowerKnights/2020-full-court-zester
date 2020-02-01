@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
 
@@ -52,6 +52,8 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     // Set of colors from game we are trying to match
     private final ColorMatch targetMatches;
+
+
     // Last retreived result
     private ColorMatchResult result;
 
@@ -87,7 +89,8 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     @Override
     public PKColor getColor() {
-        result = targetMatches.matchClosestColor(mySensor.getColor());
+        color = mySensor.getColor();
+        result = targetMatches.matchClosestColor(color);
         return (PKColor) result.color;
     }
 

@@ -10,6 +10,7 @@ package frc.robot.sensors.wheelcolor;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
@@ -25,16 +26,24 @@ public abstract class BaseWheelColorSensor implements IWheelColorSensor {
 
     protected static IWheelColorSensor ourInstance;
 
+    // Last retreived color (in raw form from sensor)
+    protected Color color;
+
     public BaseWheelColorSensor() {
         logger.info("constructing");
+
+        // Seed first instance so won't be null
+        color = Color.kBlack;
 
         logger.info("constructed");
     }
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putString(TelemetryNames.WheelColor.color, getColor().name);
+        // Call getColor first so that the state of the sensor is updated
+        SmartDashboard.putString(TelemetryNames.WheelColor.match, getColor().name);
         SmartDashboard.putNumber(TelemetryNames.WheelColor.confidence, getConfidence());
+        SmartDashboard.putString(TelemetryNames.WheelColor.color, color.toString());
     }
 
     @Override

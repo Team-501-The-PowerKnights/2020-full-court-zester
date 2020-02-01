@@ -92,7 +92,11 @@ public final class TelemetryNames {
         public static final String name = "WheelColor";
 
         public static final String status = name + ".status";
+        // Raw color returned from sensor
         public static final String color = name + ".color";
+        // Filtered matched color returned from software
+        public static final String match = name + ".match";
+        // Confidence associated with matched color
         public static final String confidence = name + ".confidence";
     }
 

@@ -9,61 +9,73 @@ package frc.robot.telemetry;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
 public class TelemetryManager {
-   /** Singleton instance of class for all to use **/
-   private static TelemetryManager ourInstance;
-   /** Name of our subsystem **/
-   private final static String myName = TelemetryNames.Telemetry.name;
 
-   private final ArrayList<ITelemetryProvider> providerList;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(TelemetryManager.class.getName());
 
-   public static synchronized void constructInstance() {
-      SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
+    /** Singleton instance of class for all to use **/
+    private static TelemetryManager ourInstance;
+    /** Name of our subsystem **/
+    private final static String myName = TelemetryNames.Telemetry.name;
 
-      if (ourInstance != null) {
-         throw new IllegalStateException(myName + " already constructed");
-      }
+    private final ArrayList<ITelemetryProvider> providerList;
 
-      ourInstance = new TelemetryManager();
+    public static synchronized void constructInstance() {
+        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
 
-      SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
-   }
+        if (ourInstance != null) {
+            throw new IllegalStateException(myName + " already constructed");
+        }
 
-   public static TelemetryManager getInstance() {
-      if (ourInstance == null) {
-         throw new IllegalStateException(myName + " not constructed yet");
-      }
-      return ourInstance;
-   }
+        ourInstance = new TelemetryManager();
 
-   private TelemetryManager() {
-      providerList = new ArrayList<ITelemetryProvider>();
-   }
+        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
+    }
 
-   public void addProvider(ITelemetryProvider provider) {
-      if (provider != null) {
-         providerList.add(provider);
-      }
-   }
+    public static TelemetryManager getInstance() {
+        if (ourInstance == null) {
+            throw new IllegalStateException(myName + " not constructed yet");
+        }
+        return ourInstance;
+    }
 
-   private int counter = 0;
+    private TelemetryManager() {
+        logger.info("constructing");
 
-   // This should get called from robotPeriodic() in robot
-   public void sendTelemetry() {
-      if (counter >= 10) {
-         counter = 0;
+        providerList = new ArrayList<ITelemetryProvider>();
 
-         for (ITelemetryProvider provider : providerList) {
-            provider.updateTelemetry();
-         }
-      } else {
-         counter++;
-      }
-   }
+        logger.info("constructed");
+    }
+
+    public void addProvider(ITelemetryProvider provider) {
+        if (provider != null) {
+            providerList.add(provider);
+        }
+    }
+
+    private int counter = 0;
+
+    // This should get called from robotPeriodic() in robot
+    public void sendTelemetry() {
+        if (counter >= 10) {
+            counter = 0;
+
+            for (ITelemetryProvider provider : providerList) {
+                // logger.trace("calling w/ provider {}", provider);
+                provider.updateTelemetry();
+            }
+        } else {
+            counter++;
+        }
+    }
 
 }
