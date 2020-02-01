@@ -60,7 +60,7 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
     // Last retreived result
     private ColorMatchResult result;
 
-    public SuitcaseWheelColorSensor() {
+    protected SuitcaseWheelColorSensor() {
         logger.info("constructing");
 
         mySensor = new ColorSensorV3(I2C.Port.kOnboard);
