@@ -47,7 +47,7 @@ public class GyroFactory {
         switch (gyroClassName) {
 
         case "GyroSensor":
-            logger.info("constructing {} sensor", myName);
+            logger.info("constructing real {} sensor", myName);
             GyroSensor.constructInstance();
             ourInstance = GyroSensor.getInstance();
             break;
@@ -59,7 +59,7 @@ public class GyroFactory {
             break;
 
         case "SuitcaseGyroSensor":
-            logger.info("constructing {} sensor", myName);
+            logger.info("constructing suitcase {} sensor", myName);
             SuitcaseGyroSensor.constructInstance();
             ourInstance = SuitcaseGyroSensor.getInstance();
             break;

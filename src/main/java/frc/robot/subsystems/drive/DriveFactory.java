@@ -48,11 +48,13 @@ public class DriveFactory {
         switch (driveClassName) {
 
         case "DriveSubsystem":
+            logger.info("constructing real {} subsystem", myName);
             DriveSubsystem.constructInstance();
             ourInstance = DriveSubsystem.getInstance();
             break;
 
         case "ProtoDriveSubsystem":
+            logger.info("constructing proto {} subsystem", myName);
             ProtoDriveSubsystem.constructInstance();
             ourInstance = ProtoDriveSubsystem.getInstance();
             break;
