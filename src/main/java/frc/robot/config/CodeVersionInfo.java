@@ -7,7 +7,6 @@
 
 package frc.robot.config;
 
-
 /**
  * This class provides a versioning string that can be used to determine the
  * build pedigree of a robot as loaded on the roboRIO.
@@ -15,10 +14,9 @@ package frc.robot.config;
  * Unfortunately, Git doesn't provide a way to automate this the way other CM
  * tools do with keyword expansions.
  **/
-public class CodeVersionInfo
-{
+public class CodeVersionInfo {
 
-   // Provides a version string that gets incorporated into build
-   public static final String version = "501-RealBot 0.0.0 20200122 202600";
+    // Provides a version string that gets incorporated into build
+    public static final String version = "501-RealBot 0.0.0 20200131 190700";
 
 }
