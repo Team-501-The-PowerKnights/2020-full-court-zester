@@ -51,7 +51,11 @@ public class ShooterFactory {
             break;
 
         case "ProtoShooterSubsystem":
-            logger.info("constructing proto {} ")
+            logger.info("constructing proto {} subsystem", myName);
+            ProtoShooterSubsystem.constructInstance();
+            ourInstance = ProtoShooterSubsystem.getInstance();
+            break;
+
 
         case "SuitcaseShooterSubsystem":
             logger.info("constructing {} subsystem", myName);
