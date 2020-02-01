@@ -22,7 +22,6 @@ import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
-import frc.robot.subsystems.drive.IDriveSubsystem;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.subsystems.ISubsystem;

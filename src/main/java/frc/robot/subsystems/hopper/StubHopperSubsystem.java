@@ -46,27 +46,35 @@ public class StubHopperSubsystem extends BaseHopperSubsystem {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+    }
 
     @Override
-    public void validateCalibration() {}
+    public void validateCalibration() {
+    }
 
     @Override
-    public void updatePreferences() {}
+    public void updatePreferences() {
+    }
 
     @Override
-    public void disable() {}
+    public void disable() {
+    }
 
     @Override
-    public void updateTelemetry() {}
+    public void updateTelemetry() {
+    }
 
     @Override
-    public void stop() {}
+    public void stop() {
+    }
 
     @Override
-    public void agitate() {}
+    public void agitate() {
+    }
 
     @Override
-    public void agitate(double speed) {}
+    public void agitate(double speed) {
+    }
 
 }

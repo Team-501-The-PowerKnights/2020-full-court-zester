@@ -50,33 +50,43 @@ public class StubDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+    }
 
     @Override
-    public void validateCalibration() {}
+    public void validateCalibration() {
+    }
 
     @Override
-    public void updatePreferences() {}
+    public void updatePreferences() {
+    }
 
     @Override
-    public void disable() {}
+    public void disable() {
+    }
 
     @Override
-    public void updateTelemetry() {}
+    public void updateTelemetry() {
+    }
 
     @Override
-    public void stop() {}
+    public void stop() {
+    }
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn) {}
+    public void drive(double hmiSpeed, double hmiTurn) {
+    }
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {}
+    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
+    }
 
     @Override
-    public void setBrake(boolean brakeOn) {}
+    public void setBrake(boolean brakeOn) {
+    }
 
     @Override
-    public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {}
+    public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
+    }
 
 }

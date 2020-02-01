@@ -46,33 +46,43 @@ public class StubIntakeSubsystem extends BaseIntakeSubsystem {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+    }
 
     @Override
-    public void validateCalibration() {}
+    public void validateCalibration() {
+    }
 
     @Override
-    public void updatePreferences() {}
+    public void updatePreferences() {
+    }
 
     @Override
-    public void disable() {}
+    public void disable() {
+    }
 
     @Override
-    public void updateTelemetry() {}
+    public void updateTelemetry() {
+    }
 
     @Override
-    public void stop() {}
+    public void stop() {
+    }
 
     @Override
-    public void pullIn() {}
+    public void pullIn() {
+    }
 
     @Override
-    public void pullIn(double speed) {}
+    public void pullIn(double speed) {
+    }
 
     @Override
-    public void pushOut() {}
+    public void pushOut() {
+    }
 
     @Override
-    public void pushOut(double speed) {}
+    public void pushOut(double speed) {
+    }
 
 }

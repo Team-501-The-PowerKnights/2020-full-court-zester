@@ -50,14 +50,10 @@ public class StubWheelColorSensor extends BaseWheelColorSensor {
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
