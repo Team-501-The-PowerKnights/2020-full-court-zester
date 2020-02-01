@@ -54,7 +54,7 @@ public class WheelColorFactory {
 
         case "SuitcaseWheelColorSensor":
             logger.info("constructing {} sensor", myName);
-            StubWheelColorSensor.constructInstance();
+            SuitcaseWheelColorSensor.constructInstance();
             ourInstance = SuitcaseWheelColorSensor.getInstance();
             break;
 
