@@ -61,14 +61,14 @@ public class DriveFactory {
 
         case "StubDriveSubsystem":
             logger.info("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            SuitcaseDriveSubsystem.constructInstance();
+            ourInstance = SuitcaseDriveSubsystem.getInstance();
             break;
 
         default:
             logger.warn("constructing stub {} subsystem", myName);
-            StubDriveSubsystem.constructInstance();
-            ourInstance = StubDriveSubsystem.getInstance();
+            SuitcaseDriveSubsystem.constructInstance();
+            ourInstance = SuitcaseDriveSubsystem.getInstance();
             break;
         }
 

@@ -41,7 +41,7 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-public class ProtoDriveSubsystem extends BaseDriveSubsystem {
+class ProtoDriveSubsystem extends BaseDriveSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ProtoDriveSubsystem.class.getName());
@@ -109,10 +109,10 @@ public class ProtoDriveSubsystem extends BaseDriveSubsystem {
     private final IGyroSensor nav;
 
     private final DifferentialDrive drive;
-    public DifferentialDriveKinematics driveKinematics;
-    public DifferentialDriveOdometry driveOdometry;
+    private final DifferentialDriveKinematics driveKinematics;
+    private final DifferentialDriveOdometry driveOdometry;
 
-    public ProtoDriveSubsystem() {
+    ProtoDriveSubsystem() {
         logger.info("constructing");
 
         leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
@@ -145,10 +145,100 @@ public class ProtoDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void updateTelemetry() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public void periodic() {
         // This method will be called once per scheduler run
         driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
                 rightEncoder.getPosition());
+    }
+
+    @Override
+    public void setBrake(boolean brakeOn) {
+        if (brakeOn) {
+            leftFrontMotor.setIdleMode(IdleMode.kBrake);
+            leftRearMotor.setIdleMode(IdleMode.kBrake);
+            rightFrontMotor.setIdleMode(IdleMode.kBrake);
+            rightRearMotor.setIdleMode(IdleMode.kBrake);
+        } else {
+            leftFrontMotor.setIdleMode(IdleMode.kCoast);
+            leftRearMotor.setIdleMode(IdleMode.kCoast);
+            rightFrontMotor.setIdleMode(IdleMode.kCoast);
+            rightRearMotor.setIdleMode(IdleMode.kCoast);
+        }
+    }
+
+    @Override
+    public void stop() {
+        drive.tankDrive(0, 0);
+    }
+
+    /*
+     * Drive constraint values
+     */
+
+    private static final double speedFactor = 1;
+    private static final double turnFactor = 1;
+    private static final double speedConstraintFactor = 1;
+    private static final double turnConstraintFactor = 1;
+
+    @Override
+    public void drive(double hmiSpeed, double hmiTurn) {
+        drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
+    }
+
+    @Override
+    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
+        if (constrained) {
+            drive.arcadeDrive(hmiSpeed * speedConstraintFactor, hmiTurn * turnConstraintFactor);
+        } else {
+            drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
+        }
+    }
+
+    @Override
+    public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end) {
+
+        // Create trajectory to follow
+        final Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end,
+                trajectoryConfig);
+
+        // return the RamseteCommand to run
+        CommandScheduler.getInstance()
+                .schedule(new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
+                        new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity,
+                        new PIDController(p, 0, 0), new PIDController(p, 0, 0), this::tankDriveVolts, this));
+    }
+
+    // FIXME - Can't be public if not interface (who else cares?)
+    public double convertInchesToEncoderClicks(double inches) {
+        return inches * (1 / 12) // Conversion to feet
+                * 3.281 // Conversion to meters
+                * (1 / (2 * Math.PI * wheelRadius)) // Convert to wheel revolutions (Circumference)
+                * (beltGearing) // Convert to output shaft revolutions (Belt gearing)
+                * (1 / gearboxGearing); // Convert to motor revolutions (TB Mini gearing)
     }
 
     /*
@@ -183,92 +273,4 @@ public class ProtoDriveSubsystem extends BaseDriveSubsystem {
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
     }
 
-    @Override
-    public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end) {
-
-        // Create trajectory to follow
-        final Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end,
-                trajectoryConfig);
-
-        // return the RamseteCommand to run
-        CommandScheduler.getInstance()
-                .schedule(new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
-                        new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity,
-                        new PIDController(p, 0, 0), new PIDController(p, 0, 0), this::tankDriveVolts, this));
-    }
-
-    /*
-     * Normal Drive Methods
-     */
-
-    @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void stop() {
-        drive.tankDrive(0, 0);
-    }
-
-    /*
-     * Drive constraint values
-     */
-
-    private static final double speedFactor = 1;
-    private static final double turnFactor = 1;
-    private static final double speedConstraintFactor = 1;
-    private static final double turnConstraintFactor = 1;
-
-    @Override
-    public void drive(double hmiSpeed, double hmiTurn) {
-        drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
-    }
-
-    @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        if (constrained) {
-            drive.arcadeDrive(hmiSpeed * speedConstraintFactor, hmiTurn * turnConstraintFactor);
-        } else {
-            drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
-        }
-    }
-
-    public double convertInchesToEncoderClicks(double inches) {
-        return inches * (1 / 12) // Conversion to feet
-                * 3.281 // Conversion to meters
-                * (1 / (2 * Math.PI * wheelRadius)) // Convert to wheel revolutions (Circumference)
-                * (beltGearing) // Convert to output shaft revolutions (Belt gearing)
-                * (1 / gearboxGearing); // Convert to motor revolutions (TB Mini gearing)
-    }
-
-    @Override
-    public void setBrake(boolean brakeOn) {
-        if (brakeOn) {
-            leftFrontMotor.setIdleMode(IdleMode.kBrake);
-            leftRearMotor.setIdleMode(IdleMode.kBrake);
-            rightFrontMotor.setIdleMode(IdleMode.kBrake);
-            rightRearMotor.setIdleMode(IdleMode.kBrake);
-        } else {
-            leftFrontMotor.setIdleMode(IdleMode.kCoast);
-            leftRearMotor.setIdleMode(IdleMode.kCoast);
-            rightFrontMotor.setIdleMode(IdleMode.kCoast);
-            rightRearMotor.setIdleMode(IdleMode.kCoast);
-        }
-    }
 }

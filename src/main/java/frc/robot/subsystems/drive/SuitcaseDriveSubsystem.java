@@ -9,8 +9,12 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,7 +23,7 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-class StubDriveSubsystem extends BaseDriveSubsystem {
+class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(SuitcaseDriveSubsystem.class.getName());
@@ -31,7 +35,7 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new SuitcaseDriveSubsystem();
+        ourInstance = new StubDriveSubsystem();
 
         SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
     }
@@ -45,46 +49,88 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
         return ourInstance;
     }
 
-    StubDriveSubsystem() {
+    private final TalonSRX leftFrontMotor;
+    private final TalonSRX leftRearMotor;
+    private final VictorSP rightFrontMotor;
+    private final VictorSP rightRearMotor;
+
+    private final SpeedControllerGroup right;
+
+    SuitcaseDriveSubsystem() {
         logger.info("constructing");
+
+        leftFrontMotor = new TalonSRX(12);
+        leftRearMotor = new TalonSRX(13);
+        rightFrontMotor = new VictorSP(1);
+        rightRearMotor = new VictorSP(0);
+
+        leftRearMotor.follow(leftFrontMotor);
+        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+
+        leftFrontMotor.setInverted(false);
+        right.setInverted(true);
 
         logger.info("constructed");
     }
 
     @Override
+    public void updateTelemetry() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public void validateCalibration() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void updatePreferences() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void disable() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public void updateTelemetry() {
+    public void periodic() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void stop() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void setBrake(boolean brakeOn) {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
+        // TODO Auto-generated method stub
+
     }
 
 }
