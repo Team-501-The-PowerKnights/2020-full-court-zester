@@ -7,15 +7,35 @@
 
 package frc.robot.subsystems.drive;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.telemetry.TelemetryNames;
+
+import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public abstract class BaseDriveSubsystem extends SubsystemBase implements IDriveSubsystem {
+abstract class BaseDriveSubsystem extends SubsystemBase implements IDriveSubsystem {
+
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BaseDriveSubsystem.class.getName());
 
     protected static final String myName = TelemetryNames.Drive.name;
 
     protected static IDriveSubsystem ourInstance;
+
+    BaseDriveSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
+    }
+
+    @Override
+    public void periodic() {
+        // Default is to do nothing
+    }
+
 }
