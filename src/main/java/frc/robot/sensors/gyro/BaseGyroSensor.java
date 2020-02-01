@@ -14,7 +14,7 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-public abstract class BaseGyroSensor implements IGyroSensor {
+abstract class BaseGyroSensor implements IGyroSensor {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(BaseGyroSensor.class.getName());
@@ -25,7 +25,7 @@ public abstract class BaseGyroSensor implements IGyroSensor {
 
     protected final boolean gyroReversed;
 
-    public BaseGyroSensor() {
+    BaseGyroSensor() {
         logger.info("constructing");
 
         // FIXME - Get from Properties file

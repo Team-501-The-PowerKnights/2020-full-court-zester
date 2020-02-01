@@ -19,12 +19,12 @@ import riolog.RioLogger;
  * Provides implementation of <code>IWheelColorSensor</code> for the
  * <i>Real-Bot</i> which is based on the REV Robotics color sensor.
  */
-public class WheelColorSensor extends SuitcaseWheelColorSensor {
+class WheelColorSensor extends SuitcaseWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(WheelColorSensor.class.getName());
 
-    public static synchronized void constructInstance() {
+    static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
 
         if (ourInstance != null) {
@@ -36,8 +36,7 @@ public class WheelColorSensor extends SuitcaseWheelColorSensor {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
     }
 
-    public static IWheelColorSensor getInstance() {
-
+    static IWheelColorSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
         }
@@ -45,7 +44,7 @@ public class WheelColorSensor extends SuitcaseWheelColorSensor {
         return ourInstance;
     }
 
-    public WheelColorSensor() {
+    WheelColorSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

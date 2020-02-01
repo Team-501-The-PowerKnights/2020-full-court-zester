@@ -19,12 +19,12 @@ import riolog.RioLogger;
  * Provides implementation of <code>IGyroSensor</code> for the
  * <i>Suitcase-Bot</i> which is based on the navX-MXP sensor.
  */
-public class ProtoGyroSensor extends SuitcaseGyroSensor {
+class ProtoGyroSensor extends SuitcaseGyroSensor {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(ProtoGyroSensor.class.getName());
 
-    public static synchronized void constructInstance() {
+    static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
 
         if (ourInstance != null) {
@@ -36,8 +36,7 @@ public class ProtoGyroSensor extends SuitcaseGyroSensor {
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
 
-    public static IGyroSensor getInstance() {
-
+    static IGyroSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
         }
@@ -45,7 +44,7 @@ public class ProtoGyroSensor extends SuitcaseGyroSensor {
         return ourInstance;
     }
 
-    public ProtoGyroSensor() {
+    protected ProtoGyroSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

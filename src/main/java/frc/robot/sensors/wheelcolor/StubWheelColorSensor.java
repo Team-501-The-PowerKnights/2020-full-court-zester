@@ -21,7 +21,7 @@ import riolog.RioLogger;
  * or other useful functionality; but which won't blow up if instantiated and
  * 'used'.
  */
-public class StubWheelColorSensor extends BaseWheelColorSensor {
+class StubWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubWheelColorSensor.class.getName());
@@ -38,8 +38,7 @@ public class StubWheelColorSensor extends BaseWheelColorSensor {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
     }
 
-    public static IWheelColorSensor getInstance() {
-
+    static IWheelColorSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
         }
@@ -47,7 +46,7 @@ public class StubWheelColorSensor extends BaseWheelColorSensor {
         return ourInstance;
     }
 
-    public StubWheelColorSensor() {
+    StubWheelColorSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

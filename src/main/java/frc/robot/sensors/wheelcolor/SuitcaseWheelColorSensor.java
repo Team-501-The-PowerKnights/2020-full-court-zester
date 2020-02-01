@@ -25,12 +25,12 @@ import riolog.RioLogger;
  * Provides implementation of <code>IWheelColorSensor</code> for the
  * <i>Suitcase-Bot</i> which is based on the REV Robotics color sensor.
  */
-public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
+class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(SuitcaseWheelColorSensor.class.getName());
 
-    public static synchronized void constructInstance() {
+    static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
 
         if (ourInstance != null) {
@@ -42,8 +42,7 @@ public class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
     }
 
-    public static IWheelColorSensor getInstance() {
-
+    static IWheelColorSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
         }

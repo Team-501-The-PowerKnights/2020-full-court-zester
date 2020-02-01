@@ -25,7 +25,7 @@ class StubGyroSensor extends BaseGyroSensor {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubGyroSensor.class.getName());
 
-    public static synchronized void constructInstance() {
+    static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
 
         if (ourInstance != null) {
@@ -37,8 +37,7 @@ class StubGyroSensor extends BaseGyroSensor {
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
     }
 
-    public static IGyroSensor getInstance() {
-
+    static IGyroSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " not constructed yet");
         }
@@ -46,7 +45,7 @@ class StubGyroSensor extends BaseGyroSensor {
         return ourInstance;
     }
 
-    public StubGyroSensor() {
+    StubGyroSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
