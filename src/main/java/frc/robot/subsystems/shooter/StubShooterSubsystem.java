@@ -7,9 +7,19 @@
 
 package frc.robot.subsystems.shooter;
 
+import org.slf4j.Logger;
+
+import riolog.RioLogger;
+
 class StubShooterSubsystem extends BaseShooterSubsystem {
 
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubShooterSubsystem.class.getName());
+
     public StubShooterSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override

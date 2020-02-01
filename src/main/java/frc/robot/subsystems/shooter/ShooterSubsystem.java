@@ -13,11 +13,17 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
 class ShooterSubsystem extends BaseShooterSubsystem {
+
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
 
   /**
    * Shooter constant values
@@ -54,6 +60,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
+    logger.info("constructing");
+
     motor = new CANSparkMax(0, MotorType.kBrushless);
     shootSlave0 = new CANSparkMax(0, MotorType.kBrushless);
 
@@ -72,6 +80,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     turretPID.setI(turretI);
     turretPID.setD(turretD);
     turretPID.setFF(turretF);
+
+    logger.info("constructed");
   }
 
   @Override
