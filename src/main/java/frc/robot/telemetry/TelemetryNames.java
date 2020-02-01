@@ -93,6 +93,7 @@ public final class TelemetryNames {
 
         public static final String status = name + ".status";
         public static final String color = name + ".color";
+        public static final String confidence = name + ".confidence";
     }
 
     /***************

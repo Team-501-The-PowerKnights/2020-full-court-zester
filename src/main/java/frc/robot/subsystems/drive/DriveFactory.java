@@ -43,7 +43,7 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "DriveSubsystem";
+        final String driveClassName = "StubDriveSubsystem";
 
         switch (driveClassName) {
 
