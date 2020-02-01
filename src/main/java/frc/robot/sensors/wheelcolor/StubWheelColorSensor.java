@@ -9,9 +9,6 @@ package frc.robot.sensors.wheelcolor;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
 
 import riolog.RioLogger;
@@ -25,26 +22,6 @@ class StubWheelColorSensor extends BaseWheelColorSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubWheelColorSensor.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubWheelColorSensor();
-
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
-    }
-
-    static IWheelColorSensor getInstance() {
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     StubWheelColorSensor() {
         logger.info("constructing");

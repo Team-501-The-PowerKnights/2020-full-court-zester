@@ -42,39 +42,32 @@ public class WheelColorFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String WheelColorClassName = "SuitcaseWheelColorSensor";
+        final String myClassName = "SuitcaseWheelColorSensor";
 
-        switch (WheelColorClassName) {
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        switch (myClassName) {
 
         case "WheelColorSensor":
-            logger.info("constructing real {} sensor", myName);
-            ProtoWheelColorSensor.constructInstance();
-            ourInstance = ProtoWheelColorSensor.getInstance();
+            ourInstance = new WheelColorSensor();
             break;
 
         case "ProtoColorSensor":
-            logger.info("constructing proto {} sensor", myName);
-            ProtoWheelColorSensor.constructInstance();
-            ourInstance = ProtoWheelColorSensor.getInstance();
+            ourInstance = new ProtoWheelColorSensor();
             break;
 
         case "SuitcaseWheelColorSensor":
-            logger.info("constructing suitcase {} sensor", myName);
-            SuitcaseWheelColorSensor.constructInstance();
-            ourInstance = SuitcaseWheelColorSensor.getInstance();
+            ourInstance = new SuitcaseWheelColorSensor();
             break;
 
         case "StubWheelColorSensor":
-            logger.info("constructing stub {} sensor", myName);
-            StubWheelColorSensor.constructInstance();
-            ourInstance = StubWheelColorSensor.getInstance();
+            ourInstance = new StubWheelColorSensor();
             break;
 
         default:
-            logger.warn("constructing stub {} sensor", myName);
-            StubWheelColorSensor.constructInstance();
-            ourInstance = StubWheelColorSensor.getInstance();
+            logger.warn("invalid/missing sensor class for ", myName);
+            ourInstance = new StubWheelColorSensor();
             break;
+
         }
 
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
