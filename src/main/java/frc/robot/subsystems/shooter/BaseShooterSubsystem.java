@@ -7,21 +7,15 @@
 
 package frc.robot.subsystems.shooter;
 
-import frc.robot.subsystems.ISubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.telemetry.TelemetryNames;
 
 /**
  * Add your docs here.
- **/
-public interface IShooterSubsystem extends ISubsystem {
+ */
+public abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSubsystem {
 
-    public void stop();
+    protected static final String myName = TelemetryNames.Shooter.name;
 
-    public void shoot(double dist);
-
-    public void shoot();
-
-    public void setTurretAngle(double angle);
-
-    public void home();
-
+    protected static IShooterSubsystem ourInstance;
 }

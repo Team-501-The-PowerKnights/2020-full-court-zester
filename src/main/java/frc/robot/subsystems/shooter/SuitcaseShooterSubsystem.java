@@ -15,10 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
 
-public class SuitcaseShooterSubsystem implements IShooterSubsystem {
-  private static final String myName = TelemetryNames.Shooter.name;
-
-  private static IShooterSubsystem ourInstance;
+public class SuitcaseShooterSubsystem extends BaseShooterSubsystem {
 
   public static synchronized void constructInstance() {
     SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
@@ -53,16 +50,16 @@ public class SuitcaseShooterSubsystem implements IShooterSubsystem {
    * Mechanisms and sensors
    */
 
-  private CANSparkMax shootMaster;
+  private CANSparkMax motor;
   private CANPIDController shootPID;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public SuitcaseShooterSubsystem() {
-    shootMaster = new CANSparkMax(50, MotorType.kBrushless);
+    motor = new CANSparkMax(50, MotorType.kBrushless);
 
-    shootPID = new CANPIDController(shootMaster);
+    shootPID = new CANPIDController(motor);
     shootPID.setP(flywheelP);
     shootPID.setI(flywheelI);
     shootPID.setD(flywheelD);
@@ -109,7 +106,27 @@ public class SuitcaseShooterSubsystem implements IShooterSubsystem {
 
   @Override
   public void stop() {
-    // TODO Auto-generated method stub
+    shootPID.setReference(0, ControlType.kVelocity);
+    motor.set(0.0);
+  }
 
+  @Override
+  public void shoot(double dist) {
+    // TODO - Trajectory generation for speed
+    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+  }
+
+  @Override
+  public void shoot() {
+    // TODO - Trajectory generation from vision data
+    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+  }
+
+  @Override
+  public void setTurretAngle(double angle) {
+  }
+
+  @Override
+  public void home() {
   }
 }

@@ -10,11 +10,7 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
 
-public class StubShooterSubsystem implements IShooterSubsystem {
-
-    private static final String myName = TelemetryNames.Drive.name;
-
-    private static IShooterSubsystem ourInstance;
+public class StubShooterSubsystem extends BaseShooterSubsystem {
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
@@ -42,38 +38,42 @@ public class StubShooterSubsystem implements IShooterSubsystem {
 
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void validateCalibration() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
+    }
 
+    @Override
+    public void shoot(double dist) {
+    }
+
+    @Override
+    public void shoot() {
+    }
+
+    @Override
+    public void setTurretAngle(double angle) {
+    }
+
+    @Override
+    public void home() {
     }
 
 }

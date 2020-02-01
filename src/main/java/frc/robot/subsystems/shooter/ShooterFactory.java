@@ -48,6 +48,9 @@ public class ShooterFactory {
         switch (ShooterClassName) {
 
         case "ShooterSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            ShooterSubsystem.constructInstance();
+            ourInstance = ShooterSubsystem.getInstance();
             break;
 
         case "ProtoShooterSubsystem":
@@ -55,7 +58,6 @@ public class ShooterFactory {
             ProtoShooterSubsystem.constructInstance();
             ourInstance = ProtoShooterSubsystem.getInstance();
             break;
-
 
         case "SuitcaseShooterSubsystem":
             logger.info("constructing suitcase {} subsystem", myName);
