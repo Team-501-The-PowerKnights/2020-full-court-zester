@@ -16,7 +16,7 @@ import riolog.RioLogger;
 /**
  * Add your docs here.
  */
-public abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBallevatorSubsystem {
+abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBallevatorSubsystem {
 
     /** Our classes' logger **/
     @SuppressWarnings("unused")

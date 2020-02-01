@@ -9,35 +9,12 @@ package frc.robot.subsystems.ballevator;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
-public class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
+class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubBallevatorSubsystem.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubBallevatorSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
-    }
-
-    public static IBallevatorSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     public StubBallevatorSubsystem() {
         logger.info("constructing");
