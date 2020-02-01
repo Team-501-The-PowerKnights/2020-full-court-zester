@@ -10,17 +10,16 @@ package frc.robot.subsystems.intake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider {
+public class IntakeSubsystem extends BaseIntakeSubsystem {
 
-  private static final String myName = TelemetryNames.Intake.name;
-
-  private static IntakeSubsystem ourInstance;
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(IntakeSubsystem.class.getName());
 
   public static synchronized void constructInstance() {
     SmartDashboard.putBoolean(TelemetryNames.Intake.status, false);
@@ -34,7 +33,7 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
     SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
   }
 
-  public static IntakeSubsystem getInstance() {
+  public static IIntakeSubsystem getInstance() {
 
     if (ourInstance == null) {
       throw new IllegalStateException(myName + " not constructed yet");
@@ -43,14 +42,17 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
     return ourInstance;
   }
 
-  private TalonSRX intakeMotor;
+  private TalonSRX motor;
 
   /**
    * Creates a new IntakeSubsystem.
    */
   public IntakeSubsystem() {
-    intakeMotor = new TalonSRX(0);
+    logger.info("constructing");
 
+    motor = new TalonSRX(0);
+
+    logger.info("constructed");
   }
 
   @Override
@@ -58,16 +60,50 @@ public class IntakeSubsystem extends SubsystemBase implements ITelemetryProvider
     // This method will be called once per scheduler run
   }
 
-  /**
-   * Runs the intake at the speed passed to the method.
-   * 
-   * @param speed
-   */
-  public void runIntake(double speed) {
-    intakeMotor.set(ControlMode.PercentOutput, speed);
+  @Override
+  public void updateTelemetry() {
   }
 
   @Override
-  public void updateTelemetry() {
+  public void stop() {
+    motor.set(ControlMode.PercentOutput, 0.0);
+  }
+
+  @Override
+  public void validateCalibration() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void updatePreferences() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void disable() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void pullIn() {
+    motor.set(ControlMode.PercentOutput, 0.2); // TODO - determine actual preset speed values
+  }
+
+  @Override
+  public void pullIn(double speed) {
+    motor.set(ControlMode.PercentOutput, speed);
+  }
+
+  @Override
+  public void pushOut() {
+    motor.set(ControlMode.PercentOutput, -0.2); // TODO - determine actual preset speed values
+  }
+
+  @Override
+  public void pushOut(double speed) {
+    motor.set(ControlMode.PercentOutput, -speed);
   }
 }

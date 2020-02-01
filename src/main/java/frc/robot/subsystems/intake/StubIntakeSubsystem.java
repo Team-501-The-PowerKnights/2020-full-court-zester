@@ -7,14 +7,16 @@
 
 package frc.robot.subsystems.intake;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class StubIntakeSubsystem implements IIntakeSubsystem {
+public class StubIntakeSubsystem extends BaseIntakeSubsystem {
 
-    private static final String myName = TelemetryNames.Drive.name;
-
-    private static IIntakeSubsystem ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubIntakeSubsystem.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Intake.status, false);
@@ -38,42 +40,39 @@ public class StubIntakeSubsystem implements IIntakeSubsystem {
     }
 
     public StubIntakeSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
-    public void periodic() {
-        // TODO Auto-generated method stub
-
-    }
+    public void periodic() {}
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
+    public void validateCalibration() {}
 
     @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updatePreferences() {}
 
     @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
+    public void disable() {}
 
     @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
-    }
+    public void updateTelemetry() {}
 
     @Override
-    public void stop() {
-        // TODO Auto-generated method stub
+    public void stop() {}
 
-    }
+    @Override
+    public void pullIn() {}
+
+    @Override
+    public void pullIn(double speed) {}
+
+    @Override
+    public void pushOut() {}
+
+    @Override
+    public void pushOut(double speed) {}
 
 }

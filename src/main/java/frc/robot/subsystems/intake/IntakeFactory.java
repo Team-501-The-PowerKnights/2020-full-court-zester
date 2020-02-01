@@ -48,6 +48,9 @@ public class IntakeFactory {
         switch (intakeClassName) {
 
         case "IntakeSubsystem":
+            logger.info("constructing real {} subsystem", myName);
+            IntakeSubsystem.constructInstance();
+            ourInstance = IntakeSubsystem.getInstance();
             break;
 
         case "StubIntakeSubsystem":

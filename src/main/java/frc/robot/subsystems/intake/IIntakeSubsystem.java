@@ -16,4 +16,12 @@ public interface IIntakeSubsystem extends ISubsystem {
 
     public void stop();
 
+    public void pullIn();
+
+    public void pullIn(double speed);
+
+    public void pushOut();
+
+    public void pushOut(double speed);
+
 }
