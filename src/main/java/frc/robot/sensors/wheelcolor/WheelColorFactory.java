@@ -41,9 +41,8 @@ public class WheelColorFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
-        
         // FIXME - Replace with file based configuration
-        final String WheelColorClassName = "WheelColorSensor";
+        final String WheelColorClassName = "SuitcaseColorSensor";
 
         switch (WheelColorClassName) {
 
@@ -53,8 +52,14 @@ public class WheelColorFactory {
             ourInstance = WheelColorSensor.getInstance();
             break;
 
+        case "SuitcaseWheelColorSensor":
+            logger.info("constructing {} sensor", myName);
+            StubWheelColorSensor.constructInstance();
+            ourInstance = SuitcaseWheelColorSensor.getInstance();
+            break;
+
         case "StubWheelColorSensor":
-            logger.info("constructing stub {} sensor", myName);
+            logger.info("constructing {} sensor", myName);
             StubWheelColorSensor.constructInstance();
             ourInstance = StubWheelColorSensor.getInstance();
             break;

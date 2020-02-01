@@ -7,8 +7,8 @@
 
 package frc.robot.sensors.wheelcolor;
 
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.sensors.ISensor;
+import frc.robot.utils.PKColor;
 
 /**
  * Add your docs here.
@@ -16,11 +16,19 @@ import frc.robot.sensors.ISensor;
 public interface IWheelColorSensor extends ISensor {
 
     /**
-     * Method providing a handle to access color values within the class.
+     * Returns the color currently detected by the sensor.
      * 
-     * @return The color the sensor is seeing
+     * @return Color the sensor is seeing
      */
-    public Color getColor();
+    public PKColor getColor();
+
+    /**
+     * Returns the confidence associated with the last query for the currently
+     * detected color.
+     * 
+     * @return Confidence in the returned color
+     */
+    public double getConfidence();
 
     /**
      * 

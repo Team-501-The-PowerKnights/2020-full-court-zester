@@ -7,15 +7,19 @@
 
 package frc.robot.sensors.wheelcolor;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
+
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKColor;
 
-public class StubWheelColorSensor implements IWheelColorSensor {
+import riolog.RioLogger;
 
-    private static final String myName = TelemetryNames.WheelColor.name;
+public class StubWheelColorSensor extends BaseWheelColorSensor {
 
-    private static IWheelColorSensor ourInstance;
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubWheelColorSensor.class.getName());
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
@@ -39,6 +43,9 @@ public class StubWheelColorSensor implements IWheelColorSensor {
     }
 
     public StubWheelColorSensor() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override
@@ -54,34 +61,13 @@ public class StubWheelColorSensor implements IWheelColorSensor {
     }
 
     @Override
-    public void updateTelemetry() {
-        // TODO - Implement color telemetry as a string
-        SmartDashboard.putString(TelemetryNames.WheelColor.color, getColor().toString());
+    public PKColor getColor() {
+        return PKColor.invalidTarget;
     }
 
     @Override
-    public Color getColor() {
-        return Color.kBlue;
-    }
-
-    @Override
-    public boolean isBlue() {
-        return getColor().equals(Color.kBlue);
-    }
-
-    @Override
-    public boolean isGreen() {
-        return getColor().equals(Color.kGreen);
-    }
-
-    @Override
-    public boolean isYellow() {
-        return getColor().equals(Color.kYellow);
-    }
-
-    @Override
-    public boolean isRed() {
-        return getColor().equals(Color.kRed);
+    public double getConfidence() {
+        return 0.0;
     }
 
 }
