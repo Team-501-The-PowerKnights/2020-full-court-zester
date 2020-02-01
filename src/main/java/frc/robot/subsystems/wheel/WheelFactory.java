@@ -9,7 +9,6 @@ package frc.robot.subsystems.wheel;
 
 import org.slf4j.Logger;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.SubsystemNames;
@@ -43,30 +42,27 @@ public class WheelFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String WheelClassName = "StubWheelSubsystem";
+        final String myClassName = "StubWheelSubsystem";
 
-        switch (WheelClassName) {
+        String myPkgName = WheelFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
 
-        case "WheelSubsystem":
-            logger.info("constructing real {} subsystem", myName);
-            WheelSubsystem.constructInstance();
-            ourInstance = WheelSubsystem.getInstance();
-            break;
-
-        case "StubWheelSubsystem":
-            logger.info("constructing stub {} subsystem", myName);
-            StubWheelSubsystem.constructInstance();
-            ourInstance = StubWheelSubsystem.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} subsystem", myName);
-            StubWheelSubsystem.constructInstance();
-            ourInstance = StubWheelSubsystem.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IWheelSubsystem) myObject;
+            // TODO - make this multi-state, this would be "success" / green
+            SmartDashboard.putBoolean(TelemetryNames.Wheel.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourInstance = new StubWheelSubsystem();
+            // TODO - make this multi-state, this would "degraded" / yellow
+            SmartDashboard.putBoolean(TelemetryNames.Wheel.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Wheel.status, true);
     }
 
     /**
@@ -83,7 +79,5 @@ public class WheelFactory {
 
         return ourInstance;
     }
-
-    
 
 }

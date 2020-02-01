@@ -13,9 +13,7 @@ import frc.robot.telemetry.TelemetryNames;
 /**
  * Add your docs here.
  */
-public abstract class BaseWheelSubsystem extends SubsystemBase implements IWheelSubsystem {
+abstract class BaseWheelSubsystem extends SubsystemBase implements IWheelSubsystem {
 
     protected static final String myName = TelemetryNames.Wheel.name;
-
-    protected static IWheelSubsystem ourInstance;
 }
