@@ -15,14 +15,15 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-class StubGyroSensor implements IGyroSensor {
+/**
+ * Provides implementation of <code>IGyroSensor</code> which has no sensor or
+ * other useful functionality; but which won't blow up if instantiated and
+ * 'used'.
+ */
+class StubGyroSensor extends BaseGyroSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubGyroSensor.class.getName());
-
-    private static final String myName = TelemetryNames.Gyro.name;
-
-    private static IGyroSensor ourInstance;
 
     public static synchronized void constructInstance() {
         SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
@@ -62,11 +63,6 @@ class StubGyroSensor implements IGyroSensor {
     }
 
     @Override
-    public void updateTelemetry() {
-        // Nothing to do here
-    }
-
-    @Override
     public double getRoll() {
         return 0;
     }
@@ -78,11 +74,6 @@ class StubGyroSensor implements IGyroSensor {
 
     @Override
     public double getYaw() {
-        return 0;
-    }
-
-    @Override
-    public double getHeading() {
         return 0;
     }
 

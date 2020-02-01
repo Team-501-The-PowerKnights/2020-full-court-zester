@@ -42,7 +42,7 @@ public class GyroFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String gyroClassName = "StubGyroSensor";
+        final String gyroClassName = "SuitcaseGyroSensor";
 
         switch (gyroClassName) {
 
