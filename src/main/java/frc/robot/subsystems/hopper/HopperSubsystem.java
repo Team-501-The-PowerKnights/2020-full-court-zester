@@ -12,37 +12,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
-public class HopperSubsystem extends BaseHopperSubsystem {
+class HopperSubsystem extends BaseHopperSubsystem {
 
   /** Our classes' logger **/
   private static final Logger logger = RioLogger.getLogger(HopperSubsystem.class.getName());
-
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
-
-    if (ourInstance != null) {
-      throw new IllegalStateException(myName + " already constructed");
-    }
-
-    ourInstance = new HopperSubsystem();
-
-    SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
-  }
-
-  public static IHopperSubsystem getInstance() {
-
-    if (ourInstance == null) {
-      throw new IllegalStateException(myName + " not constructed yet");
-    }
-
-    return ourInstance;
-  }
 
   private TalonSRX agitator;
 

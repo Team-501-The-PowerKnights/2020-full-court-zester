@@ -9,34 +9,11 @@ package frc.robot.subsystems.climber;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
-public class ClimberSubsystem extends BaseClimberSubsystem {
+class ClimberSubsystem extends BaseClimberSubsystem {
 
   private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
-
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Climber.status, false);
-
-    if (ourInstance != null) {
-      throw new IllegalStateException(myName + " already constructed");
-    }
-
-    ourInstance = new ClimberSubsystem();
-
-    SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
-  }
-
-  public static IClimberSubsystem getInstance() {
-
-    if (ourInstance == null) {
-      throw new IllegalStateException(myName + " not constructed yet");
-    }
-
-    return ourInstance;
-  }
 
   /**
    * Creates a new ClimberSubsystem.

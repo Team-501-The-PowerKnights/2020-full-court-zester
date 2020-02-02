@@ -7,33 +7,19 @@
 
 package frc.robot.subsystems.shooter;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.telemetry.TelemetryNames;
+import org.slf4j.Logger;
 
-public class StubShooterSubsystem extends BaseShooterSubsystem {
+import riolog.RioLogger;
 
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
+class StubShooterSubsystem extends BaseShooterSubsystem {
 
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubShooterSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
-    }
-
-    public static IShooterSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(StubShooterSubsystem.class.getName());
 
     public StubShooterSubsystem() {
+        logger.info("constructing");
+
+        logger.info("constructed");
     }
 
     @Override

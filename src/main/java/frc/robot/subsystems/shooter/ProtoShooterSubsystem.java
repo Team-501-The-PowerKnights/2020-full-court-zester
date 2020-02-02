@@ -12,32 +12,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.slf4j.Logger;
 
-import frc.robot.telemetry.TelemetryNames;
+import riolog.RioLogger;
 
-public class ProtoShooterSubsystem extends BaseShooterSubsystem {
+class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
-  public static synchronized void constructInstance() {
-    SmartDashboard.putBoolean(TelemetryNames.Shooter.status, false);
-
-    if (ourInstance != null) {
-      throw new IllegalStateException(myName + " already constructed");
-    }
-
-    ourInstance = new ProtoShooterSubsystem();
-
-    SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
-  }
-
-  public static IShooterSubsystem getInstance() {
-
-    if (ourInstance == null) {
-      throw new IllegalStateException(myName + " not constructed yet");
-    }
-
-    return ourInstance;
-  }
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(ProtoShooterSubsystem.class.getName());
 
   /**
    * Shooter constant values
@@ -58,6 +40,8 @@ public class ProtoShooterSubsystem extends BaseShooterSubsystem {
    * Creates a new ShooterSubsystem.
    */
   public ProtoShooterSubsystem() {
+    logger.info("constructing");
+    
     motor = new CANSparkMax(50, MotorType.kBrushless);
 
     shootPID = new CANPIDController(motor);
@@ -65,6 +49,8 @@ public class ProtoShooterSubsystem extends BaseShooterSubsystem {
     shootPID.setI(flywheelI);
     shootPID.setD(flywheelD);
     shootPID.setFF(flywheelF);
+
+    logger.info("constructed");
   }
 
   @Override

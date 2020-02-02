@@ -12,39 +12,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.sensors.wheelcolor.IWheelColorSensor;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
-import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKColor;
 import riolog.RioLogger;
 
-public class WheelSubsystem extends BaseWheelSubsystem {
+class WheelSubsystem extends BaseWheelSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(WheelSubsystem.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Wheel.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new WheelSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Wheel.status, true);
-    }
-
-    public static IWheelSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     private IWheelColorSensor colorSensor;
 
