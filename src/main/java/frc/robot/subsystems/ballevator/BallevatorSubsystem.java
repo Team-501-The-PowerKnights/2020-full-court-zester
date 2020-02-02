@@ -24,7 +24,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
   public BallevatorSubsystem() {
     logger.info("constructing");
 
-    motor = new TalonSRX(0);
+    motor = new TalonSRX(51);
 
     logger.info("constructed");
   }

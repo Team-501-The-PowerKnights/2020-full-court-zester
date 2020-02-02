@@ -24,7 +24,7 @@ class HopperSubsystem extends BaseHopperSubsystem {
   public HopperSubsystem() {
     logger.info("constructing");
 
-    agitator = new TalonSRX(0);
+    agitator = new TalonSRX(31);
 
     logger.info("constructed");
   }

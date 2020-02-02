@@ -92,10 +92,10 @@ class DriveSubsystem extends BaseDriveSubsystem {
     public DriveSubsystem() {
         logger.info("constructing");
 
-        leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
-        leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
-        rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
-        rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftFrontMotor = new CANSparkMax(11, MotorType.kBrushless);
+        leftRearMotor = new CANSparkMax(12, MotorType.kBrushless);
+        rightFrontMotor = new CANSparkMax(13, MotorType.kBrushless);
+        rightRearMotor = new CANSparkMax(14, MotorType.kBrushless);
 
         left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
         right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);

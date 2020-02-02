@@ -27,7 +27,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
   public IntakeSubsystem() {
     logger.info("constructing");
 
-    motor = new TalonSRX(0);
+    motor = new TalonSRX(41);
 
     logger.info("constructed");
   }

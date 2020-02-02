@@ -34,7 +34,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
         colorSensor = WheelColorFactory.getInstance();
 
-        motor = new CANSparkMax(0, MotorType.kBrushless);
+        motor = new CANSparkMax(61, MotorType.kBrushless);
 
         logger.info("constructed");
     }

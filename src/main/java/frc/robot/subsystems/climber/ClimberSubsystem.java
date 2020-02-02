@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems.climber;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
@@ -15,11 +18,12 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
   private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
 
-  /**
-   * Creates a new ClimberSubsystem.
-   */
+  private CANSparkMax motor;
+  
   public ClimberSubsystem() {
     logger.info("constructing");
+
+    motor = new CANSparkMax(71, MotorType.kBrushless);
 
     logger.info("constructed");
   }

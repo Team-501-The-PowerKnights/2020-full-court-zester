@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.shooter;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -58,6 +59,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   private CANEncoder turretEncoder;
   private CANPIDController turretPID;
 
+  private TalonSRX incrementer;
+
   private DigitalInput limit;
 
   /**
@@ -66,8 +69,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   public ShooterSubsystem() {
     logger.info("constructing");
 
-    motor = new CANSparkMax(0, MotorType.kBrushless);
-    shootSlave0 = new CANSparkMax(0, MotorType.kBrushless);
+    motor = new CANSparkMax(21, MotorType.kBrushless);
+    shootSlave0 = new CANSparkMax(22, MotorType.kBrushless);
 
     shootSlave0.follow(motor);
 
@@ -77,13 +80,15 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     shootPID.setD(flywheelD);
     shootPID.setFF(flywheelF);
 
-    turret = new CANSparkMax(0, MotorType.kBrushless);
+    turret = new CANSparkMax(20, MotorType.kBrushless);
     turretEncoder = new CANEncoder(turret);
     turretPID = new CANPIDController(turret);
     turretPID.setP(turretP);
     turretPID.setI(turretI);
     turretPID.setD(turretD);
     turretPID.setFF(turretF);
+
+    incrementer = new TalonSRX(23);
 
     limit = new DigitalInput(0);
     logger.info("constructed");
