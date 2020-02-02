@@ -7,6 +7,9 @@
 
 package frc.robot.telemetry;
 
+import frc.robot.sensors.SensorNames;
+import frc.robot.subsystems.SubsystemNames;
+
 public final class TelemetryNames {
 
     public final class Misc {
@@ -41,13 +44,13 @@ public final class TelemetryNames {
      ***************/
 
     public final class Drive {
-        public static final String name = "Drive";
+        public static final String name = SubsystemNames.driveName;
 
         public static final String status = name + ".status";
     }
 
     public final class Gyro {
-        public static final String name = "Gyro";
+        public static final String name = SensorNames.gyroName;
 
         public static final String status = name + ".status";
         public static final String roll = name + ".roll";
@@ -62,25 +65,25 @@ public final class TelemetryNames {
      ***************/
 
     public final class Intake {
-        public static final String name = "Intake";
+        public static final String name = SubsystemNames.intakeName;
 
         public static final String status = name + ".status";
     }
 
     public final class Hopper {
-        public static final String name = "Hopper";
+        public static final String name = SubsystemNames.hopperName;
 
         public static final String status = name + ".status";
     }
 
     public final class Ballevator {
-        public static final String name = "Ballevator";
+        public static final String name = SubsystemNames.ballevatorName;
 
         public static final String status = name + ".status";
     }
 
     public final class Shooter {
-        public static final String name = "Shooter";
+        public static final String name = SubsystemNames.shooterName;
 
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
@@ -91,13 +94,13 @@ public final class TelemetryNames {
      ***************/
 
     public final class Wheel {
-        public static final String name = "Wheel";
+        public static final String name = SubsystemNames.wheelName;
 
         public static final String status = name + ".status";
     }
 
     public final class WheelColor {
-        public static final String name = "WheelColor";
+        public static final String name = SensorNames.wheelColorName;
 
         public static final String status = name + ".status";
         // Raw color returned from sensor
@@ -113,7 +116,7 @@ public final class TelemetryNames {
      ***************/
 
     public final class Climber {
-        public static final String name = "Climber";
+        public static final String name = SubsystemNames.climberName;
 
         public static final String status = name + ".status";
     }
