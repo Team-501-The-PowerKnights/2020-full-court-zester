@@ -24,9 +24,6 @@ public class WheelDoNothing extends PKCommand {
 
         addRequirements(WheelFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        WheelFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

@@ -24,9 +24,6 @@ public class ClimberDoNothing extends PKCommand {
 
         addRequirements(ClimberFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        ClimberFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

@@ -16,10 +16,10 @@ import frc.robot.subsystems.drive.IDriveSubsystem;
 
 import riolog.RioLogger;
 
-public class DriveBaseCommand extends PKCommand {
+public class DriveJoystickControl extends PKCommand {
 
   /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(DriveBaseCommand.class.getName());
+  private static final Logger logger = RioLogger.getLogger(DriveJoystickControl.class.getName());
 
   private IDriveSubsystem drive;
   private OI oi;
@@ -27,18 +27,15 @@ public class DriveBaseCommand extends PKCommand {
   private double turn;
 
   /**
-   * Creates a new DriveBaseCommand.
+   * Creates a new DriveJoystickControl.
    */
-  public DriveBaseCommand() {
+  public DriveJoystickControl() {
     logger.info("constructing {}", getName());
 
     drive = DriveFactory.getInstance();
     oi = OI.getInstance();
 
     addRequirements(drive);
-
-    // FIXME - Kind of hokey; but avoids code sprawl
-    // drive.setDefaultCommand(this);
 
     logger.info("constructed");
   }
