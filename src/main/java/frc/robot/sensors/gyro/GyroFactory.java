@@ -42,7 +42,7 @@ public class GyroFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "SuitcaseGyroSensor";
+        final String myClassName = "ProtoGyroSensor";
 
         String myPkgName = GyroFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();

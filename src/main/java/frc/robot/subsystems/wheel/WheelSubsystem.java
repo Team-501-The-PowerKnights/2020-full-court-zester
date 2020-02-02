@@ -58,38 +58,55 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void runToColor(PKColor color) {
-        // TODO Auto-generated method stub
 
+        PKColor targetColor = generateColorOffset(color);
+
+        while (colorSensor.getColor() != targetColor) {
+            motor.set(0.5);
+        }
+
+        if (colorSensor.getColor() == targetColor) {
+            motor.set(0.0);
+        }
     }
 
     @Override
     public void runRevolutions(double numRevolutions) {
-        // TODO Auto-generated method stub
+        PKColor origColor = colorSensor.getColor();
 
+        double count = 0;
+
+        while (count < 10) {
+            motor.set(0.5);
+
+            if (colorSensor.getColor() == origColor) {
+                count++;
+            }
+        }
+
+        if (count >= 10) {
+            motor.set(0.0);
+        }
     }
 
     @Override
     public void runCounterClockwise() {
-        // TODO Auto-generated method stub
-
+        motor.set(0.5);
     }
 
     @Override
     public void runCounterClockwise(double speed) {
-        // TODO Auto-generated method stub
-
+        motor.set(speed);
     }
 
     @Override
     public void runClockwise() {
-        // TODO Auto-generated method stub
-
+        motor.set(-0.5);
     }
 
     @Override
     public void runClockwise(double speed) {
-        // TODO Auto-generated method stub
-
+        motor.set(-speed);
     }
 
     @Override
@@ -108,6 +125,10 @@ class WheelSubsystem extends BaseWheelSubsystem {
     public void disable() {
         // TODO Auto-generated method stub
 
+    }
+
+    private PKColor generateColorOffset(PKColor color) {
+        return color; // TODO - Implement proper offset generation
     }
 
 }

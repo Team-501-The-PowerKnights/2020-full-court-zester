@@ -10,7 +10,8 @@ package frc.robot.subsystems.drive;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.commands.drive.DriveJoystickControl;
+import frc.robot.commands.drive.DriveDoNothing;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -42,7 +43,7 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "StubDriveSubsystem";
+        final String myClassName = "ProtoDriveSubsystem";
 
         String myPkgName = DriveFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
@@ -55,11 +56,13 @@ public class DriveFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IDriveSubsystem) myObject;
+            ourInstance.setDefaultCommand(new DriveJoystickControl());
             // TODO - make this multi-state, this would be "success" / green
             SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourInstance = new StubDriveSubsystem();
+            ourInstance.setDefaultCommand(new DriveDoNothing());
             // TODO - make this multi-state, this would "degraded" / yellow
             SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
         }

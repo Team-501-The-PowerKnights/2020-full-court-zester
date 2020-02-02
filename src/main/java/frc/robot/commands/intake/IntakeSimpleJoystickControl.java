@@ -5,26 +5,33 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.intake;
 
 import org.slf4j.Logger;
 
-import frc.robot.subsystems.wheel.WheelFactory;
+import frc.robot.OI;
+import frc.robot.commands.PKCommand;
+import frc.robot.subsystems.intake.IIntakeSubsystem;
+import frc.robot.subsystems.intake.IntakeFactory;
 
 import riolog.RioLogger;
 
-public class WheelDoNothing extends PKCommand {
+public class IntakeSimpleJoystickControl extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(WheelDoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(IntakeSimpleJoystickControl.class.getName());
 
-    public WheelDoNothing() {
+    private IIntakeSubsystem intake;
+    private OI oi;
+    private double speed;
+
+    public IntakeSimpleJoystickControl() {
         logger.info("constructing {}", getName());
 
-        addRequirements(WheelFactory.getInstance());
+        intake = IntakeFactory.getInstance();
+        oi = OI.getInstance();
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        WheelFactory.getInstance().setDefaultCommand(this);
+        addRequirements(intake);
 
         logger.info("constructed");
     }
@@ -33,6 +40,14 @@ public class WheelDoNothing extends PKCommand {
     @Override
     public void execute() {
         super.execute();
+
+        speed = oi.getDriverBumperAxis();
+
+        if (speed > 0) {
+            intake.pushOut(speed);
+        } else if (speed < 0) {
+            intake.pullIn(speed);
+        }
     }
 
 }

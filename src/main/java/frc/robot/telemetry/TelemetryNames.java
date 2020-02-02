@@ -16,6 +16,12 @@ public final class TelemetryNames {
         public static final String codeVersion = name + ".codeVersion";
     }
 
+    public final class OI {
+        public static final String name = "OI";
+
+        public static final String status = name + ".status";
+    }
+
     public final class Telemetry {
         public static final String name = "Telemetry";
 

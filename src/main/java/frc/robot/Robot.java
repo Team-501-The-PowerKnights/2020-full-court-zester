@@ -17,13 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.BallevatorDoNothing;
-import frc.robot.commands.ClimberDoNothing;
-import frc.robot.commands.DriveDoNothing;
-import frc.robot.commands.HopperDoNothing;
-import frc.robot.commands.IntakeDoNothing;
-import frc.robot.commands.ShooterDoNothing;
-import frc.robot.commands.WheelDoNothing;
+import frc.robot.commands.ballevator.BallevatorDoNothing;
+import frc.robot.commands.climber.ClimberDoNothing;
+import frc.robot.commands.drive.DriveDoNothing;
+import frc.robot.commands.hopper.HopperDoNothing;
+import frc.robot.commands.intake.IntakeDoNothing;
+import frc.robot.commands.shooter.ShooterDoNothing;
+import frc.robot.commands.wheel.WheelDoNothing;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.sensors.ISensor;
@@ -92,6 +92,10 @@ public class Robot extends TimedRobot {
         TelemetryManager.constructInstance();
         tlmMgr = TelemetryManager.getInstance();
 
+        // Initialize the OI "subsystem"
+        OI.constructInstance();
+        tlmMgr.addProvider(OI.getInstance());
+
         // Create command manager
         SchedulerProvider.constructInstance();
         tlmMgr.addProvider(SchedulerProvider.getInstance());
@@ -102,11 +106,6 @@ public class Robot extends TimedRobot {
         sensors = SensorFactory.constructSensors();
         // Initialize all the subsystems
         subsystems = SubsystemFactory.constructSubsystems();
-
-        // Initialize the OI "subsystem"
-        // TODO - Implement this
-        // OI.constructInstance();
-        // tlmMgr.addProvider(OI.getInstance());
 
         createAutoChooser();
 
@@ -196,7 +195,7 @@ public class Robot extends TimedRobot {
 
         // tlmMgr.sendTelemetry();
         // for (PKCommand c : PKCommand.getActiveCommands()) {
-        //     System.out.println(c.getName());
+        // System.out.println(c.getName());
         // }
     }
 

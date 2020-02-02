@@ -5,32 +5,50 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import org.slf4j.Logger;
+
+import frc.robot.OI;
+import frc.robot.commands.PKCommand;
+import frc.robot.subsystems.drive.DriveFactory;
 import frc.robot.subsystems.drive.IDriveSubsystem;
 
-public class DriveBaseCommand extends CommandBase {
+import riolog.RioLogger;
+
+public class DriveJoystickControl extends PKCommand {
+
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(DriveJoystickControl.class.getName());
 
   private IDriveSubsystem drive;
+  private OI oi;
   private double speed;
   private double turn;
 
   /**
-   * Creates a new DriveBaseCommand.
+   * Creates a new DriveJoystickControl.
    */
-  public DriveBaseCommand(IDriveSubsystem drive, double speed, double turn) {
-    this.drive = drive;
-    this.speed = speed;
-    this.turn = turn;
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveJoystickControl() {
+    logger.info("constructing {}", getName());
+
+    drive = DriveFactory.getInstance();
+    oi = OI.getInstance();
+
     addRequirements(drive);
+
+    logger.info("constructed");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //drive.arcadeDrive(speed, turn);
+    super.execute();
+
+    speed = oi.getDriverLeftYAxis();
+    turn = oi.getDriverRightXAxis();
+
+    drive.drive(speed, turn);
   }
 
   // Returns true when the command should end.
