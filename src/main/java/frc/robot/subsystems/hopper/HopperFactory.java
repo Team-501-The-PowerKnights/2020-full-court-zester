@@ -10,7 +10,7 @@ package frc.robot.subsystems.hopper;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.commands.hopper.HopperDoNothing;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -63,6 +63,8 @@ public class HopperFactory {
             // TODO - make this multi-state, this would "degraded" / yellow
             SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
         }
+
+        ourInstance.setDefaultCommand(new HopperDoNothing());
     }
 
     /**

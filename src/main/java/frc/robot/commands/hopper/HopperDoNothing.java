@@ -24,9 +24,6 @@ public class HopperDoNothing extends PKCommand {
 
         addRequirements(HopperFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        HopperFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

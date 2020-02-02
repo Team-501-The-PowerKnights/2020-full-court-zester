@@ -24,9 +24,6 @@ public class BallevatorDoNothing extends PKCommand {
 
         addRequirements(BallevatorFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        BallevatorFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

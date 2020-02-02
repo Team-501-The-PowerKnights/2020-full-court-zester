@@ -24,9 +24,6 @@ public class ShooterDoNothing extends PKCommand {
 
         addRequirements(ShooterFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        ShooterFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

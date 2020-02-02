@@ -33,9 +33,6 @@ public class IntakeSimpleJoystickControl extends PKCommand {
 
         addRequirements(intake);
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        intake.setDefaultCommand(this);
-
         logger.info("constructed");
     }
 

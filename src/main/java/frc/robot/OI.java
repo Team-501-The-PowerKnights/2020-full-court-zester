@@ -39,7 +39,7 @@ public class OI implements ITelemetryProvider {
 
         ourInstance = new OI();
 
-        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
+        SmartDashboard.putBoolean(TelemetryNames.OI.status, true);
     }
 
     public static OI getInstance() {

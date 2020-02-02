@@ -19,7 +19,7 @@ public final class TelemetryNames {
     public final class OI {
         public static final String name = "OI";
 
-        public static final String status = "OI";
+        public static final String status = name + ".status";
     }
 
     public final class Telemetry {
