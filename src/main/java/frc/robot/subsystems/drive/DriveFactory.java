@@ -9,7 +9,6 @@ package frc.robot.subsystems.drive;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.SubsystemNames;
@@ -43,36 +42,27 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "StubDriveSubsystem";
+        final String myClassName = "StubDriveSubsystem";
 
-        switch (driveClassName) {
+        String myPkgName = DriveFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
 
-        case "DriveSubsystem":
-            logger.info("constructing real {} subsystem", myName);
-            DriveSubsystem.constructInstance();
-            ourInstance = DriveSubsystem.getInstance();
-            break;
-
-        case "ProtoDriveSubsystem":
-            logger.info("constructing proto {} subsystem", myName);
-            ProtoDriveSubsystem.constructInstance();
-            ourInstance = ProtoDriveSubsystem.getInstance();
-            break;
-
-        case "StubDriveSubsystem":
-            logger.info("constructing stub {} subsystem", myName);
-            SuitcaseDriveSubsystem.constructInstance();
-            ourInstance = SuitcaseDriveSubsystem.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} subsystem", myName);
-            SuitcaseDriveSubsystem.constructInstance();
-            ourInstance = SuitcaseDriveSubsystem.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IDriveSubsystem) myObject;
+            // TODO - make this multi-state, this would be "success" / green
+            SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourInstance = new StubDriveSubsystem();
+            // TODO - make this multi-state, this would "degraded" / yellow
+            SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
     }
 
     /**
@@ -88,20 +78,6 @@ public class DriveFactory {
         }
 
         return ourInstance;
-    }
-
-    /**
-     * Returns the singleton instance of the subsystem, but in a <code>class</code>
-     * that the <i>WPILib</i> interface wants.
-     *
-     * @return singleton instance of subsystem
-     */
-    public static Subsystem getWpiSubsystem() {
-        // TODO - Can we get rid of this now?
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
     }
 
 }

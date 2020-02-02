@@ -17,9 +17,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
@@ -27,27 +24,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(SuitcaseDriveSubsystem.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubDriveSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
-    }
-
-    public static IDriveSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     private final TalonSRX leftFrontMotor;
     private final TalonSRX leftRearMotor;

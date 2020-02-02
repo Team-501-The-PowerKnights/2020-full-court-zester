@@ -23,7 +23,4 @@ abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBalleva
     private static final Logger logger = RioLogger.getLogger(BaseBallevatorSubsystem.class.getName());
 
     protected static final String myName = TelemetryNames.Ballevator.name;
-
-    protected static IBallevatorSubsystem ourInstance;
-
 }

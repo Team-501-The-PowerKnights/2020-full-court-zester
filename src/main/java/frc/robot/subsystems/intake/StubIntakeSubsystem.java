@@ -9,35 +9,12 @@ package frc.robot.subsystems.intake;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 public class StubIntakeSubsystem extends BaseIntakeSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(StubIntakeSubsystem.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Intake.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new StubIntakeSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
-    }
-
-    public static IIntakeSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     public StubIntakeSubsystem() {
         logger.info("constructing");

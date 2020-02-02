@@ -9,7 +9,6 @@ package frc.robot.subsystems.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.SubsystemNames;
@@ -43,42 +42,27 @@ public class ShooterFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String ShooterClassName = "StubShooterSubsystem";
+        final String myClassName = "StubShooterSubsystem";
 
-        switch (ShooterClassName) {
+        String myPkgName = ShooterFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
 
-        case "ShooterSubsystem":
-            logger.info("constructing real {} subsystem", myName);
-            ShooterSubsystem.constructInstance();
-            ourInstance = ShooterSubsystem.getInstance();
-            break;
-
-        case "ProtoShooterSubsystem":
-            logger.info("constructing proto {} subsystem", myName);
-            ProtoShooterSubsystem.constructInstance();
-            ourInstance = ProtoShooterSubsystem.getInstance();
-            break;
-
-        case "SuitcaseShooterSubsystem":
-            logger.info("constructing suitcase {} subsystem", myName);
-            SuitcaseShooterSubsystem.constructInstance();
-            ourInstance = SuitcaseShooterSubsystem.getInstance();
-            break;
-
-        case "StubShooterSubsystem":
-            logger.info("constructing stub {} subsystem", myName);
-            StubShooterSubsystem.constructInstance();
-            ourInstance = StubShooterSubsystem.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} subsystem", myName);
-            StubShooterSubsystem.constructInstance();
-            ourInstance = StubShooterSubsystem.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IShooterSubsystem) myObject;
+            // TODO - make this multi-state, this would be "success" / green
+            SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourInstance = new StubShooterSubsystem();
+            // TODO - make this multi-state, this would "degraded" / yellow
+            SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
     }
 
     /**
@@ -94,20 +78,6 @@ public class ShooterFactory {
         }
 
         return ourInstance;
-    }
-
-    /**
-     * Returns the singleton instance of the subsystem, but in a <code>class</code>
-     * that the <i>WPILib</i> interface wants.
-     *
-     * @return singleton instance of subsystem
-     */
-    public static Subsystem getWpiSubsystem() {
-        // TODO - Can we get rid of this now?
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
     }
 
 }

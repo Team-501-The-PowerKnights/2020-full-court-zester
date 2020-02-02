@@ -13,9 +13,7 @@ import frc.robot.telemetry.TelemetryNames;
 /**
  * Add your docs here.
  */
-public abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSubsystem {
+abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSubsystem {
 
     protected static final String myName = TelemetryNames.Shooter.name;
-
-    protected static IShooterSubsystem ourInstance;
 }

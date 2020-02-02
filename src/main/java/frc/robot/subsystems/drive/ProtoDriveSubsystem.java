@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -37,7 +36,6 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.gyro.IGyroSensor;
-import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
@@ -45,27 +43,6 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ProtoDriveSubsystem.class.getName());
-
-    public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new ProtoDriveSubsystem();
-
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
-    }
-
-    public static IDriveSubsystem getInstance() {
-
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " not constructed yet");
-        }
-
-        return ourInstance;
-    }
 
     /**
      * Drive Constants

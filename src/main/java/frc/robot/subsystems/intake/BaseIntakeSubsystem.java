@@ -13,9 +13,8 @@ import frc.robot.telemetry.TelemetryNames;
 /**
  * Add your docs here.
  */
-public abstract class BaseIntakeSubsystem extends SubsystemBase implements IIntakeSubsystem {
+abstract class BaseIntakeSubsystem extends SubsystemBase implements IIntakeSubsystem {
 
     protected static final String myName = TelemetryNames.Intake.name;
 
-    protected static IIntakeSubsystem ourInstance;
 }

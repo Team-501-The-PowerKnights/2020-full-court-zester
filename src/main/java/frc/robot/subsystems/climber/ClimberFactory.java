@@ -9,7 +9,6 @@ package frc.robot.subsystems.climber;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.SubsystemNames;
@@ -43,30 +42,27 @@ public class ClimberFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String ClimberClassName = "StubClimberSubsystem";
+        final String myClassName = "StubClimberSubsystem";
 
-        switch (ClimberClassName) {
+        String myPkgName = ClimberFactory.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
 
-        case "ClimberSubsystem":
-            logger.info("constructing real {} subsystem", myName);
-            ClimberSubsystem.constructInstance();
-            ourInstance = ClimberSubsystem.getInstance();
-            break;
-
-        case "StubClimberSubsystem":
-            logger.info("constructing stub {} subsystem", myName);
-            StubClimberSubsystem.constructInstance();
-            ourInstance = StubClimberSubsystem.getInstance();
-            break;
-
-        default:
-            logger.warn("constructing stub {} subsystem", myName);
-            StubClimberSubsystem.constructInstance();
-            ourInstance = StubClimberSubsystem.getInstance();
-            break;
+        logger.info("constructing {} for {} sensor", myClassName, myName);
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourInstance = (IClimberSubsystem) myObject;
+            // TODO - make this multi-state, this would be "success" / green
+            SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourInstance = new StubClimberSubsystem();
+            // TODO - make this multi-state, this would "degraded" / yellow
+            SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
         }
-
-        SmartDashboard.putBoolean(TelemetryNames.Climber.status, true);
     }
 
     /**
@@ -82,20 +78,6 @@ public class ClimberFactory {
         }
 
         return ourInstance;
-    }
-
-    /**
-     * Returns the singleton instance of the subsystem, but in a <code>class</code>
-     * that the <i>WPILib</i> interface wants.
-     *
-     * @return singleton instance of subsystem
-     */
-    public static Subsystem getWpiSubsystem() {
-        // TODO - Can we get rid of this now?
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
     }
 
 }
