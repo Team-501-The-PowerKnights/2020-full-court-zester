@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.telemetry.TelemetryNames;
@@ -71,6 +72,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
   private CANEncoder turretEncoder;
   private CANPIDController turretPID;
 
+  private DigitalInput limit;
+
   /**
    * Creates a new ShooterSubsystem.
    */
@@ -93,6 +96,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     turretPID.setI(turretI);
     turretPID.setD(turretD);
     turretPID.setFF(turretF);
+
+    limit = new DigitalInput(0);
   }
 
   @Override
@@ -107,7 +112,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void stop() {
-    shootPID.setReference(0, ControlType.kVelocity);
+    shootPID.setReference(0, ControlType.kVoltage);
     motor.set(0.0);
   }
 
@@ -138,8 +143,14 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void home() {
-    // TODO Auto-generated method stub
+    while (!(limit.get())) {
+      motor.set(0.1);
+    }
 
+    if (limit.get()) {
+      turretEncoder.setPosition(0);
+      motor.set(0.0);
+    }
   }
 
   @Override
