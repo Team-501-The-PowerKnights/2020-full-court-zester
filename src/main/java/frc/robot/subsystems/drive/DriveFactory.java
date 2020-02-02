@@ -9,9 +9,8 @@ package frc.robot.subsystems.drive;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.commands.drive.DriveBaseCommand;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -43,7 +42,7 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String driveClassName = "StubDriveSubsystem";
+        final String driveClassName = "ProtoDriveSubsystem";
 
         switch (driveClassName) {
 
@@ -57,6 +56,7 @@ public class DriveFactory {
             logger.info("constructing proto {} subsystem", myName);
             ProtoDriveSubsystem.constructInstance();
             ourInstance = ProtoDriveSubsystem.getInstance();
+            ourInstance.setDefaultCommand(new DriveBaseCommand());
             break;
 
         case "StubDriveSubsystem":
@@ -90,18 +90,6 @@ public class DriveFactory {
         return ourInstance;
     }
 
-    /**
-     * Returns the singleton instance of the subsystem, but in a <code>class</code>
-     * that the <i>WPILib</i> interface wants.
-     *
-     * @return singleton instance of subsystem
-     */
-    public static Subsystem getWpiSubsystem() {
-        // TODO - Can we get rid of this now?
-        if (ourInstance == null) {
-            throw new IllegalStateException(myName + " Not Constructed Yet");
-        }
-        return (Subsystem) ourInstance;
-    }
+    
 
 }
