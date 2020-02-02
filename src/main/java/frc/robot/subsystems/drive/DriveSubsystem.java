@@ -89,6 +89,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
     public DifferentialDriveKinematics driveKinematics;
     public DifferentialDriveOdometry driveOdometry;
 
+    private DriveHelper helper;
+
     public DriveSubsystem() {
         logger.info("constructing");
 
@@ -117,6 +119,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
         trajectoryConfig = new TrajectoryConfig(maxSpeed, maxAcceleration).setKinematics(driveKinematics)
                 .addConstraint(autoVoltageConstraint);
+
+        helper = new DriveHelper();
 
         logger.info("constructed");
     }
@@ -176,19 +180,47 @@ class DriveSubsystem extends BaseDriveSubsystem {
     private static final double turnFactor = 1;
     private static final double speedConstraintFactor = 1;
     private static final double turnConstraintFactor = 1;
+    private static double speed;
+    private static double turn;
+    private static boolean driveConstrained;
+
+    private static double leftSpeed;
+    private static double rightSpeed;
+
+    private final double quickTurnThreshold = 0.2;
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
+        // Save off passed values for telemetry
+        speed = hmiSpeed * speedFactor;
+        turn = hmiTurn * turnFactor;
+
+        boolean quickTurn = (Math.abs(speed) < quickTurnThreshold);
+        DriveSignal driveSignal = helper.cheesyDrive(speed, turn, quickTurn, false);
+
+        arcadeDrive(driveSignal);
     }
 
-    @Override
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        if (constrained) {
-            drive.arcadeDrive(hmiSpeed * speedConstraintFactor, hmiTurn * turnConstraintFactor);
-        } else {
-            drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
-        }
+
+        // Save off passed values for telemetry
+        driveConstrained = constrained;
+        speed = driveConstrained ? hmiSpeed * speedConstraintFactor : hmiSpeed * speedFactor;
+        turn = driveConstrained ? hmiTurn * turnConstraintFactor : hmiTurn * turnFactor;
+
+        boolean quickTurn = (Math.abs(speed) < quickTurnThreshold);
+        DriveSignal driveSignal = helper.cheesyDrive(speed, turn, quickTurn, false);
+
+        arcadeDrive(driveSignal);
+    }
+
+    private void arcadeDrive(DriveSignal driveSignal) {
+        // Save values for telemetry
+        leftSpeed = driveSignal.getLeft();
+        rightSpeed = driveSignal.getRight();
+
+        leftFrontMotor.set(leftSpeed);
+        rightFrontMotor.set(-rightSpeed);
     }
 
     @Override
