@@ -5,26 +5,24 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.intake;
 
 import org.slf4j.Logger;
 
-import frc.robot.subsystems.climber.ClimberFactory;
+import frc.robot.commands.PKCommand;
+import frc.robot.subsystems.intake.IntakeFactory;
 
 import riolog.RioLogger;
 
-public class ClimberDoNothing extends PKCommand {
+public class IntakeDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ClimberDoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(IntakeDoNothing.class.getName());
 
-    public ClimberDoNothing() {
+    public IntakeDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(ClimberFactory.getInstance());
-
-        // FIXME - Kind of hokey; but avoids code sprawl
-        ClimberFactory.getInstance().setDefaultCommand(this);
+        addRequirements(IntakeFactory.getInstance());
 
         logger.info("constructed");
     }

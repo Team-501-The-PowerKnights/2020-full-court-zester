@@ -5,26 +5,27 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
 
-import frc.robot.subsystems.shooter.ShooterFactory;
+import frc.robot.commands.PKCommand;
+import frc.robot.subsystems.climber.ClimberFactory;
 
 import riolog.RioLogger;
 
-public class ShooterDoNothing extends PKCommand {
+public class ClimberDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterDoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ClimberDoNothing.class.getName());
 
-    public ShooterDoNothing() {
+    public ClimberDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(ShooterFactory.getInstance());
+        addRequirements(ClimberFactory.getInstance());
 
         // FIXME - Kind of hokey; but avoids code sprawl
-        ShooterFactory.getInstance().setDefaultCommand(this);
+        ClimberFactory.getInstance().setDefaultCommand(this);
 
         logger.info("constructed");
     }

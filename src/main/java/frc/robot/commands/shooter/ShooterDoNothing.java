@@ -5,26 +5,27 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.subsystems.ballevator.BallevatorFactory;
+import frc.robot.commands.PKCommand;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class BallevatorDoNothing extends PKCommand {
+public class ShooterDoNothing extends PKCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorDoNothing.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterDoNothing.class.getName());
 
-    public BallevatorDoNothing() {
+    public ShooterDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(BallevatorFactory.getInstance());
+        addRequirements(ShooterFactory.getInstance());
 
         // FIXME - Kind of hokey; but avoids code sprawl
-        BallevatorFactory.getInstance().setDefaultCommand(this);
+        ShooterFactory.getInstance().setDefaultCommand(this);
 
         logger.info("constructed");
     }

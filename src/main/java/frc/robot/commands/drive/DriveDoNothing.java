@@ -5,10 +5,11 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommand;
 import frc.robot.subsystems.drive.DriveFactory;
 
 import riolog.RioLogger;
@@ -23,8 +24,8 @@ public class DriveDoNothing extends PKCommand {
 
         addRequirements(DriveFactory.getInstance());
 
-        // FIXME - Kind of hokey; but avoids code sprawl
-        DriveFactory.getInstance().setDefaultCommand(this);
+        // // FIXME - Kind of hokey; but avoids code sprawl
+        // DriveFactory.getInstance().setDefaultCommand(this);
 
         logger.info("constructed");
     }
