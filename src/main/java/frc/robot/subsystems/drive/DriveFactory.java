@@ -43,7 +43,7 @@ public class DriveFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "ProtoDriveSubsystem";
+        final String myClassName = "DriveSubsystem";
 
         String myPkgName = DriveFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
