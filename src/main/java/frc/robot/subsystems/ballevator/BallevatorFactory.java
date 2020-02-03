@@ -10,7 +10,7 @@ package frc.robot.subsystems.ballevator;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ballevator.BallevatorDoNothing;
+import frc.robot.commands.ballevator.BallevatorSimpleJoystickControl;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -64,7 +64,7 @@ public class BallevatorFactory {
             SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
         }
 
-        ourInstance.setDefaultCommand(new BallevatorDoNothing());
+        ourInstance.setDefaultCommand(new BallevatorSimpleJoystickControl());
     }
 
     /**
