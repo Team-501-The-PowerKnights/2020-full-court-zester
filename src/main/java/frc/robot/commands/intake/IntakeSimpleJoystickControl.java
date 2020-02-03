@@ -41,13 +41,8 @@ public class IntakeSimpleJoystickControl extends PKCommand {
     public void execute() {
         super.execute();
 
-        speed = oi.getDriverBumperAxis();
-
-        if (speed > 0) {
-            intake.pushOut(speed);
-        } else if (speed < 0) {
-            intake.pullIn(speed);
-        }
+        speed = oi.getDriverLeftBumper();
+        intake.pullIn(speed);
     }
 
 }
