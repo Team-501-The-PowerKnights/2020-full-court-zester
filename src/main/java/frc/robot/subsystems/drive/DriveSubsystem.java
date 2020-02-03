@@ -111,6 +111,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
         nav = GyroFactory.getInstance();
 
         drive = new DifferentialDrive(left, right);
+        drive.setSafetyEnabled(false);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
 
