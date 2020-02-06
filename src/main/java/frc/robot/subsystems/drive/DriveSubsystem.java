@@ -111,6 +111,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
         nav = GyroFactory.getInstance();
 
         drive = new DifferentialDrive(left, right);
+        drive.setSafetyEnabled(false);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
 
@@ -176,10 +177,10 @@ class DriveSubsystem extends BaseDriveSubsystem {
      * Drive constraint values
      */
 
-    private static final double speedFactor = 1;
-    private static final double turnFactor = 1;
-    private static final double speedConstraintFactor = 1;
-    private static final double turnConstraintFactor = 1;
+    private static final double speedFactor = 0.5;
+    private static final double turnFactor = 0.5;
+    private static final double speedConstraintFactor = 0.5;
+    private static final double turnConstraintFactor = 0.5;
     private static double speed;
     private static double turn;
     private static boolean driveConstrained;

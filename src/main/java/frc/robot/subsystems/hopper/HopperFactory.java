@@ -10,7 +10,7 @@ package frc.robot.subsystems.hopper;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.hopper.HopperDoNothing;
+import frc.robot.commands.hopper.HopperSimpleJoystickControl;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -42,7 +42,7 @@ public class HopperFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "StubHopperSubsystem";
+        final String myClassName = "HopperSubsystem";
 
         String myPkgName = HopperFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
@@ -64,7 +64,7 @@ public class HopperFactory {
             SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
         }
 
-        ourInstance.setDefaultCommand(new HopperDoNothing());
+        ourInstance.setDefaultCommand(new HopperSimpleJoystickControl());
     }
 
     /**
