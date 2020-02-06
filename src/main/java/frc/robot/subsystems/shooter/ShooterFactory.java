@@ -10,7 +10,7 @@ package frc.robot.subsystems.shooter;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.shooter.ShooterDoNothing;
+import frc.robot.commands.shooter.TurretSimpleJoystickControl;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -42,7 +42,7 @@ public class ShooterFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "StubShooterSubsystem";
+        final String myClassName = "ShooterSubsystem";
 
         String myPkgName = ShooterFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
@@ -64,7 +64,7 @@ public class ShooterFactory {
             SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
         }
 
-        ourInstance.setDefaultCommand(new ShooterDoNothing());
+        ourInstance.setDefaultCommand(new TurretSimpleJoystickControl());
     }
 
     /**
