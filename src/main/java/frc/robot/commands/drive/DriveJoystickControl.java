@@ -45,8 +45,8 @@ public class DriveJoystickControl extends PKCommand {
   public void execute() {
     super.execute();
 
-    speed = oi.getDriverLeftYAxis();
-    turn = oi.getDriverRightXAxis();
+    speed = oi.getDriveSpeed();
+    turn = oi.getDriveTurn();
 
     drive.drive(speed, turn);
   }

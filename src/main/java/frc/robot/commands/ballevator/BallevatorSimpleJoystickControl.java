@@ -46,12 +46,12 @@ public class BallevatorSimpleJoystickControl extends PKCommand {
   public void execute() {
     super.execute();
 
-    speed = oi.getOperatorRightYAxis();
+    speed = oi.getBallevatorSpeed();
 
     if (speed > 0.05) {
         ballevator.lift();
     } else if (speed < 0.05) {
-        // ballevator.lower();
+        ballevator.lower();
     } else {
         ballevator.stop();
     }

@@ -46,7 +46,7 @@ public class HopperSimpleJoystickControl extends PKCommand {
   public void execute() {
     super.execute();
 
-    speed = oi.getDriverBumperAxis();
+    speed = oi.getHopperSpeed();
 
     hopper.agitate(speed);
   }
