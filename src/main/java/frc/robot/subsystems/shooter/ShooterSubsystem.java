@@ -124,15 +124,16 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void setTurretAngle(double angle) {
-    if (angle >= turretMaxAngle) {
-      angle = turretMaxAngle;
-    } else if (angle <= turretMinAngle) {
-      angle = turretMinAngle;
-    }
+    // if (angle >= turretMaxAngle) {
+    //   angle = turretMaxAngle;
+    // } else if (angle <= turretMinAngle) {
+    //   angle = turretMinAngle;
+    // }
 
-    double targetCounts = convertTurretAngleToCounts(angle);
+    // double targetCounts = convertTurretAngleToCounts(angle);
 
-    turretPID.setReference(targetCounts, ControlType.kPosition);
+    // turretPID.setReference(targetCounts, ControlType.kPosition);
+    turret.set(angle);
   }
 
   @Override

@@ -69,31 +69,55 @@ public class OI implements ITelemetryProvider {
 
     }
 
-    public double getDriverLeftYAxis() {
+    public double getHopperSpeed() {
+        return getDriverBumperAxis();
+    }
+
+    public double getIntakeSpeed() {
+        return getDriverLeftBumper();
+    }
+
+    public double getDriveSpeed() {
+        return getDriverLeftYAxis();
+    }
+
+    public double getDriveTurn() {
+        return getDriverRightXAxis();
+    }
+
+    public double getBallevatorSpeed() {
+        return getOperatorRightYAxis();
+    }
+
+    public double getTurretIncrement() {
+        return getOperatorBumperAxis();
+    }
+
+    private double getDriverLeftYAxis() {
         return -driverStick.getRawAxis(1);
     }
 
-    public double getDriverRightYAxis() {
+    private double getDriverRightYAxis() {
         return -driverStick.getRawAxis(5);
     }
 
-    public double getDriverLeftXAxis() {
+    private double getDriverLeftXAxis() {
         return driverStick.getRawAxis(0);
     }
 
-    public double getDriverRightXAxis() {
+    private double getDriverRightXAxis() {
         return driverStick.getRawAxis(4);
     }
 
-    public double getDriverLeftBumper() {
+    private double getDriverLeftBumper() {
         return driverStick.getRawAxis(2);
     }
 
-    public double getDriverRightBumper() {
+    private double getDriverRightBumper() {
         return driverStick.getRawAxis(3);
     }
 
-    public double getDriverBumperAxis() {
+    private double getDriverBumperAxis() {
         if (driverStick.getRawAxis(2) > 0.05) {
             return driverStick.getRawAxis(2);
         } else if (driverStick.getRawAxis(3) > 0.05) {
@@ -103,31 +127,31 @@ public class OI implements ITelemetryProvider {
         }
     }
 
-    public double getOperatorLeftYAxis() {
+    private double getOperatorLeftYAxis() {
         return -operatorStick.getRawAxis(1);
     }
 
-    public double getOperatorRightYAxis() {
+    private double getOperatorRightYAxis() {
         return -operatorStick.getRawAxis(5);
     }
 
-    public double getOperatorLeftXAxis() {
+    private double getOperatorLeftXAxis() {
         return operatorStick.getRawAxis(0);
     }
 
-    public double getOperatorRightXAxis() {
+    private double getOperatorRightXAxis() {
         return operatorStick.getRawAxis(4);
     }
 
-    public double getOperatorLeftBumper() {
+    private double getOperatorLeftBumper() {
         return operatorStick.getRawAxis(2);
     }
 
-    public double getOperatorRightBumper() {
+    private double getOperatorRightBumper() {
         return operatorStick.getRawAxis(3);
     }
 
-    public double getOperatorBumperAxis() {
+    private double getOperatorBumperAxis() {
         if (operatorStick.getRawAxis(2) > 0.05) {
             return operatorStick.getRawAxis(2);
         } else if (operatorStick.getRawAxis(3) > 0.05) {
