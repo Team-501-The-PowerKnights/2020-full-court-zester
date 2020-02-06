@@ -77,9 +77,6 @@ class DriveSubsystem extends BaseDriveSubsystem {
     private final CANSparkMax rightFrontMotor;
     private final CANSparkMax rightRearMotor;
 
-    private final SpeedControllerGroup left;
-    private final SpeedControllerGroup right;
-
     private final CANEncoder leftEncoder;
     private final CANEncoder rightEncoder;
 
@@ -99,18 +96,17 @@ class DriveSubsystem extends BaseDriveSubsystem {
         rightFrontMotor = new CANSparkMax(13, MotorType.kBrushless);
         rightRearMotor = new CANSparkMax(14, MotorType.kBrushless);
 
-        left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
-        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+        rightFrontMotor.setInverted(true);
 
-        left.setInverted(false);
-        right.setInverted(true);
+        leftRearMotor.follow(leftFrontMotor);
+        rightRearMotor.follow(rightFrontMotor);
 
         leftEncoder = new CANEncoder(leftFrontMotor);
         rightEncoder = new CANEncoder(rightFrontMotor);
 
         nav = GyroFactory.getInstance();
 
-        drive = new DifferentialDrive(left, right);
+        drive = new DifferentialDrive(leftFrontMotor, rightFrontMotor);
         drive.setSafetyEnabled(false);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
@@ -221,7 +217,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
         rightSpeed = driveSignal.getRight();
 
         leftFrontMotor.set(leftSpeed);
-        rightFrontMotor.set(-rightSpeed);
+        rightFrontMotor.set(rightSpeed);
     }
 
     @Override
