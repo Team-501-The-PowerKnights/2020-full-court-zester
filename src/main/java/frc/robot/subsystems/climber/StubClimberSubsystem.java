@@ -31,31 +31,26 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
 
   @Override
   public void updateTelemetry() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void stop() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void validateCalibration() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void updatePreferences() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void disable() {
-    // TODO Auto-generated method stub
 
   }
 }
