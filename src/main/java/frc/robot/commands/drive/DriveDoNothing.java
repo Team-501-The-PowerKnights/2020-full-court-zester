@@ -24,9 +24,6 @@ public class DriveDoNothing extends PKCommand {
 
         addRequirements(DriveFactory.getInstance());
 
-        // // FIXME - Kind of hokey; but avoids code sprawl
-        // DriveFactory.getInstance().setDefaultCommand(this);
-
         logger.info("constructed");
     }
 
