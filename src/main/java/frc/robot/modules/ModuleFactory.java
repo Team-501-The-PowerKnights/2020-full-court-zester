@@ -12,11 +12,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.telemetry.TelemetryManager;
-import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
 /**
@@ -25,6 +20,7 @@ import riolog.RioLogger;
 public class ModuleFactory {
 
     /** Our classes' logger **/
+    @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(ModuleFactory.class.getName());
 
     // TODO - Implement this
@@ -32,7 +28,7 @@ public class ModuleFactory {
 
         ArrayList<IModule> modules = new ArrayList<IModule>();
 
-        TelemetryManager tlmMgr = TelemetryManager.getInstance();
+        // TelemetryManager tlmMgr = TelemetryManager.getInstance();
 
         // PropertiesManager propsMgr;
 

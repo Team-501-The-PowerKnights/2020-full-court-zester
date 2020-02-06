@@ -23,6 +23,7 @@ import riolog.RioLogger;
 class DriveHelper {
 
    /** Our classes' logger **/
+   @SuppressWarnings("unused")
    private static final Logger logger = RioLogger.getLogger(DriveHelper.class.getName());
 
    private static final double kThrottleDeadband = 0.0;

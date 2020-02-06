@@ -18,6 +18,7 @@ import riolog.RioLogger;
 class DriveSignal {
 
    /** Our classes' logger **/
+   @SuppressWarnings("unused")
    private static final Logger logger = RioLogger.getLogger(DriveSignal.class.getName());
 
    protected double mLeftMotor;
@@ -51,6 +52,7 @@ class DriveSignal {
 
    @Override
    public String toString() {
+      // FIXME - Use StringBuilder (thread safe required?)
       return "L: " + mLeftMotor + ", R: " + mRightMotor + (mBrakeMode ? ", BRAKE" : "");
    }
 
