@@ -87,8 +87,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setBrake(boolean brakeOn) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -105,8 +103,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
-        // TODO Auto-generated method stub
-
     }
 
 }
