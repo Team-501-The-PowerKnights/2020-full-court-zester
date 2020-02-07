@@ -10,8 +10,9 @@ package frc.robot.subsystems.hopper;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.hopper.HopperSimpleManual;
+import frc.robot.commands.hopper.HopperDoNothing;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -42,8 +43,14 @@ public class HopperFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
+        loadImplementationClass();
+
+        loadDefaultCommandClass();
+    }
+
+    private static void loadImplementationClass() {
         // FIXME - Replace with file based configuration
-        final String myClassName = "HopperSubsystem";
+        final String myClassName = "StubHopperSubsystem";
 
         String myPkgName = HopperFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
@@ -64,8 +71,30 @@ public class HopperFactory {
             // TODO - make this multi-state, this would "degraded" / yellow
             SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
         }
+    }
 
-        ourInstance.setDefaultCommand(new HopperSimpleManual());
+    private static void loadDefaultCommandClass() {
+        // FIXME - Replace with file based configuration
+        final String myClassName = "HopperDoNothing";
+
+        String myPkgName = HopperDoNothing.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
+
+        logger.info("constructing {} for {} subsystem", myClassName, myName);
+        Command ourCommand;
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourCommand = (Command) myObject;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourCommand = (Command) new HopperDoNothing();
+        }
+
+        ourInstance.setDefaultCommand(ourCommand);
     }
 
     /**
