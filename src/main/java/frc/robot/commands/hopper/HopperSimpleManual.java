@@ -5,29 +5,29 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.hopper;
 
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.intake.IIntakeSubsystem;
-import frc.robot.subsystems.intake.IntakeFactory;
+import frc.robot.subsystems.hopper.IHopperSubsystem;
+import frc.robot.subsystems.hopper.HopperFactory;
 
 import riolog.RioLogger;
 
-public class IntakeSimpleJoystickControl extends PKManualCommand {
+public class HopperSimpleManual extends PKManualCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(IntakeSimpleJoystickControl.class.getName());
+    private static final Logger logger = RioLogger.getLogger(HopperSimpleManual.class.getName());
 
     // Handle to our subsystem
-    private IIntakeSubsystem intake;
+    private IHopperSubsystem hopper;
 
-    public IntakeSimpleJoystickControl() {
+    public HopperSimpleManual() {
         logger.info("constructing {}", getName());
 
-        intake = IntakeFactory.getInstance();
-        addRequirements(intake);
+        hopper = HopperFactory.getInstance();
+        addRequirements(hopper);
 
         logger.info("constructed");
     }
@@ -37,8 +37,9 @@ public class IntakeSimpleJoystickControl extends PKManualCommand {
     public void execute() {
         super.execute();
 
-        double speed = oi.getIntakeSpeed();
-        intake.pullIn(speed);
+        double speed = oi.getHopperSpeed();
+
+        hopper.agitate(speed);
     }
 
 }

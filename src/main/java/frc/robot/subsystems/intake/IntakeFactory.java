@@ -10,7 +10,8 @@ package frc.robot.subsystems.intake;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.intake.IntakeSimpleJoystickControl;
+
+import frc.robot.commands.intake.IntakeSimpleManual;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -64,7 +65,7 @@ public class IntakeFactory {
             SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
         }
 
-        ourInstance.setDefaultCommand(new IntakeSimpleJoystickControl());
+        ourInstance.setDefaultCommand(new IntakeSimpleManual());
     }
 
     /**

@@ -10,7 +10,8 @@ package frc.robot.subsystems.hopper;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.hopper.HopperSimpleJoystickControl;
+
+import frc.robot.commands.hopper.HopperSimpleManual;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -64,7 +65,7 @@ public class HopperFactory {
             SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
         }
 
-        ourInstance.setDefaultCommand(new HopperSimpleJoystickControl());
+        ourInstance.setDefaultCommand(new HopperSimpleManual());
     }
 
     /**

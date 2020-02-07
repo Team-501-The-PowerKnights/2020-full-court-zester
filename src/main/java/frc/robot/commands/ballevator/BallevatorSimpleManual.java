@@ -15,15 +15,15 @@ import frc.robot.subsystems.ballevator.BallevatorFactory;
 
 import riolog.RioLogger;
 
-public class BallevatorSimpleJoystickControl extends PKManualCommand {
+public class BallevatorSimpleManual extends PKManualCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleJoystickControl.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleManual.class.getName());
 
     // Handle to our subsystem
     private IBallevatorSubsystem ballevator;
 
-    public BallevatorSimpleJoystickControl() {
+    public BallevatorSimpleManual() {
         logger.info("constructing {}", getName());
 
         ballevator = BallevatorFactory.getInstance();

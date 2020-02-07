@@ -10,7 +10,8 @@ package frc.robot.subsystems.shooter;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.shooter.TurretSimpleJoystickControl;
+
+import frc.robot.commands.shooter.TurrentSimpleManual;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -64,7 +65,7 @@ public class ShooterFactory {
             SmartDashboard.putBoolean(TelemetryNames.Shooter.status, true);
         }
 
-        ourInstance.setDefaultCommand(new TurretSimpleJoystickControl());
+        ourInstance.setDefaultCommand(new TurrentSimpleManual());
     }
 
     /**
@@ -81,4 +82,5 @@ public class ShooterFactory {
 
         return ourInstance;
     }
+
 }

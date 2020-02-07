@@ -5,31 +5,41 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hopper;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.hopper.IHopperSubsystem;
-import frc.robot.subsystems.hopper.HopperFactory;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class HopperSimpleJoystickControl extends PKManualCommand {
+public class TurrentSimpleManual extends PKManualCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(HopperSimpleJoystickControl.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurrentSimpleManual.class.getName());
 
     // Handle to our subsystem
-    private IHopperSubsystem hopper;
+    private IShooterSubsystem shooter;
 
-    public HopperSimpleJoystickControl() {
+    private double increment;
+    private double angle;
+
+    public TurrentSimpleManual() {
         logger.info("constructing {}", getName());
 
-        hopper = HopperFactory.getInstance();
-        addRequirements(hopper);
+        shooter = ShooterFactory.getInstance();
+        addRequirements(shooter);
 
         logger.info("constructed");
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        angle = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,9 +47,9 @@ public class HopperSimpleJoystickControl extends PKManualCommand {
     public void execute() {
         super.execute();
 
-        double speed = oi.getHopperSpeed();
+        increment = oi.getTurretIncrement();
 
-        hopper.agitate(speed);
+        shooter.setTurretAngle(/* angle += increment */increment);
     }
 
 }
