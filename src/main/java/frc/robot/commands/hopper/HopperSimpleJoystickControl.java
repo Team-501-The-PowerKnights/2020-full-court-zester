@@ -9,46 +9,37 @@ package frc.robot.commands.hopper;
 
 import org.slf4j.Logger;
 
-import frc.robot.OI;
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKManualCommand;
 import frc.robot.subsystems.hopper.IHopperSubsystem;
 import frc.robot.subsystems.hopper.HopperFactory;
 
 import riolog.RioLogger;
 
-public class HopperSimpleJoystickControl extends PKCommand {
+public class HopperSimpleJoystickControl extends PKManualCommand {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(HopperSimpleJoystickControl.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(HopperSimpleJoystickControl.class.getName());
 
-  private IHopperSubsystem hopper;
-  private OI oi;
-  private double speed;
+    // Handle to our subsystem
+    private IHopperSubsystem hopper;
 
-  public HopperSimpleJoystickControl() {
-    logger.info("constructing {}", getName());
+    public HopperSimpleJoystickControl() {
+        logger.info("constructing {}", getName());
 
-    hopper = HopperFactory.getInstance();
-    oi = OI.getInstance();
+        hopper = HopperFactory.getInstance();
+        addRequirements(hopper);
 
-    addRequirements(hopper);
+        logger.info("constructed");
+    }
 
-    logger.info("constructed");
-  }
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    public void execute() {
+        super.execute();
 
-  @Override
-  public void initialize() {
-    super.initialize();
-  }
+        double speed = oi.getHopperSpeed();
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  public void execute() {
-    super.execute();
-
-    speed = oi.getHopperSpeed();
-
-    hopper.agitate(speed);
-  }
+        hopper.agitate(speed);
+    }
 
 }

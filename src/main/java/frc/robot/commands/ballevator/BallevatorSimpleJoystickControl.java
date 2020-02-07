@@ -9,52 +9,44 @@ package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.OI;
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKManualCommand;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 
 import riolog.RioLogger;
 
-public class BallevatorSimpleJoystickControl extends PKCommand {
+public class BallevatorSimpleJoystickControl extends PKManualCommand {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(BallevatorSimpleJoystickControl.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleJoystickControl.class.getName());
 
-  private IBallevatorSubsystem ballevator;
-  private OI oi;
-  private double speed;
+    // Handle to our subsystem
+    private IBallevatorSubsystem ballevator;
 
-  public BallevatorSimpleJoystickControl() {
-    logger.info("constructing {}", getName());
+    public BallevatorSimpleJoystickControl() {
+        logger.info("constructing {}", getName());
 
-    ballevator = BallevatorFactory.getInstance();
-    oi = OI.getInstance();
+        ballevator = BallevatorFactory.getInstance();
+        addRequirements(ballevator);
 
-    addRequirements(ballevator);
-
-    logger.info("constructed");
-  }
-
-  @Override
-  public void initialize() {
-    super.initialize();
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  public void execute() {
-    super.execute();
-
-    speed = oi.getBallevatorSpeed();
-
-    if (speed > 0.05) {
-        ballevator.lift();
-    } else if (speed < 0.05) {
-        ballevator.lower();
-    } else {
-        ballevator.stop();
+        logger.info("constructed");
     }
-  }
+
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    public void execute() {
+        super.execute();
+
+        double speed = oi.getBallevatorSpeed();
+
+        if (speed > 0.05) {
+            ballevator.lift();
+            // FIXME - Should this be negative?
+        } else if (speed < 0.05) {
+            ballevator.lower();
+        } else {
+            ballevator.stop();
+        }
+    }
 
 }

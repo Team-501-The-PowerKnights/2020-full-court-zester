@@ -9,28 +9,24 @@ package frc.robot.commands.intake;
 
 import org.slf4j.Logger;
 
-import frc.robot.OI;
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKManualCommand;
 import frc.robot.subsystems.intake.IIntakeSubsystem;
 import frc.robot.subsystems.intake.IntakeFactory;
 
 import riolog.RioLogger;
 
-public class IntakeSimpleJoystickControl extends PKCommand {
+public class IntakeSimpleJoystickControl extends PKManualCommand {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(IntakeSimpleJoystickControl.class.getName());
 
+    // Handle to our subsystem
     private IIntakeSubsystem intake;
-    private OI oi;
-    private double speed;
 
     public IntakeSimpleJoystickControl() {
         logger.info("constructing {}", getName());
 
         intake = IntakeFactory.getInstance();
-        oi = OI.getInstance();
-
         addRequirements(intake);
 
         logger.info("constructed");
@@ -41,7 +37,7 @@ public class IntakeSimpleJoystickControl extends PKCommand {
     public void execute() {
         super.execute();
 
-        speed = oi.getIntakeSpeed();
+        double speed = oi.getIntakeSpeed();
         intake.pullIn(speed);
     }
 
