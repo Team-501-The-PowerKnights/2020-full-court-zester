@@ -19,7 +19,7 @@ import riolog.RioLogger;
 public class PKProperties {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(PropertiesManager.class.getName());
+    private static final Logger logger = RioLogger.getLogger(PKProperties.class.getName());
 
     // "Owner" of the properties (mostly for logging)
     private final String owner;
@@ -76,6 +76,16 @@ public class PKProperties {
             retValue = 0.0;
         }
         return retValue;
+    }
+
+    public void listProperties() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("owner ").append(owner).append(" properties:");
+        for (String key : props.keySet()) {
+            buf.append("\n\t");
+            buf.append(key).append(" = ").append(props.get(key));
+        }
+        logger.info(buf.toString());
     }
 
 }

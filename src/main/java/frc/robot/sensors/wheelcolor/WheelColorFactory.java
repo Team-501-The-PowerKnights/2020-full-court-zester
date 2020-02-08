@@ -10,7 +10,8 @@ package frc.robot.sensors.wheelcolor;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.properties.PKProperties;
+import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.SensorNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -41,9 +42,13 @@ public class WheelColorFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
-        // FIXME - Replace with file based configuration
-        final String myClassName = "StubWheelColorSensor";
+        PKProperties props = PropertiesManager.getInstance().getProperties(myName);
+        props.listProperties();
 
+        loadImplementationClass(props.getString("className"));
+    }
+
+    private static void loadImplementationClass(String myClassName) {
         String myPkgName = WheelColorFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("factory class to load {}", classToLoad);

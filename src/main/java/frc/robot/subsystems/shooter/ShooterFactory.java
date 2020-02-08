@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.commands.shooter.ShooterDoNothing;
+import frc.robot.properties.PKProperties;
+import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -43,15 +45,15 @@ public class ShooterFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
-        loadImplementationClass();
+        PKProperties props = PropertiesManager.getInstance().getProperties(myName);
+        props.listProperties();
 
-        loadDefaultCommandClass();
+        loadImplementationClass(props.getString("className"));
+
+        loadDefaultCommandClass(props.getString("defaultCommandName"));
     }
 
-    private static void loadImplementationClass() {
-        // FIXME - Replace with file based configuration
-        final String myClassName = "StubShooterSubsystem";
-
+    private static void loadImplementationClass(String myClassName) {
         String myPkgName = ShooterFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("factory class to load: {}", classToLoad);
@@ -73,10 +75,7 @@ public class ShooterFactory {
         }
     }
 
-    private static void loadDefaultCommandClass() {
-        // FIXME - Replace with file based configuration
-        final String myClassName = "ShooterDoNothing";
-
+    private static void loadDefaultCommandClass(String myClassName) {
         String myPkgName = ShooterDoNothing.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("factory class to load: {}", classToLoad);

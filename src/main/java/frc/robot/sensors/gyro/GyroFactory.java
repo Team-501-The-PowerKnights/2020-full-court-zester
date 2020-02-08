@@ -10,7 +10,8 @@ package frc.robot.sensors.gyro;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.properties.PKProperties;
+import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.SensorNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -30,8 +31,8 @@ public class GyroFactory {
     private static final String myName = SensorNames.gyroName;
 
     /**
-     * Constructs instance of the subsystem. Assumed to be called before any usage
-     * of the sensor; and verifies only called once. Allows controlled startup
+     * Constructs instance of the sensor. Assumed to be called before any usage of
+     * the sensor; and verifies only called once. Allows controlled startup
      * sequencing of the robot and all it's sensors.
      **/
     public static synchronized void constructInstance() {
@@ -41,9 +42,13 @@ public class GyroFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
-        // FIXME - Replace with file based configuration
-        final String myClassName = "ProtoGyroSensor";
+        PKProperties props = PropertiesManager.getInstance().getProperties(myName);
+        props.listProperties();
 
+        loadImplementationClass(props.getString("className"));
+    }
+
+    private static void loadImplementationClass(String myClassName) {
         String myPkgName = GyroFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("factory class to load {}", classToLoad);
