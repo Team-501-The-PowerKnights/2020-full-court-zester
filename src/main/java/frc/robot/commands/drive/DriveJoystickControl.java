@@ -9,52 +9,47 @@ package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
-import frc.robot.OI;
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKManualCommand;
 import frc.robot.subsystems.drive.DriveFactory;
 import frc.robot.subsystems.drive.IDriveSubsystem;
 
 import riolog.RioLogger;
 
-public class DriveJoystickControl extends PKCommand {
+public class DriveJoystickControl extends PKManualCommand {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(DriveJoystickControl.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(DriveJoystickControl.class.getName());
 
-  private IDriveSubsystem drive;
-  private OI oi;
-  private double speed;
-  private double turn;
+    // Handle to our subsystem
+    private IDriveSubsystem drive;
 
-  /**
-   * Creates a new DriveJoystickControl.
-   */
-  public DriveJoystickControl() {
-    logger.info("constructing {}", getName());
+    /**
+     * Creates a new DriveJoystickControl.
+     */
+    public DriveJoystickControl() {
+        logger.info("constructing {}", getName());
 
-    drive = DriveFactory.getInstance();
-    oi = OI.getInstance();
+        drive = DriveFactory.getInstance();
+        addRequirements(drive);
 
-    addRequirements(drive);
+        logger.info("constructed");
+    }
 
-    logger.info("constructed");
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        super.execute();
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    super.execute();
+        double speed = oi.getDriveSpeed();
+        double turn = oi.getDriveTurn();
 
-    speed = oi.getDriveSpeed();
-    turn = oi.getDriveTurn();
+        drive.drive(speed, turn);
+    }
 
-    drive.drive(speed, turn);
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 
 }
