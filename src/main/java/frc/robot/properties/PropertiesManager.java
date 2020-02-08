@@ -98,9 +98,6 @@ public class PropertiesManager {
             // logger.trace("map after sorting: {}", sortedProperties);
 
             props.forEach((k, v) -> sort(k, v));
-
-            listProperties();
-
         } catch (IOException ex) {
             logger.error("Can't load properties from file {}", fileName, ex);
             // FIXME - Need to handle this error and not continue

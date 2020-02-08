@@ -19,6 +19,12 @@ public final class TelemetryNames {
         public static final String codeVersion = name + ".codeVersion";
     }
 
+    public final class Robot {
+        public static final String name = "Robot";
+
+        public static final String robotName = name + ".name";
+    }
+
     /***************
      * Managers
      ***************/

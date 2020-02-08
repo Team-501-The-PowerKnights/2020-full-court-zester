@@ -55,50 +55,56 @@ WheelColor.className = StubWheelColorSensor
 # Ballevator
 #####################
 Ballevator.className = StubBallevatorSubsystem
-Ballevator.defaultCommand = StubDoNothingCommand
+Ballevator.defaultCommandName = BallevatorDoNothing
 
 
 #####################
 # Climber
 #####################
 Climber.className = StubClimberSubsystem
-Climber.defaultCommand = StubDoNothingCommand
+Climber.defaultCommandName = ClimberDoNothing
 
 
 #####################
 # Drive
 #####################
 Drive.className = StubClimberSubsystem
-Drive.defaultCommand = StubDoNothingCommand
+Drive.defaultCommandName = DriveDoNothing
 
 
 #####################
 # Hopper
 #####################
 Hopper.className = StubHopperSubsystem
-Hopper.defaultCommand = StubDoNothingCommand
+Hopper.defaultCommandName = HopperDoNothing
 
 
 #####################
 # Intake
 #####################
 Intake.className = StubIntakeSubsystem
-Intake.defaultCommand = StubDoNothingCommand
+Intake.defaultCommandName = IntakeDoNothing
 
 
 #####################
 # Shooter
 #####################
 Shooter.className = StubShooterSubsystem
-Shooter.defaultCommand = StubDoNothingCommand
+Shooter.defaultCommandName = ShooterDoNothing
 
 
 #####################
 # Wheel
 #####################
 Wheel.className = StubWheelSubsystem
-Wheel.defaultCommand = StubDoNothingCommand
+Wheel.defaultCommandName = WheelDoNothing
 
+
+#####################
+#####################
+# OI
+#####################
+#####################
 
 #####################
 # Driver Gamepad
