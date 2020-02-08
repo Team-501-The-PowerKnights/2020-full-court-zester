@@ -26,6 +26,7 @@ import frc.robot.commands.shooter.ShooterDoNothing;
 import frc.robot.commands.wheel.WheelDoNothing;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
+import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
 import frc.robot.telemetry.SchedulerProvider;
@@ -161,7 +162,7 @@ public class Robot extends TimedRobot {
 
     private void initializeProperties() {
         // TODO - Implement this
-        // PropertiesManager tProps = new PropertiesManager( "" );
+        PropertiesManager.constructInstance();
         // tProps.listProperties();
         // SmartDashboard.putBoolean( Misc.propsStatus, true );
     }

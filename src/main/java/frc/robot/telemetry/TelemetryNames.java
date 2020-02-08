@@ -19,14 +19,18 @@ public final class TelemetryNames {
         public static final String codeVersion = name + ".codeVersion";
     }
 
-    public final class OI {
-        public static final String name = "OI";
+    /***************
+     * Managers
+     ***************/
+
+    public final class Telemetry {
+        public static final String name = "Telemetry";
 
         public static final String status = name + ".status";
     }
 
-    public final class Telemetry {
-        public static final String name = "Telemetry";
+    public final class Properties {
+        public static final String name = "Properties";
 
         public static final String status = name + ".status";
     }
@@ -37,6 +41,16 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
         // The current commands running on the robot
         public static final String currentCommands = name + ".currentCommands";
+    }
+
+    /***************
+     * OI
+     ***************/
+
+    public final class OI {
+        public static final String name = "OI";
+
+        public static final String status = name + ".status";
     }
 
     /***************
