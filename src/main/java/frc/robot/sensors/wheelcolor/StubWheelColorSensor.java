@@ -31,19 +31,23 @@ class StubWheelColorSensor extends BaseWheelColorSensor {
 
     @Override
     public void updatePreferences() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void disable() {
+        // Stub doesn't implement this
     }
 
     @Override
     public PKColor getColor() {
+        // Stub doesn't implement this - returns an invalid color
         return PKColor.invalidTarget;
     }
 
     @Override
     public double getConfidence() {
+        // Stub doesn't implement this - returns 0.0
         return 0.0;
     }
 

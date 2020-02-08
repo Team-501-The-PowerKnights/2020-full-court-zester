@@ -24,42 +24,52 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void periodic() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void validateCalibration() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updatePreferences() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void disable() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updateTelemetry() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void stop() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void shoot(double dist) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void shoot() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void setTurretAngle(double angle) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void home() {
+        // Stub doesn't implement this
     }
 
 }

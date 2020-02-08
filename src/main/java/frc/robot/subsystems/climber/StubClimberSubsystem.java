@@ -15,9 +15,6 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
 
   private static final Logger logger = RioLogger.getLogger(StubClimberSubsystem.class.getName());
 
-  /**
-   * Creates a new ClimberSubsystem.
-   */
   public StubClimberSubsystem() {
     logger.info("constructing");
 
@@ -26,31 +23,31 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Stub doesn't implement this
   }
 
   @Override
   public void updateTelemetry() {
-
+    // Stub doesn't implement this
   }
 
   @Override
   public void stop() {
-
+    // Stub doesn't implement this
   }
 
   @Override
   public void validateCalibration() {
-
+    // Stub doesn't implement this
   }
 
   @Override
   public void updatePreferences() {
-
+    // Stub doesn't implement this
   }
 
   @Override
   public void disable() {
-
+    // Stub doesn't implement this
   }
 }

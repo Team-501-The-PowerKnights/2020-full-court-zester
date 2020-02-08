@@ -87,6 +87,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setBrake(boolean brakeOn) {
+        // No implementation - Suitcase has no Spark Max on its drive
     }
 
     @Override
@@ -103,6 +104,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
+        // No implementation - Suitcase has no motors, so testing path following makes no sense
     }
 
 }

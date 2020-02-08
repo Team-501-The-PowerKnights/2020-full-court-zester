@@ -41,7 +41,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
    */
   public ProtoShooterSubsystem() {
     logger.info("constructing");
-    
+
     motor = new CANSparkMax(50, MotorType.kBrushless);
 
     shootPID = new CANPIDController(motor);
@@ -102,9 +102,11 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void setTurretAngle(double angle) {
+    // No implementation - Protobot doesn't have a turret
   }
 
   @Override
   public void home() {
+    // No implementation - Protobot doesn't have a turret
   }
 }
