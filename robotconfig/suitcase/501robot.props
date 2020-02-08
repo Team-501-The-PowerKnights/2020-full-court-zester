@@ -1,0 +1,111 @@
+############################
+############################
+#
+# Team 501 Robot Properties
+#
+############################
+############################
+
+Robot.name = Suitcase-Bot
+
+
+#####################
+#####################
+# Module Defines
+#####################
+#####################
+
+#####################
+# PDB
+#####################
+PDB.className = StubPDBModule
+
+
+#####################
+#####################
+# Sensor Defines
+#####################
+#####################
+
+#####################
+# Camera
+#####################
+Camera.className = StubCameraSensor
+
+
+#####################
+# Gyro
+#####################
+Gyro.className = StubGyroSensor
+
+
+#####################
+# WheelColor
+#####################
+WheelColor.className = StubWheelColorSensor
+
+
+#####################
+#####################
+# Subsystem Defines
+#####################
+#####################
+
+#####################
+# Ballevator
+#####################
+Ballevator.className = StubBallevatorSubsystem
+Ballevator.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Climber
+#####################
+Climber.className = StubClimberSubsystem
+Climber.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Drive
+#####################
+Drive.className = StubClimberSubsystem
+Drive.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Hopper
+#####################
+Hopper.className = StubHopperSubsystem
+Hopper.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Intake
+#####################
+Intake.className = StubIntakeSubsystem
+Intake.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Shooter
+#####################
+Shooter.className = StubShooterSubsystem
+Shooter.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Wheel
+#####################
+Wheel.className = StubWheelSubsystem
+Wheel.defaultCommand = StubDoNothingCommand
+
+
+#####################
+# Driver Gamepad
+#####################
+
+
+#####################
+# Operator Gamepad
+#####################
+

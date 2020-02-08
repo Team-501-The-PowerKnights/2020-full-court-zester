@@ -42,7 +42,7 @@ public class HopperFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "HopperSubsystem";
+        final String myClassName = "StubHopperSubsystem";
 
         String myPkgName = HopperFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();

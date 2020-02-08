@@ -42,7 +42,7 @@ public class IntakeFactory {
         }
 
         // FIXME - Replace with file based configuration
-        final String myClassName = "IntakeSubsystem";
+        final String myClassName = "StubIntakeSubsystem";
 
         String myPkgName = IntakeFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();

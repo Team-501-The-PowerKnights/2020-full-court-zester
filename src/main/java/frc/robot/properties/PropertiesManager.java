@@ -8,35 +8,60 @@
 package frc.robot.properties;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Pattern;
+
+// import static java.util.stream.Collectors.*;
+// import static java.util.Map.Entry.*;
 
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
+/**
+ * Add your docs here.
+ */
 public class PropertiesManager {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(PropertiesManager.class.getName());
 
+    /* Default fully qualified file name */
+    public static final String defaultFileName = "/home/lvuser/501robot.props";
+
     private static PropertiesManager ourInstance;
+
     private static String myName = "Props";
 
     public static void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
+        SmartDashboard.putBoolean(TelemetryNames.Properties.status, false);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new PropertiesManager();
+        ourInstance = new PropertiesManager(defaultFileName);
 
-        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
+        SmartDashboard.putBoolean(TelemetryNames.Properties.status, true);
+    }
+
+    public static void constructInstance(String fileName) {
+        SmartDashboard.putBoolean(TelemetryNames.Properties.status, false);
+
+        if (ourInstance != null) {
+            throw new IllegalStateException(myName + " already constructed");
+        }
+
+        ourInstance = new PropertiesManager(fileName);
+
+        SmartDashboard.putBoolean(TelemetryNames.Properties.status, true);
     }
 
     public static PropertiesManager getInstance() {
@@ -46,41 +71,94 @@ public class PropertiesManager {
         return ourInstance;
     }
 
-    private static String fileName = ""; // TODO - determine actual file name
+    private final Map<String, Map<String, String>> ownerProperties;
 
-    private static BufferedReader reader;
-    private static Properties props;
+    private PropertiesManager(String fileName) {
+        logger.debug("file: {}", fileName);
 
-    private PropertiesManager() {
+        ownerProperties = new HashMap<String, Map<String, String>>();
+
         try {
-            reader = new BufferedReader(new FileReader(fileName));
-
-            props = new Properties();
+            // Reader for properties file
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            // Use Properties class for conviencence to read & parse file
+            Properties props = new Properties();
             props.load(reader);
+            logger.trace("properties as read: {}", props);
 
-        } catch (FileNotFoundException ex) { // Possibly thrown by construction of BufferedReader
-            logger.error("Can't create a reader from file {} because {} ", fileName, ex.getMessage());
+            // Map<String, String> rawProperties = props.entrySet().stream()
+            // .collect(Collectors.toMap(e -> e.getKey().toString(), e ->
+            // e.getValue().toString()));
+            // logger.trace("map before sorting: {}", rawProperties);
 
-        } catch (IOException ex) { // Possibly thrown from loading properties from the BufferedReader
-            logger.error("Can't load properties from file {} because {}", fileName, ex.getMessage());
+            // Map<String, String> sortedProperties =
+            // rawProperties.entrySet().stream().sorted(comparingByKey())
+            // .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+            // LinkedHashMap::new));
+            // logger.trace("map after sorting: {}", sortedProperties);
 
+            props.forEach((k, v) -> sort(k, v));
+
+            listProperties();
+
+        } catch (IOException ex) {
+            logger.error("Can't load properties from file {}", fileName, ex);
+            // FIXME - Need to handle this error and not continue
         }
     }
 
-    public double getDouble(String key) {
-        return Double.parseDouble(props.getProperty(key));
+    // Expression to parse "owner.property"
+    private final Pattern pattern = Pattern.compile("\\.");
+
+    /**
+     * 
+     * @param arg0 - key of set
+     * @param arg1 - value of set (don't care but need for method)
+     */
+    private void sort(Object arg0, Object arg1) {
+        // Cast arguments into strings
+        String key = (String) arg0;
+        String value = (String) arg1;
+        // Splits "argument" into its subsystem and property parts
+        String[] keys = pattern.split(key);
+        // Assigns subsystem and property keys
+        String ownerKey = keys[0];
+        String propKey = keys[1];
+        // Check if the subsystem-organized array already contains an entry for the
+        // subsystem
+        if (!(ownerProperties.containsKey(ownerKey))) {
+            // If it doesn't, create one
+            ownerProperties.put(ownerKey, new HashMap<String, String>());
+        }
+        // Now there has to be a subsystem entry, so we assign the values into that
+        // subsystem's corresponding PKProperties Object
+        ownerProperties.get(ownerKey).put(propKey, value);
     }
 
-    public int getInteger(String key) {
-        return Integer.parseInt(props.getProperty(key));
+    public PKProperties getProperties(String owner) {
+        if (ownerProperties.containsKey(owner)) {
+            return new PKProperties(owner, ownerProperties.get(owner));
+        } else {
+            logger.error("Properties for owner {} don't exist");
+            return new PKProperties(owner, new HashMap<String, String>());
+        }
     }
 
-    public boolean getBoolean(String key) {
-        return Boolean.parseBoolean(props.getProperty(key));
+    public void listProperties() {
+        for (String owner : ownerProperties.keySet()) {
+            listProperties(owner);
+        }
     }
 
-    public String getString(String key) {
-        return props.getProperty(key);
+    public void listProperties(String owner) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("owner ").append(owner).append(" properties:");
+        Map<String, String> props = ownerProperties.get(owner);
+        for (String key : props.keySet()) {
+            buf.append("\n\t");
+            buf.append(key).append(" = ").append(props.get(key));
+        }
+        logger.info(buf.toString());
     }
 
 }
