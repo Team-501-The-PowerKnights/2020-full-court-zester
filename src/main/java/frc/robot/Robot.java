@@ -17,13 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ballevator.BallevatorDoNothing;
-import frc.robot.commands.climber.ClimberDoNothing;
-import frc.robot.commands.drive.DriveDoNothing;
-import frc.robot.commands.hopper.HopperDoNothing;
-import frc.robot.commands.intake.IntakeDoNothing;
-import frc.robot.commands.shooter.ShooterDoNothing;
-import frc.robot.commands.wheel.WheelDoNothing;
+
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.properties.PropertiesManager;
@@ -122,15 +116,6 @@ public class Robot extends TimedRobot {
         // initSubsystems();
         m_robotContainer = new RobotContainer();
 
-        // TODO - Remove these debug things
-        new BallevatorDoNothing();
-        new ClimberDoNothing();
-        new DriveDoNothing();
-        new HopperDoNothing();
-        new IntakeDoNothing();
-        new ShooterDoNothing();
-        new WheelDoNothing();
-
         logger.info("initialized");
     }
 
@@ -161,10 +146,13 @@ public class Robot extends TimedRobot {
     }
 
     private void initializeProperties() {
-        // TODO - Implement this
         PropertiesManager.constructInstance();
-        // tProps.listProperties();
-        // SmartDashboard.putBoolean( Misc.propsStatus, true );
+        // We don't list (all) properties here; but with items as created
+
+        // FIXME - Finish this to put name of robot onto dashboard
+        // PKProperties props =
+        // PropertiesManager.getInstance().getProperties(TelemetryNames.Robot.name);
+        // SmartDashboard.putBoolean(TelemetryNames.Robot.name, false);
     }
 
     private void createAutoChooser() {
