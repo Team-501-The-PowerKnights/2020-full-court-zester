@@ -16,9 +16,9 @@ Robot.name = Suitcase-Bot
 #####################
 
 #####################
-# PDB
+# PDP
 #####################
-PDB.className = StubPDBModule
+PDP.className = StubPDPModule
 
 
 #####################

@@ -32,23 +32,23 @@ public class ModuleFactory {
 
         // PropertiesManager propsMgr;
 
-        // SmartDashboard.putBoolean( TelemetryNames.PDB.status, false );
+        // SmartDashboard.putBoolean( TelemetryNames.PDP.status, false );
         // {
-        // propsMgr = new PropertiesManager( PropertyNames.PDB.name );
+        // propsMgr = new PropertiesManager( PropertyNames.PDP.name );
         // boolean realModule =
-        // propsMgr.getBoolean( PropertyNames.PDB.useRealModule );
+        // propsMgr.getBoolean( PropertyNames.PDP.useRealModule );
 
         // if ( realModule )
         // {
-        // PDBModule.constructInstance();
-        // IModule ss = PDBModule.getInstance();
+        // PDPModule.constructInstance();
+        // IModule ss = PDPModule.getInstance();
         // tlmMgr.addProvider( ss );
         // modules.add( ss );
         // }
         // else
         // {
-        // logger.warn( "stub PDBModule being instantiated" );
-        // frc.robot.modules.stubs.PDBModule.constructInstance();
+        // logger.warn( "stub PDPModule being instantiated" );
+        // frc.robot.modules.stubs.PDPModule.constructInstance();
         // }
         // }
 
