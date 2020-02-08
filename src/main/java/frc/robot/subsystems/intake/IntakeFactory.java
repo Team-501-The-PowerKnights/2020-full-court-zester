@@ -10,7 +10,9 @@ package frc.robot.subsystems.intake;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.intake.IntakeSimpleJoystickControl;
+import edu.wpi.first.wpilibj2.command.Command;
+
+import frc.robot.commands.intake.IntakeDoNothing;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -41,8 +43,14 @@ public class IntakeFactory {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
+        loadImplementationClass();
+
+        loadDefaultCommandClass();
+    }
+
+    private static void loadImplementationClass() {
         // FIXME - Replace with file based configuration
-        final String myClassName = "IntakeSubsystem";
+        final String myClassName = "StubIntakeSubsystem";
 
         String myPkgName = IntakeFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
@@ -63,8 +71,30 @@ public class IntakeFactory {
             // TODO - make this multi-state, this would "degraded" / yellow
             SmartDashboard.putBoolean(TelemetryNames.Intake.status, true);
         }
+    }
 
-        ourInstance.setDefaultCommand(new IntakeSimpleJoystickControl());
+    private static void loadDefaultCommandClass() {
+        // FIXME - Replace with file based configuration
+        final String myClassName = "IntakeDoNothing";
+
+        String myPkgName = IntakeDoNothing.class.getPackage().getName();
+        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
+        logger.debug("factory class to load: {}", classToLoad);
+
+        logger.info("constructing {} for {} subsystem", myClassName, myName);
+        Command ourCommand;
+        try {
+            @SuppressWarnings("rawtypes")
+            Class myClass = Class.forName(classToLoad);
+            @SuppressWarnings("deprecation")
+            Object myObject = myClass.newInstance();
+            ourCommand = (Command) myObject;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            logger.error("failed to load class; instantiating default stub for: {}", myName);
+            ourCommand = (Command) new IntakeDoNothing();
+        }
+
+        ourInstance.setDefaultCommand(ourCommand);
     }
 
     /**
