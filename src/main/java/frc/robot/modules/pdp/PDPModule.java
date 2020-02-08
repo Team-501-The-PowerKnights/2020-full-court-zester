@@ -31,22 +31,22 @@ class PDPModule extends BasePDPModule {
 
     @Override
     public double getBusVoltage() {
-        return getBusVoltage();
+        return pdp.getVoltage();
     }
 
     @Override
     public double getTotalCurrent() {
-        return getTotalCurrent();
+        return pdp.getTotalCurrent();
     }
 
     @Override
     public double getTotalEnergy() {
-        return getTotalEnergy();
+        return pdp.getTotalEnergy();
     }
 
     @Override
     public double getCurrent(int deviceID) {
-        return getCurrent(deviceID);
+        return pdp.getCurrent(deviceID);
     }
 
     @Override
