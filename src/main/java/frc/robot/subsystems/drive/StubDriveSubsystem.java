@@ -29,38 +29,47 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void validateCalibration() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updatePreferences() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void disable() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updateTelemetry() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void stop() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void setBrake(boolean brakeOn) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
+        // Stub doesn't implement this
     }
 
 }

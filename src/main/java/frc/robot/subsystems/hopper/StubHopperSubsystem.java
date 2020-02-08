@@ -24,34 +24,42 @@ public class StubHopperSubsystem extends BaseHopperSubsystem {
 
     @Override
     public void periodic() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void validateCalibration() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updatePreferences() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void disable() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updateTelemetry() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void stop() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void agitate() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void agitate(double speed) {
+        // Stub doesn't implement this
     }
 
 }

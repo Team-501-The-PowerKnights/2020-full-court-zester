@@ -24,42 +24,52 @@ public class StubIntakeSubsystem extends BaseIntakeSubsystem {
 
     @Override
     public void periodic() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void validateCalibration() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updatePreferences() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void disable() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void updateTelemetry() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void stop() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void pullIn() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void pullIn(double speed) {
+        // Stub doesn't implement this
     }
 
     @Override
     public void pushOut() {
+        // Stub doesn't implement this
     }
 
     @Override
     public void pushOut(double speed) {
+        // Stub doesn't implement this
     }
 
 }
