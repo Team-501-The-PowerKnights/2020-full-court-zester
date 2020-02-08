@@ -87,8 +87,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setBrake(boolean brakeOn) {
-        // TODO Auto-generated method stub
-
+        // No implementation - Suitcase has no Spark Max on its drive
     }
 
     @Override
@@ -105,8 +104,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
-        // TODO Auto-generated method stub
-
+        // No implementation - Suitcase has no motors, so testing path following makes no sense
     }
 
 }
