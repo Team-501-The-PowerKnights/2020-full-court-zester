@@ -7,9 +7,9 @@
 
 package frc.robot.modules.pdp;
 
-import frc.robot.telemetry.ITelemetryProvider;
+import frc.robot.modules.IModule;
 
-public interface IPDPModule extends ITelemetryProvider {
+public interface IPDPModule extends IModule {
 
     public double getBusVoltage();
 

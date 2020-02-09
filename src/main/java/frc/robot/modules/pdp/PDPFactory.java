@@ -10,7 +10,7 @@ package frc.robot.modules.pdp;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleNames;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -25,7 +25,7 @@ public class PDPFactory {
     private static final Logger logger = RioLogger.getLogger(PDPFactory.class.getName());
 
     /** Singleton instance of class for all to use **/
-    private static IPDPModule ourInstance;
+    private static IModule ourInstance;
     /** Name of our module **/
     private static final String myName = ModuleNames.pdpName;
 
@@ -50,7 +50,7 @@ public class PDPFactory {
 
         String myPkgName = PDPFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load: {}", classToLoad);
+        logger.debug("class to load: {}", classToLoad);
 
         logger.info("constructing {} for {} module", myClassName, myName);
         try {
@@ -58,7 +58,7 @@ public class PDPFactory {
             Class myClass = Class.forName(classToLoad);
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
-            ourInstance = (IPDPModule) myObject;
+            ourInstance = (IModule) myObject;
             // TODO - make this multi-state, this would be "success" / green
             SmartDashboard.putBoolean(TelemetryNames.PDP.status, true);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
@@ -76,7 +76,7 @@ public class PDPFactory {
      *
      * @return singleton instance of module
      **/
-    public static IPDPModule getInstance() {
+    public static IModule getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

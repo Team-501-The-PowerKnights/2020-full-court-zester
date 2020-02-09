@@ -56,4 +56,16 @@ class PDPModule extends BasePDPModule {
         SmartDashboard.putNumber(TelemetryNames.PDP.totalEnergy, getTotalEnergy());
     }
 
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

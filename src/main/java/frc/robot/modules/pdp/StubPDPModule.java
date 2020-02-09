@@ -51,4 +51,16 @@ class StubPDPModule extends BasePDPModule {
         // No stub implementation
     }
 
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
