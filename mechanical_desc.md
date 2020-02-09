@@ -14,6 +14,8 @@
 - (Future) Actuation up-down... unsure how
 - 1x 775Pro (Talon)
 -- Dumb on/off, maybe tune speed, may need reverse to un-jam
+- 1x 775Pro (Talon)
+-- Position control with encoders
 
 # Ballevator
 - Ballevator itself: 1 775Pro (Talon)
