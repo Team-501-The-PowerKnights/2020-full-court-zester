@@ -7,6 +7,7 @@
 
 package frc.robot.telemetry;
 
+import frc.robot.modules.ModuleNames;
 import frc.robot.sensors.SensorNames;
 import frc.robot.subsystems.SubsystemNames;
 
@@ -23,6 +24,7 @@ public final class TelemetryNames {
     /***************
      * Modules
      ***************/
+
     public final class PDP {
         public static final String name = "PDP";
 
@@ -71,6 +73,20 @@ public final class TelemetryNames {
         public static final String name = "OI";
 
         public static final String status = name + ".status";
+    }
+
+    public static class HMI {
+        private static final String name = SubsystemNames.hmiName;
+
+        public static final String rawSpeed = name + ".rawSpeed";
+        public static final String rawTurn = name + ".rawTurn";
+        public static final String turbo = name + ".turbo";
+        public static final String crawl = name + ".crawl";
+        public static final String reversed = name + ".reversed";
+
+        public static final String speed = name + ".speed";
+        public static final String turn = name + ".turn";
+        public static final String constrained = name + ".constrained";
     }
 
     /***************
@@ -156,13 +172,43 @@ public final class TelemetryNames {
     }
 
     /***************
-     * Vision
+     * Camera
      ***************/
 
     public final class Camera {
         public static final String name = SensorNames.cameraName;
 
         public static final String status = name + ".status";
+    }
+
+    /***************
+     * Vision
+     ***************/
+
+    public final class RPI {
+        public static final String name = ModuleNames.rpiName;
+
+        //
+        public static final String clockSpeed = name + ".clock_speed";
+        //
+        public static final String freeMemory = name + ".free_memory";
+        //
+        public static final String socTemp = name + ".soc_temp";
+    }
+
+    public final class Vision {
+        public static final String name = ModuleNames.visionName;
+
+        // Set by the vision program running on R-PI
+        public static final String status = name + ".status";
+        // Running count for iterations of program
+        public static final String heart_beat = name + ".heart_beat";
+        // Valid solution?
+        public static final String locked = name + ".locked";
+        // Delta offset (+ CCW; rotate CW to fix & - CW; rotate CCW to fix)
+        public static final String angle = name + ".angle";
+        // Incremented every time
+        public static final String count = name + ".count";
     }
 
 }
