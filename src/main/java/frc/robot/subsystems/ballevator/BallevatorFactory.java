@@ -17,6 +17,7 @@ import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -39,7 +40,7 @@ public class BallevatorFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -65,13 +66,11 @@ public class BallevatorFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IBallevatorSubsystem) myObject;
-            // TODO - make this multi-state, this would be "success" / green
-            SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourInstance = new StubBallevatorSubsystem();
-            // TODO - make this multi-state, this would "degraded" / yellow
-            SmartDashboard.putBoolean(TelemetryNames.Ballevator.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.degraded.tlmValue);
         }
     }
 
@@ -91,6 +90,7 @@ public class BallevatorFactory {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourCommand = (Command) new BallevatorDoNothing();
+            SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.degraded.tlmValue);
         }
 
         ourInstance.setDefaultCommand(ourCommand);

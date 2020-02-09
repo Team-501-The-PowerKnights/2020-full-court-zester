@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -31,15 +32,17 @@ public class OI implements ITelemetryProvider {
     private final static String myName = TelemetryNames.OI.name;
 
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.OI.status, false);
+        SmartDashboard.putNumber(TelemetryNames.OI.status, PKStatus.unknown.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " already constructed");
         }
 
+        SmartDashboard.putNumber(TelemetryNames.OI.status, PKStatus.inProgress.tlmValue);
+
         ourInstance = new OI();
 
-        SmartDashboard.putBoolean(TelemetryNames.OI.status, true);
+        SmartDashboard.putNumber(TelemetryNames.OI.status, PKStatus.success.tlmValue);
     }
 
     public static OI getInstance() {

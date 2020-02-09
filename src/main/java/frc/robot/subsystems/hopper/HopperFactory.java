@@ -17,7 +17,7 @@ import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
-
+import frc.robot.utils.PKStatus;
 import riolog.RioLogger;
 
 /**
@@ -39,7 +39,7 @@ public class HopperFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Hopper.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -65,13 +65,11 @@ public class HopperFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IHopperSubsystem) myObject;
-            // TODO - make this multi-state, this would be "success" / green
-            SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourInstance = new StubHopperSubsystem();
-            // TODO - make this multi-state, this would "degraded" / yellow
-            SmartDashboard.putBoolean(TelemetryNames.Hopper.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.degraded.tlmValue);
         }
     }
 
@@ -91,6 +89,7 @@ public class HopperFactory {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourCommand = (Command) new HopperDoNothing();
+            SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.degraded.tlmValue);
         }
 
         ourInstance.setDefaultCommand(ourCommand);

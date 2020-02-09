@@ -18,6 +18,7 @@ import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -36,7 +37,7 @@ public class SensorFactory {
 
         TelemetryManager tlmMgr = TelemetryManager.getInstance();
 
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Gyro.status, PKStatus.unknown.tlmValue);
         {
             GyroFactory.constructInstance();
             ISensor s = GyroFactory.getInstance();
@@ -44,7 +45,7 @@ public class SensorFactory {
             sensors.add(s);
         }
 
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
+        SmartDashboard.putNumber(TelemetryNames.WheelColor.status, PKStatus.unknown.tlmValue);
         {
             WheelColorFactory.constructInstance();
             ISensor s = WheelColorFactory.getInstance();

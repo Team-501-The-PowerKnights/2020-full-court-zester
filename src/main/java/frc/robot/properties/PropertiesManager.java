@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -43,31 +44,25 @@ public class PropertiesManager {
     private static String myName = "Props";
 
     public static void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Properties.status, false);
+        constructInstance(defaultFileName);
+    }
+
+    public static void constructInstance(String fileName) {
+        SmartDashboard.putNumber(TelemetryNames.Properties.status, PKStatus.unknown.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " already constructed");
         }
 
-        ourInstance = new PropertiesManager(defaultFileName);
+        SmartDashboard.putNumber(TelemetryNames.Properties.status, PKStatus.inProgress.tlmValue);
+
+        ourInstance = new PropertiesManager(fileName);
 
         // Put name of robot onto dashboard
         String robotName = ourInstance.getProperties(PropertyNames.Robot.name).getString("name");
         SmartDashboard.putString(TelemetryNames.Misc.robotName, robotName);
 
-        SmartDashboard.putBoolean(TelemetryNames.Properties.status, true);
-    }
-
-    public static void constructInstance(String fileName) {
-        SmartDashboard.putBoolean(TelemetryNames.Properties.status, false);
-
-        if (ourInstance != null) {
-            throw new IllegalStateException(myName + " already constructed");
-        }
-
-        ourInstance = new PropertiesManager(fileName);
-
-        SmartDashboard.putBoolean(TelemetryNames.Properties.status, true);
+        SmartDashboard.putNumber(TelemetryNames.Properties.status, PKStatus.success.tlmValue);
     }
 
     public static PropertiesManager getInstance() {
@@ -80,6 +75,8 @@ public class PropertiesManager {
     private final Map<String, Map<String, String>> ownerProperties;
 
     private PropertiesManager(String fileName) {
+        logger.info("constructing");
+
         logger.debug("file: {}", fileName);
 
         ownerProperties = new HashMap<String, Map<String, String>>();
@@ -103,6 +100,8 @@ public class PropertiesManager {
             logger.error("Can't load properties from file {}", fileName, ex);
             // FIXME - Need to handle this error and not continue
         }
+
+        logger.info("constructed");
     }
 
     // Expression to parse "owner.property"

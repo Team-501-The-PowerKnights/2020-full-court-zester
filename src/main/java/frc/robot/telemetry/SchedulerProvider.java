@@ -16,6 +16,8 @@ import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.utils.PKStatus;
+
 import riolog.RioLogger;
 
 /**
@@ -24,7 +26,6 @@ import riolog.RioLogger;
 public class SchedulerProvider implements ITelemetryProvider {
 
     /* Our classes logger */
-    @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(SchedulerProvider.class.getName());
 
     /** Singleton instance of class for all to use **/
@@ -38,14 +39,17 @@ public class SchedulerProvider implements ITelemetryProvider {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Scheduler.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Scheduler.status, PKStatus.unknown.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
         }
+
+        SmartDashboard.putNumber(TelemetryNames.Scheduler.status, PKStatus.inProgress.tlmValue);
+
         ourInstance = new SchedulerProvider();
 
-        SmartDashboard.putBoolean(TelemetryNames.Scheduler.status, true);
+        SmartDashboard.putNumber(TelemetryNames.Scheduler.status, PKStatus.success.tlmValue);
     }
 
     /**
@@ -68,12 +72,16 @@ public class SchedulerProvider implements ITelemetryProvider {
     private final StringBuilder names;
 
     private SchedulerProvider() {
+        logger.info("constructing");
+
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         liveWindow = inst.getTable("LiveWindow");
         ungrouped = liveWindow.getSubTable("Ungrouped");
         scheduler = ungrouped.getSubTable("Scheduler");
 
         names = new StringBuilder();
+
+        logger.info("constructed");
     }
 
     @Override

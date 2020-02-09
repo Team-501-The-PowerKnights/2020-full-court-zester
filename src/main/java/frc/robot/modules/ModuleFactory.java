@@ -13,9 +13,12 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.modules.pdp.PDPFactory;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
+
 import riolog.RioLogger;
 
 /**
@@ -27,14 +30,13 @@ public class ModuleFactory {
     @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(ModuleFactory.class.getName());
 
-    // TODO - Implement this
     public static List<IModule> constructModules() {
 
         ArrayList<IModule> modules = new ArrayList<IModule>();
 
         TelemetryManager tlmMgr = TelemetryManager.getInstance();
 
-        SmartDashboard.putBoolean(TelemetryNames.PDP.status, false);
+        SmartDashboard.putNumber(TelemetryNames.PDP.status, PKStatus.unknown.tlmValue);
         {
             PDPFactory.constructInstance();
             IModule m = PDPFactory.getInstance();
