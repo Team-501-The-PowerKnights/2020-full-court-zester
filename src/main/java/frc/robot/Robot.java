@@ -26,7 +26,6 @@ import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
-import frc.robot.telemetry.TelemetryNames.Misc;
 import frc.robot.telemetry.TelemetryNames.Preferences;
 import frc.robot.subsystems.ISubsystem;
 import frc.robot.subsystems.SubsystemFactory;
@@ -142,13 +141,16 @@ public class Robot extends TimedRobot {
     }
 
     private void intializePreferences() {
-        SmartDashboard.putBoolean( Preferences.status, false );
+        // Needs to be here or conflict with class from WPILib? wth?
+        SmartDashboard.putBoolean(Preferences.status, false);
+
         PreferencesInitializer.initialize();
-        PreferencesInitializer.dumpPreferences();
-        SmartDashboard.putBoolean( Preferences.status, true );
+
+        SmartDashboard.putBoolean(Preferences.status, true);
     }
 
     private void initializeProperties() {
+        // Reads and stores all the properties
         PropertiesManager.constructInstance();
 
         PropertiesManager.getInstance().listProperties();
