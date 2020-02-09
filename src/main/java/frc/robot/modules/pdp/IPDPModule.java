@@ -5,19 +5,18 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors;
+package frc.robot.modules.pdp;
 
-/**
- * Provides a standard way of defining names for the <i>Sensors</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
- **/
-public class SensorNames {
+import frc.robot.modules.IModule;
 
-    public static final String gyroName = "Gyro";
+public interface IPDPModule extends IModule {
 
-    public static final String wheelColorName = "WheelColor";
+    public double getBusVoltage();
 
-    public static final String cameraName = "Camera";
+    public double getTotalCurrent();
+
+    public double getTotalEnergy();
+
+    public double getCurrent(int deviceID);
 
 }

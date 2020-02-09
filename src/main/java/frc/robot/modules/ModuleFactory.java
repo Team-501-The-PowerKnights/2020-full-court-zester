@@ -12,6 +12,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.modules.pdp.PDPFactory;
+import frc.robot.telemetry.TelemetryManager;
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 /**
@@ -28,29 +32,15 @@ public class ModuleFactory {
 
         ArrayList<IModule> modules = new ArrayList<IModule>();
 
-        // TelemetryManager tlmMgr = TelemetryManager.getInstance();
+        TelemetryManager tlmMgr = TelemetryManager.getInstance();
 
-        // PropertiesManager propsMgr;
-
-        // SmartDashboard.putBoolean( TelemetryNames.PDB.status, false );
-        // {
-        // propsMgr = new PropertiesManager( PropertyNames.PDB.name );
-        // boolean realModule =
-        // propsMgr.getBoolean( PropertyNames.PDB.useRealModule );
-
-        // if ( realModule )
-        // {
-        // PDBModule.constructInstance();
-        // IModule ss = PDBModule.getInstance();
-        // tlmMgr.addProvider( ss );
-        // modules.add( ss );
-        // }
-        // else
-        // {
-        // logger.warn( "stub PDBModule being instantiated" );
-        // frc.robot.modules.stubs.PDBModule.constructInstance();
-        // }
-        // }
+        SmartDashboard.putBoolean(TelemetryNames.PDP.status, false);
+        {
+            PDPFactory.constructInstance();
+            IModule m = PDPFactory.getInstance();
+            tlmMgr.addProvider(m);
+            modules.add(m);
+        }
 
         return modules;
     }

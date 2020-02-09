@@ -23,7 +23,7 @@ public class PreferencesNames {
     }
 
     public final class Shooter {
-        public static final String name = SubsystemNames.driveName;
+        public static final String name = SubsystemNames.shooterName;
         public static final String p = name + ".P";
         public static final String i = name + ".I";
         public static final String d = name + ".D";

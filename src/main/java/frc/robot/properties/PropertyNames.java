@@ -15,8 +15,8 @@ import frc.robot.subsystems.SubsystemNames;
  */
 public class PropertyNames {
 
-    public final class Telemetry {
-        public static final String name = "Telemetry";
+    public final class Robot {
+        public static final String name = "Robot";
     }
 
     /***************
@@ -69,6 +69,14 @@ public class PropertyNames {
 
     public final class Climber {
         public static final String name = SubsystemNames.climberName;
+    }
+
+    /***************
+     * Vision
+     ***************/
+
+    public final class Camera {
+        public static final String name = SensorNames.cameraName;
     }
 
 }

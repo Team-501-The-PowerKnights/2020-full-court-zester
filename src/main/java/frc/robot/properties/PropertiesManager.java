@@ -11,12 +11,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-// import static java.util.stream.Collectors.*;
-// import static java.util.Map.Entry.*;
+import static java.util.stream.Collectors.*;
+import static java.util.Map.Entry.*;
 
 import org.slf4j.Logger;
 
@@ -48,6 +50,10 @@ public class PropertiesManager {
         }
 
         ourInstance = new PropertiesManager(defaultFileName);
+
+        // Put name of robot onto dashboard
+        String robotName = ourInstance.getProperties(PropertyNames.Robot.name).getString("name");
+        SmartDashboard.putString(TelemetryNames.Misc.robotName, robotName);
 
         SmartDashboard.putBoolean(TelemetryNames.Properties.status, true);
     }
@@ -84,18 +90,13 @@ public class PropertiesManager {
             // Use Properties class for conviencence to read & parse file
             Properties props = new Properties();
             props.load(reader);
-            logger.trace("properties as read: {}", props);
+            /* logger.trace("properties as read: {}", props); */
 
-            // Map<String, String> rawProperties = props.entrySet().stream()
-            // .collect(Collectors.toMap(e -> e.getKey().toString(), e ->
-            // e.getValue().toString()));
-            // logger.trace("map before sorting: {}", rawProperties);
-
-            // Map<String, String> sortedProperties =
-            // rawProperties.entrySet().stream().sorted(comparingByKey())
-            // .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
-            // LinkedHashMap::new));
-            // logger.trace("map after sorting: {}", sortedProperties);
+            Map<String, String> rawProperties = props.entrySet().stream()
+                    .collect(Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue().toString()));
+            Map<String, String> sortedProperties = rawProperties.entrySet().stream().sorted(comparingByKey())
+                    .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));
+            logger.info("properties as read:\n{}", sortedProperties);
 
             props.forEach((k, v) -> sort(k, v));
         } catch (IOException ex) {

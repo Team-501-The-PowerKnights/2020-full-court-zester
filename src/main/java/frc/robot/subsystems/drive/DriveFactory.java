@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.drive.DriveJoystickControl;
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.commands.drive.DriveDoNothing;
@@ -57,7 +56,7 @@ public class DriveFactory {
     private static void loadImplementationClass(String myClassName) {
         String myPkgName = DriveFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load: {}", classToLoad);
+        logger.debug("class to load: {}", classToLoad);
 
         logger.info("constructing {} for {} sensor", myClassName, myName);
         try {
@@ -66,7 +65,6 @@ public class DriveFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IDriveSubsystem) myObject;
-            ourInstance.setDefaultCommand(new DriveJoystickControl());
             // TODO - make this multi-state, this would be "success" / green
             SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
@@ -81,7 +79,7 @@ public class DriveFactory {
     private static void loadDefaultCommandClass(String myClassName) {
         String myPkgName = DriveDoNothing.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load: {}", classToLoad);
+        logger.debug("class to load: {}", classToLoad);
 
         logger.info("constructing {} for {} subsystem", myClassName, myName);
         Command ourCommand;

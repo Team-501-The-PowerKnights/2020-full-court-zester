@@ -5,19 +5,16 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors;
+package frc.robot.modules.pdp;
 
-/**
- * Provides a standard way of defining names for the <i>Sensors</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
- **/
-public class SensorNames {
+import org.slf4j.Logger;
 
-    public static final String gyroName = "Gyro";
+import riolog.RioLogger;
 
-    public static final String wheelColorName = "WheelColor";
+abstract class BasePDPModule implements IPDPModule {
 
-    public static final String cameraName = "Camera";
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(BasePDPModule.class.getName());
 
 }
