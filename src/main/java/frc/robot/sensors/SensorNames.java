@@ -8,14 +8,16 @@
 package frc.robot.sensors;
 
 /**
- * Provides a standard way of defining names for the <i>Sensors</i> used in
- * the program. No code should define or use a hard-coded string outside of the
- * ones defined in this class.
+ * Provides a standard way of defining names for the <i>Sensors</i> used in the
+ * program. No code should define or use a hard-coded string outside of the ones
+ * defined in this class.
  **/
 public class SensorNames {
 
     public static final String gyroName = "Gyro";
 
     public static final String wheelColorName = "WheelColor";
+
+    public static final String cameraName = "Camera";
 
 }

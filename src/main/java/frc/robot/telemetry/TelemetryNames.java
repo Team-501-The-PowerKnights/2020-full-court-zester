@@ -17,12 +17,7 @@ public final class TelemetryNames {
 
         public static final String programmer = name + ".programmer";
         public static final String codeVersion = name + ".codeVersion";
-    }
-
-    public final class Robot {
-        public static final String name = "Robot";
-
-        public static final String robotName = name + ".name";
+        public static final String robotName = name + ".robotName";
     }
 
     /***************
@@ -45,6 +40,7 @@ public final class TelemetryNames {
         public static final String name = "Properties";
 
         public static final String status = name + ".status";
+        public static final String robot = name + ".robot";
     }
 
     public static class Scheduler {
@@ -143,6 +139,16 @@ public final class TelemetryNames {
 
     public final class Climber {
         public static final String name = SubsystemNames.climberName;
+
+        public static final String status = name + ".status";
+    }
+
+    /***************
+     * Vision
+     ***************/
+
+    public final class Camera {
+        public static final String name = SensorNames.cameraName;
 
         public static final String status = name + ".status";
     }

@@ -150,12 +150,8 @@ public class Robot extends TimedRobot {
 
     private void initializeProperties() {
         PropertiesManager.constructInstance();
-        // We don't list (all) properties here; but with items as created
 
-        // FIXME - Finish this to put name of robot onto dashboard
-        // PKProperties props =
-        // PropertiesManager.getInstance().getProperties(TelemetryNames.Robot.name);
-        // SmartDashboard.putBoolean(TelemetryNames.Robot.name, false);
+        PropertiesManager.getInstance().listProperties();
     }
 
     private void createAutoChooser() {
