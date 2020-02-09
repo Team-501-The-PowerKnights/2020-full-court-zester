@@ -18,7 +18,7 @@ Robot.name = Real-Bot
 #####################
 # PDP
 #####################
-PDP.className = StubPDPModule
+PDP.className = PDPModule
 
 
 #####################
@@ -70,8 +70,8 @@ Climber.defaultCommandName = ClimberDoNothing
 #####################
 # Drive
 #####################
-Drive.className = StubClimberSubsystem
-Drive.defaultCommandName = DriveDoNothing
+Drive.className = DriveSubsystem
+Drive.defaultCommandName = DriveJoystickControl
 
 
 #####################
