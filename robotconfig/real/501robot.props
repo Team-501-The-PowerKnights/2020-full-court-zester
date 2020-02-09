@@ -16,9 +16,9 @@ Robot.name = Real-Bot
 #####################
 
 #####################
-# PDB
+# PDP
 #####################
-PDB.className = StubPDBModule
+PDP.className = StubPDPModule
 
 
 #####################

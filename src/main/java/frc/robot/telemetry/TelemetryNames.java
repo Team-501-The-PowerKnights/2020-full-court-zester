@@ -21,6 +21,18 @@ public final class TelemetryNames {
     }
 
     /***************
+     * Modules
+     ***************/
+    public final class PDP {
+        public static final String name = "PDP";
+
+        public static final String status = name + ".status";
+        public static final String busVoltage = name + ".busVoltage";
+        public static final String totalCurrent = name + ".totalCurrent";
+        public static final String totalEnergy = name + ".totalEnergy";
+    }
+
+    /***************
      * Managers
      ***************/
 
