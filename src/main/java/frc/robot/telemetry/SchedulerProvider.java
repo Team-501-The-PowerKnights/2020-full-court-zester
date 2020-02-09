@@ -67,7 +67,7 @@ public class SchedulerProvider implements ITelemetryProvider {
     private final NetworkTable scheduler;
     private final StringBuilder names;
 
-    public SchedulerProvider() {
+    private SchedulerProvider() {
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         liveWindow = inst.getTable("LiveWindow");
         ungrouped = liveWindow.getSubTable("Ungrouped");
@@ -86,7 +86,7 @@ public class SchedulerProvider implements ITelemetryProvider {
 
         names.setLength(0);
         for (String name : namesValue.getStringArray()) {
-            names.append(name).append(":  ");
+            names.append(name).append("::");
         }
 
         SmartDashboard.putString(TelemetryNames.Scheduler.currentCommands, names.toString());

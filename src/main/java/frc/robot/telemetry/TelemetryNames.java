@@ -30,6 +30,12 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
     }
 
+    public final class Preferences {
+        public static final String name = "Preferences";
+
+        public static final String status = name + ".status";
+    }
+
     public final class Properties {
         public static final String name = "Properties";
 

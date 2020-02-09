@@ -51,7 +51,7 @@ public class GyroFactory {
     private static void loadImplementationClass(String myClassName) {
         String myPkgName = GyroFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load {}", classToLoad);
+        logger.debug("class to load {}", classToLoad);
 
         logger.info("constructing {} for {} sensor", myClassName, myName);
         try {

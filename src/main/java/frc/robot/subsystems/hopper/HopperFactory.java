@@ -56,7 +56,7 @@ public class HopperFactory {
     private static void loadImplementationClass(String myClassName) {
         String myPkgName = HopperFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load: {}", classToLoad);
+        logger.debug("class to load: {}", classToLoad);
 
         logger.info("constructing {} for {} sensor", myClassName, myName);
         try {
@@ -78,7 +78,7 @@ public class HopperFactory {
     private static void loadDefaultCommandClass(String myClassName) {
         String myPkgName = HopperDoNothing.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("factory class to load: {}", classToLoad);
+        logger.debug("class to load: {}", classToLoad);
 
         logger.info("constructing {} for {} subsystem", myClassName, myName);
         Command ourCommand;

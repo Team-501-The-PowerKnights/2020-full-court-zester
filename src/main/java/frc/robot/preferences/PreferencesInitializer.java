@@ -7,6 +7,8 @@
 
 package frc.robot.preferences;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -25,7 +27,8 @@ public class PreferencesInitializer {
 
     private static final Preferences prefs = Preferences.getInstance();
 
-    public static void init() {
+    public static void initialize() {
+        logger.info("Initializing");
 
         /*
          * Drive
@@ -75,6 +78,10 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.f, 0.0);
         }
 
+        Collection<String> keys = prefs.getKeys();
+        logger.info("preferences as initialized:\n");
+
+        logger.info("Initialized");
     }
 
 }
