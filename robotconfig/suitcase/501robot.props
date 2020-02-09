@@ -68,7 +68,7 @@ Climber.defaultCommandName = ClimberDoNothing
 #####################
 # Drive
 #####################
-Drive.className = StubClimberSubsystem
+Drive.className = StubDriveSubsystem
 Drive.defaultCommandName = DriveDoNothing
 
 

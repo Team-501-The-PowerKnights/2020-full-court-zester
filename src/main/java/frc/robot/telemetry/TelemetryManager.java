@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.utils.PKStatus;
+
 import riolog.RioLogger;
 
 /**
@@ -30,15 +32,17 @@ public class TelemetryManager {
     private final ArrayList<ITelemetryProvider> providerList;
 
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Telemetry.status, PKStatus.unknown.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " already constructed");
         }
 
+        SmartDashboard.putNumber(TelemetryNames.Telemetry.status, PKStatus.inProgress.tlmValue);
+
         ourInstance = new TelemetryManager();
 
-        SmartDashboard.putBoolean(TelemetryNames.Telemetry.status, true);
+        SmartDashboard.putNumber(TelemetryNames.Telemetry.status, PKStatus.success.tlmValue);
     }
 
     public static TelemetryManager getInstance() {

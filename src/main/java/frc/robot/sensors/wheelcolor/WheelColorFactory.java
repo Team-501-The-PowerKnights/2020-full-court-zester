@@ -10,10 +10,12 @@ package frc.robot.sensors.wheelcolor;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.SensorNames;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -36,7 +38,7 @@ public class WheelColorFactory {
      * sequencing of the robot and all it's sensors.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, false);
+        SmartDashboard.putNumber(TelemetryNames.WheelColor.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -60,13 +62,11 @@ public class WheelColorFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IWheelColorSensor) myObject;
-            // TODO - Make this multi-state (this would be "success" / green)
-            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
+            SmartDashboard.putNumber(TelemetryNames.WheelColor.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for {}", myName);
             ourInstance = new StubWheelColorSensor();
-            // TODO - Make this multi-state (this would be "degraded" / yellow)
-            SmartDashboard.putBoolean(TelemetryNames.WheelColor.status, true);
+            SmartDashboard.putNumber(TelemetryNames.WheelColor.status, PKStatus.degraded.tlmValue);
         }
     }
 

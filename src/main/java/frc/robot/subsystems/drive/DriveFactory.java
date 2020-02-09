@@ -17,6 +17,7 @@ import frc.robot.properties.PropertiesManager;
 import frc.robot.commands.drive.DriveDoNothing;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -39,7 +40,7 @@ public class DriveFactory {
      * sequencing of the robot and all it's subsystems.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Drive.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -58,21 +59,19 @@ public class DriveFactory {
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load: {}", classToLoad);
 
-        logger.info("constructing {} for {} sensor", myClassName, myName);
+        logger.info("constructing {} for {} subsystem", myClassName, myName);
         try {
             @SuppressWarnings("rawtypes")
             Class myClass = Class.forName(classToLoad);
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IDriveSubsystem) myObject;
-            // TODO - make this multi-state, this would be "success" / green
-            SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourInstance = new StubDriveSubsystem();
             ourInstance.setDefaultCommand(new DriveDoNothing());
-            // TODO - make this multi-state, this would "degraded" / yellow
-            SmartDashboard.putBoolean(TelemetryNames.Drive.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.degraded.tlmValue);
         }
     }
 
@@ -92,6 +91,7 @@ public class DriveFactory {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourCommand = (Command) new DriveDoNothing();
+            SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.degraded.tlmValue);
         }
 
         ourInstance.setDefaultCommand(ourCommand);

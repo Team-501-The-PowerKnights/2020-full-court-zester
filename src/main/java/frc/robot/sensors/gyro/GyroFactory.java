@@ -10,10 +10,12 @@ package frc.robot.sensors.gyro;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.SensorNames;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -36,7 +38,7 @@ public class GyroFactory {
      * sequencing of the robot and all it's sensors.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.Gyro.status, false);
+        SmartDashboard.putNumber(TelemetryNames.Gyro.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -60,13 +62,11 @@ public class GyroFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IGyroSensor) myObject;
-            // TODO - Make this multi-state (this would be "success" / green)
-            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Gyro.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for {}", myName);
             ourInstance = new StubGyroSensor();
-            // TODO - Make this multi-state (this would be "degraded" / yellow)
-            SmartDashboard.putBoolean(TelemetryNames.Gyro.status, true);
+            SmartDashboard.putNumber(TelemetryNames.Gyro.status, PKStatus.degraded.tlmValue);
         }
     }
 

@@ -10,9 +10,13 @@ package frc.robot.modules.pdp;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleNames;
+import frc.robot.properties.PKProperties;
+import frc.robot.properties.PropertiesManager;
 import frc.robot.telemetry.TelemetryNames;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -35,19 +39,19 @@ public class PDPFactory {
      * sequencing of the robot and all it's modules.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putBoolean(TelemetryNames.PDP.status, false);
+        SmartDashboard.putNumber(TelemetryNames.PDP.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
         }
 
-        loadImplementationClass();
+        PKProperties props = PropertiesManager.getInstance().getProperties(myName);
+        props.listProperties();
+
+        loadImplementationClass(props.getString("className"));
     }
 
-    private static void loadImplementationClass() {
-        // FIXME - Replace with file based configuration
-        final String myClassName = "PDPModule";
-
+    private static void loadImplementationClass(String myClassName) {
         String myPkgName = PDPFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load: {}", classToLoad);
@@ -59,13 +63,11 @@ public class PDPFactory {
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
             ourInstance = (IModule) myObject;
-            // TODO - make this multi-state, this would be "success" / green
-            SmartDashboard.putBoolean(TelemetryNames.PDP.status, true);
+            SmartDashboard.putNumber(TelemetryNames.PDP.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
             ourInstance = new StubPDPModule();
-            // TODO - make this multi-state, this would "degraded" / yellow
-            SmartDashboard.putBoolean(TelemetryNames.PDP.status, true);
+            SmartDashboard.putNumber(TelemetryNames.PDP.status, PKStatus.degraded.tlmValue);
         }
     }
 
