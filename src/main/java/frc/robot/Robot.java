@@ -182,10 +182,8 @@ public class Robot extends TimedRobot {
         // for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        // tlmMgr.sendTelemetry();
-        // for (PKCommand c : PKCommand.getActiveCommands()) {
-        // System.out.println(c.getName());
-        // }
+        // Update the telemetry
+        tlmMgr.sendTelemetry();
     }
 
     /**
