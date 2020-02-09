@@ -18,6 +18,7 @@ import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKStatus;
+
 import riolog.RioLogger;
 
 /**
@@ -58,7 +59,7 @@ public class IntakeFactory {
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load: {}", classToLoad);
 
-        logger.info("constructing {} for {} sensor", myClassName, myName);
+        logger.info("constructing {} for {} subsystem", myClassName, myName);
         try {
             @SuppressWarnings("rawtypes")
             Class myClass = Class.forName(classToLoad);
