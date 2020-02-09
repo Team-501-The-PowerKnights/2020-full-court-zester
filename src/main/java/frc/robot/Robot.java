@@ -14,17 +14,20 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
+import frc.robot.preferences.PreferencesInitializer;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
+import frc.robot.telemetry.TelemetryNames.Misc;
+import frc.robot.telemetry.TelemetryNames.Preferences;
 import frc.robot.subsystems.ISubsystem;
 import frc.robot.subsystems.SubsystemFactory;
 
@@ -139,10 +142,10 @@ public class Robot extends TimedRobot {
     }
 
     private void intializePreferences() {
-        // TODO - Implement this
-        // PreferencesInitializer.initalize();
-        // PreferencesInitializer.dumpPreferences();
-        // SmartDashboard.putBoolean( Misc.prefsStatus, true );
+        SmartDashboard.putBoolean( Preferences.status, false );
+        PreferencesInitializer.initialize();
+        PreferencesInitializer.dumpPreferences();
+        SmartDashboard.putBoolean( Preferences.status, true );
     }
 
     private void initializeProperties() {

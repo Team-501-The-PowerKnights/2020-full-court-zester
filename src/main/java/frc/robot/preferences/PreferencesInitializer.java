@@ -25,7 +25,8 @@ public class PreferencesInitializer {
 
     private static final Preferences prefs = Preferences.getInstance();
 
-    public static void init() {
+    public static void initialize() {
+        logger.info("Initializing");
 
         /*
          * Drive
@@ -75,6 +76,7 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.f, 0.0);
         }
 
+        logger.info("Initialized");
     }
 
 }
