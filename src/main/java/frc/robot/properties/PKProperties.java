@@ -82,7 +82,7 @@ public class PKProperties {
         StringBuilder buf = new StringBuilder();
         buf.append("owner ").append(owner).append(" properties:");
         for (String key : props.keySet()) {
-            buf.append("\n\t");
+            buf.append("\n..."); // logger gobbles up leading spaces
             buf.append(key).append(" = ").append(props.get(key));
         }
         logger.info(buf.toString());
