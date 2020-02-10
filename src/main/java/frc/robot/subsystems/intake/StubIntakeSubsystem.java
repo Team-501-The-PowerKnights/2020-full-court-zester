@@ -72,4 +72,16 @@ public class StubIntakeSubsystem extends BaseIntakeSubsystem {
         // Stub doesn't implement this
     }
 
+    @Override
+    public void raise() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void lower() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
