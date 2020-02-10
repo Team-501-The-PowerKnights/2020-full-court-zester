@@ -40,6 +40,18 @@ class DriveSignal {
     public static DriveSignal NEUTRAL = new DriveSignal(0, 0);
     public static DriveSignal BRAKE = new DriveSignal(0, 0, true);
 
+    public void setLeft(double left) {
+        mLeftMotor = left;
+    }
+
+    public void setRight(double right) {
+        mRightMotor = right;
+    }
+
+    public void setBrakeMode(boolean brakeMode) {
+        mBrakeMode = brakeMode;
+    }
+
     public double getLeft() {
         return mLeftMotor;
     }
