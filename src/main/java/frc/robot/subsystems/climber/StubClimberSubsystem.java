@@ -50,4 +50,16 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
   public void disable() {
     // Stub doesn't implement this
   }
+
+  @Override
+  public void extend() {
+    // Stub doesn't implement this
+
+  }
+
+  @Override
+  public void climb() {
+    // Stub doesn't implement this
+
+  }
 }

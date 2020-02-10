@@ -7,18 +7,48 @@
 
 package frc.robot.subsystems.climber;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 class ClimberSubsystem extends BaseClimberSubsystem {
 
     private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
 
+    private AnalogInput limitUp;
+    private AnalogInput limitDown;
+
+    private CANSparkMax motor;
+
     public ClimberSubsystem() {
         logger.info("constructing");
 
+        limitUp = new AnalogInput(0);
+        limitDown = new AnalogInput(1);
+
+        motor = new CANSparkMax(71, MotorType.kBrushless);
+
         logger.info("constructed");
+    }
+
+    @Override
+    public void extend() {
+        while (!(limitUp.getValue() == 1)) {
+            motor.set(0.3);
+        }
+    }
+
+    @Override
+    public void climb() {
+        while (!(limitDown.getValue() == 1)) {
+            motor.set(0.3);
+        }
     }
 
     @Override
@@ -28,14 +58,13 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
+        SmartDashboard.putBoolean(TelemetryNames.Climber.topLimit, limitUp.getValue() == 1);
+        SmartDashboard.putBoolean(TelemetryNames.Climber.bottomLimit, limitDown.getValue() == 1);
     }
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-
+        motor.set(0.0);
     }
 
     @Override
@@ -55,4 +84,5 @@ class ClimberSubsystem extends BaseClimberSubsystem {
         // TODO Auto-generated method stub
 
     }
+
 }
