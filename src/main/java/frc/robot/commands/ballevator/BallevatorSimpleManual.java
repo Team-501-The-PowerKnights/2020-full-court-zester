@@ -41,8 +41,7 @@ public class BallevatorSimpleManual extends PKManualCommand {
 
         if (speed > 0.05) {
             ballevator.lift();
-            // FIXME - Should this be negative?
-        } else if (speed < 0.05) {
+        } else if (speed < -0.05) {
             ballevator.lower();
         } else {
             ballevator.stop();
