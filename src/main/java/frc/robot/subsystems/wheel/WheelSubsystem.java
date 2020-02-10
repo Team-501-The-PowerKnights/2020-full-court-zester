@@ -47,14 +47,12 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
+        // All necessary telemetry sent via WheelColorSensor
     }
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-
+        motor.set(0.0);
     }
 
     @Override
@@ -129,7 +127,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
     }
 
     private PKColor generateColorOffset(PKColor color) {
-        return color; // TODO - Implement proper offset generation
+        return color; // Offset generation will be dependent on wheel placement
     }
 
 }
