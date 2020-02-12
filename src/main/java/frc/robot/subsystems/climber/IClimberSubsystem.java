@@ -16,4 +16,8 @@ public interface IClimberSubsystem extends ISubsystem {
 
     public void stop();
 
+    public void extend();
+
+    public void climb();
+
 }

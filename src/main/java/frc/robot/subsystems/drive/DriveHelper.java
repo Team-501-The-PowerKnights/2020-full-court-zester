@@ -52,6 +52,12 @@ class DriveHelper {
    private double mQuickStopAccumlator = 0.0;
    private double mNegInertiaAccumlator = 0.0;
 
+   private DriveSignal signal;
+
+   public DriveHelper() {
+      signal = new DriveSignal(0.0, 0.0);
+   }
+
    public DriveSignal cheesyDrive(double throttle, double wheel, boolean isQuickTurn, boolean isHighGear) {
 
       wheel = handleDeadband(wheel, kWheelDeadband);
@@ -152,7 +158,9 @@ class DriveHelper {
          leftPwm += overPower * (-1.0 - rightPwm);
          rightPwm = -1.0;
       }
-      return new DriveSignal(leftPwm, rightPwm);
+      signal.setLeft(leftPwm);
+      signal.setRight(rightPwm);
+      return signal;
    }
 
    public double handleDeadband(double val, double deadband) {
