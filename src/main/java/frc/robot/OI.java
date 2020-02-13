@@ -91,11 +91,11 @@ public class OI implements ITelemetryProvider {
      *****************/
 
     public double getRawDriveSpeed() {
-        return getDriverLeftYAxis();
+        return deadBand(getDriverLeftYAxis(), 0.05);
     }
 
     public double getRawDriveTurn() {
-        return getDriverRightXAxis();
+        return deadBand(getDriverRightXAxis(), 0.05);
     }
 
     public double getDriveSpeed() {
@@ -122,6 +122,25 @@ public class OI implements ITelemetryProvider {
             calcTurn = hmiTurn * 0.30;
         }
         return calcTurn;
+    }
+
+    /**
+     * 
+     * Lifted from:
+     * https://www.chiefdelphi.com/t/how-do-i-program-a-joystick-deadband/122625
+     * 
+     * @param value
+     * @param cutOff
+     * @return
+     */
+    private final double deadBand(double value, double cutOff) {
+        double retValue;
+        if (value < cutOff && value > (cutOff * (-1))) {
+            retValue = 0;
+        } else {
+            retValue = (value - (Math.abs(value) / value * cutOff)) / (1 - cutOff);
+        }
+        return retValue;
     }
 
     //////////////////////////////////////////////////////////////////
