@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -49,14 +52,18 @@ public class OI implements ITelemetryProvider {
         return ourInstance;
     }
 
-    private Joystick driverStick;
+    private final Joystick driverStick;
+    public final Button turboButton;
+    public final Button crawlButton;
 
-    private Joystick operatorStick;
+    private final Joystick operatorStick;
 
     private OI() {
         logger.info("constructing {}", myName);
 
         driverStick = new Joystick(0);
+        turboButton = new JoystickButton(driverStick, 5);
+        crawlButton = new JoystickButton(driverStick, 6);
 
         operatorStick = new Joystick(1);
 
@@ -66,8 +73,60 @@ public class OI implements ITelemetryProvider {
     }
 
     private void configureButtonBindings() {
-
+        // TODO - What is this? Do we need it?
     }
+
+    @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.HMI.rawSpeed, getRawDriveSpeed());
+        SmartDashboard.putNumber(TelemetryNames.HMI.rawTurn, getRawDriveTurn());
+        SmartDashboard.putBoolean(TelemetryNames.HMI.turbo, turboButton.get());
+        SmartDashboard.putBoolean(TelemetryNames.HMI.crawl, crawlButton.get());
+        SmartDashboard.putNumber(TelemetryNames.HMI.oiSpeed, getDriveSpeed());
+        SmartDashboard.putNumber(TelemetryNames.HMI.oiTurn, getDriveTurn());
+    }
+
+    /*****************
+     * Drive Stuff
+     *****************/
+
+    public double getRawDriveSpeed() {
+        return getDriverLeftYAxis();
+    }
+
+    public double getRawDriveTurn() {
+        return getDriverRightXAxis();
+    }
+
+    public double getDriveSpeed() {
+        double hmiSpeed = getRawDriveSpeed();
+        double calcSpeed;
+        if (turboButton.get()) {
+            calcSpeed = hmiSpeed * 0.80;
+        } else if (crawlButton.get()) {
+            calcSpeed = hmiSpeed * 0.30;
+        } else {
+            calcSpeed = hmiSpeed * 0.70;
+        }
+        return calcSpeed;
+    }
+
+    public double getDriveTurn() {
+        double hmiTurn = getRawDriveTurn();
+        double calcTurn;
+        if (turboButton.get()) {
+            calcTurn = hmiTurn * 0.50;
+        } else if (crawlButton.get()) {
+            calcTurn = hmiTurn * 0.25;
+        } else {
+            calcTurn = hmiTurn * 0.30;
+        }
+        return calcTurn;
+    }
+
+    //////////////////////////////////////////////////////////////////
+    // TODO - Finish cleaning up these
+    //////////////////////////////////////////////////////////////////
 
     public double getHopperSpeed() {
         return getDriverBumperAxis();
@@ -75,14 +134,6 @@ public class OI implements ITelemetryProvider {
 
     public double getIntakeSpeed() {
         return getDriverLeftBumper();
-    }
-
-    public double getDriveSpeed() {
-        return getDriverLeftYAxis();
-    }
-
-    public double getDriveTurn() {
-        return getDriverRightXAxis();
     }
 
     public double getBallevatorSpeed() {
@@ -159,12 +210,6 @@ public class OI implements ITelemetryProvider {
         } else {
             return 0;
         }
-    }
-
-    @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
     }
 
 }

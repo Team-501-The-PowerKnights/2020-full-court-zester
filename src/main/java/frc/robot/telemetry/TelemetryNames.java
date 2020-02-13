@@ -83,10 +83,11 @@ public final class TelemetryNames {
         public static final String turbo = name + ".turbo";
         public static final String crawl = name + ".crawl";
         public static final String reversed = name + ".reversed";
+        public static final String oiSpeed = name + ".oiSpeed";
+        public static final String oiTurn = name + ".oiTurn";
 
         public static final String speed = name + ".speed";
         public static final String turn = name + ".turn";
-        public static final String constrained = name + ".constrained";
     }
 
     /***************
