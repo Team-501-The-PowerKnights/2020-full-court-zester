@@ -273,4 +273,27 @@ class DriveSubsystem extends BaseDriveSubsystem {
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
     }
 
+    @Override
+    public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+        switch (canID) {
+        // leftFront
+        case 11:
+            leftFrontMotor.set(speed);
+            break;
+        case 12:
+            leftRearMotor.set(speed);
+            break;
+        case 13:
+            rightFrontMotor.set(speed);
+            break;
+        case 14:
+            rightRearMotor.set(speed);
+            break;
+        default:
+            break;
+        }
+    }
+
 }

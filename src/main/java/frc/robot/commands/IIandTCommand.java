@@ -7,11 +7,9 @@
 
 package frc.robot.commands;
 
-import java.io.Serializable;
-
 /**
  * Defines a marker interface for commands which are meant to function for use
  * in I&T of the robot.
  */
-public interface IIandTCommand extends Serializable {
+public interface IIandTCommand {
 }

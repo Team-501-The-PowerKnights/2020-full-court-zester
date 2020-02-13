@@ -249,4 +249,10 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
     }
 
+    @Override
+    public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

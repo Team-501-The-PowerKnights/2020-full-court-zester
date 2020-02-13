@@ -55,4 +55,6 @@ public interface IDriveSubsystem extends ISubsystem {
      */
     public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end);
 
+    public void setSpeed(int canID, double speed);
+
 }

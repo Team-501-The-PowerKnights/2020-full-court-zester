@@ -112,4 +112,10 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
         // no sense
     }
 
+    @Override
+    public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
