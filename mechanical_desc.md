@@ -13,17 +13,18 @@
 # Intake
 - (Future) Actuation up-down... unsure how
 - 1x 775Pro (Talon)
--- Dumb on/off, maybe tune speed, may need reverse to un-jam
+-- Dumb on/off, maybe tune speed, need reverse to un-jam
 - 1x 775Pro (Talon)
--- Position control with encoders
-
-# Ballevator
-- Ballevator itself: 1 775Pro (Talon)
--- The ballevator may need limit switches/photogates for ball position
+-- Position control with encoders (0 is fully up)
+-- Manual override for tests
 
 # Hopper
 - Agitator wheel: 1 BAG Motor (Talon)
 -- Dumb on/off, maybe tune speed, may need reverse to un-jam
+
+# Ballevator
+- Ballevator itself: 1 775Pro (Talon)
+-- The ballevator may need limit switches/photogates for ball position
 
 # WHEEL. OF. FORTUNE!
 - Interaction wheel: 1x BAG motor (Talon)
@@ -32,3 +33,6 @@
 
 # Climber
 - One NEO motor (SPARK Max)
+- Two limit switches (one to stop at top, one to stop at bottom)
+- Up (runs until top limit switch goes)
+- Down (runs until bottom limit switch goes)

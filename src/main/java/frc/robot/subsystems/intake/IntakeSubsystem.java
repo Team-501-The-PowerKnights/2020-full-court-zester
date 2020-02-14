@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import riolog.RioLogger;
 
 public class IntakeSubsystem extends BaseIntakeSubsystem {
@@ -19,7 +20,13 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
   /** Our classes' logger **/
   private static final Logger logger = RioLogger.getLogger(IntakeSubsystem.class.getName());
 
+  private TalonSRX ingest;
   private TalonSRX motor;
+
+  private PIDController pid;
+  private double pidP;
+  private double pidI;
+  private double pidD;
 
   /**
    * Creates a new IntakeSubsystem.
@@ -27,7 +34,16 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
   public IntakeSubsystem() {
     logger.info("constructing");
 
-    motor = new TalonSRX(41);
+    ingest = new TalonSRX(41);
+    motor = new TalonSRX(42);
+
+    pid = new PIDController(0.0, 0.0, 0.0);
+    pidP = 0.0;
+    pidI = 0.0;
+    pidD = 0.0;
+    pid.setP(pidP);
+    pid.setI(pidI);
+    pid.setD(pidD);
 
     logger.info("constructed");
   }
@@ -43,7 +59,10 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
 
   @Override
   public void stop() {
+    ingest.set(ControlMode.PercentOutput, 0.0);
     motor.set(ControlMode.PercentOutput, 0.0);
+
+    
   }
 
   @Override
@@ -54,7 +73,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
 
   @Override
   public void updatePreferences() {
-    // TODO Auto-generated method stub
+    // TODO Get PID values from preferences
 
   }
 
@@ -82,5 +101,15 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
   @Override
   public void pushOut(double speed) {
     motor.set(ControlMode.PercentOutput, -speed);
+  }
+
+  @Override
+  public void raise() {
+    motor.set(ControlMode.Position, 0.0); // TODO - determine actual position
+  }
+
+  @Override
+  public void lower() {
+    motor.set(ControlMode.Position, 25.0); // TODO - determine actual position
   }
 }

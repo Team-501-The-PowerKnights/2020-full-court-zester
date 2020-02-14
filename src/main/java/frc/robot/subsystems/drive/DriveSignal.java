@@ -9,6 +9,8 @@ package frc.robot.subsystems.drive;
 
 import org.slf4j.Logger;
 
+import java.lang.StringBuilder;
+
 import riolog.RioLogger;
 
 /**
@@ -17,43 +19,55 @@ import riolog.RioLogger;
  */
 class DriveSignal {
 
-   /** Our classes' logger **/
-   @SuppressWarnings("unused")
-   private static final Logger logger = RioLogger.getLogger(DriveSignal.class.getName());
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(DriveSignal.class.getName());
 
-   protected double mLeftMotor;
-   protected double mRightMotor;
-   protected boolean mBrakeMode;
+    protected double mLeftMotor;
+    protected double mRightMotor;
+    protected boolean mBrakeMode;
 
-   public DriveSignal(double left, double right) {
-      this(left, right, false);
-   }
+    public DriveSignal(double left, double right) {
+        this(left, right, false);
+    }
 
-   public DriveSignal(double left, double right, boolean brakeMode) {
-      mLeftMotor = left;
-      mRightMotor = right;
-      mBrakeMode = brakeMode;
-   }
+    public DriveSignal(double left, double right, boolean brakeMode) {
+        mLeftMotor = left;
+        mRightMotor = right;
+        mBrakeMode = brakeMode;
+    }
 
-   public static DriveSignal NEUTRAL = new DriveSignal(0, 0);
-   public static DriveSignal BRAKE = new DriveSignal(0, 0, true);
+    public static DriveSignal NEUTRAL = new DriveSignal(0, 0);
+    public static DriveSignal BRAKE = new DriveSignal(0, 0, true);
 
-   public double getLeft() {
-      return mLeftMotor;
-   }
+    public void setLeft(double left) {
+        mLeftMotor = left;
+    }
 
-   public double getRight() {
-      return mRightMotor;
-   }
+    public void setRight(double right) {
+        mRightMotor = right;
+    }
 
-   public boolean getBrakeMode() {
-      return mBrakeMode;
-   }
+    public void setBrakeMode(boolean brakeMode) {
+        mBrakeMode = brakeMode;
+    }
 
-   @Override
-   public String toString() {
-      // FIXME - Use StringBuilder (thread safe required?)
-      return "L: " + mLeftMotor + ", R: " + mRightMotor + (mBrakeMode ? ", BRAKE" : "");
-   }
+    public double getLeft() {
+        return mLeftMotor;
+    }
+
+    public double getRight() {
+        return mRightMotor;
+    }
+
+    public boolean getBrakeMode() {
+        return mBrakeMode;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append("L: ").append(mLeftMotor).append(", R: ").append(mRightMotor)
+                .append((mBrakeMode ? ", BRAKE" : "")).toString();
+    }
 
 }

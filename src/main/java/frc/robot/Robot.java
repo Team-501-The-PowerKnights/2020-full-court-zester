@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.DoNothing;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.preferences.PreferencesInitializer;
@@ -66,8 +66,6 @@ public class Robot extends TimedRobot {
     // FIXME - Delete?
     private SendableChooser<Command> autoChooser;
     private Command autoCommand;
-    // FIXME - Delete?
-    private RobotContainer m_robotContainer;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -111,13 +109,6 @@ public class Robot extends TimedRobot {
         autonomousFirstRun = false;
         teleopComplete = false;
         teleopFirstRun = false;
-
-        // FIXME - Delete?
-        // Instantiate our RobotContainer. This will perform all our button bindings,
-        // and put our
-        // autonomous chooser on the dashboard.
-        // initSubsystems();
-        m_robotContainer = new RobotContainer();
 
         logger.info("initialized");
     }
@@ -275,8 +266,7 @@ public class Robot extends TimedRobot {
         }
 
         // autoCommand = autoChooser.getSelected();
-        autoCommand = m_robotContainer.getAutonomousCommand();
-        autoCommand.schedule();
+        autoCommand = new DoNothing();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

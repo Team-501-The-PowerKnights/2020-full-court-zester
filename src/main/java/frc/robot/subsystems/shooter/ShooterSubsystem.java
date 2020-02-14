@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems.shooter;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -59,7 +58,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   private CANEncoder turretEncoder;
   private CANPIDController turretPID;
 
-  private TalonSRX incrementer;
+  // private TalonSRX incrementer; // Unused for now
 
   private DigitalInput limit;
 
@@ -88,7 +87,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     turretPID.setD(turretD);
     turretPID.setFF(turretF);
 
-    incrementer = new TalonSRX(23);
+    // incrementer = new TalonSRX(23); // Unused for now
 
     limit = new DigitalInput(0);
     logger.info("constructed");
@@ -164,13 +163,6 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   public void disable() {
     // TODO Auto-generated method stub
 
-  }
-
-  private double convertTurretAngleToCounts(double angle) {
-    double counts = angle * (1 / 360 /* 360 degrees per 1 revolution */) / VPGearing / beltGearing
-        * countsPerRevolution;
-
-    return counts;
   }
 
   private double convertTurretCountsToAngle(double counts) {

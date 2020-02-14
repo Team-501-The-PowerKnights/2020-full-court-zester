@@ -9,6 +9,7 @@ package frc.robot.subsystems.drive;
 
 import java.util.List;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
@@ -81,8 +82,7 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-
+        // Nothing is actually moving on the suitcase bot for drive
     }
 
     @Override
@@ -92,19 +92,24 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        // TODO Auto-generated method stub
-
+        // Really no heavy implementation, just need to see that the controllers can be sent
+        // instructions
+        leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
+        right.set(hmiTurn);
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // TODO Auto-generated method stub
-
+        // Really no heavy implementation, just need to see that the controllers can be sent
+        // instructions
+        leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
+        right.set(hmiTurn);
     }
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
-        // No implementation - Suitcase has no motors, so testing path following makes no sense
+        // No implementation - Suitcase has no motors, so testing path following makes
+        // no sense
     }
 
 }
