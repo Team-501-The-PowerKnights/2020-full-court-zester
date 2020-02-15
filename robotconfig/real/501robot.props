@@ -77,15 +77,18 @@ Drive.defaultCommandName = DriveJoystickControl
 #####################
 # Hopper
 #####################
-Hopper.className = StubHopperSubsystem
+#Hopper.className = StubHopperSubsystem
+Hopper.className = HopperSubsystem
 Hopper.defaultCommandName = HopperDoNothing
 
 
 #####################
 # Intake
 #####################
-Intake.className = StubIntakeSubsystem
-Intake.defaultCommandName = IntakeDoNothing
+#Intake.className = StubIntakeSubsystem
+Intake.className = IntakeSubsystem
+#Intake.defaultCommandName = IntakeDoNothing
+Intake.defaultCommandName = IntakeSimpleManual
 
 
 #####################

@@ -119,6 +119,7 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.intakeName;
 
         public static final String status = name + ".status";
+        public static final String speed = name + ".speed";
     }
 
     public final class Hopper {
