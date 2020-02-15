@@ -187,7 +187,6 @@ public class OI implements ITelemetryProvider {
      */
     public int getClimberCommand() {
         int value = operatorStick.getPOV();
-        System.out.println("value = value");
         if (value == 0) {
             return 1;
             // } else if (value == 180) {
