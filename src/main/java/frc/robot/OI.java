@@ -56,10 +56,11 @@ public class OI implements ITelemetryProvider {
     }
 
     private final Joystick driverStick;
-    public final Button turboButton;
-    public final Button crawlButton;
+    private final Button turboButton;
+    private final Button crawlButton;
 
     private final Joystick operatorStick;
+    private final Button turretTurboButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -69,6 +70,7 @@ public class OI implements ITelemetryProvider {
         crawlButton = new JoystickButton(driverStick, 6);
 
         operatorStick = new Joystick(1);
+        turretTurboButton = new JoystickButton(operatorStick, 5);
 
         configureButtonBindings();
 
@@ -172,8 +174,19 @@ public class OI implements ITelemetryProvider {
         return speed;
     }
 
+    public double getRawTurretSpeed() {
+        return deadBand(getOperatorLeftXAxis(), 0.05);
+    }
+
     public double getTurretSpeed() {
-        return deadBand(getOperatorLeftXAxis(), 0.05) * 0.15;
+        double hmiSpeed = getRawTurretSpeed();
+        double calcSpeed;
+        if (turretTurboButton.get()) {
+            calcSpeed = hmiSpeed * 0.35;
+        } else {
+            calcSpeed = hmiSpeed * 0.15;
+        }
+        return calcSpeed;
     }
 
     public double getShooterSpeed() {
