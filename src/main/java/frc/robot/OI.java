@@ -166,6 +166,14 @@ public class OI implements ITelemetryProvider {
         return speed;
     }
 
+    public double getTurretSpeed() {
+        return deadBand(getOperatorLeftXAxis(), 0.05);
+    }
+
+    public double getShooterSpeed() {
+        return deadBand(getOperatorRightYAxis(), 0.05);
+    }
+
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////

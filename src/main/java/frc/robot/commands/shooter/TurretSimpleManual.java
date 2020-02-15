@@ -15,18 +15,15 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class TurrentSimpleManual extends PKManualCommand {
+public class TurretSimpleManual extends PKManualCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurrentSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretSimpleManual.class.getName());
 
     // Handle to our subsystem
     private IShooterSubsystem shooter;
 
-    private double increment;
-    private double angle;
-
-    public TurrentSimpleManual() {
+    public TurretSimpleManual() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
@@ -35,21 +32,14 @@ public class TurrentSimpleManual extends PKManualCommand {
         logger.info("constructed");
     }
 
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        angle = 0;
-    }
-
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
-        increment = oi.getTurretIncrement();
-
-        shooter.setTurretAngle(/* angle += increment */increment);
+        double speed = oi.getTurretSpeed();
+        System.out.println("speed=" + speed);
+        shooter.setSpeed(20, speed);
     }
 
 }
