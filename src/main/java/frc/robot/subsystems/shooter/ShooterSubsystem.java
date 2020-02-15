@@ -14,6 +14,7 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Preferences;
 
 import org.slf4j.Logger;
@@ -183,26 +184,36 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
-        // Dashboard provides scale for shooter speed
-        double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
-
         switch (canID) {
         case 20:
             turretMotor.set(speed);
             break;
         case 21:
-            leftMotor.set(speed * scale);
+            leftMotor.set(idleShooter(speed));
             break;
         case 22:
-            rightMotor.set(speed * scale);
+            rightMotor.set(idleShooter(speed));
             break;
         case 29:
             // Assuming slaved
-            leftMotor.set(speed * scale);
+            leftMotor.set(idleShooter(speed));
             break;
         default:
             break;
         }
+    }
+
+    private double idleShooter(double speed) {
+        // Dashboard provides scale for shooter speed
+        double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
+        speed *= scale;
+
+        // Have to be connected to the field to idle
+        final DriverStation ds = DriverStation.getInstance();
+        if (ds.getMatchNumber() != 0) {
+            speed = Math.max(0.20, speed);
+        }
+        return speed;
     }
 
 }
