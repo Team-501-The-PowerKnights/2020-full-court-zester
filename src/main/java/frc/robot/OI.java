@@ -58,9 +58,11 @@ public class OI implements ITelemetryProvider {
     private final Joystick driverStick;
     private final Button turboButton;
     private final Button crawlButton;
+    private final Button pitClimberEnableButton;
 
     private final Joystick operatorStick;
     private final Button turretTurboButton;
+    private final Button pitClimberRetractButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -71,6 +73,9 @@ public class OI implements ITelemetryProvider {
 
         operatorStick = new Joystick(1);
         turretTurboButton = new JoystickButton(operatorStick, 5);
+
+        pitClimberEnableButton = new JoystickButton(driverStick, 8);
+        pitClimberRetractButton = new JoystickButton(operatorStick, 8);
 
         configureButtonBindings();
 
@@ -202,8 +207,8 @@ public class OI implements ITelemetryProvider {
         int value = operatorStick.getPOV();
         if (value == 0) {
             return 1;
-            // } else if (value == 180) {
-            // return 2;
+        } else if ((pitClimberEnableButton.get()) && (pitClimberRetractButton.get())) {
+            return 2;
         } else {
             return 0;
         }
