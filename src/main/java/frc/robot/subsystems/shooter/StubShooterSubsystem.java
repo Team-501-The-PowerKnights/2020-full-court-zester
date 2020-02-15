@@ -72,4 +72,10 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
         // Stub doesn't implement this
     }
 
+    @Override
+    public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

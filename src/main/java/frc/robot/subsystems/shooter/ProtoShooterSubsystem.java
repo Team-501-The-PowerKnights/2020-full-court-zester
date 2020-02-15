@@ -109,4 +109,11 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   public void home() {
     // No implementation - Protobot doesn't have a turret
   }
+
+  @Override
+  public void setSpeed(int canID, double speed) {
+    // TODO Auto-generated method stub
+
+  }
+
 }

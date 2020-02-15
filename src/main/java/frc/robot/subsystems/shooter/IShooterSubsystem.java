@@ -24,4 +24,5 @@ public interface IShooterSubsystem extends ISubsystem {
 
     public void home();
 
+    public void setSpeed(int canID, double speed);
 }

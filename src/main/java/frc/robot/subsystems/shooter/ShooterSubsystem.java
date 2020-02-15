@@ -34,10 +34,10 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   private static final double VPGearing = 1;
   private static final double beltGearing = 1;
   private static final double countsPerRevolution = 1;
-  private static final double flywheelP = 0;
-  private static final double flywheelI = 0;
-  private static final double flywheelD = 0;
-  private static final double flywheelF = 0;
+  private static final double shooterP = 0;
+  private static final double shooterI = 0;
+  private static final double shooterD = 0;
+  private static final double shooterF = 0;
 
   private static final double turretMaxAngle = 270;
   private static final double turretMinAngle = 0;
@@ -50,11 +50,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
    * Mechanisms and sensors
    */
 
-  private CANSparkMax motor;
-  private CANSparkMax shootSlave0;
-  private CANPIDController shootPID;
+  private CANSparkMax leftMotor;
+  private CANSparkMax rightMotor;
+  private CANPIDController shooterPID;
 
-  private CANSparkMax turret;
+  private CANSparkMax turretMotor;
   private CANEncoder turretEncoder;
   private CANPIDController turretPID;
 
@@ -68,28 +68,33 @@ class ShooterSubsystem extends BaseShooterSubsystem {
   public ShooterSubsystem() {
     logger.info("constructing");
 
-    motor = new CANSparkMax(21, MotorType.kBrushless);
-    shootSlave0 = new CANSparkMax(22, MotorType.kBrushless);
-
-    shootSlave0.follow(motor);
-
-    shootPID = new CANPIDController(motor);
-    shootPID.setP(flywheelP);
-    shootPID.setI(flywheelI);
-    shootPID.setD(flywheelD);
-    shootPID.setFF(flywheelF);
-
-    turret = new CANSparkMax(20, MotorType.kBrushless);
-    turretEncoder = new CANEncoder(turret);
-    turretPID = new CANPIDController(turret);
+    turretMotor = new CANSparkMax(20, MotorType.kBrushless);
+    // +CW +, CCW -
+    turretEncoder = new CANEncoder(turretMotor);
+    turretPID = new CANPIDController(turretMotor);
     turretPID.setP(turretP);
     turretPID.setI(turretI);
     turretPID.setD(turretD);
     turretPID.setFF(turretF);
 
+    leftMotor = new CANSparkMax(21, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(22, MotorType.kBrushless);
+    // + spin out, - spin in
+
+    rightMotor.setInverted(true);
+
+    // rightMotor.follow(leftMotor);
+
+    shooterPID = new CANPIDController(leftMotor);
+    shooterPID.setP(shooterP);
+    shooterPID.setI(shooterI);
+    shooterPID.setD(shooterD);
+    shooterPID.setFF(shooterF);
+
     // incrementer = new TalonSRX(23); // Unused for now
 
     limit = new DigitalInput(0);
+
     logger.info("constructed");
   }
 
@@ -105,45 +110,45 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void stop() {
-    shootPID.setReference(0, ControlType.kVoltage);
-    motor.set(0.0);
+    shooterPID.setReference(0, ControlType.kVoltage);
+    leftMotor.set(0.0);
   }
 
   @Override
   public void shoot(double dist) {
     // TODO - Trajectory generation for speed
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+    shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
 
   @Override
   public void shoot() {
     // TODO - Trajectory generation from vision data
-    shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+    shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
 
   @Override
   public void setTurretAngle(double angle) {
     // if (angle >= turretMaxAngle) {
-    //   angle = turretMaxAngle;
+    // angle = turretMaxAngle;
     // } else if (angle <= turretMinAngle) {
-    //   angle = turretMinAngle;
+    // angle = turretMinAngle;
     // }
 
     // double targetCounts = convertTurretAngleToCounts(angle);
 
     // turretPID.setReference(targetCounts, ControlType.kPosition);
-    turret.set(angle);
+    turretMotor.set(angle);
   }
 
   @Override
   public void home() {
     while (!(limit.get())) {
-      motor.set(0.1);
+      leftMotor.set(0.1);
     }
 
     if (limit.get()) {
       turretEncoder.setPosition(0);
-      motor.set(0.0);
+      leftMotor.set(0.0);
     }
   }
 
@@ -170,4 +175,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     return angle;
   }
+
+  @Override
+  public void setSpeed(int canID, double speed) {
+    // TODO Auto-generated method stub
+
+  }
+
 }
