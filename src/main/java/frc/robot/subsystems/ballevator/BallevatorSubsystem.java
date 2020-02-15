@@ -12,65 +12,80 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(BallevatorSubsystem.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BallevatorSubsystem.class.getName());
 
-  private TalonSRX motor;
+    private final TalonSRX motor;
 
-  public BallevatorSubsystem() {
-    logger.info("constructing");
+    // Keep for telemetry
+    private double tlmSpeed;
 
-    motor = new TalonSRX(51);
+    public BallevatorSubsystem() {
+        logger.info("constructing");
 
-    logger.info("constructed");
-  }
+        motor = new TalonSRX(51);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+        tlmSpeed = 0.0;
 
-  @Override
-  public void validateCalibration() {
-    // TODO Auto-generated method stub
+        logger.info("constructed");
+    }
 
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  @Override
-  public void updatePreferences() {
-    // TODO Auto-generated method stub
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void disable() {
-    // TODO Auto-generated method stub
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void updateTelemetry() {
-    // TODO Auto-generated method stub
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void stop() {
-    motor.set(ControlMode.PercentOutput, 0);
-  }
+    @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.Ballevator.speed, tlmSpeed);
+    }
 
-  @Override
-  public void lift() {
-    motor.set(ControlMode.PercentOutput, 0.2); // TODO - determine actual predefined value to run ballevator at
-  }
+    @Override
+    public void stop() {
+        motor.set(ControlMode.PercentOutput, 0);
+    }
 
-  @Override
-  public void lower() {
-    motor.set(ControlMode.PercentOutput, -0.2); // TODO - determine actual predefined value to run ballevator at
-  }
+    @Override
+    public void lift() {
+        // TODO - determine actual predefined value to run ballevator at
+        setSpeed(-0.7);
+    }
+
+    @Override
+    public void lower() {
+        // TODO - determine actual predefined value to run ballevator at
+        setSpeed(0.7);
+    }
+
+    private void setSpeed(double speed) {
+        tlmSpeed = speed;
+        motor.set(ControlMode.PercentOutput, tlmSpeed);
+    }
 
 }

@@ -56,8 +56,10 @@ WheelColor.className = StubWheelColorSensor
 #####################
 # Ballevator
 #####################
-Ballevator.className = StubBallevatorSubsystem
-Ballevator.defaultCommandName = BallevatorDoNothing
+#Ballevator.className = StubBallevatorSubsystem
+Ballevator.className = BallevatorSubsystem
+#Ballevator.defaultCommandName = BallevatorDoNothing
+Ballevator.defaultCommandName = BallevatorSimpleManual
 
 
 #####################

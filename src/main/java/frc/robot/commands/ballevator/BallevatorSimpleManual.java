@@ -38,10 +38,9 @@ public class BallevatorSimpleManual extends PKManualCommand {
         super.execute();
 
         double speed = oi.getBallevatorSpeed();
-
-        if (speed > 0.05) {
+         if (speed > 0.0) {
             ballevator.lift();
-        } else if (speed < -0.05) {
+        } else if (speed < 0.0) {
             ballevator.lower();
         } else {
             ballevator.stop();

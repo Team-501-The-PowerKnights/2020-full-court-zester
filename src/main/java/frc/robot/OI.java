@@ -156,16 +156,22 @@ public class OI implements ITelemetryProvider {
         return speed;
     }
 
+    public double getBallevatorSpeed() {
+        double speed = 0.0;
+        if (getOperatorLeftTrigger() > 0) {
+            speed = getOperatorLeftTrigger();
+        } else if (getOperatorRightTrigger() > 0) {
+            speed = -getOperatorRightTrigger();
+        }
+        return speed;
+    }
+
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
 
     public double getHopperSpeed() {
         return getDriverBumperAxis();
-    }
-
-    public double getBallevatorSpeed() {
-        return getOperatorRightYAxis();
     }
 
     public double getTurretIncrement() {
@@ -250,6 +256,14 @@ public class OI implements ITelemetryProvider {
         } else {
             return 0;
         }
+    }
+
+    private double getOperatorLeftTrigger() {
+        return operatorStick.getRawAxis(2);
+    }
+
+    private double getOperatorRightTrigger() {
+        return operatorStick.getRawAxis(3);
     }
 
 }

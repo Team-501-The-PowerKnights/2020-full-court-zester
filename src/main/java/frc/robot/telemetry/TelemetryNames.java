@@ -133,6 +133,7 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.ballevatorName;
 
         public static final String status = name + ".status";
+        public static final String speed = name + ".speed";
     }
 
     public final class Shooter {
