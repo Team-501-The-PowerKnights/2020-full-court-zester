@@ -14,12 +14,15 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Preferences;
 
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.preferences.PreferencesNames.*;
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class ShooterSubsystem extends BaseShooterSubsystem {
@@ -83,8 +86,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         rightMotor.restoreFactoryDefaults();
         // + spin out, - spin in
 
-        // rightMotor.setInverted(true);
-
+        // Slaved and inverted
         rightMotor.follow(leftMotor, true);
 
         shooterPID = new CANPIDController(leftMotor);
@@ -181,19 +183,22 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
+        // Dashboard provides scale for shooter speed
+        double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
+
         switch (canID) {
         case 20:
             turretMotor.set(speed);
             break;
         case 21:
-            leftMotor.set(speed);
+            leftMotor.set(speed * scale);
             break;
         case 22:
-            rightMotor.set(speed);
+            rightMotor.set(speed * scale);
             break;
         case 29:
             // Assuming slaved
-            leftMotor.set(speed);
+            leftMotor.set(speed * scale);
             break;
         default:
             break;

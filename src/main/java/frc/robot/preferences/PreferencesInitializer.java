@@ -78,6 +78,11 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.f, 0.0);
         }
 
+        if (!prefs.containsKey(Shooter.scale)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.scale);
+            prefs.putDouble(Shooter.scale, 1.0);
+        }
+
         Collection<String> keys = prefs.getKeys();
         logger.info("preferences as initialized:\n");
 
