@@ -24,7 +24,8 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(IntakeSubsystem.class.getName());
 
-    private final TalonSRX ingestMotor;
+    // Our motor to drive the intake in (up) & out (down)
+    private final TalonSRX motor;
 
     // Keep for telemetry
     private double tlmSpeed;
@@ -40,7 +41,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     public IntakeSubsystem() {
         logger.info("constructing");
 
-        ingestMotor = new TalonSRX(41);
+        motor = new TalonSRX(41);
 
         pid = new PIDController(0.0, 0.0, 0.0);
         pidP = 0.0;
@@ -112,19 +113,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
 
     private void setSpeed(double speed) {
         tlmSpeed = speed;
-        ingestMotor.set(ControlMode.PercentOutput, tlmSpeed);
-    }
-
-    @Override
-    public void raise() {
-        // agitatorMotor.set(ControlMode.Position, 0.0); // TODO - determine actual
-        // position
-    }
-
-    @Override
-    public void lower() {
-        // agitatorMotor.set(ControlMode.Position, 25.0); // TODO - determine actual
-        // position
+        motor.set(ControlMode.PercentOutput, tlmSpeed);
     }
 
 }
