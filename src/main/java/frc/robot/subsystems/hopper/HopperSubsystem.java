@@ -12,65 +12,79 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class HopperSubsystem extends BaseHopperSubsystem {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(HopperSubsystem.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(HopperSubsystem.class.getName());
 
-  private TalonSRX agitator;
+    private TalonSRX agitatorMotor;
 
-  public HopperSubsystem() {
-    logger.info("constructing");
+    // Keep for telemetry
+    private double tlmSpeed;
 
-    agitator = new TalonSRX(31);
+    public HopperSubsystem() {
+        logger.info("constructing");
 
-    logger.info("constructed");
-  }
+        agitatorMotor = new TalonSRX(31);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+        tlmSpeed = 0.0;
 
-  @Override
-  public void updateTelemetry() {
-    // TODO Auto-generated method stub
+        logger.info("constructed");
+    }
 
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  @Override
-  public void stop() {
-    // TODO Auto-generated method stub
+    @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.Hopper.speed, tlmSpeed);
+    }
 
-  }
+    @Override
+    public void stop() {
+        setSpeed(0.0);
+    }
 
-  @Override
-  public void validateCalibration() {
-    // TODO Auto-generated method stub
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void updatePreferences() {
-    // TODO Auto-generated method stub
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void disable() {
-    // TODO Auto-generated method stub
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
 
-  }
+    }
 
-  @Override
-  public void agitate() {
-    agitator.set(ControlMode.PercentOutput, 0.2); // TODO - Determine actual preset speed
-  }
+    @Override
+    public void agitate() {
+        // TODO - Determine actual preset speed
+        setSpeed(0.5);
+    }
 
-  @Override
-  public void agitate(double speed) {
-    agitator.set(ControlMode.PercentOutput, speed);
-  }
+    @Override
+    public void agitate(double speed) {
+        setSpeed(speed);
+    }
+
+    private void setSpeed(double speed) {
+        tlmSpeed = speed;
+        agitatorMotor.set(ControlMode.PercentOutput, tlmSpeed);
+    }
+
 }

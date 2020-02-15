@@ -58,18 +58,19 @@ public class SubsystemFactory {
          * Power Cells
          ***************/
 
-        SmartDashboard.putNumber(TelemetryNames.Intake.status, PKStatus.unknown.tlmValue);
-        {
-            IntakeFactory.constructInstance();
-            ISubsystem ss = IntakeFactory.getInstance();
-            tlmMgr.addProvider(ss);
-            subsystems.add(ss);
-        }
-
+        // TODO - Dependency in Ingest at the moment
         SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.unknown.tlmValue);
         {
             HopperFactory.constructInstance();
             ISubsystem ss = HopperFactory.getInstance();
+            tlmMgr.addProvider(ss);
+            subsystems.add(ss);
+        }
+
+        SmartDashboard.putNumber(TelemetryNames.Intake.status, PKStatus.unknown.tlmValue);
+        {
+            IntakeFactory.constructInstance();
+            ISubsystem ss = IntakeFactory.getInstance();
             tlmMgr.addProvider(ss);
             subsystems.add(ss);
         }
