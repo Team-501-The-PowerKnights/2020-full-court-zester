@@ -79,16 +79,18 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void extend() {
-        while (!(limitUp.getValue() == 1)) {
-            setSpeed(0.3);
-        }
+        // while (!(limitUp.getValue() == 1)) {
+        // setSpeed(0.3);
+        // }
+        setSpeed(0.3);
     }
 
     @Override
     public void retract() {
-        while (!(limitDown.getValue() == 1)) {
-            setSpeed(0.3);
-        }
+        // while (!(limitDown.getValue() == 1)) {
+        // setSpeed(0.3);
+        // }
+        setSpeed(-0.3);
     }
 
     private void setSpeed(double speed) {

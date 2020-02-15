@@ -104,7 +104,8 @@ Intake.defaultCommandName = IntakeSimpleManual
 Shooter.className = ShooterSubsystem
 #Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = TurretSimpleManual
-Shooter.defaultCommandName = ShooterSimpleManual
+#Shooter.defaultCommandName = ShooterSimpleManual
+Shooter.defaultCommandName = ShooterManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
 
 

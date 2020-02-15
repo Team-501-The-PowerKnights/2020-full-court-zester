@@ -9,7 +9,6 @@ package frc.robot;
 
 import org.slf4j.Logger;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -116,7 +115,7 @@ public class OI implements ITelemetryProvider {
         } else if (crawlButton.get()) {
             calcSpeed = hmiSpeed * 0.30;
         } else {
-            calcSpeed = hmiSpeed * 0.70;
+            calcSpeed = hmiSpeed; // * 0.70;
         }
         return calcSpeed;
     }
@@ -174,7 +173,7 @@ public class OI implements ITelemetryProvider {
     }
 
     public double getTurretSpeed() {
-        return deadBand(getOperatorLeftXAxis(), 0.05);
+        return deadBand(getOperatorLeftXAxis(), 0.05) * 0.15;
     }
 
     public double getShooterSpeed() {
@@ -189,7 +188,7 @@ public class OI implements ITelemetryProvider {
     public int getClimberCommand() {
         int value = operatorStick.getPOV();
         System.out.println("value = value");
-        if ((value == 0)) {
+        if (value == 0) {
             return 1;
         } else if (value == 180) {
             return 2;
