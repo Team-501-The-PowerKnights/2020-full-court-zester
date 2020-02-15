@@ -182,7 +182,7 @@ public class OI implements ITelemetryProvider {
 
     /**
      * 
-     * @return 0 - neutral, 1 - extend, 2 - retract
+     * @return 0 - neutral, 1 - extend
      * 
      */
     public int getClimberCommand() {
@@ -190,8 +190,8 @@ public class OI implements ITelemetryProvider {
         System.out.println("value = value");
         if (value == 0) {
             return 1;
-        } else if (value == 180) {
-            return 2;
+            // } else if (value == 180) {
+            // return 2;
         } else {
             return 0;
         }
