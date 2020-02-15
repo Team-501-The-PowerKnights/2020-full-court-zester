@@ -175,6 +175,7 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
         public static final String topLimit = name + ".topLimit";
         public static final String bottomLimit = name + ".bottomLimit";
+        public static final String speed = name + ".speed";
     }
 
     /***************

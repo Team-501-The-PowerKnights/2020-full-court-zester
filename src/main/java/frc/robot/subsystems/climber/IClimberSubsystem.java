@@ -18,6 +18,6 @@ public interface IClimberSubsystem extends ISubsystem {
 
     public void extend();
 
-    public void climb();
+    public void retract();
 
 }

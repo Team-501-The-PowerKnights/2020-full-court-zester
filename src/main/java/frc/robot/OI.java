@@ -9,6 +9,7 @@ package frc.robot;
 
 import org.slf4j.Logger;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -77,6 +78,12 @@ public class OI implements ITelemetryProvider {
 
     private void configureButtonBindings() {
         // TODO - What is this? Do we need it?
+
+        // elbowHighButton = new POVButton( operatorStick, 0 );
+        // elbowHighButton.whenPressed( new ElbowGoToHighPosition() );
+        // elbowMidButton = new POVButton( operatorStick, 90 );
+        // elbowMidButton.whenPressed( new ElbowGoToMidPosition() );
+        // elbowLowButton = new POVButton( operatorStick, 180 );
     }
 
     @Override
@@ -172,6 +179,23 @@ public class OI implements ITelemetryProvider {
 
     public double getShooterSpeed() {
         return deadBand(getOperatorRightYAxis(), 0.05);
+    }
+
+    /**
+     * 
+     * @return 0 - neutral, 1 - extend, 2 - retract
+     * 
+     */
+    public int getClimberCommand() {
+        int value = operatorStick.getPOV();
+        System.out.println("value = value");
+        if ((value == 0)) {
+            return 1;
+        } else if (value == 180) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 
     //////////////////////////////////////////////////////////////////
