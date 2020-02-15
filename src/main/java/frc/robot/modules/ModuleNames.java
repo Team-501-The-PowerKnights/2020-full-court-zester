@@ -16,4 +16,8 @@ public class ModuleNames {
 
     public static final String pdpName = "PDP";
 
+    public static final String visionName = "Vision";
+
+    public static final String rpiName = "RPI";
+
 }
