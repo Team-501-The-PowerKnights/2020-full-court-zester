@@ -32,7 +32,7 @@ class ClimberSubsystem extends BaseClimberSubsystem {
     public ClimberSubsystem() {
         logger.info("constructing");
 
-        motor = new CANSparkMax(71, MotorType.kBrushless);
+        motor = new CANSparkMax(55, MotorType.kBrushless);
 
         limitUp = new AnalogInput(0);
         limitDown = new AnalogInput(1);

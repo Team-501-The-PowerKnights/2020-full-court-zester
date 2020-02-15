@@ -13,4 +13,4 @@
 | Intake Retractor | Talon SRX       | 42     | N/A         | 9      |
 | Ballevator       | Talon SRX       | 51     | N/A         | 7      |
 | Wheel            | Talon SRX       | 61     | N/A         | TBD    |
-| Climber          | Spark Max       | 71     | N/A         | 12     |
+| Climber          | Spark Max       | 55  | N/A         | 12     |
