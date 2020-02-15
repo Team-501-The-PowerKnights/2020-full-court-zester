@@ -23,7 +23,8 @@ class HopperSubsystem extends BaseHopperSubsystem {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(HopperSubsystem.class.getName());
 
-    private TalonSRX agitatorMotor;
+    // Our motor to do agitation (no directionality required)
+    private TalonSRX motor;
 
     // Keep for telemetry
     private double tlmSpeed;
@@ -31,7 +32,7 @@ class HopperSubsystem extends BaseHopperSubsystem {
     public HopperSubsystem() {
         logger.info("constructing");
 
-        agitatorMotor = new TalonSRX(31);
+        motor = new TalonSRX(31);
 
         tlmSpeed = 0.0;
 
@@ -84,7 +85,7 @@ class HopperSubsystem extends BaseHopperSubsystem {
 
     private void setSpeed(double speed) {
         tlmSpeed = speed;
-        agitatorMotor.set(ControlMode.PercentOutput, tlmSpeed);
+        motor.set(ControlMode.PercentOutput, tlmSpeed);
     }
 
 }
