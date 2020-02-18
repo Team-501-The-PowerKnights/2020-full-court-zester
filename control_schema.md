@@ -1,7 +1,5 @@
 # Controls Layout / Interface
 
-(This is an example start made by Thad. Feel free to delete it all. Delete this comment when you're happy with what it looks like)
-
 Types of inputs:
 - [button] - button, active high
 - [analog] - analog value
