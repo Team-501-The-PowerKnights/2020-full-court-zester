@@ -9,7 +9,8 @@
 - [analog] (Left Joystick U-D): Drivetrain Speed (forward/backward)
 - [analog] (Right Joystick L-R): Drivetrain Turn (left/right)
 - [button] (Right Bumper): Drivetrain Crawl Enabled *{whilePressed}*
-- xxxxx : Drive Train Turbo Enabled *{whilePressed}*
+- ~~xxxxx : Drive Train Turbo Enabled *{whilePressed}*~~
+- [button] (???) Switch Drive Direction
 - [button] (Left Bumper): Toggle Between Intake Deploy/Stow
 - [analog] (Left Trigger): Intake In & Hopper
 - [analog] (Right Trigger): Intake Out & Hopper
@@ -38,8 +39,10 @@
   - determines set_point for turret rotation
   - determines set_point for shooter speed
 - [button] (button 6): Ballevator up *{whilePressed}*
+  - cancels Fire Pose (but leaves shooter running)
   - button 6 & 7 simultaneous cancel
 - [button] (button 7): Ballevator down *{whilePressed}*
+  - cancels Fire Pose (but leaves shooter running)
   - button 6 & 7 simultaneous cancel
 - [button] (buttons 8): Select Robot Orientation back *{whenPressed}*
   - determines set_point for turret rotation
@@ -49,10 +52,10 @@
 - [button] (button 10) Select Robot Orientation front *{whenPressed}*
   - determines set_point for turret rotation
 - [analog] (pot 2): Turret fine angle adjustment off of baseline
-  - +/- range ~3 degrees
+  - +/- range **~3** degrees
   - funky start enable processing
 - [analog] (pot 3): Shooter RPM fine adjustment off of baseline
-  - +/- range ~xxx RPM
+  - +/- range **~xxx** RPM
   - funky start enable processing
 - [button] (buttons 11): Turret jog *{whenPressed}*
   - clockwise at constant preset in code
@@ -64,10 +67,9 @@
   - stays from one shot sequence to next
 - [switch] (button 13): Enable vision targeting *{whilePressed}*
   - enforce turret rotation with limits
-- [button] (button 8): Activate wheel of fortune - Position Control
-- [button] (button 9): Activate wheel of fortune - Rotation Control
-- (button 13): Spare button
-- (button 14): Spare button
+- ~~[button] (button 14): Activate wheel of fortune - Position Control~~
+- ~~[button] (button 15): Activate wheel of fortune - Rotation Control~~
+- ~~(button 16): Spare button~~
 
 ## Special
 - When some special combo of buttons is pressed, the climber reverses
