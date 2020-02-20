@@ -1,34 +1,75 @@
 # Controls Layout / Interface
 
-Types of inputs:
+## Types of Inputs
 - [button] - button, active high
+- [switch] - two pole switch, active high
 - [analog] - analog value
 
 ## Driver
-- [analog] Left Joystick  U-D: Drivetrain Fwd/Backwards
-- [analog] Right Joystick L-R: Drivetrain Left/Right
-- [button] (Right Bumper): Drievtrain Crawl Enabled
-- [button] (Left Bumper): Toggle Between Intake Up/Down
-- [button] (Left Trigger): Intake In Enabled
-- [button] (Right Trigger): Intake Out Enabled
-- [button] (Button Y): Raise Climber (Momentary with encoder or limit switch limit)
-- [button] (Button X): Move Climber (Momentary with limit switch limit)
+- [analog] {Left Joystick}  U-D: Drivetrain Speed (forward/backward)
+- [analog] {Right Joystick} L-R: Drivetrain Turn (left/right)
+- [button] {Right Bumper}: Drive Train Crawl Enabled {whilePressed}
+- xxxxx : Drive Train Turbo Enabled {whilePressed}
+- [button] {Left Bumper}: Toggle Between Intake Deploy/Stow
+- [analog] {Left Trigger}: Intake In & Hopper
+- [analog] {Right Trigger}: Intake Out & Hopper
+- [button] {Hat Up <0 deg>}: Extend Climber {whilePressed}
+- limit by encoder or limit switch
+- motor runs while button depressed
+- speed is constant preset in code
+- [button] {Hat Down <180 deg>}: Lower Climber {whilePressed}
+- limit by encoder or limit switch
+- motor runs while button depressed
+- speed is constant preset in code
 
 ## Operator
-- [button] (button 1): Fire (if shooter is revved up, advance balls into shooter, run intake, run hopper)
-- [button] (button 2): Toggle between shooter rev up and not
-- [analog] (pot 1): Select shooter speed; behaves like a multi-position switch between 3+ different discrete values (i.e. full court, trench, mid)
-- [button] (button 3): Ballevator up (unjam purposes; momentary)
-- [button] (button 4): Ballevator down (unjam purposes; momentary)
-- [button] (button 5): Activate wheel of fortune - Position Control
-- [button] (button 6): Activate wheel of fortune - Rotation Control
-- [button] (buttons 7-9): Go to cardinal positions on turret (back, right, front)
-- [analog] (pot 2): Turret adjustment off of baseline (when targeting)
-- [analog] (pot 3): Shooter RPM adjustment off of baseline
-- [button] (buttons 10-11): Turret jog (clockwise, counterclockwise)
-- [button] (button 12): Enable vision targeting
+- [button] (button 1): Fire Pose {whilePressed}
+- if shooter is not revved up, rev up shooter
+- run intake and hopper
+- advance balls via ballevator into shooter
+- [switch] (button 2): Rev Shooter {whilePressed}
+- use PID and selected set_point
+- else idle shooter at constant preset in code
+- [button] (button 3): Select Field Position full-court{whenPressed}
+- determines set_point for shooter speed
+- [button] (button 4): Select Field Position trench {whenPressed}
+- determines set_point for turret rotation
+- determines set_point for shooter speed
+- [button] (button 5): Select Field Position mid-field {whenPressed}
+- determines set_point for turret rotation
+- determines set_point for shooter speed
+- [button] (button 6): Ballevator up {whilePressed}
+- button 6 & 7 simultaneous cancel
+- [button] (button 7): Ballevator down {whilePressed}
+- button 6 & 7 simultaneous cancel
+- [button] (buttons 8): Go to turret robot orientation back {whenPressed}
+- default
+- [button] (button 9): Go to turret robot orientation right {when Pressed}
+- [button] (button 10) Go to turret robot orientation front {whenPressed}
+- [analog] (pot 2): Turret fine angle adjustment off of baseline
+- +/- range ~3 degrees
+- funky start enable processing
+- [analog] (pot 3): Shooter RPM fine adjustment off of baseline
+- +/- range ~xxx RPM
+- funky start enable processing
+- [button] (buttons 11): Turret jog {whenPressed}
+- clockwise at constant preset in code
+- additive to final turret rotation value
+- stays from one shot sequence to next
+- [button] (button 12): Turret jog {whenPressed}
+- counter-clockwise at constant preset in code
+- additive to final turret rotation value
+- stays from one shot sequence to next
+- [switch] (button 13): Enable vision targeting {whilePressed}
+- enforce turret rotation with limits
+- [button] (button 8): Activate wheel of fortune - Position Control
+- [button] (button 9): Activate wheel of fortune - Rotation Control
 - (button 13): Spare button
 - (button 14): Spare button
 
 ## Special
 - When some special combo of buttons is pressed, the climber reverses
+- Final turret position is based on:
+- 1. turret robot orientation (buttons 9, 10, 11)
+- 2. field position (buttons 3, 4, 5)
+- 3. jogs (buttons 11, 12)
