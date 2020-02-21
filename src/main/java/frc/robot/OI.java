@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.commands.drive.DriveSwap;
+import frc.robot.commands.shooter.ShooterHome;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKStatus;
@@ -59,10 +60,12 @@ public class OI implements ITelemetryProvider {
     private final Button turboButton;
     private final Button crawlButton;
     private final Button pitClimberEnableButton;
+    private final Button driveSwapButton;
 
     private final Joystick operatorStick;
     private final Button turretTurboButton;
     private final Button pitClimberRetractButton;
+    private final Button shooterHomeButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -70,6 +73,7 @@ public class OI implements ITelemetryProvider {
         driverStick = new Joystick(0);
         turboButton = new JoystickButton(driverStick, 5);
         crawlButton = new JoystickButton(driverStick, 6);
+        driveSwapButton = new JoystickButton(driverStick, 3);
 
         operatorStick = new Joystick(1);
         turretTurboButton = new JoystickButton(operatorStick, 5);
@@ -77,19 +81,16 @@ public class OI implements ITelemetryProvider {
         pitClimberEnableButton = new JoystickButton(driverStick, 8);
         pitClimberRetractButton = new JoystickButton(operatorStick, 8);
 
-        configureButtonBindings();
+        shooterHomeButton = new JoystickButton(operatorStick, 7);
 
         logger.info("constructed");
     }
 
-    private void configureButtonBindings() {
+    public void configureButtonBindings() {
         // TODO - What is this? Do we need it?
 
-        // elbowHighButton = new POVButton( operatorStick, 0 );
-        // elbowHighButton.whenPressed( new ElbowGoToHighPosition() );
-        // elbowMidButton = new POVButton( operatorStick, 90 );
-        // elbowMidButton.whenPressed( new ElbowGoToMidPosition() );
-        // elbowLowButton = new POVButton( operatorStick, 180 );
+        shooterHomeButton.whenPressed(new ShooterHome());
+        driveSwapButton.whenPressed(new DriveSwap());
     }
 
     @Override
