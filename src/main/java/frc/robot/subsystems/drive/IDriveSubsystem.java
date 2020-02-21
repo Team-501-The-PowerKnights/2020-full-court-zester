@@ -33,6 +33,11 @@ public interface IDriveSubsystem extends ISubsystem {
     public void stop();
 
     /**
+     * "Swap" the drive (invert the sense of the motors)
+     */
+    public void swap();
+
+    /**
      * 
      * @param hmiSpeed
      * @param hmiTurn

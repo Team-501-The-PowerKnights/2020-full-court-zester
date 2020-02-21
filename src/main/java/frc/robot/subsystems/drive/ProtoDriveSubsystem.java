@@ -255,4 +255,10 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
 
     }
 
+    @Override
+    public void swap() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

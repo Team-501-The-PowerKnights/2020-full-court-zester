@@ -168,6 +168,12 @@ class DriveSubsystem extends BaseDriveSubsystem {
         drive.tankDrive(0, 0);
     }
 
+    @Override
+    public void swap() {
+        leftFrontMotor.setInverted( leftFrontMotor.getInverted() ? false : true);
+        rightFrontMotor.setInverted( rightFrontMotor.getInverted() ? false : true);
+    }
+
     /*
      * Drive constraint values
      */
@@ -275,10 +281,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
-        // TODO Auto-generated method stub
 
         switch (canID) {
-        // leftFront
         case 11:
             leftFrontMotor.set(speed);
             break;
