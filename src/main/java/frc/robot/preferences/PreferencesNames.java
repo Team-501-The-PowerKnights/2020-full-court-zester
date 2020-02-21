@@ -33,4 +33,12 @@ public class PreferencesNames {
         public static final String scale = name + ".scale";
     }
 
+    public final class Intake {
+        public static final String name = SubsystemNames.intakeName;
+        public static final String p = name + ".P";
+        public static final String i = name + ".I";
+        public static final String d = name + ".D";
+        public static final String f = name + ".F";
+    }
+
 }
