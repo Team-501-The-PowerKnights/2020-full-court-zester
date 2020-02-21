@@ -56,10 +56,13 @@ public class OI implements ITelemetryProvider {
     }
 
     private final Joystick driverStick;
-    public final Button turboButton;
-    public final Button crawlButton;
+    private final Button turboButton;
+    private final Button crawlButton;
+    private final Button pitClimberEnableButton;
 
     private final Joystick operatorStick;
+    private final Button turretTurboButton;
+    private final Button pitClimberRetractButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -69,6 +72,10 @@ public class OI implements ITelemetryProvider {
         crawlButton = new JoystickButton(driverStick, 6);
 
         operatorStick = new Joystick(1);
+        turretTurboButton = new JoystickButton(operatorStick, 5);
+
+        pitClimberEnableButton = new JoystickButton(driverStick, 8);
+        pitClimberRetractButton = new JoystickButton(operatorStick, 8);
 
         configureButtonBindings();
 
@@ -77,6 +84,12 @@ public class OI implements ITelemetryProvider {
 
     private void configureButtonBindings() {
         // TODO - What is this? Do we need it?
+
+        // elbowHighButton = new POVButton( operatorStick, 0 );
+        // elbowHighButton.whenPressed( new ElbowGoToHighPosition() );
+        // elbowMidButton = new POVButton( operatorStick, 90 );
+        // elbowMidButton.whenPressed( new ElbowGoToMidPosition() );
+        // elbowLowButton = new POVButton( operatorStick, 180 );
     }
 
     @Override
@@ -105,11 +118,11 @@ public class OI implements ITelemetryProvider {
         double hmiSpeed = getRawDriveSpeed();
         double calcSpeed;
         if (turboButton.get()) {
-            calcSpeed = hmiSpeed * 0.80;
+            calcSpeed = hmiSpeed; // * 0.80 in 2019
         } else if (crawlButton.get()) {
             calcSpeed = hmiSpeed * 0.30;
         } else {
-            calcSpeed = hmiSpeed * 0.70;
+            calcSpeed = hmiSpeed; // * 0.70;
         }
         return calcSpeed;
     }
@@ -118,7 +131,7 @@ public class OI implements ITelemetryProvider {
         double hmiTurn = getRawDriveTurn();
         double calcTurn;
         if (turboButton.get()) {
-            calcTurn = hmiTurn * 0.50;
+            calcTurn = hmiTurn; // * 0.50 in 2019
         } else if (crawlButton.get()) {
             calcTurn = hmiTurn * 0.25;
         } else {
@@ -146,6 +159,61 @@ public class OI implements ITelemetryProvider {
         return retValue;
     }
 
+    public double getIntakeSpeed() {
+        double speed = 0.0;
+        if (getDriverLeftTrigger() > 0) {
+            speed = getDriverLeftTrigger();
+        } else if (getDriverRightTrigger() > 0) {
+            speed = -getDriverRightTrigger();
+        }
+        return speed;
+    }
+
+    public double getBallevatorSpeed() {
+        double speed = 0.0;
+        if (getOperatorLeftTrigger() > 0) {
+            speed = getOperatorLeftTrigger();
+        } else if (getOperatorRightTrigger() > 0) {
+            speed = -getOperatorRightTrigger();
+        }
+        return speed;
+    }
+
+    public double getRawTurretSpeed() {
+        return deadBand(getOperatorLeftXAxis(), 0.05);
+    }
+
+    public double getTurretSpeed() {
+        double hmiSpeed = getRawTurretSpeed();
+        double calcSpeed;
+        if (turretTurboButton.get()) {
+            calcSpeed = hmiSpeed * 0.35;
+        } else {
+            calcSpeed = hmiSpeed * 0.15;
+        }
+        return calcSpeed;
+    }
+
+    public double getShooterSpeed() {
+        return deadBand(getOperatorRightYAxis(), 0.05);
+    }
+
+    /**
+     * 
+     * @return 0 - neutral, 1 - extend
+     * 
+     */
+    public int getClimberCommand() {
+        int value = operatorStick.getPOV();
+        if (value == 0) {
+            return 1;
+        } else if ((pitClimberEnableButton.get()) && (pitClimberRetractButton.get())) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
@@ -154,17 +222,13 @@ public class OI implements ITelemetryProvider {
         return getDriverBumperAxis();
     }
 
-    public double getIntakeSpeed() {
-        return getDriverLeftBumper();
-    }
-
-    public double getBallevatorSpeed() {
-        return getOperatorRightYAxis();
-    }
-
     public double getTurretIncrement() {
         return getOperatorBumperAxis();
     }
+
+    //////////////////////////////////////////////////////////////////
+    // TODO - Finish cleaning up these
+    //////////////////////////////////////////////////////////////////
 
     private double getDriverLeftYAxis() {
         return -driverStick.getRawAxis(1);
@@ -180,6 +244,14 @@ public class OI implements ITelemetryProvider {
 
     private double getDriverRightXAxis() {
         return driverStick.getRawAxis(4);
+    }
+
+    private double getDriverLeftTrigger() {
+        return driverStick.getRawAxis(2);
+    }
+
+    private double getDriverRightTrigger() {
+        return driverStick.getRawAxis(3);
     }
 
     private double getDriverLeftBumper() {
@@ -232,6 +304,14 @@ public class OI implements ITelemetryProvider {
         } else {
             return 0;
         }
+    }
+
+    private double getOperatorLeftTrigger() {
+        return operatorStick.getRawAxis(2);
+    }
+
+    private double getOperatorRightTrigger() {
+        return operatorStick.getRawAxis(3);
     }
 
 }

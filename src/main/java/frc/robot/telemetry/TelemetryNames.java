@@ -119,18 +119,21 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.intakeName;
 
         public static final String status = name + ".status";
+        public static final String speed = name + ".speed";
     }
 
     public final class Hopper {
         public static final String name = SubsystemNames.hopperName;
 
         public static final String status = name + ".status";
+        public static final String speed = name + ".speed";
     }
 
     public final class Ballevator {
         public static final String name = SubsystemNames.ballevatorName;
 
         public static final String status = name + ".status";
+        public static final String speed = name + ".speed";
     }
 
     public final class Shooter {
@@ -172,6 +175,7 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
         public static final String topLimit = name + ".topLimit";
         public static final String bottomLimit = name + ".bottomLimit";
+        public static final String speed = name + ".speed";
     }
 
     /***************

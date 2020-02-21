@@ -21,34 +21,25 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
 
+    private CANSparkMax motor;
+
     private AnalogInput limitUp;
     private AnalogInput limitDown;
 
-    private CANSparkMax motor;
+    // Keep for telemetry
+    private double tlmSpeed;
 
     public ClimberSubsystem() {
         logger.info("constructing");
 
+        motor = new CANSparkMax(55, MotorType.kBrushless);
+
         limitUp = new AnalogInput(0);
         limitDown = new AnalogInput(1);
 
-        motor = new CANSparkMax(71, MotorType.kBrushless);
+        tlmSpeed = 0.0;
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void extend() {
-        while (!(limitUp.getValue() == 1)) {
-            motor.set(0.3);
-        }
-    }
-
-    @Override
-    public void climb() {
-        while (!(limitDown.getValue() == 1)) {
-            motor.set(0.3);
-        }
     }
 
     @Override
@@ -60,6 +51,7 @@ class ClimberSubsystem extends BaseClimberSubsystem {
     public void updateTelemetry() {
         SmartDashboard.putBoolean(TelemetryNames.Climber.topLimit, limitUp.getValue() == 1);
         SmartDashboard.putBoolean(TelemetryNames.Climber.bottomLimit, limitDown.getValue() == 1);
+        SmartDashboard.putNumber(TelemetryNames.Climber.speed, tlmSpeed);
     }
 
     @Override
@@ -83,6 +75,21 @@ class ClimberSubsystem extends BaseClimberSubsystem {
     public void disable() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void extend() {
+        setSpeed(1.0);
+    }
+
+    @Override
+    public void retract() {
+        setSpeed(-0.2);
+    }
+
+    private void setSpeed(double speed) {
+        tlmSpeed = speed;
+        motor.set(tlmSpeed);
     }
 
 }

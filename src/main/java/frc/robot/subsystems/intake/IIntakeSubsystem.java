@@ -24,8 +24,4 @@ public interface IIntakeSubsystem extends ISubsystem {
 
     public void pushOut(double speed);
 
-    public void raise();
-
-    public void lower();
-
 }

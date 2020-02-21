@@ -5,29 +5,29 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
-import frc.robot.subsystems.ballevator.BallevatorFactory;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class BallevatorSimpleManual extends PKManualCommand {
+public class TurretSimpleManual extends PKManualCommand {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretSimpleManual.class.getName());
 
     // Handle to our subsystem
-    private IBallevatorSubsystem ballevator;
+    private IShooterSubsystem shooter;
 
-    public BallevatorSimpleManual() {
+    public TurretSimpleManual() {
         logger.info("constructing {}", getName());
 
-        ballevator = BallevatorFactory.getInstance();
-        addRequirements(ballevator);
+        shooter = ShooterFactory.getInstance();
+        addRequirements(shooter);
 
         logger.info("constructed");
     }
@@ -37,14 +37,9 @@ public class BallevatorSimpleManual extends PKManualCommand {
     public void execute() {
         super.execute();
 
-        double speed = oi.getBallevatorSpeed();
-         if (speed > 0.0) {
-            ballevator.lift();
-        } else if (speed < 0.0) {
-            ballevator.lower();
-        } else {
-            ballevator.stop();
-        }
+        double speed = oi.getTurretSpeed();
+        System.out.println("speed=" + speed);
+        shooter.setSpeed(20, speed);
     }
 
 }

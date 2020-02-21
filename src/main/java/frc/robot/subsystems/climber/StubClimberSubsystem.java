@@ -58,7 +58,7 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
   }
 
   @Override
-  public void climb() {
+  public void retract() {
     // Stub doesn't implement this
 
   }

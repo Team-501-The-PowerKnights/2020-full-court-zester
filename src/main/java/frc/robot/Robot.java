@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.drive.DriveForwardTimed;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.preferences.PreferencesInitializer;
@@ -265,21 +266,7 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
-        // autoCommand = autoChooser.getSelected();
-        autoCommand = new DoNothing();
-
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-         * switch(autoSelected) { case "My Auto": autonomousCommand = new
-         * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-         * ExampleCommand(); break; }
-         */
-
-        // schedule the autonomous command (example)
-        if (autoCommand != null) {
-            // FIXME - New method for new command implementation?
-            // autoCommand.start();
-        }
+        CommandScheduler.getInstance().schedule(true, new DriveForwardTimed());
 
         logger.info("initialized");
     }

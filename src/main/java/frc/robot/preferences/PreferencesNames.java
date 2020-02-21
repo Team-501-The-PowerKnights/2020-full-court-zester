@@ -24,10 +24,13 @@ public class PreferencesNames {
 
     public final class Shooter {
         public static final String name = SubsystemNames.shooterName;
+        // PID for shooter speed
         public static final String p = name + ".P";
         public static final String i = name + ".I";
         public static final String d = name + ".D";
         public static final String f = name + ".F";
+        // Scale applied to shooter speed when in manual
+        public static final String scale = name + ".scale";
     }
 
     public final class Intake {
