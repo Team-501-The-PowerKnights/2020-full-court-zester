@@ -78,6 +78,30 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.f, 0.0);
         }
 
+        /*
+         * Intake
+         */
+
+        if (!prefs.containsKey(Intake.p)) {
+            logger.warn("{} doesn't exist; creating with default", Intake.p);
+            prefs.putDouble(Intake.p, 0.0);
+        }
+
+        if (!prefs.containsKey(Intake.i)) {
+            logger.warn("{} doesn't exist; creating with default", Intake.i);
+            prefs.putDouble(Intake.i, 0.0);
+        }
+
+        if (!prefs.containsKey(Intake.d)) {
+            logger.warn("{} doesn't exist; creating with default", Intake.d);
+            prefs.putDouble(Intake.d, 0.0);
+        }
+
+        if (!prefs.containsKey(Intake.f)) {
+            logger.warn("{} doesn't exist; creating with default", Intake.f);
+            prefs.putDouble(Intake.f, 0.0);
+        }
+
         Collection<String> keys = prefs.getKeys();
         logger.info("preferences as initialized:\n");
 
