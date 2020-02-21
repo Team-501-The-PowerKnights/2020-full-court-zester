@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.DoNothing;
 import frc.robot.commands.drive.DriveForwardTimed;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
@@ -45,6 +44,8 @@ public class Robot extends TimedRobot {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(Robot.class.getName());
+
+    private OI oi;
 
     private TelemetryManager tlmMgr;
 
@@ -91,7 +92,8 @@ public class Robot extends TimedRobot {
 
         // Initialize the OI "subsystem"
         OI.constructInstance();
-        tlmMgr.addProvider(OI.getInstance());
+        oi = OI.getInstance();
+        tlmMgr.addProvider(oi);
 
         // Create command manager
         SchedulerProvider.constructInstance();
@@ -103,6 +105,8 @@ public class Robot extends TimedRobot {
         sensors = SensorFactory.constructSensors();
         // Initialize all the subsystems
         subsystems = SubsystemFactory.constructSubsystems();
+
+        oi.configureButtonBindings();
 
         createAutoChooser();
 
