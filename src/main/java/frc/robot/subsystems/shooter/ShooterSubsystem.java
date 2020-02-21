@@ -135,16 +135,15 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setTurretAngle(double angle) {
-        // if (angle >= turretMaxAngle) {
-        // angle = turretMaxAngle;
-        // } else if (angle <= turretMinAngle) {
-        // angle = turretMinAngle;
-        // }
+        if (angle >= turretMaxAngle) {
+            angle = turretMaxAngle;
+        } else if (angle <= turretMinAngle) {
+            angle = turretMinAngle;
+        }
 
-        // double targetCounts = convertTurretAngleToCounts(angle);
+        double targetCounts = convertTurretAngleToCounts(angle);
 
-        // turretPID.setReference(targetCounts, ControlType.kPosition);
-        turretMotor.set(angle);
+        turretPID.setReference(targetCounts, ControlType.kPosition);
     }
 
     @Override
@@ -182,6 +181,12 @@ class ShooterSubsystem extends BaseShooterSubsystem {
                 * 360 /* 360 degrees per 1 revolution */;
 
         return angle;
+    }
+
+    private double convertTurretAngleToCounts(double angle) {
+        double counts = angle / 360 /* 360 degrees per 1 revolution */ / beltGearing / VPGearing * countsPerRevolution;
+
+        return counts;
     }
 
     @Override
