@@ -64,7 +64,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     // private TalonSRX incrementer; // Unused for now
 
-    private DigitalInput limit;
+    private DigitalInput home;
 
     /**
      * Creates a new ShooterSubsystem.
@@ -74,6 +74,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
         turretMotor = new CANSparkMax(20, MotorType.kBrushless);
         // +CW +, CCW -
+        turretMotor.setInverted(true);
         turretEncoder = new CANEncoder(turretMotor);
         turretPID = new CANPIDController(turretMotor);
         turretPID.setP(turretP);
@@ -98,7 +99,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
         // incrementer = new TalonSRX(23); // Unused for now
 
-        limit = new DigitalInput(0);
+        home = new DigitalInput(8);
 
         logger.info("constructed");
     }
@@ -111,6 +112,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, home.get());
     }
 
     @Override
@@ -147,13 +149,13 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void home() {
-        while (!(limit.get())) {
-            leftMotor.set(0.1);
+        while (!(home.get())) {
+            turretMotor.set(0.1);
         }
 
-        if (limit.get()) {
+        if (home.get()) {
             turretEncoder.setPosition(0);
-            leftMotor.set(0.0);
+            turretMotor.set(0.0);
         }
     }
 
