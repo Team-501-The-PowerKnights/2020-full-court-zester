@@ -123,7 +123,7 @@ public class OI implements ITelemetryProvider {
         } else if (crawlButton.get()) {
             calcSpeed = hmiSpeed * 0.30;
         } else {
-            calcSpeed = hmiSpeed; // * 0.70;
+            calcSpeed = hmiSpeed *= 0.50;
         }
         return calcSpeed;
     }
@@ -132,7 +132,7 @@ public class OI implements ITelemetryProvider {
         double hmiTurn = getRawDriveTurn();
         double calcTurn;
         if (turboButton.get()) {
-            calcTurn = hmiTurn; // * 0.50 in 2019
+            calcTurn = hmiTurn * 0.60; // * 0.50 in 2019
         } else if (crawlButton.get()) {
             calcTurn = hmiTurn * 0.25;
         } else {

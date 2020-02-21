@@ -92,15 +92,8 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        // Really no heavy implementation, just need to see that the controllers can be sent
-        // instructions
-        leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
-        right.set(hmiTurn);
-    }
-
-    @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // Really no heavy implementation, just need to see that the controllers can be sent
+        // Really no heavy implementation, just need to see that the controllers can be
+        // sent
         // instructions
         leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
         right.set(hmiTurn);

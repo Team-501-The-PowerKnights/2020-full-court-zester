@@ -176,23 +176,9 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
      * Drive constraint values
      */
 
-    private static final double speedFactor = 1;
-    private static final double turnFactor = 1;
-    private static final double speedConstraintFactor = 1;
-    private static final double turnConstraintFactor = 1;
-
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
-    }
-
-    @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        if (constrained) {
-            drive.arcadeDrive(hmiSpeed * speedConstraintFactor, hmiTurn * turnConstraintFactor);
-        } else {
-            drive.arcadeDrive(hmiSpeed * speedFactor, hmiTurn * turnFactor);
-        }
+        drive.arcadeDrive(hmiSpeed, hmiTurn);
     }
 
     @Override

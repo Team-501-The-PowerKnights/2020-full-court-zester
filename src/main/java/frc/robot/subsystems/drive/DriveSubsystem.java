@@ -178,14 +178,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
      * Drive constraint values
      */
 
-    private static final double speedFactor = 0.5;
-    private static final double turnFactor = 0.5;
-    private static final double speedConstraintFactor = 0.5;
-    private static final double turnConstraintFactor = 0.5;
     private static double speed;
     private static double turn;
-    private static boolean driveConstrained;
-
     private static double leftSpeed;
     private static double rightSpeed;
 
@@ -194,21 +188,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
         // Save off passed values for telemetry
-        speed = hmiSpeed * speedFactor;
-        turn = hmiTurn * turnFactor;
-
-        boolean quickTurn = (Math.abs(speed) < quickTurnThreshold);
-        DriveSignal driveSignal = helper.cheesyDrive(speed, turn, quickTurn, false);
-
-        arcadeDrive(driveSignal);
-    }
-
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-
-        // Save off passed values for telemetry
-        driveConstrained = constrained;
-        speed = driveConstrained ? hmiSpeed * speedConstraintFactor : hmiSpeed * speedFactor;
-        turn = driveConstrained ? hmiTurn * turnConstraintFactor : hmiTurn * turnFactor;
+        speed = hmiSpeed;
+        turn = hmiTurn;
 
         boolean quickTurn = (Math.abs(speed) < quickTurnThreshold);
         DriveSignal driveSignal = helper.cheesyDrive(speed, turn, quickTurn, false);

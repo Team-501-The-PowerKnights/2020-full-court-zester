@@ -46,14 +46,6 @@ public interface IDriveSubsystem extends ISubsystem {
 
     /**
      * 
-     * @param hmiSpeed
-     * @param hmiTurn
-     * @param constrained
-     */
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained);
-
-    /**
-     * 
      * @param start
      * @param interiorWaypoints
      * @param end
