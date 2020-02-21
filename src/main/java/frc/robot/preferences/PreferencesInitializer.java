@@ -81,6 +81,28 @@ public class PreferencesInitializer {
         if (!prefs.containsKey(Shooter.scale)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.scale);
             prefs.putDouble(Shooter.scale, 1.0);
+        }
+
+        if (!prefs.containsKey(Shooter.turretP)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.turretP);
+            prefs.putDouble(Shooter.turretP, 0.0);
+        }
+
+        if (!prefs.containsKey(Shooter.turretI)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.turretI);
+            prefs.putDouble(Shooter.turretI, 0.0);
+        }
+
+        if (!prefs.containsKey(Shooter.turretD)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.turretD);
+            prefs.putDouble(Shooter.turretD, 0.0);
+        }
+
+        if (!prefs.containsKey(Shooter.turretF)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.turretF);
+            prefs.putDouble(Shooter.turretF, 0.0);
+        }
+
         /*
          * Intake
          */
@@ -111,5 +133,4 @@ public class PreferencesInitializer {
         logger.info("Initialized");
     }
 
-}
 }
