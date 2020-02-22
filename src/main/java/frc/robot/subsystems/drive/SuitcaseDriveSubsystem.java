@@ -51,6 +51,11 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+
+    @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
 
@@ -75,12 +80,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void periodic() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void stop() {
         // Nothing is actually moving on the suitcase bot for drive
     }
@@ -92,7 +91,8 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        // Really no heavy implementation, just need to see that the controllers can be sent
+        // Really no heavy implementation, just need to see that the controllers can be
+        // sent
         // instructions
         leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
         right.set(hmiTurn);
@@ -100,7 +100,8 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // Really no heavy implementation, just need to see that the controllers can be sent
+        // Really no heavy implementation, just need to see that the controllers can be
+        // sent
         // instructions
         leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
         right.set(hmiTurn);

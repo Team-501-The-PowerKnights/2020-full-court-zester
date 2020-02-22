@@ -7,14 +7,24 @@
 
 package frc.robot.subsystems.hopper;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.telemetry.TelemetryNames;
+
+import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
 abstract class BaseHopperSubsystem extends SubsystemBase implements IHopperSubsystem {
 
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(BaseHopperSubsystem.class.getName());
+
+    /** Our subsystem's name **/
     protected static final String myName = TelemetryNames.Hopper.name;
+
 }

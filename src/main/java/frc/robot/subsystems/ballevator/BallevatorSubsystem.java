@@ -44,6 +44,11 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     }
 
     @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.Ballevator.speed, tlmSpeed);
+    }
+
+    @Override
     public void validateCalibration() {
         // TODO Auto-generated method stub
 
@@ -59,11 +64,6 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     public void disable() {
         // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Ballevator.speed, tlmSpeed);
     }
 
     @Override
