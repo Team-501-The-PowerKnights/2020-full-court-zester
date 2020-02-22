@@ -122,6 +122,13 @@ class DriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
+                rightEncoder.getPosition());
+    }
+    
+    @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
     }
@@ -141,12 +148,6 @@ class DriveSubsystem extends BaseDriveSubsystem {
         // TODO Auto-generated method stub
     }
 
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
-                rightEncoder.getPosition());
-    }
 
     @Override
     public void setBrake(boolean brakeOn) {

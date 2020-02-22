@@ -34,17 +34,9 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     private static final double VPGearing = 1;
     private static final double beltGearing = 1;
     private static final double countsPerRevolution = 1;
-    private static final double shooterP = 0;
-    private static final double shooterI = 0;
-    private static final double shooterD = 0;
-    private static final double shooterF = 0;
 
     private static final double turretMaxAngle = 270;
     private static final double turretMinAngle = 0;
-    private static final double turretP = 0;
-    private static final double turretI = 0;
-    private static final double turretD = 0;
-    private static final double turretF = 0;
 
     /**
      * Mechanisms and sensors
@@ -69,8 +61,10 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
         logger.info("constructing");
 
         turretMotor = new CANSparkMax(20, MotorType.kBrushless);
+        turretMotor.restoreFactoryDefaults();
         // +CW +, CCW -
         turretEncoder = new CANEncoder(turretMotor);
+
         turretPID = new CANPIDController(turretMotor);
         turretPID.setP(turretP);
         turretPID.setI(turretI);
@@ -78,7 +72,9 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
         turretPID.setFF(turretF);
 
         leftMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftMotor.restoreFactoryDefaults();
         rightMotor = new CANSparkMax(22, MotorType.kBrushless);
+        rightMotor.restoreFactoryDefaults();
         // + spin out, - spin in
 
         rightMotor.setInverted(true);
@@ -106,6 +102,34 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
+    }
+
+    @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updatePreferences() {
+        super.updatePreferences();
+
+        turretPID.setP(turretP);
+        turretPID.setI(turretI);
+        turretPID.setD(turretD);
+        turretPID.setFF(turretF);
+
+        shooterPID.setP(shooterP);
+        shooterPID.setI(shooterI);
+        shooterPID.setD(shooterD);
+        shooterPID.setFF(shooterF);
+    }
+
+    @Override
+    public void disable() {
+        leftMotor.set(0);
+        rightMotor.set(0);
+        turretMotor.set(0);
     }
 
     @Override
@@ -150,27 +174,6 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
             turretEncoder.setPosition(0);
             leftMotor.set(0.0);
         }
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-        leftMotor.set(0);
-        rightMotor.set(0);
-        turretMotor.set(0);
-
     }
 
     private double convertTurretCountsToAngle(double counts) {

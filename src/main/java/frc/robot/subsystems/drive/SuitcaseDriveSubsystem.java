@@ -51,6 +51,11 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+
+    @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
 
@@ -70,12 +75,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void periodic() {
         // TODO Auto-generated method stub
 
     }

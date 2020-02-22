@@ -23,17 +23,13 @@ abstract class BaseDriveSubsystem extends SubsystemBase implements IDriveSubsyst
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BaseDriveSubsystem.class.getName());
 
+    /** Our subsystem's name **/
     protected static final String myName = TelemetryNames.Drive.name;
 
     BaseDriveSubsystem() {
         logger.info("constructing");
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void periodic() {
-        // Default is to do nothing
     }
 
 }

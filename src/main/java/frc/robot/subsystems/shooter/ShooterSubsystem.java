@@ -20,8 +20,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.preferences.PreferencesNames.*;
+import frc.robot.preferences.PreferenceNames.Shooter;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -38,17 +37,9 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     private static final double VPGearing = 1;
     private static final double beltGearing = 1;
     private static final double countsPerRevolution = 1;
-    private static final double shooterP = 0;
-    private static final double shooterI = 0;
-    private static final double shooterD = 0;
-    private static final double shooterF = 0;
 
     private static final double turretMaxAngle = 270;
     private static final double turretMinAngle = 0;
-    private static final double turretP = 0;
-    private static final double turretI = 0;
-    private static final double turretD = 0;
-    private static final double turretF = 0;
 
     /**
      * Mechanisms and sensors
@@ -73,9 +64,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         logger.info("constructing");
 
         turretMotor = new CANSparkMax(20, MotorType.kBrushless);
+        turretMotor.restoreFactoryDefaults();
         // +CW +, CCW -
         turretMotor.setInverted(true);
         turretEncoder = new CANEncoder(turretMotor);
+
         turretPID = new CANPIDController(turretMotor);
         turretPID.setP(turretP);
         turretPID.setI(turretI);
@@ -116,7 +109,37 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updatePreferences() {
+        super.updatePreferences();
+
+        turretPID.setP(turretP);
+        turretPID.setI(turretI);
+        turretPID.setD(turretD);
+        turretPID.setFF(turretF);
+
+        shooterPID.setP(shooterP);
+        shooterPID.setI(shooterI);
+        shooterPID.setD(shooterD);
+        shooterPID.setFF(shooterF);
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public void stop() {
+        turretPID.setReference(0, ControlType.kVoltage);
+        turretMotor.set(0.0);
+
         shooterPID.setReference(0, ControlType.kVoltage);
         leftMotor.set(0.0);
     }
@@ -156,24 +179,6 @@ class ShooterSubsystem extends BaseShooterSubsystem {
             turretEncoder.setPosition(0);
             turretMotor.set(0.0);
         }
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
     private double convertTurretCountsToAngle(double counts) {

@@ -20,6 +20,7 @@ abstract class BaseGyroSensor implements IGyroSensor {
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(BaseGyroSensor.class.getName());
 
+    /** Our sensor's name **/
     protected static final String myName = TelemetryNames.Gyro.name;
 
     protected final boolean gyroReversed;

@@ -10,7 +10,9 @@ package frc.robot.subsystems.climber;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 /**
@@ -22,5 +24,7 @@ abstract class BaseClimberSubsystem extends SubsystemBase implements IClimberSub
     @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(BaseClimberSubsystem.class.getName());
 
+    /** Our subsystem's name **/
     protected static final String myName = TelemetryNames.Climber.name;
+
 }

@@ -32,11 +32,6 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
   }
 
   @Override
-  public void stop() {
-    // Stub doesn't implement this
-  }
-
-  @Override
   public void validateCalibration() {
     // Stub doesn't implement this
   }
@@ -52,14 +47,18 @@ class StubClimberSubsystem extends BaseClimberSubsystem {
   }
 
   @Override
+  public void stop() {
+    // Stub doesn't implement this
+  }
+
+  @Override
   public void extend() {
     // Stub doesn't implement this
-
   }
 
   @Override
   public void retract() {
     // Stub doesn't implement this
-
   }
+
 }

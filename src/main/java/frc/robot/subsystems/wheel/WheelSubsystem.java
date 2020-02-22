@@ -51,6 +51,24 @@ class WheelSubsystem extends BaseWheelSubsystem {
     }
 
     @Override
+    public void validateCalibration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updatePreferences() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void disable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public void stop() {
         motor.set(0.0);
     }
@@ -106,24 +124,6 @@ class WheelSubsystem extends BaseWheelSubsystem {
     @Override
     public void runClockwise(double speed) {
         motor.set(-speed);
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
     private PKColor generateColorOffset(PKColor color) {

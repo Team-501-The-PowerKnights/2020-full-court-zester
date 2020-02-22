@@ -28,6 +28,16 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+
+    @Override
+    public void updateTelemetry() {
+        // Stub doesn't implement this
+    }
+
+    @Override
     public void validateCalibration() {
         // Stub doesn't implement this
     }
@@ -39,11 +49,6 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void disable() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void updateTelemetry() {
         // Stub doesn't implement this
     }
 
