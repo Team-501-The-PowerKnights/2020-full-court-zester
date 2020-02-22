@@ -14,17 +14,19 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class ClimberSubsystem extends BaseClimberSubsystem {
 
     private static final Logger logger = RioLogger.getLogger(ClimberSubsystem.class.getName());
 
-    private CANSparkMax motor;
+    private final CANSparkMax motor;
 
-    private AnalogInput limitUp;
-    private AnalogInput limitDown;
+    private final AnalogInput limitUp;
+    private final AnalogInput limitDown;
 
     // Keep for telemetry
     private double tlmSpeed;
@@ -55,11 +57,6 @@ class ClimberSubsystem extends BaseClimberSubsystem {
     }
 
     @Override
-    public void stop() {
-        motor.set(0.0);
-    }
-
-    @Override
     public void validateCalibration() {
         // TODO Auto-generated method stub
 
@@ -67,14 +64,18 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
+        // No preferences for climber
     }
 
     @Override
     public void disable() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void stop() {
+        motor.set(0.0);
     }
 
     @Override

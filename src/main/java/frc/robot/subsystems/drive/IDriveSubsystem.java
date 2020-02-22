@@ -20,17 +20,17 @@ import frc.robot.subsystems.ISubsystem;
 public interface IDriveSubsystem extends ISubsystem {
 
     /**
+     * Stop the drive from any motion it may have been running under.
+     */
+    public void stop();
+
+    /**
      * Set the <i>brake</i> for the <code>DriveSubsystem</code> to the value
      * provided.
      * 
      * @param brakeOn whether brake is on or off
      */
     public void setBrake(boolean brakeOn);
-
-    /**
-     * Stop the drive from any motion it may have been running under.
-     */
-    public void stop();
 
     /**
      * 

@@ -122,6 +122,13 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
+                rightEncoder.getPosition());
+    }
+
+    @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
 
@@ -146,10 +153,8 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
-                rightEncoder.getPosition());
+    public void stop() {
+        drive.tankDrive(0, 0);
     }
 
     @Override
@@ -165,11 +170,6 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
             rightFrontMotor.setIdleMode(IdleMode.kCoast);
             rightRearMotor.setIdleMode(IdleMode.kCoast);
         }
-    }
-
-    @Override
-    public void stop() {
-        drive.tankDrive(0, 0);
     }
 
     /*

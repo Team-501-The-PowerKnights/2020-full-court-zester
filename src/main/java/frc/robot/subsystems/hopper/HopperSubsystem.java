@@ -50,11 +50,6 @@ class HopperSubsystem extends BaseHopperSubsystem {
     }
 
     @Override
-    public void stop() {
-        setSpeed(0.0);
-    }
-
-    @Override
     public void validateCalibration() {
         // TODO Auto-generated method stub
 
@@ -70,6 +65,11 @@ class HopperSubsystem extends BaseHopperSubsystem {
     public void disable() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void stop() {
+        setSpeed(0.0);
     }
 
     @Override

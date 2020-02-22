@@ -135,6 +135,9 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
+        turretPID.setReference(0, ControlType.kVoltage);
+        turretMotor.set(0.0);
+
         shooterPID.setReference(0, ControlType.kVoltage);
         leftMotor.set(0.0);
     }

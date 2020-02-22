@@ -30,6 +30,11 @@ class StubWheelSubsystem extends BaseWheelSubsystem {
     }
 
     @Override
+    public void updateTelemetry() {
+        // Stub doesn't implement this
+    }
+
+    @Override
     public void validateCalibration() {
         // Stub doesn't implement this
     }
@@ -41,11 +46,6 @@ class StubWheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void disable() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void updateTelemetry() {
         // Stub doesn't implement this
     }
 

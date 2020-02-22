@@ -28,6 +28,11 @@ public class StubHopperSubsystem extends BaseHopperSubsystem {
     }
 
     @Override
+    public void updateTelemetry() {
+        // Stub doesn't implement this
+    }
+
+    @Override
     public void validateCalibration() {
         // Stub doesn't implement this
     }
@@ -39,11 +44,6 @@ public class StubHopperSubsystem extends BaseHopperSubsystem {
 
     @Override
     public void disable() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void updateTelemetry() {
         // Stub doesn't implement this
     }
 

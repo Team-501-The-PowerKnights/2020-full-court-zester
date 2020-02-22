@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.telemetry.TelemetryNames;
@@ -30,11 +29,6 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     // Keep for telemetry
     private double tlmSpeed;
 
-    private PIDController pid;
-    private double pidP;
-    private double pidI;
-    private double pidD;
-
     /**
      * Creates a new IntakeSubsystem.
      */
@@ -42,14 +36,6 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
         logger.info("constructing");
 
         motor = new TalonSRX(41);
-
-        pid = new PIDController(0.0, 0.0, 0.0);
-        pidP = 0.0;
-        pidI = 0.0;
-        pidD = 0.0;
-        pid.setP(pidP);
-        pid.setI(pidI);
-        pid.setD(pidD);
 
         tlmSpeed = 0.0;
 
@@ -64,11 +50,6 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Intake.speed, tlmSpeed);
-    }
-
-    @Override
-    public void stop() {
-        setSpeed(0.0);
     }
 
     @Override
@@ -87,6 +68,11 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     public void disable() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void stop() {
+        setSpeed(0.0);
     }
 
     @Override

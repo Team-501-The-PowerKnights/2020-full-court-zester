@@ -7,14 +7,24 @@
 
 package frc.robot.subsystems.intake;
 
+import org.slf4j.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.telemetry.TelemetryNames;
+
+import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
 abstract class BaseIntakeSubsystem extends SubsystemBase implements IIntakeSubsystem {
 
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(BaseIntakeSubsystem.class.getName());
+
+    /** Our subsystem's name **/
     protected static final String myName = TelemetryNames.Intake.name;
 
 }
