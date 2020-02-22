@@ -23,7 +23,13 @@ public class PreferencesInitializer {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(PreferencesInitializer.class.getName());
 
-    private static final Preferences prefs = Preferences.getInstance();
+    /** Handle to the WPILib <code>Preferences</code> **/
+    private static final Preferences prefs;
+
+    static {
+        // Get handle to WPILib preferences and read file from disk
+        prefs = Preferences.getInstance();
+    }
 
     public static void initialize() {
         logger.info("initializing");

@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class PDPModule extends BasePDPModule {
@@ -19,7 +21,7 @@ class PDPModule extends BasePDPModule {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(PDPModule.class.getName());
 
-    private PowerDistributionPanel pdp;
+    private final PowerDistributionPanel pdp;
 
     public PDPModule() {
         logger.info("constructing");
@@ -27,6 +29,23 @@ class PDPModule extends BasePDPModule {
         pdp = new PowerDistributionPanel(0);
 
         logger.info("constructed");
+    }
+
+    @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.PDP.busVoltage, getBusVoltage());
+        SmartDashboard.putNumber(TelemetryNames.PDP.totalCurrent, getTotalEnergy());
+        SmartDashboard.putNumber(TelemetryNames.PDP.totalEnergy, getTotalEnergy());
+    }
+
+    @Override
+    public void updatePreferences() {
+        // No preferences for this module
+    }
+
+    @Override
+    public void disable() {
+        // Nothing active so nothing to disable
     }
 
     @Override
@@ -47,25 +66,6 @@ class PDPModule extends BasePDPModule {
     @Override
     public double getCurrent(int deviceID) {
         return pdp.getCurrent(deviceID);
-    }
-
-    @Override
-    public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.PDP.busVoltage, getBusVoltage());
-        SmartDashboard.putNumber(TelemetryNames.PDP.totalCurrent, getTotalEnergy());
-        SmartDashboard.putNumber(TelemetryNames.PDP.totalEnergy, getTotalEnergy());
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
     }
 
 }

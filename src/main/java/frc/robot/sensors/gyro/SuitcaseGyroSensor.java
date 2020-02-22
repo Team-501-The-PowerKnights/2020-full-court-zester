@@ -33,8 +33,7 @@ class SuitcaseGyroSensor extends BaseGyroSensor {
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
+        // No preferences for this sensor
     }
 
     @Override

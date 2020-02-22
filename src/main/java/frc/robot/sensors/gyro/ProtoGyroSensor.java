@@ -28,8 +28,7 @@ class ProtoGyroSensor extends SuitcaseGyroSensor {
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
+        // No preferences for this sensor
     }
 
     @Override

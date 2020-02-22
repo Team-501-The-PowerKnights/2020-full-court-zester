@@ -23,44 +23,43 @@ class StubPDPModule extends BasePDPModule {
     }
 
     @Override
-    public double getBusVoltage() {
-        // No stub implementation - returns 0
-        return 0;
-    }
-
-    @Override
-    public double getTotalCurrent() {
-        // No stub implementation - returns 0
-        return 0;
-    }
-
-    @Override
-    public double getTotalEnergy() {
-        // No stub implementation - returns 0
-        return 0;
-    }
-
-    @Override
-    public double getCurrent(int deviceID) {
-        // No stub implementation - returns 0
-        return 0;
-    }
-
-    @Override
     public void updateTelemetry() {
         // No stub implementation
     }
 
     @Override
     public void updatePreferences() {
-        // TODO Auto-generated method stub
-
+        // No stub implementation
     }
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
+        // No stub implementation
 
+    }
+
+    @Override
+    public double getBusVoltage() {
+        // No stub implementation
+        return 0;
+    }
+
+    @Override
+    public double getTotalCurrent() {
+        // No stub implementation
+        return 0;
+    }
+
+    @Override
+    public double getTotalEnergy() {
+        // No stub implementation
+        return 0;
+    }
+
+    @Override
+    public double getCurrent(int deviceID) {
+        // No stub implementation
+        return 0;
     }
 
 }

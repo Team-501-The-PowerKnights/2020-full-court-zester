@@ -39,25 +39,25 @@ class StubGyroSensor extends BaseGyroSensor {
 
     @Override
     public double getRoll() {
-        // Stub doesn't implement this - returns 0
+        // Stub doesn't implement this
         return 0;
     }
 
     @Override
     public double getPitch() {
-        // Stub doesn't implement this - returns 0
+        // Stub doesn't implement this
         return 0;
     }
 
     @Override
     public double getYaw() {
-        // Stub doesn't implement this - returns 0
+        // Stub doesn't implement this
         return 0;
     }
 
     @Override
     public double getAngle() {
-        // Stub doesn't implement this - returns 0
+        // Stub doesn't implement this
         return 0;
     }
 
