@@ -1,3 +1,5 @@
+## Motors
+
 | Mechanism        | Controller Type | CAN ID | Position    | PDB ID |
 | ---------------- | --------------- | ------ | ----------- | ------ |
 | Drive            | Spark Max       | 11     | Left Front  | 15     |
@@ -13,4 +15,11 @@
 | Intake Retractor | Talon SRX       | 42     | N/A         | 9      |
 | Ballevator       | Talon SRX       | 51     | N/A         | 7      |
 | Wheel            | Talon SRX       | 61     | N/A         | TBD    |
-| Climber          | Spark Max       | 55  | N/A         | 12     |
+| Climber          | Spark Max       | 55     | N/A         | 12     |
+
+## Sensors
+
+| Mechanism | Sensor Type         | Port    |
+| --------- | ------------------- | ------- |
+| Drive     | IMU                 | MXP     |
+| Wheel     | Color               | I2C     |
