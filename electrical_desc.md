@@ -19,7 +19,11 @@
 
 ## Sensors
 
-| Mechanism | Sensor Type         | Port    |
-| --------- | ------------------- | ------- |
-| Drive     | IMU                 | MXP     |
-| Wheel     | Color               | I2C     |
+| Mechanism  | Sensor Type  | Port      |
+| ---------- | ------------ | --------- |
+| Ballevator | Limit Switch | ???       |
+| Climber    | ???          | ???       |
+| Climber    | ???          | ???       |
+| Drive      | IMU          | MXP       |
+| Turret     | Proximity    | Digital 8 |
+| Wheel      | Color        | I2C       |
