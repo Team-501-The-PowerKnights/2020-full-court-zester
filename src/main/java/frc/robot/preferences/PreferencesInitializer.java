@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
 
-import frc.robot.preferences.PreferencesNames.*;
+import frc.robot.preferences.PreferenceNames.*;
 
 import riolog.RioLogger;
 
@@ -28,88 +28,93 @@ public class PreferencesInitializer {
     private static final Preferences prefs = Preferences.getInstance();
 
     public static void initialize() {
-        logger.info("Initializing");
+        logger.info("initializing");
 
         /*
          * Drive
          */
 
-        if (!prefs.containsKey(Drive.p)) {
-            logger.warn("{} doesn't exist; creating with default", Drive.p);
-            prefs.putDouble(Drive.p, 0.0);
+        if (!prefs.containsKey(Drive.pid_P)) {
+            logger.warn("{} doesn't exist; creating with default", Drive.pid_P);
+            prefs.putDouble(Drive.pid_P, 0.0);
         }
 
-        if (!prefs.containsKey(Drive.i)) {
-            logger.warn("{} doesn't exist; creating with default", Drive.i);
-            prefs.putDouble(Drive.i, 0.0);
+        if (!prefs.containsKey(Drive.pid_I)) {
+            logger.warn("{} doesn't exist; creating with default", Drive.pid_I);
+            prefs.putDouble(Drive.pid_I, 0.0);
         }
 
-        if (!prefs.containsKey(Drive.d)) {
-            logger.warn("{} doesn't exist; creating with default", Drive.d);
-            prefs.putDouble(Drive.d, 0.0);
+        if (!prefs.containsKey(Drive.pid_D)) {
+            logger.warn("{} doesn't exist; creating with default", Drive.pid_D);
+            prefs.putDouble(Drive.pid_D, 0.0);
         }
 
-        if (!prefs.containsKey(Drive.f)) {
-            logger.warn("{} doesn't exist; creating with default", Drive.f);
-            prefs.putDouble(Drive.f, 0.0);
+        if (!prefs.containsKey(Drive.pid_F)) {
+            logger.warn("{} doesn't exist; creating with default", Drive.pid_F);
+            prefs.putDouble(Drive.pid_F, 0.0);
+        }
+
+        /*
+         * Turret
+         */
+
+        if (!prefs.containsKey(Turret.pid_P)) {
+            logger.warn("{} doesn't exist; creating with default", Turret.pid_P);
+            prefs.putDouble(Turret.pid_P, 0.0);
+        }
+
+        if (!prefs.containsKey(Turret.pid_I)) {
+            logger.warn("{} doesn't exist; creating with default", Turret.pid_I);
+            prefs.putDouble(Turret.pid_I, 0.0);
+        }
+
+        if (!prefs.containsKey(Turret.pid_D)) {
+            logger.warn("{} doesn't exist; creating with default", Turret.pid_D);
+            prefs.putDouble(Turret.pid_D, 0.0);
+        }
+
+        if (!prefs.containsKey(Turret.pid_F)) {
+            logger.warn("{} doesn't exist; creating with default", Turret.pid_F);
+            prefs.putDouble(Turret.pid_F, 0.0);
         }
 
         /*
          * Shooter
          */
 
-        if (!prefs.containsKey(Shooter.p)) {
-            logger.warn("{} doesn't exist; creating with default", Shooter.p);
-            prefs.putDouble(Shooter.p, 0.0);
+        if (!prefs.containsKey(Shooter.pid_P)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_P);
+            prefs.putDouble(Shooter.pid_P, 0.0);
         }
 
-        if (!prefs.containsKey(Shooter.i)) {
-            logger.warn("{} doesn't exist; creating with default", Shooter.i);
-            prefs.putDouble(Shooter.i, 0.0);
+        if (!prefs.containsKey(Shooter.pid_I)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_I);
+            prefs.putDouble(Shooter.pid_I, 0.0);
         }
 
-        if (!prefs.containsKey(Shooter.d)) {
-            logger.warn("{} doesn't exist; creating with default", Shooter.d);
-            prefs.putDouble(Shooter.d, 0.0);
+        if (!prefs.containsKey(Shooter.pid_D)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_D);
+            prefs.putDouble(Shooter.pid_D, 0.0);
         }
 
-        if (!prefs.containsKey(Shooter.f)) {
-            logger.warn("{} doesn't exist; creating with default", Shooter.f);
-            prefs.putDouble(Shooter.f, 0.0);
+        if (!prefs.containsKey(Shooter.pid_F)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_F);
+            prefs.putDouble(Shooter.pid_F, 0.0);
         }
 
         if (!prefs.containsKey(Shooter.scale)) {
             logger.warn("{} doesn't exist; creating with default", Shooter.scale);
             prefs.putDouble(Shooter.scale, 1.0);
-        /*
-         * Intake
-         */
-
-        if (!prefs.containsKey(Intake.p)) {
-            logger.warn("{} doesn't exist; creating with default", Intake.p);
-            prefs.putDouble(Intake.p, 0.0);
-        }
-
-        if (!prefs.containsKey(Intake.i)) {
-            logger.warn("{} doesn't exist; creating with default", Intake.i);
-            prefs.putDouble(Intake.i, 0.0);
-        }
-
-        if (!prefs.containsKey(Intake.d)) {
-            logger.warn("{} doesn't exist; creating with default", Intake.d);
-            prefs.putDouble(Intake.d, 0.0);
-        }
-
-        if (!prefs.containsKey(Intake.f)) {
-            logger.warn("{} doesn't exist; creating with default", Intake.f);
-            prefs.putDouble(Intake.f, 0.0);
         }
 
         Collection<String> keys = prefs.getKeys();
         logger.info("preferences as initialized:\n");
+        for (String key : prefs.getKeys()) {
+            // TODO - Depends on preference being double value
+            logger.info("{} = {}", key, prefs.getDouble(key, 0.0));
+        }
 
-        logger.info("Initialized");
+        logger.info("initialized");
     }
 
-}
 }

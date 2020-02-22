@@ -59,6 +59,12 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
+  public void updateTelemetry() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
   public void validateCalibration() {
     // TODO Auto-generated method stub
 
@@ -72,12 +78,6 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void disable() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void updateTelemetry() {
     // TODO Auto-generated method stub
 
   }
