@@ -62,4 +62,10 @@ class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
         // Stub doesn't implement this
     }
 
+    @Override
+    public boolean isFull() {
+        // Stub doesn't implement this
+        return false;
+    }
+
 }
