@@ -7,8 +7,6 @@
 
 package frc.robot.preferences;
 
-import java.util.Collection;
-
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -107,7 +105,6 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.scale, 1.0);
         }
 
-        Collection<String> keys = prefs.getKeys();
         logger.info("preferences as initialized:\n");
         for (String key : prefs.getKeys()) {
             // TODO - Depends on preference being double value
