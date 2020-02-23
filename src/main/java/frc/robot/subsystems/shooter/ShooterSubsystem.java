@@ -108,6 +108,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
+        // FIXME - Add the encoder for the velocity
+        SmartDashboard.putNumber(TelemetryNames.Shooter.velocity, 0.0);
     }
 
     @Override
@@ -207,7 +209,6 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         turretMotor.setIdleMode(IdleMode.kCoast);
 
         SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, true);
-
     }
 
     private double convertTurretCountsToAngle(double counts) {
