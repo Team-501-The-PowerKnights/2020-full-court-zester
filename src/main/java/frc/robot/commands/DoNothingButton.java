@@ -14,27 +14,21 @@ import riolog.RioLogger;
 /**
  * Add your docs here.
  */
-public class InvalidButton extends PKCommandBase {
+public class DoNothingButton extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(InvalidButton.class.getName());
+    private static final Logger logger = RioLogger.getLogger(DoNothingButton.class.getName());
 
     // Something for unique identification
     @SuppressWarnings("unused")
     private final String button;
 
-    public InvalidButton(String button) {
+    public DoNothingButton(String button) {
         logger.info("constructing {}", getName());
 
         this.button = button;
 
-        logger.error("Invalid/unused button {}", button);
-    }
-
-    @Override
-    public boolean isFinished() {
-        // We just run once
-        return true;
+        logger.info("Stub/do nothing button {}", button);
     }
 
 }

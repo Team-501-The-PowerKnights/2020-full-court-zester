@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.commands.DoNothing;
+import frc.robot.commands.DoNothingButton;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.telemetry.ITelemetryProvider;
@@ -136,26 +136,26 @@ public class OI implements ITelemetryProvider {
         // crawlButton - implemented in getting values speed & turn
         driveSwapButton.whenPressed(new DriveSwap());
 
-        firePoseButton.whenHeld(new DoNothing());
-        shooterRevButton.whenHeld(new DoNothing());
-        fieldPositionFullButton.whenPressed(new DoNothing());
-        fieldPositionTrenchButton.whenPressed(new DoNothing());
-        fieldPositionMidButton.whenPressed(new DoNothing());
-        ballevatorUpButton.whenHeld(new DoNothing());
-        ballevatorDownButton.whenHeld(new DoNothing());
-        robotOrientationBackButton.whenPressed(new DoNothing());
-        robotOrientationRightButton.whenPressed(new DoNothing());
-        robotOrientationFrontButton.whenPressed(new DoNothing());
-        turretJogClockwiseButton.whenPressed(new DoNothing());
-        turretJogCounterClockwiseButton.whenPressed(new DoNothing());
-        visionEnableButton.whenHeld(new DoNothing());
-        reserved14Button.whenPressed(new InvalidButton("reserved15"));
-        reserved15Button.whenPressed(new InvalidButton("reserved16"));
-        turretHomeButton.whenPressed(new DoNothing());
-        reserved17Button.whenPressed(new InvalidButton("reserved17"));
-        reserved18Button.whenPressed(new InvalidButton("reserved18"));
-        climberExtendButton.whenPressed(new DoNothing());
-        climberRetractButton.whenHeld(new DoNothing());
+        firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
+        shooterRevButton.whenHeld(new DoNothingButton("shooterRevButton"));
+        fieldPositionFullButton.whenPressed(new DoNothingButton("fieldPositionFullButton"));
+        fieldPositionTrenchButton.whenPressed(new DoNothingButton("fieldPositionTrenchButton"));
+        fieldPositionMidButton.whenPressed(new DoNothingButton("fieldPositionMidButton"));
+        ballevatorUpButton.whenHeld(new DoNothingButton("ballevatorUpButton"));
+        ballevatorDownButton.whenHeld(new DoNothingButton("ballevatorDownButton"));
+        robotOrientationBackButton.whenPressed(new DoNothingButton("robotOrientationBackButton"));
+        robotOrientationRightButton.whenPressed(new DoNothingButton("robotOrientationRightButton"));
+        robotOrientationFrontButton.whenPressed(new DoNothingButton("robotOrientationFrontButton"));
+        turretJogClockwiseButton.whenPressed(new DoNothingButton("turretJogClockwiseButton"));
+        turretJogCounterClockwiseButton.whenPressed(new DoNothingButton("turretJogCounterClockwiseButton"));
+        visionEnableButton.whenHeld(new DoNothingButton("visionEnableButton"));
+        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
+        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
+        turretHomeButton.whenPressed(new DoNothingButton("turretHomeButton"));
+        reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
+        reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
+        climberExtendButton.whenPressed(new DoNothingButton("climberExtendButton"));
+        climberRetractButton.whenHeld(new DoNothingButton("climberRetractButton"));
     }
 
     @Override
