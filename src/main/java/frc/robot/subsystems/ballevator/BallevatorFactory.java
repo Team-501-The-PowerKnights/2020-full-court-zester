@@ -10,9 +10,7 @@ package frc.robot.subsystems.ballevator;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.ballevator.BallevatorDoNothing;
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
@@ -50,8 +48,6 @@ public class BallevatorFactory {
         props.listProperties();
 
         loadImplementationClass(props.getString("className"));
-
-        loadDefaultCommandClass(props.getString("defaultCommandName"));
     }
 
     private static void loadImplementationClass(String myClassName) {
@@ -72,28 +68,6 @@ public class BallevatorFactory {
             ourInstance = new StubBallevatorSubsystem();
             SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.degraded.tlmValue);
         }
-    }
-
-    private static void loadDefaultCommandClass(String myClassName) {
-        String myPkgName = BallevatorDoNothing.class.getPackage().getName();
-        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("class to load: {}", classToLoad);
-
-        logger.info("constructing {} for {} subsystem", myClassName, myName);
-        Command ourCommand;
-        try {
-            @SuppressWarnings("rawtypes")
-            Class myClass = Class.forName(classToLoad);
-            @SuppressWarnings("deprecation")
-            Object myObject = myClass.newInstance();
-            ourCommand = (Command) myObject;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            logger.error("failed to load class; instantiating default stub for: {}", myName);
-            ourCommand = (Command) new BallevatorDoNothing();
-            SmartDashboard.putNumber(TelemetryNames.Ballevator.status, PKStatus.degraded.tlmValue);
-        }
-
-        ourInstance.setDefaultCommand(ourCommand);
     }
 
     /**

@@ -22,8 +22,8 @@ import frc.robot.subsystems.intake.IntakeFactory;
 import frc.robot.subsystems.shooter.ShooterFactory;
 import frc.robot.subsystems.wheel.WheelFactory;
 import frc.robot.telemetry.TelemetryNames;
-import frc.robot.utils.PKStatus;
 import frc.robot.telemetry.TelemetryManager;
+import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
 
@@ -58,19 +58,18 @@ public class SubsystemFactory {
          * Power Cells
          ***************/
 
-        // TODO - Dependency in Ingest at the moment
-        SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.unknown.tlmValue);
-        {
-            HopperFactory.constructInstance();
-            ISubsystem ss = HopperFactory.getInstance();
-            tlmMgr.addProvider(ss);
-            subsystems.add(ss);
-        }
-
         SmartDashboard.putNumber(TelemetryNames.Intake.status, PKStatus.unknown.tlmValue);
         {
             IntakeFactory.constructInstance();
             ISubsystem ss = IntakeFactory.getInstance();
+            tlmMgr.addProvider(ss);
+            subsystems.add(ss);
+        }
+
+        SmartDashboard.putNumber(TelemetryNames.Hopper.status, PKStatus.unknown.tlmValue);
+        {
+            HopperFactory.constructInstance();
+            ISubsystem ss = HopperFactory.getInstance();
             tlmMgr.addProvider(ss);
             subsystems.add(ss);
         }
@@ -113,6 +112,11 @@ public class SubsystemFactory {
             ISubsystem ss = ClimberFactory.getInstance();
             tlmMgr.addProvider(ss);
             subsystems.add(ss);
+        }
+
+        // Load the default commands now that all subsystems are created
+        for (ISubsystem ss : subsystems) {
+            ss.loadDefaultCommand();
         }
 
         logger.info("constructed");

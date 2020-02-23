@@ -50,8 +50,6 @@ public class ClimberFactory {
         props.listProperties();
 
         loadImplementationClass(props.getString("className"));
-
-        loadDefaultCommandClass(props.getString("defaultCommandName"));
     }
 
     private static void loadImplementationClass(String myClassName) {
@@ -74,27 +72,6 @@ public class ClimberFactory {
         }
     }
 
-    private static void loadDefaultCommandClass(String myClassName) {
-        String myPkgName = ClimberDoNothing.class.getPackage().getName();
-        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("class to load: {}", classToLoad);
-
-        logger.info("constructing {} for {} subsystem default command", myClassName, myName);
-        Command ourCommand;
-        try {
-            @SuppressWarnings("rawtypes")
-            Class myClass = Class.forName(classToLoad);
-            @SuppressWarnings("deprecation")
-            Object myObject = myClass.newInstance();
-            ourCommand = (Command) myObject;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            logger.error("failed to load class; instantiating default stub for: {}", myName);
-            ourCommand = (Command) new ClimberDoNothing();
-            SmartDashboard.putNumber(TelemetryNames.Climber.status, PKStatus.degraded.tlmValue);
-        }
-
-        ourInstance.setDefaultCommand(ourCommand);
-    }
 
     /**
      * Returns the singleton instance of the subsystem in the form of the
