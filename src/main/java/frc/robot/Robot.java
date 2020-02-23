@@ -106,10 +106,13 @@ public class Robot extends TimedRobot {
         // Initialize all the subsystems
         subsystems = SubsystemFactory.constructSubsystems();
 
+        // Configure all OI now that subsystems are complete
         oi.configureButtonBindings();
 
+        // TODO - Implement autonomous chooser
         createAutoChooser();
 
+        // Initialize state variables
         autonomousComplete = false;
         autonomousFirstRun = false;
         teleopComplete = false;

@@ -143,19 +143,8 @@ public class PropertiesManager {
 
     public void listProperties() {
         for (String owner : ownerProperties.keySet()) {
-            listProperties(owner);
+            getProperties(owner).listProperties();
         }
-    }
-
-    public void listProperties(String owner) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("owner ").append(owner).append(" properties:");
-        Map<String, String> props = ownerProperties.get(owner);
-        for (String key : props.keySet()) {
-            buf.append("\n\t");
-            buf.append(key).append(" = ").append(props.get(key));
-        }
-        logger.info(buf.toString());
     }
 
 }
