@@ -43,6 +43,8 @@ public class DriveSwap extends PKCommand {
   // Called once just before this Command runs the first time
   @Override
   public void initialize() {
+    super.initialize();
+    
     drive.swap();
   }
 
