@@ -20,10 +20,4 @@ public class DoNothing extends PKCommandBase {
         logger.info("constructing {}", getName());
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }
