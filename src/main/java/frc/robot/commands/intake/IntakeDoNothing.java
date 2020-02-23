@@ -9,12 +9,9 @@ package frc.robot.commands.intake;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.intake.IntakeFactory;
-
 import riolog.RioLogger;
 
-public class IntakeDoNothing extends PKCommandBase {
+public class IntakeDoNothing extends IntakeOICommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(IntakeDoNothing.class.getName());
@@ -22,12 +19,9 @@ public class IntakeDoNothing extends PKCommandBase {
     public IntakeDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(IntakeFactory.getInstance());
-
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();

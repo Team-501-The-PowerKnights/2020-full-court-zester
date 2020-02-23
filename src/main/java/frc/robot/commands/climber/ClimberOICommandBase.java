@@ -5,31 +5,31 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hopper;
+package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
 
+import frc.robot.OI;
+
 import riolog.RioLogger;
 
-public class HopperSimpleManual extends HopperOICommandBase {
+/**
+ * Add your docs here.
+ */
+abstract class ClimberOICommandBase extends ClimberCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(HopperSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ClimberOICommandBase.class.getName());
 
-    public HopperSimpleManual() {
+    // Handle to the OI
+    protected OI oi;
+
+    public ClimberOICommandBase() {
         logger.info("constructing {}", getName());
 
+        oi = OI.getInstance();
+
         logger.info("constructed");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
-
-        double speed = oi.getHopperSpeed();
-
-        hopper.agitate(speed);
     }
 
 }

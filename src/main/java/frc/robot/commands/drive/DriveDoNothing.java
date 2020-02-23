@@ -9,12 +9,9 @@ package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.drive.DriveFactory;
-
 import riolog.RioLogger;
 
-public class DriveDoNothing extends PKCommandBase {
+public class DriveDoNothing extends DriveCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(DriveDoNothing.class.getName());
@@ -22,12 +19,9 @@ public class DriveDoNothing extends PKCommandBase {
     public DriveDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(DriveFactory.getInstance());
-
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();

@@ -9,12 +9,9 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-public class ShooterDoNothing extends PKCommandBase {
+public class ShooterDoNothing extends ShooterCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterDoNothing.class.getName());
@@ -22,12 +19,9 @@ public class ShooterDoNothing extends PKCommandBase {
     public ShooterDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(ShooterFactory.getInstance());
-
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();

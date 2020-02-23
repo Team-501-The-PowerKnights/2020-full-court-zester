@@ -9,12 +9,11 @@ package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
 import frc.robot.subsystems.climber.ClimberFactory;
 
 import riolog.RioLogger;
 
-public class ClimberDoNothing extends PKCommandBase {
+public class ClimberDoNothing extends ClimberCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ClimberDoNothing.class.getName());

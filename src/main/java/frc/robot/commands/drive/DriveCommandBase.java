@@ -9,33 +9,31 @@ package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.drive.DriveFactory;
+import frc.robot.subsystems.drive.IDriveSubsystem;
+
 import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public class DriveSwap extends DriveCommandBase {
+abstract class DriveCommandBase extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DriveSwap.class.getName());
+    private static final Logger logger = RioLogger.getLogger(DriveCommandBase.class.getName());
 
-    // FIXME - Is dependency right?
-    // FIXME - Should pause a couple of cycles of execute to give time to coast out
+    // Handle to our subsystem
+    protected IDriveSubsystem drive;
 
-    /**
-     * Creates a new DriveJoystickControl.
-     */
-    public DriveSwap() {
+    public DriveCommandBase() {
         logger.info("constructing {}", getName());
 
+        drive = DriveFactory.getInstance();
+
+        addRequirements(drive);
+
         logger.info("constructed");
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        drive.swap();
     }
 
 }

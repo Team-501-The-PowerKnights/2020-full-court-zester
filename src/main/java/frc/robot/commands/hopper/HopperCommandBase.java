@@ -9,27 +9,31 @@ package frc.robot.commands.hopper;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.hopper.HopperFactory;
+import frc.robot.subsystems.hopper.IHopperSubsystem;
+
 import riolog.RioLogger;
 
-public class HopperSimpleManual extends HopperOICommandBase {
+/**
+ * Add your docs here.
+ */
+abstract class HopperCommandBase extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(HopperSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(HopperCommandBase.class.getName());
 
-    public HopperSimpleManual() {
+    // Handle to our subsystem
+    protected IHopperSubsystem hopper;
+
+    public HopperCommandBase() {
         logger.info("constructing {}", getName());
 
+        hopper = HopperFactory.getInstance();
+
+        addRequirements(hopper);
+
         logger.info("constructed");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
-
-        double speed = oi.getHopperSpeed();
-
-        hopper.agitate(speed);
     }
 
 }

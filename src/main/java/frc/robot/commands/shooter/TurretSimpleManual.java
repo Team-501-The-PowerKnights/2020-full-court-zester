@@ -9,25 +9,15 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.shooter.IShooterSubsystem;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-public class TurretSimpleManual extends PKManualCommand {
+public class TurretSimpleManual extends ShooterOICommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(TurretSimpleManual.class.getName());
 
-    // Handle to our subsystem
-    private IShooterSubsystem shooter;
-
     public TurretSimpleManual() {
         logger.info("constructing {}", getName());
-
-        shooter = ShooterFactory.getInstance();
-        addRequirements(shooter);
 
         logger.info("constructed");
     }
@@ -38,7 +28,7 @@ public class TurretSimpleManual extends PKManualCommand {
         super.execute();
 
         double speed = oi.getTurretSpeed();
-        System.out.println("speed=" + speed);
+        // Backdoor to the turret motor
         shooter.setSpeed(20, speed);
     }
 
