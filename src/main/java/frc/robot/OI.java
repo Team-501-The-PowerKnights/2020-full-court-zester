@@ -229,16 +229,6 @@ public class OI implements ITelemetryProvider {
         return deadBand(getDriverBumperAxis(), 0.05);
     }
 
-    public double getBallevatorSpeed() {
-        double speed = 0.0;
-        if (getOperatorLeftTrigger() > 0) {
-            speed = getOperatorLeftTrigger();
-        } else if (getOperatorRightTrigger() > 0) {
-            speed = -getOperatorRightTrigger();
-        }
-        return speed;
-    }
-
     public double getRawTurretSpeed() {
         return deadBand(getOperatorLeftXAxis(), 0.05);
     }
@@ -265,7 +255,7 @@ public class OI implements ITelemetryProvider {
      * 
      */
     public int getClimberCommand() {
-        int value = operatorStick.getPOV();
+        // int value = operatorStick.getPOV();
         // if (value == 0) {
         // return 1;
         // // FIXME - No longer using both control for this
