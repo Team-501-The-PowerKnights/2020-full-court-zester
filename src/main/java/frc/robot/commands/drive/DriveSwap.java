@@ -24,6 +24,9 @@ public class DriveSwap extends PKCommand {
 
   // Handle to our subsystem
   private IDriveSubsystem drive;
+  
+  // FIXME - Is dependency right?
+  // FIXME - Should pause for a couple of cycles of execute to give time to coast out
 
   /**
    * Creates a new DriveJoystickControl.
