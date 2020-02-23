@@ -8,19 +8,19 @@
 ## Driver
 - [analog] (Left Joystick U-D): Drivetrain Speed (forward/backward)
 - [analog] (Right Joystick L-R): Drivetrain Turn (left/right)
-- [button] (Right Bumper): Drivetrain Crawl Enabled *{whilePressed}*
-- ~~xxxxx : Drive Train Turbo Enabled *{whilePressed}*~~
+- [button] (Right Bumper): Drivetrain Crawl Enabled *{whileHeld}*
+- ~~xxxxx : Drive Train Turbo Enabled *{whileHeld}*~~
 - [button] (???) Switch Drive Direction
 - [button] (Left Bumper): Toggle Between Intake Deploy/Stow
 - [analog] (Left Trigger): Intake In & Hopper
 - [analog] (Right Trigger): Intake Out & Hopper
 
 ## Operator
-- [button] (button 1): Fire Pose *{whilePressed}*
+- [button] (button 1): Fire Pose *{whileHeld}*
   - if shooter is not revved up, rev up shooter
   - run intake and hopper
   - advance balls via ballevator into shooter
-- [switch] (button 2): Rev Shooter *{whilePressed}*
+- [switch] (button 2): Rev Shooter *{whileHeld}*
   - use PID and selected set_point
   - else idle shooter at constant preset in code
 - [button] (button 3): Select Field Position full-court *{whenPressed}*
@@ -32,10 +32,10 @@
 - [button] (button 5): Select Field Position mid-field *{whenPressed}*
   - determines set_point for turret rotation
   - determines set_point for shooter speed
-- [button] (button 6): Ballevator up *{whilePressed}*
+- [button] (button 6): Ballevator up *{whileHeld}*
   - cancels Fire Pose (but leaves shooter running)
   - button 6 & 7 simultaneous cancel
-- [button] (button 7): Ballevator down *{whilePressed}*
+- [button] (button 7): Ballevator down *{whileHeld}*
   - cancels Fire Pose (but leaves shooter running)
   - button 6 & 7 simultaneous cancel
 - [button] (buttons 8): Select Robot Orientation back *{whenPressed}*
@@ -59,7 +59,7 @@
   - counter-clockwise at constant preset in code
   - additive to final turret rotation value
   - stays from one shot sequence to next
-- [switch] (button 13): Enable vision targeting *{whilePressed}*
+- [switch] (button 13): Enable vision targeting *{whileHeld}*
   - enforce turret rotation with limits
 - ~~[button] (button 14): Activate wheel of fortune - Position Control~~
 - ~~[button] (button 15): Activate wheel of fortune - Rotation Control~~
@@ -70,7 +70,7 @@
 - [button] button 19): Extend Climber *{whenPressed}*
   - limit by encoder or limit switch
   - speed is constant preset in code
-- [button] (button 20): Lower Climber *{whilePressed}*
+- [button] (button 20): Retract Climber *{whileHeld}*
    - speed is constant preset in code
 
 
