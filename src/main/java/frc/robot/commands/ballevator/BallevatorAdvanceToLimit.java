@@ -9,12 +9,12 @@ package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKCommandBase;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import riolog.RioLogger;
 
-public class BallevatorAdvanceToLimit extends PKCommand {
+public class BallevatorAdvanceToLimit extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BallevatorAdvanceToLimit.class.getName());

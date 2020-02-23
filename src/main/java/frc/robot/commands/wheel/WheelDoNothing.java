@@ -9,12 +9,12 @@ package frc.robot.commands.wheel;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKCommandBase;
 import frc.robot.subsystems.wheel.WheelFactory;
 
 import riolog.RioLogger;
 
-public class WheelDoNothing extends PKCommand {
+public class WheelDoNothing extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(WheelDoNothing.class.getName());

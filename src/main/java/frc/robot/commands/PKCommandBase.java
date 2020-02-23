@@ -20,31 +20,31 @@ import riolog.RioLogger;
 /**
  * 
  */
-public abstract class PKCommand extends CommandBase {
+public abstract class PKCommandBase extends CommandBase {
 
     /* Our classes logger */
-    private static final Logger logger = RioLogger.getLogger(PKCommand.class.getName());
+    private static final Logger logger = RioLogger.getLogger(PKCommandBase.class.getName());
 
     //
-    private static final HashSet<PKCommand> activeCommands;
+    private static final HashSet<PKCommandBase> activeCommands;
     //
-    private static PKCommand[] activeCommandsList = new PKCommand[0];
+    private static PKCommandBase[] activeCommandsList = new PKCommandBase[0];
 
     static {
-        activeCommands = new HashSet<PKCommand>();
+        activeCommands = new HashSet<PKCommandBase>();
     }
 
-    private static void add(PKCommand c) {
+    private static void add(PKCommandBase c) {
         activeCommands.add(c);
-        activeCommandsList = activeCommands.toArray(new PKCommand[0]);
+        activeCommandsList = activeCommands.toArray(new PKCommandBase[0]);
     }
 
-    private static void remove(PKCommand c) {
+    private static void remove(PKCommandBase c) {
         activeCommands.remove(c);
-        activeCommandsList = activeCommands.toArray(new PKCommand[0]);
+        activeCommandsList = activeCommands.toArray(new PKCommandBase[0]);
     }
 
-    public static PKCommand[] getActiveCommands() {
+    public static PKCommandBase[] getActiveCommands() {
         return activeCommandsList;
     }
 
@@ -53,7 +53,7 @@ public abstract class PKCommand extends CommandBase {
     // Flag for whether the first execution has happened
     private boolean executeOnce;
 
-    protected PKCommand() {
+    protected PKCommandBase() {
         logger.info("constructing for {}", getName());
 
         prefs = Preferences.getInstance();

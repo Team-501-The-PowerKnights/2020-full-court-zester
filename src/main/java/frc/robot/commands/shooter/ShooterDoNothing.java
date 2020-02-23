@@ -9,12 +9,12 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
+import frc.robot.commands.PKCommandBase;
 import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class ShooterDoNothing extends PKCommand {
+public class ShooterDoNothing extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterDoNothing.class.getName());
