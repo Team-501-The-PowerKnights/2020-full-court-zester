@@ -22,9 +22,4 @@ public class WheelDoNothing extends WheelCommandBase {
         logger.info("constructed");
     }
 
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }

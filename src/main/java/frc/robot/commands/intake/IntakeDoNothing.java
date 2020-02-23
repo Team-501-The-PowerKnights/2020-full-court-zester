@@ -22,9 +22,4 @@ public class IntakeDoNothing extends IntakeOICommandBase {
         logger.info("constructed");
     }
 
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }

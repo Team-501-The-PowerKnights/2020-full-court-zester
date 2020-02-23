@@ -22,9 +22,4 @@ public class HopperDoNothing extends HopperCommandBase {
         logger.info("constructed");
     }
 
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }

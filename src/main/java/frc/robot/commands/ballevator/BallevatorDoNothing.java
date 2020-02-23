@@ -22,10 +22,4 @@ public class BallevatorDoNothing extends BallevatorCommandBase {
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }

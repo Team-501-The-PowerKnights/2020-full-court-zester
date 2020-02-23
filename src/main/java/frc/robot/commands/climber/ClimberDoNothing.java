@@ -26,10 +26,4 @@ public class ClimberDoNothing extends ClimberCommandBase {
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }

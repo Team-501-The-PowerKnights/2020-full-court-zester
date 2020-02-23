@@ -22,9 +22,4 @@ public class ShooterDoNothing extends ShooterCommandBase {
         logger.info("constructed");
     }
 
-    @Override
-    public void execute() {
-        super.execute();
-    }
-
 }
