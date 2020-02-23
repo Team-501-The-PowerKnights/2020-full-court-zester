@@ -34,6 +34,8 @@ public class BallevatorAdvanceToShooter extends PKCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        super.execute();
+        
         ballevator.lift();
     }
 
