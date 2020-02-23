@@ -68,17 +68,18 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // Stub doesn't implement this
-    }
-
-    @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
         // Stub doesn't implement this
     }
 
     @Override
     public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void swap() {
         // TODO Auto-generated method stub
 
     }

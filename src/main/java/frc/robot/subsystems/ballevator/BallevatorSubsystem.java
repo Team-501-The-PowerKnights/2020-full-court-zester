@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.telemetry.TelemetryNames;
@@ -25,6 +26,8 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
     private final TalonSRX motor;
 
+    private final DigitalInput limit;
+
     // Keep for telemetry
     private double tlmSpeed;
 
@@ -32,6 +35,8 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
         logger.info("constructing");
 
         motor = new TalonSRX(51);
+
+        limit = new DigitalInput(0); // TODO - Determine actual channel
 
         tlmSpeed = 0.0;
 
@@ -81,6 +86,11 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     public void lower() {
         // TODO - determine actual predefined value to run ballevator at
         setSpeed(0.7);
+    }
+
+    @Override
+    public boolean isFull() {
+        return limit.get();
     }
 
     private void setSpeed(double speed) {

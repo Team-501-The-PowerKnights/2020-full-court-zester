@@ -141,6 +141,7 @@ public final class TelemetryNames {
 
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
+        public static final String isHome = name + ".isHome";
     }
 
     /***************

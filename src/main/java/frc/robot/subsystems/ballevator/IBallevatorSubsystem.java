@@ -20,4 +20,6 @@ public interface IBallevatorSubsystem extends ISubsystem {
 
     public void lower();
 
+    public boolean isFull();
+
 }

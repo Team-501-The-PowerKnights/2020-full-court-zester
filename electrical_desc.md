@@ -16,10 +16,16 @@
 | Shooter          | Spark Max       | 22     | N/A         | 3      |
 | Turret           | Spark Max       | 20     | N/A         | 6      |
 | Wheel            | Talon SRX       | 61     | N/A         | TBD    |
+| Climber          | Spark Max       | 55     | N/A         | 12     |
 
 ## Sensors
 
-| Mechanism | Sensor Type | Port |
-| --------- | ----------- | ---- |
-| Drive     | IMU         | MXP  |
-| Wheel     | Color       | I2C  |
+| Mechanism  | Sensor Type  | Port      |
+| ---------- | ------------ | --------- |
+| Ballevator | Limit Switch | ???       |
+| Climber    | ???          | ???       |
+| Climber    | ???          | ???       |
+| Drive      | IMU          | MXP       |
+| Turret     | Proximity    | Digital 8 |
+| Wheel      | Color        | I2C       |
+

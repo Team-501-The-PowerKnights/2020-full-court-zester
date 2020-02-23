@@ -46,11 +46,6 @@ public class IntakeSimpleManual extends PKManualCommand {
 
         double speed = oi.getIntakeSpeed();
         intake.pullIn(speed);
-        if (Math.abs(speed) > 0.05) {
-            hopper.agitate();
-        } else {
-            hopper.stop();
-        }
     }
 
 }

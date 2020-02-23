@@ -99,15 +99,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void drive(double hmiSpeed, double hmiTurn, boolean constrained) {
-        // Really no heavy implementation, just need to see that the controllers can be
-        // sent
-        // instructions
-        leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
-        right.set(hmiTurn);
-    }
-
-    @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
         // No implementation - Suitcase has no motors, so testing path following makes
         // no sense
@@ -115,6 +106,12 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void swap() {
         // TODO Auto-generated method stub
 
     }
