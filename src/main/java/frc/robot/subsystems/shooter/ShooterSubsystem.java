@@ -94,6 +94,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
         // incrementer = new TalonSRX(23); // Unused for now
 
+        // TODO - This should be sensor so it can telemetry
         home = new DigitalInput(8);
 
         logger.info("constructed");
