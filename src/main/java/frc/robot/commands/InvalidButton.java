@@ -5,31 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hopper;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class HopperSimpleManual extends HopperOICommandBase {
+/**
+ * Add your docs here.
+ */
+public class InvalidButton extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(HopperSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(InvalidButton.class.getName());
 
-    public HopperSimpleManual() {
+    // Something for unique identification
+    @SuppressWarnings("unused")
+    private final String button;
+
+    public InvalidButton(String button) {
         logger.info("constructing {}", getName());
 
-        logger.info("constructed");
+        this.button = button;
+
+        logger.error("Invalid/unused button {}", button);
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
-    public void execute() {
-        super.execute();
-
-        double speed = oi.getHopperSpeed();
-
-        hopper.agitate(speed);
+    public boolean isFinished() {
+        // We just run once
+        return true;
     }
 
 }

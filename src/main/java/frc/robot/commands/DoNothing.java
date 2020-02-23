@@ -11,19 +11,13 @@ import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class DoNothing extends PKCommand {
+public class DoNothing extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(DoNothing.class.getName());
 
     public DoNothing() {
         logger.info("constructing {}", getName());
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
     }
 
 }

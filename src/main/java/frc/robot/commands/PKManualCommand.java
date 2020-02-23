@@ -16,7 +16,7 @@ import riolog.RioLogger;
 /**
  * 
  */
-public abstract class PKManualCommand extends PKCommand {
+public abstract class PKManualCommand extends PKCommandBase {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(PKManualCommand.class.getName());

@@ -9,12 +9,11 @@ package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
 import frc.robot.subsystems.climber.ClimberFactory;
 
 import riolog.RioLogger;
 
-public class ClimberDoNothing extends PKCommand {
+public class ClimberDoNothing extends ClimberCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ClimberDoNothing.class.getName());
@@ -25,12 +24,6 @@ public class ClimberDoNothing extends PKCommand {
         addRequirements(ClimberFactory.getInstance());
 
         logger.info("constructed");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
     }
 
 }

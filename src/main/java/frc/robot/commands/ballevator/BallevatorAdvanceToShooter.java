@@ -9,12 +9,11 @@ package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
-import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
+
 import riolog.RioLogger;
 
-public class BallevatorAdvanceToShooter extends PKCommand {
+public class BallevatorAdvanceToShooter extends BallevatorCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BallevatorAdvanceToShooter.class.getName());
@@ -24,18 +23,13 @@ public class BallevatorAdvanceToShooter extends PKCommand {
     public BallevatorAdvanceToShooter() {
         logger.info("constructing {}", getName());
 
-        ballevator = BallevatorFactory.getInstance();
-
-        addRequirements(ballevator);
-
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
-        
+
         ballevator.lift();
     }
 

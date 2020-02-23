@@ -9,36 +9,25 @@ package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
-import frc.robot.subsystems.ballevator.BallevatorFactory;
-
 import riolog.RioLogger;
 
-public class BallevatorSimpleManual extends PKManualCommand {
+public class BallevatorSimpleManual extends BallevatorOICommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BallevatorSimpleManual.class.getName());
 
-    // Handle to our subsystem
-    private IBallevatorSubsystem ballevator;
-
     public BallevatorSimpleManual() {
         logger.info("constructing {}", getName());
-
-        ballevator = BallevatorFactory.getInstance();
-        addRequirements(ballevator);
 
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
         double speed = oi.getBallevatorSpeed();
-         if (speed > 0.0) {
+        if (speed > 0.0) {
             ballevator.lift();
         } else if (speed < 0.0) {
             ballevator.lower();

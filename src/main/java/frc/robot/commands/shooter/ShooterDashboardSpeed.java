@@ -5,21 +5,11 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.commands.shooter;
 
-import org.slf4j.Logger;
-
-import riolog.RioLogger;
-
-public class BallevatorDoNothing extends BallevatorCommandBase {
-
-    /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorDoNothing.class.getName());
-
-    public BallevatorDoNothing() {
-        logger.info("constructing {}", getName());
-
-        logger.info("constructed");
-    }
+/**
+ * Add your docs here.
+ */
+public class ShooterDashboardSpeed extends ShooterCommandBase {
 
 }

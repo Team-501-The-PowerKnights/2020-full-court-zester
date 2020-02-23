@@ -9,12 +9,9 @@ package frc.robot.commands.wheel;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
-import frc.robot.subsystems.wheel.WheelFactory;
-
 import riolog.RioLogger;
 
-public class WheelDoNothing extends PKCommand {
+public class WheelDoNothing extends WheelCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(WheelDoNothing.class.getName());
@@ -22,15 +19,7 @@ public class WheelDoNothing extends PKCommand {
     public WheelDoNothing() {
         logger.info("constructing {}", getName());
 
-        addRequirements(WheelFactory.getInstance());
-
         logger.info("constructed");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-        super.execute();
     }
 
 }

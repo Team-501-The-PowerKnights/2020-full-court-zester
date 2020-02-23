@@ -112,12 +112,16 @@ public class PreferencesInitializer {
         }
 
         logger.info("preferences as initialized:\n");
+        listPreferences();
+
+        logger.info("initialized");
+    }
+
+    public static void listPreferences() {
         for (String key : prefs.getKeys()) {
             // TODO - Depends on preference being double value
             logger.info("{} = {}", key, prefs.getDouble(key, 0.0));
         }
-
-        logger.info("initialized");
     }
 
 }

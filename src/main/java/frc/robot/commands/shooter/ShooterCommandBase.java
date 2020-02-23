@@ -5,37 +5,35 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drive;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
+
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public class DriveSwap extends DriveCommandBase {
+abstract class ShooterCommandBase extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DriveSwap.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterCommandBase.class.getName());
 
-    // FIXME - Is dependency right?
-    // FIXME - Should pause a couple of cycles of execute to give time to coast out
+    // Handle to our subsystem
+    protected IShooterSubsystem shooter;
 
-    /**
-     * Creates a new DriveJoystickControl.
-     */
-    public DriveSwap() {
+    public ShooterCommandBase() {
         logger.info("constructing {}", getName());
 
+        shooter = ShooterFactory.getInstance();
+
+        addRequirements(shooter);
+
         logger.info("constructed");
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        drive.swap();
     }
 
 }

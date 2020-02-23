@@ -9,28 +9,18 @@ package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.drive.DriveFactory;
-import frc.robot.subsystems.drive.IDriveSubsystem;
-
 import riolog.RioLogger;
 
-public class DriveJoystickControl extends PKManualCommand {
+public class DriveJoystickControl extends DriveOICommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(DriveJoystickControl.class.getName());
-
-    // Handle to our subsystem
-    private IDriveSubsystem drive;
 
     /**
      * Creates a new DriveJoystickControl.
      */
     public DriveJoystickControl() {
         logger.info("constructing {}", getName());
-
-        drive = DriveFactory.getInstance();
-        addRequirements(drive);
 
         logger.info("constructed");
     }
@@ -44,12 +34,6 @@ public class DriveJoystickControl extends PKManualCommand {
         double turn = oi.getDriveTurn();
 
         drive.drive(speed, turn);
-    }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 
 }

@@ -106,10 +106,13 @@ public class Robot extends TimedRobot {
         // Initialize all the subsystems
         subsystems = SubsystemFactory.constructSubsystems();
 
+        // Configure all OI now that subsystems are complete
         oi.configureButtonBindings();
 
+        // TODO - Implement autonomous chooser
         createAutoChooser();
 
+        // Initialize state variables
         autonomousComplete = false;
         autonomousFirstRun = false;
         teleopComplete = false;
@@ -196,9 +199,11 @@ public class Robot extends TimedRobot {
         if (autonomousComplete && teleopComplete) {
             logger.info("match complete");
 
-            logMatchData();
-
             logVisionData();
+
+            logPreferences();
+
+            logMatchData();
         }
 
         logger.info("disabled");
@@ -215,6 +220,21 @@ public class Robot extends TimedRobot {
     }
 
     /**
+     * Log the data associated with the vision to the tail of the log file.
+     **/
+    private void logVisionData() {
+        logger.info("vision data:");
+    }
+
+    /**
+     * Log the data associated with the preferences to the tail of the log file.
+     **/
+    private void logPreferences() {
+        logger.info("preferences:");
+        PreferencesInitializer.listPreferences();
+    }
+
+    /**
      * Log the data associated with the match to the tail of the log file. This
      * allows us to easily determine whether it is a real match, and what match it
      * was.
@@ -227,13 +247,6 @@ public class Robot extends TimedRobot {
         logger.info("ReplayNumber:  {}", ds.getReplayNumber());
         logger.info("Alliance:      {}", ds.getAlliance());
         logger.info("Location:      {}", ds.getLocation());
-    }
-
-    /**
-     * Log the data associated with the vision to the tail of the log file.
-     **/
-    private void logVisionData() {
-        logger.info("vision data:");
     }
 
     /**

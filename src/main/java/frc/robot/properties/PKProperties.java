@@ -31,6 +31,18 @@ public class PKProperties {
         this.props = props;
     }
 
+    public double getDouble(String key) {
+        String value = getProperty(key);
+        double retValue;
+        try {
+            retValue = Double.parseDouble(value);
+        } catch (NumberFormatException ex) {
+            logger.error("{}'s property key={} value={} fails to parse", owner, key, value, ex);
+            retValue = 0.0;
+        }
+        return retValue;
+    }
+
     public long getLong(String key) {
         String value = getProperty(key);
         long retValue;
@@ -64,18 +76,6 @@ public class PKProperties {
             value = "";
         }
         return value;
-    }
-
-    public double getDouble(String key) {
-        String value = getProperty(key);
-        double retValue;
-        try {
-            retValue = Double.parseDouble(value);
-        } catch (NumberFormatException ex) {
-            logger.error("{}'s property key={} value={} fails to parse", owner, key, value, ex);
-            retValue = 0.0;
-        }
-        return retValue;
     }
 
     public void listProperties() {

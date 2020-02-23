@@ -9,24 +9,15 @@ package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommand;
-import frc.robot.subsystems.ballevator.BallevatorFactory;
-import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import riolog.RioLogger;
 
-public class BallevatorAdvanceToLimit extends PKCommand {
+public class BallevatorAdvanceToLimit extends BallevatorCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(BallevatorAdvanceToLimit.class.getName());
 
-    private IBallevatorSubsystem ballevator;
-
     public BallevatorAdvanceToLimit() {
         logger.info("constructing {}", getName());
-
-        ballevator = BallevatorFactory.getInstance();
-
-        addRequirements(ballevator);
 
         logger.info("constructed");
     }
@@ -34,7 +25,7 @@ public class BallevatorAdvanceToLimit extends PKCommand {
     @Override
     public void execute() {
         super.execute();
-        
+
         ballevator.lift();
     }
 

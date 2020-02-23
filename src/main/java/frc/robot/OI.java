@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import frc.robot.commands.DoNothingButton;
+import frc.robot.commands.InvalidButton;
 import frc.robot.commands.drive.DriveSwap;
-import frc.robot.commands.shooter.ShooterHome;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
-
 import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
@@ -60,13 +60,29 @@ public class OI implements ITelemetryProvider {
     private final Joystick driverStick;
     private final Button turboButton;
     private final Button crawlButton;
-    private final Button pitClimberEnableButton;
     private final Button driveSwapButton;
 
     private final Joystick operatorStick;
-    private final Button turretTurboButton;
-    private final Button pitClimberRetractButton;
-    private final Button shooterHomeButton;
+    private final Button firePoseButton;
+    private final Button shooterRevButton;
+    private final Button fieldPositionFullButton;
+    private final Button fieldPositionTrenchButton;
+    private final Button fieldPositionMidButton;
+    private final Button ballevatorUpButton;
+    private final Button ballevatorDownButton;
+    private final Button robotOrientationBackButton;
+    private final Button robotOrientationRightButton;
+    private final Button robotOrientationFrontButton;
+    private final Button turretJogClockwiseButton;
+    private final Button turretJogCounterClockwiseButton;
+    private final Button visionEnableButton;
+    private final Button reserved14Button; // 14 - wheelPositionButton
+    private final Button reserved15Button; // 15 - wheelRotationButton
+    private final Button turretHomeButton;
+    private final Button reserved17Button;
+    private final Button reserved18Button;
+    private final Button climberExtendButton;
+    private final Button climberRetractButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -75,23 +91,71 @@ public class OI implements ITelemetryProvider {
         turboButton = new JoystickButton(driverStick, 5);
         crawlButton = new JoystickButton(driverStick, 6);
         driveSwapButton = new JoystickButton(driverStick, 3);
+        // FIXME - Implement for only Driver stick
+        // pitClimberEnableButton = new JoystickButton(driverStick, 8);
+        // pitClimberRetractButton = new JoystickButton(operatorStick, 8);
 
         operatorStick = new Joystick(1);
-        turretTurboButton = new JoystickButton(operatorStick, 5);
-
-        pitClimberEnableButton = new JoystickButton(driverStick, 8);
-        pitClimberRetractButton = new JoystickButton(operatorStick, 8);
-
-        shooterHomeButton = new JoystickButton(operatorStick, 7);
+        firePoseButton = new JoystickButton(operatorStick, 1);
+        shooterRevButton = new JoystickButton(operatorStick, 2);
+        fieldPositionFullButton = new JoystickButton(operatorStick, 3);
+        fieldPositionTrenchButton = new JoystickButton(operatorStick, 4);
+        fieldPositionMidButton = new JoystickButton(operatorStick, 5);
+        ballevatorUpButton = new JoystickButton(operatorStick, 6);
+        ballevatorDownButton = new JoystickButton(operatorStick, 7);
+        robotOrientationBackButton = new JoystickButton(operatorStick, 8);
+        robotOrientationRightButton = new JoystickButton(operatorStick, 9);
+        robotOrientationFrontButton = new JoystickButton(operatorStick, 10);
+        turretJogClockwiseButton = new JoystickButton(operatorStick, 11);
+        turretJogCounterClockwiseButton = new JoystickButton(operatorStick, 12);
+        visionEnableButton = new JoystickButton(operatorStick, 13);
+        reserved14Button = new JoystickButton(operatorStick, 14);
+        reserved15Button = new JoystickButton(operatorStick, 15);
+        turretHomeButton = new JoystickButton(operatorStick, 16);
+        reserved17Button = new JoystickButton(operatorStick, 17);
+        reserved18Button = new JoystickButton(operatorStick, 18);
+        climberExtendButton = new JoystickButton(operatorStick, 17);
+        climberRetractButton = new JoystickButton(operatorStick, 18);
 
         logger.info("constructed");
     }
 
     public void configureButtonBindings() {
-        // TODO - What is this? Do we need it?
+        //@formatter:off
+        /*
+         * whenPressed() - starts command when newly pressed
+         * whileHeld() - starts the command continuously while pressed
+         * whenHeld() - starts the command when pressed; cancels when released
+         * whenReleased() - starts the command when released
+         * toggleWhenPressed()
+         * cancelWhenPressed()
+         */
+        //@formatter:on
 
-        shooterHomeButton.whenPressed(new ShooterHome());
+        // turboButton - implemented in getting values speed & turn
+        // crawlButton - implemented in getting values speed & turn
         driveSwapButton.whenPressed(new DriveSwap());
+
+        firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
+        shooterRevButton.whenHeld(new DoNothingButton("shooterRevButton"));
+        fieldPositionFullButton.whenPressed(new DoNothingButton("fieldPositionFullButton"));
+        fieldPositionTrenchButton.whenPressed(new DoNothingButton("fieldPositionTrenchButton"));
+        fieldPositionMidButton.whenPressed(new DoNothingButton("fieldPositionMidButton"));
+        ballevatorUpButton.whenHeld(new DoNothingButton("ballevatorUpButton"));
+        ballevatorDownButton.whenHeld(new DoNothingButton("ballevatorDownButton"));
+        robotOrientationBackButton.whenPressed(new DoNothingButton("robotOrientationBackButton"));
+        robotOrientationRightButton.whenPressed(new DoNothingButton("robotOrientationRightButton"));
+        robotOrientationFrontButton.whenPressed(new DoNothingButton("robotOrientationFrontButton"));
+        turretJogClockwiseButton.whenPressed(new DoNothingButton("turretJogClockwiseButton"));
+        turretJogCounterClockwiseButton.whenPressed(new DoNothingButton("turretJogCounterClockwiseButton"));
+        visionEnableButton.whenHeld(new DoNothingButton("visionEnableButton"));
+        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
+        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
+        turretHomeButton.whenPressed(new DoNothingButton("turretHomeButton"));
+        reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
+        reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
+        climberExtendButton.whenPressed(new DoNothingButton("climberExtendButton"));
+        climberRetractButton.whenHeld(new DoNothingButton("climberRetractButton"));
     }
 
     @Override
@@ -180,13 +244,14 @@ public class OI implements ITelemetryProvider {
     }
 
     public double getTurretSpeed() {
+        // FIXME - No longer same button scheme or manual control
         double hmiSpeed = getRawTurretSpeed();
         double calcSpeed;
-        if (turretTurboButton.get()) {
-            calcSpeed = hmiSpeed * 0.35;
-        } else {
-            calcSpeed = hmiSpeed * 0.15;
-        }
+        // if (turretTurboButton.get()) {
+        // calcSpeed = hmiSpeed * 0.35;
+        // } else {
+        calcSpeed = hmiSpeed * 0.15;
+        // }
         return calcSpeed;
     }
 
@@ -201,13 +266,15 @@ public class OI implements ITelemetryProvider {
      */
     public int getClimberCommand() {
         int value = operatorStick.getPOV();
-        if (value == 0) {
-            return 1;
-        } else if ((pitClimberEnableButton.get()) && (pitClimberRetractButton.get())) {
-            return 2;
-        } else {
-            return 0;
-        }
+        // if (value == 0) {
+        // return 1;
+        // // FIXME - No longer using both control for this
+        // } else if ((pitClimberEnableButton.get()) && (pitClimberRetractButton.get()))
+        // {
+        // return 2;
+        // } else {
+        return 0;
+        // }
     }
 
     //////////////////////////////////////////////////////////////////

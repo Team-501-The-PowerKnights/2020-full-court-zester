@@ -5,37 +5,35 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drive;
+package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
+
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.climber.ClimberFactory;
+import frc.robot.subsystems.climber.IClimberSubsystem;
 
 import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public class DriveSwap extends DriveCommandBase {
+abstract class ClimberCommandBase extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(DriveSwap.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ClimberCommandBase.class.getName());
 
-    // FIXME - Is dependency right?
-    // FIXME - Should pause a couple of cycles of execute to give time to coast out
+    // Handle to our subsystem
+    protected IClimberSubsystem climber;
 
-    /**
-     * Creates a new DriveJoystickControl.
-     */
-    public DriveSwap() {
+    public ClimberCommandBase() {
         logger.info("constructing {}", getName());
 
+        climber = ClimberFactory.getInstance();
+
+        addRequirements(climber);
+
         logger.info("constructed");
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        drive.swap();
     }
 
 }

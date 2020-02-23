@@ -10,7 +10,6 @@ package frc.robot.subsystems.drive;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
@@ -50,8 +49,6 @@ public class DriveFactory {
         props.listProperties();
 
         loadImplementationClass(props.getString("className"));
-
-        loadDefaultCommandClass(props.getString("defaultCommandName"));
     }
 
     private static void loadImplementationClass(String myClassName) {
@@ -73,28 +70,6 @@ public class DriveFactory {
             ourInstance.setDefaultCommand(new DriveDoNothing());
             SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.degraded.tlmValue);
         }
-    }
-
-    private static void loadDefaultCommandClass(String myClassName) {
-        String myPkgName = DriveDoNothing.class.getPackage().getName();
-        String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
-        logger.debug("class to load: {}", classToLoad);
-
-        logger.info("constructing {} for {} subsystem", myClassName, myName);
-        Command ourCommand;
-        try {
-            @SuppressWarnings("rawtypes")
-            Class myClass = Class.forName(classToLoad);
-            @SuppressWarnings("deprecation")
-            Object myObject = myClass.newInstance();
-            ourCommand = (Command) myObject;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            logger.error("failed to load class; instantiating default stub for: {}", myName);
-            ourCommand = (Command) new DriveDoNothing();
-            SmartDashboard.putNumber(TelemetryNames.Drive.status, PKStatus.degraded.tlmValue);
-        }
-
-        ourInstance.setDefaultCommand(ourCommand);
     }
 
     /**

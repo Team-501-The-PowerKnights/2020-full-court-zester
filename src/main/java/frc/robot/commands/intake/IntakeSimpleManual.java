@@ -9,42 +9,25 @@ package frc.robot.commands.intake;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKManualCommand;
-import frc.robot.subsystems.hopper.HopperFactory;
-import frc.robot.subsystems.hopper.IHopperSubsystem;
-import frc.robot.subsystems.intake.IIntakeSubsystem;
-import frc.robot.subsystems.intake.IntakeFactory;
-
 import riolog.RioLogger;
 
-public class IntakeSimpleManual extends PKManualCommand {
+public class IntakeSimpleManual extends IntakeOICommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(IntakeSimpleManual.class.getName());
 
-    // Handle to our subsystem
-    private IIntakeSubsystem intake;
-
-    // TODO - Should be a Pose when together
-    private IHopperSubsystem hopper;
-
     public IntakeSimpleManual() {
         logger.info("constructing {}", getName());
-
-        intake = IntakeFactory.getInstance();
-        addRequirements(intake);
-        hopper = HopperFactory.getInstance();
-        addRequirements(hopper);
 
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
         double speed = oi.getIntakeSpeed();
+
         intake.pullIn(speed);
     }
 

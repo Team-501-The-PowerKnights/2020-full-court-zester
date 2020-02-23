@@ -20,6 +20,12 @@ import frc.robot.telemetry.ITelemetryProvider;
 public interface ISubsystem extends Subsystem, ITelemetryProvider {
 
     /**
+     * Called to set the default command for the subsystem; the value is determined
+     * from the properties file, and loaded dynamically.
+     **/
+    public void loadDefaultCommand();
+
+    /**
      * Called to validate that the calibration values in the properties match the
      * physical values from the subsystem itself.
      **/
