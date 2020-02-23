@@ -11,6 +11,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -74,6 +75,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         turretPID.setI(turretI);
         turretPID.setD(turretD);
         turretPID.setFF(turretF);
+        turretPID.setOutputRange(-0.2, 0.2);
 
         leftMotor = new CANSparkMax(21, MotorType.kBrushless);
         leftMotor.restoreFactoryDefaults();
@@ -105,7 +107,6 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, home.get());
     }
 
     @Override
@@ -171,14 +172,41 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void home() {
+
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, false);
+
+        turretMotor.setIdleMode(IdleMode.kBrake);
+
         while (!(home.get())) {
-            turretMotor.set(0.1);
+            turretMotor.set(0.55);
         }
 
         if (home.get()) {
+            turretMotor.set(0.0);
             turretEncoder.setPosition(0);
+        }
+
+        while ((home.get())) {
+            turretMotor.set(-0.05);
+        }
+
+        if (home.get()) {
             turretMotor.set(0.0);
         }
+
+        while (!(home.get())) {
+            turretMotor.set(0.05);
+        }
+
+        if (home.get()) {
+            turretMotor.set(0.0);
+            turretEncoder.setPosition(0);
+        }
+
+        turretMotor.setIdleMode(IdleMode.kCoast);
+
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, true);
+
     }
 
     private double convertTurretCountsToAngle(double counts) {
