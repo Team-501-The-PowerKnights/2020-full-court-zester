@@ -10,7 +10,6 @@ package frc.robot.subsystems.drive;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;

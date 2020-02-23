@@ -10,9 +10,7 @@ package frc.robot.subsystems.climber;
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.climber.ClimberDoNothing;
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
 import frc.robot.subsystems.SubsystemNames;
@@ -71,7 +69,6 @@ public class ClimberFactory {
             SmartDashboard.putNumber(TelemetryNames.Climber.status, PKStatus.degraded.tlmValue);
         }
     }
-
 
     /**
      * Returns the singleton instance of the subsystem in the form of the
