@@ -14,12 +14,6 @@
 - [button] (Left Bumper): Toggle Between Intake Deploy/Stow
 - [analog] (Left Trigger): Intake In & Hopper
 - [analog] (Right Trigger): Intake Out & Hopper
-- [button] (Hat Up <0 deg>): Extend Climber *{whilePressed}*
-  - limit by encoder or limit switch
-  - speed is constant preset in code
-- [button] (Hat Down <180 deg>): Lower Climber *{whilePressed}*
-  - limit by encoder or limit switch ????
-  - speed is constant preset in code
 
 ## Operator
 - [button] (button 1): Fire Pose *{whilePressed}*
@@ -69,7 +63,16 @@
   - enforce turret rotation with limits
 - ~~[button] (button 14): Activate wheel of fortune - Position Control~~
 - ~~[button] (button 15): Activate wheel of fortune - Rotation Control~~
-- ~~(button 16): Spare button~~
+- [button] (button 16): Home Turret *{whenPressed}*
+  - hold control until homed?
+- ~~(button 17): Spare button~~
+- ~~(button 18): Spare button~~
+- [button] button 19): Extend Climber *{whenPressed}*
+  - limit by encoder or limit switch
+  - speed is constant preset in code
+- [button] (button 20): Lower Climber *{whilePressed}*
+   - speed is constant preset in code
+
 
 ## Special
 - When some special combo of buttons is pressed, the climber reverses
