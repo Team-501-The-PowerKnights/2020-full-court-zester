@@ -11,13 +11,14 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterHome;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+
 import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
@@ -161,13 +162,7 @@ public class OI implements ITelemetryProvider {
     }
 
     public double getIntakeSpeed() {
-        double speed = 0.0;
-        if (getDriverLeftTrigger() > 0) {
-            speed = getDriverLeftTrigger();
-        } else if (getDriverRightTrigger() > 0) {
-            speed = -getDriverRightTrigger();
-        }
-        return speed;
+        return deadBand(getDriverBumperAxis(), 0.05);
     }
 
     public double getBallevatorSpeed() {
@@ -220,7 +215,7 @@ public class OI implements ITelemetryProvider {
     //////////////////////////////////////////////////////////////////
 
     public double getHopperSpeed() {
-        return getDriverBumperAxis();
+        return deadBand(getDriverBumperAxis(), 0.05);
     }
 
     public double getTurretIncrement() {
