@@ -171,6 +171,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void swap() {
+        // FIXME - the API for this changed; needs to be in the follow?
         leftFrontMotor.setInverted( leftFrontMotor.getInverted() ? false : true);
         rightFrontMotor.setInverted( rightFrontMotor.getInverted() ? false : true);
     }
