@@ -112,7 +112,7 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updatePreferences() {
-        super.updatePreferences();
+        loadPreferences();
 
         turretPID.setP(turretP);
         turretPID.setI(turretI);
