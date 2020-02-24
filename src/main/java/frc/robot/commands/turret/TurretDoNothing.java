@@ -5,31 +5,21 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-/**
- * Add your docs here.
- */
-public class ShooterHome extends ShooterCommandBase {
+public class TurretDoNothing extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretDoNothing.class.getName());
 
-    public ShooterHome() {
+    public TurretDoNothing() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
-    }
-
-    // Called once just before this Command runs the first time
-    @Override
-    public void initialize() {
-        // TODO - Make this one of the execute once commands? Do we need to wait?
-        shooter.home();
     }
 
 }

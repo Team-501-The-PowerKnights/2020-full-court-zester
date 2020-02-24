@@ -5,18 +5,18 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.subsystems.turret;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-class StubShooterSubsystem extends BaseShooterSubsystem {
+class StubTurretSubsystem extends BaseTurretSubsystem {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubShooterSubsystem.class.getName());
+    private static final Logger logger = RioLogger.getLogger(StubTurretSubsystem.class.getName());
 
-    public StubShooterSubsystem() {
+    public StubTurretSubsystem() {
         logger.info("constructing");
 
         logger.info("constructed");
@@ -53,17 +53,42 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double dist) {
+    public void setTurretAngle(double angle) {
         // Stub doesn't implement this
     }
 
     @Override
-    public void shoot() {
+    public void home() {
         // Stub doesn't implement this
     }
 
     @Override
     public void setSpeed(int canID, double speed) {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void jogCW() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void jogCCW() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setAngleFromVision() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setLED(int mode) {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setCamMode(boolean sight) {
         // Stub doesn't implement this
     }
 

@@ -136,13 +136,19 @@ public final class TelemetryNames {
         public static final String speed = name + ".speed";
     }
 
-    public final class Shooter {
-        public static final String name = SubsystemNames.shooterName;
+    public final class Turret {
+        public static final String name = SubsystemNames.turretName;
 
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
         public static final String position = name + ".rawPosition";
         public static final String isHome = name + ".isHome";
+    }
+
+    public final class Shooter {
+        public static final String name = SubsystemNames.shooterName;
+
+        public static final String status = name + ".status";
     }
 
     /***************

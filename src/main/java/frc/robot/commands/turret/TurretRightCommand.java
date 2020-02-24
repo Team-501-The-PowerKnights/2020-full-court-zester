@@ -5,32 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
-public class TurretVisionAlign extends ShooterCommandBase {
+public class TurretRightCommand extends TurretCommandBase {
 
-  public TurretVisionAlign() {
-
+  public TurretRightCommand() {
   }
 
   @Override
   public void execute() {
     super.execute();
 
-    shooter.setLED(3);
-
-    shooter.setCamMode(true);
-
-    shooter.setAngleFromVision();
+    turret.setTurretAngle(-90);
   }
 
   @Override
-  public void end(boolean interrupted) {
-    super.end(interrupted);
-
-    shooter.setLED(1);
-
-    shooter.setCamMode(false);
+  public boolean isFinished() {
+    return true;
   }
 
 }

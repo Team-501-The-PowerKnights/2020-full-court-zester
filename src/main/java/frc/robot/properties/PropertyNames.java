@@ -51,6 +51,10 @@ public class PropertyNames {
         public static final String name = SubsystemNames.shooterName;
     }
 
+    public final class Turret {
+        public static final String name = SubsystemNames.turretName;
+    }
+
     /***************
      * Control Panel
      ***************/

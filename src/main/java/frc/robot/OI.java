@@ -19,13 +19,13 @@ import frc.robot.commands.InvalidButton;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
 import frc.robot.commands.drive.DriveSwap;
-import frc.robot.commands.shooter.ShooterHome;
-import frc.robot.commands.shooter.TurretBackCommand;
-import frc.robot.commands.shooter.TurretFrontCommand;
-import frc.robot.commands.shooter.TurretJogCCWCommand;
-import frc.robot.commands.shooter.TurretJogCWCommand;
-import frc.robot.commands.shooter.TurretRightCommand;
-import frc.robot.commands.shooter.TurretVisionAlign;
+import frc.robot.commands.turret.TurretHome;
+import frc.robot.commands.turret.TurretBackCommand;
+import frc.robot.commands.turret.TurretFrontCommand;
+import frc.robot.commands.turret.TurretJogCCWCommand;
+import frc.robot.commands.turret.TurretJogCWCommand;
+import frc.robot.commands.turret.TurretRightCommand;
+import frc.robot.commands.turret.TurretVisionAlign;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKStatus;
@@ -168,7 +168,7 @@ public class OI implements ITelemetryProvider {
         /*
          * Turret Manual Control
          */
-        turretHomeButton.whenPressed(new ShooterHome());
+        turretHomeButton.whenPressed(new TurretHome());
         turretOrientationBackButton.whenPressed(new TurretBackCommand());
         turretOrientationRightButton.whenPressed(new TurretRightCommand());
         turretOrientationFrontButton.whenPressed(new TurretFrontCommand());

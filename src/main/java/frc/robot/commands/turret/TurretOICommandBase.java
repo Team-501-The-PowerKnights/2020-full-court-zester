@@ -5,20 +5,31 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.commands.turret;
 
-import frc.robot.subsystems.ISubsystem;
+import org.slf4j.Logger;
+
+import frc.robot.OI;
+
+import riolog.RioLogger;
 
 /**
  * Add your docs here.
- **/
-public interface IShooterSubsystem extends ISubsystem {
+ */
+abstract class TurretOICommandBase extends TurretCommandBase {
 
-    public void stop();
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(TurretOICommandBase.class.getName());
 
-    public void shoot(double dist);
+    // Handle to the OI
+    protected OI oi;
 
-    public void shoot();
+    public TurretOICommandBase() {
+        logger.info("constructing {}", getName());
 
-    public void setSpeed(int canID, double speed);
+        oi = OI.getInstance();
+
+        logger.info("constructed");
+    }
+
 }

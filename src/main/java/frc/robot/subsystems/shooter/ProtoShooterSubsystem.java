@@ -101,47 +101,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public void setTurretAngle(double angle) {
-    // No implementation - Protobot doesn't have a turret
-  }
-
-  @Override
-  public void home() {
-    // No implementation - Protobot doesn't have a turret
-  }
-
-  @Override
   public void setSpeed(int canID, double speed) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void jogCW() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void jogCCW() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void setAngleFromVision() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void setLED(int mode) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void setCamMode(boolean sight) {
     // TODO Auto-generated method stub
 
   }

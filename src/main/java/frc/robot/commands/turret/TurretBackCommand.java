@@ -5,9 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
-public class TurretBackCommand extends ShooterCommandBase {
+public class TurretBackCommand extends TurretCommandBase {
 
   public TurretBackCommand() {
   }
@@ -16,7 +16,7 @@ public class TurretBackCommand extends ShooterCommandBase {
   public void execute() {
     super.execute();
 
-    shooter.setTurretAngle(0);
+    turret.setTurretAngle(0);
   }
 
   @Override

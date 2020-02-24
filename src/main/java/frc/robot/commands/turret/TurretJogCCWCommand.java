@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
-public class TurretRightCommand extends ShooterCommandBase {
+public class TurretJogCCWCommand extends TurretCommandBase {
 
-  public TurretRightCommand() {
+  public TurretJogCCWCommand() {
   }
 
   @Override
   public void execute() {
     super.execute();
 
-    shooter.setTurretAngle(-90);
+    turret.jogCCW();
   }
 
   @Override
