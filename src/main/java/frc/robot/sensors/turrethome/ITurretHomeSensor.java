@@ -5,25 +5,15 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.home;
+package frc.robot.sensors.turrethome;
 
-import org.slf4j.Logger;
+import frc.robot.sensors.ISensor;
 
-import frc.robot.telemetry.TelemetryNames;
+/**
+ * Add your docs here.
+ **/
+public interface ITurretHomeSensor extends ISensor {
 
-import riolog.RioLogger;
-
-abstract class BaseHomeSensor implements IHomeSensor {
-
-    /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseHomeSensor.class.getName());
-
-    protected static final String myName = TelemetryNames.Home.name;
-
-    BaseHomeSensor() {
-        logger.info("constructing");
-
-        logger.info("constructed");
-    }
+    public boolean get();
 
 }

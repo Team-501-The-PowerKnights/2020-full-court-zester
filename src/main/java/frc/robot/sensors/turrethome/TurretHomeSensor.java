@@ -5,48 +5,51 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.home;
+package frc.robot.sensors.turrethome;
 
 import org.slf4j.Logger;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>IHomeSensor</code> which has no sensor or
- * other useful functionality; but which won't blow up if instantiated and
- * 'used'.
+ * Provides implementation of <code>ITurretHomeSensor</code> for the <i>Real-Bot</i>.
  */
-class StubHomeSensor extends BaseHomeSensor {
+class TurretHomeSensor extends BaseTurretHomeSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubHomeSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretHomeSensor.class.getName());
 
-    StubHomeSensor() {
+    private DigitalInput turrethome;
+
+    TurretHomeSensor() {
         logger.info("constructing");
+
+        turrethome = new DigitalInput(8);
 
         logger.info("constructed");
     }
 
     @Override
-    public boolean get() {
-        // Stub doesn't implement this - returns false
-        return false;
-    }
-
-    @Override
     public void updatePreferences() {
-        // Stub doesn't implement this
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public void disable() {
-        // Stub doesn't implement this
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean get() {
+        return turrethome.get();
     }
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
     }
 
 }

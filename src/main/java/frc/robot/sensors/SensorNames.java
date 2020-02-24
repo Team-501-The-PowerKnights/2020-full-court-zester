@@ -18,7 +18,7 @@ public class SensorNames {
 
     public static final String wheelColorName = "WheelColor";
 
-    public static final String homeName = "Home";
+    public static final String turretHomeName = "TurretHome";
 
     public static final String cameraName = "Camera";
 
