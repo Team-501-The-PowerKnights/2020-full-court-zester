@@ -7,9 +7,19 @@
 
 package frc.robot.commands.ballevator;
 
+import org.slf4j.Logger;
+
+import riolog.RioLogger;
+
 public class BallevatorLift extends BallevatorCommandBase {
 
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
+
   public BallevatorLift() {
+    logger.info("constructing {}", getName());
+
+    logger.info("constructed");
   }
 
   @Override

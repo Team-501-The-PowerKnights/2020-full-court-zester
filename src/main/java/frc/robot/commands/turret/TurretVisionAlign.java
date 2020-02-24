@@ -7,10 +7,19 @@
 
 package frc.robot.commands.turret;
 
+import org.slf4j.Logger;
+
+import riolog.RioLogger;
+
 public class TurretVisionAlign extends TurretCommandBase {
 
-  public TurretVisionAlign() {
+  /** Our classes' logger **/
+  private static final Logger logger = RioLogger.getLogger(TurretVisionAlign.class.getName());
 
+  public TurretVisionAlign() {
+    logger.info("constructing {}", getName());
+
+    logger.info("constructed");
   }
 
   @Override
