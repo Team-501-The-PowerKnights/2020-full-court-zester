@@ -7,9 +7,9 @@
 
 package frc.robot.commands.turret;
 
-public class TurretBackCommand extends TurretCommandBase {
+public class TurretBack extends TurretCommandBase {
 
-  public TurretBackCommand() {
+  public TurretBack() {
   }
 
   @Override

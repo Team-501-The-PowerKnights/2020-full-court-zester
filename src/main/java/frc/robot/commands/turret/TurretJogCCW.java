@@ -7,9 +7,9 @@
 
 package frc.robot.commands.turret;
 
-public class TurretJogCCWCommand extends TurretCommandBase {
+public class TurretJogCCW extends TurretCommandBase {
 
-  public TurretJogCCWCommand() {
+  public TurretJogCCW() {
   }
 
   @Override

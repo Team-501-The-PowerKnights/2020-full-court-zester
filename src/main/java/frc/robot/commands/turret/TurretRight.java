@@ -7,16 +7,16 @@
 
 package frc.robot.commands.turret;
 
-public class TurretJogCWCommand extends TurretCommandBase {
+public class TurretRight extends TurretCommandBase {
 
-  public TurretJogCWCommand() {
+  public TurretRight() {
   }
 
   @Override
   public void execute() {
     super.execute();
 
-    turret.jogCW();
+    turret.setTurretAngle(-90);
   }
 
   @Override
