@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.subsystems.turret;
 
 import org.slf4j.Logger;
 
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.commands.shooter.ShooterDoNothing;
+import frc.robot.commands.turret.TurretDoNothing;
 import frc.robot.preferences.PreferenceNames;
 import frc.robot.properties.PKProperties;
 import frc.robot.properties.PropertiesManager;
@@ -27,29 +27,29 @@ import riolog.RioLogger;
 /**
  * Add your docs here.
  */
-abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSubsystem {
+abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsystem {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseShooterSubsystem.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BaseTurretSubsystem.class.getName());
 
     /** Our subsystem's name **/
-    protected static final String myName = SubsystemNames.shooterName;
+    protected static final String myName = SubsystemNames.turretName;
 
     /** Handle to WPILib preferences manager **/
     protected final Preferences prefs;
 
-    /** Shooter PID defaults for subystem **/
-    protected double pid_P = 0;
-    protected double pid_I = 0;
-    protected double pid_D = 0;
+    /** Turret PID defaults for subystem **/
+    protected double pid_P = 0.5;
+    protected double pid_I = 0.005;
+    protected double pid_D = 1;
     protected double pid_F = 0;
 
-    protected BaseShooterSubsystem() {
+    protected BaseTurretSubsystem() {
         logger.info("constructing");
 
         prefs = Preferences.getInstance();
-        // load the current preferences
-        loadPreferences();
+        // Load the current preferences
+        updatePreferences();
 
         logger.info("constructed");
     }
@@ -58,7 +58,7 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     public void loadDefaultCommand() {
         PKProperties props = PropertiesManager.getInstance().getProperties(myName);
         String myClassName = props.getString("defaultCommandName");
-        String myPkgName = ShooterDoNothing.class.getPackage().getName();
+        String myPkgName = TurretDoNothing.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load: {}", classToLoad);
 
@@ -72,28 +72,29 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
             ourCommand = (Command) myObject;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for: {}", myName);
-            ourCommand = (Command) new ShooterDoNothing();
-            SmartDashboard.putNumber(TelemetryNames.Shooter.status, PKStatus.degraded.tlmValue);
+            ourCommand = (Command) new TurretDoNothing();
+            SmartDashboard.putNumber(TelemetryNames.Turret.status, PKStatus.degraded.tlmValue);
         }
 
         setDefaultCommand(ourCommand);
     }
 
-    protected void loadPreferences() {
+    @Override
+    public void updatePreferences() {
         double v;
 
         logger.info("new preferences for {}:", myName);
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_P, 0.0);
-        logger.info("{} = {}", PreferenceNames.Shooter.pid_P, v);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_P, 0.5);
+        logger.info("{} = {}", PreferenceNames.Turret.pid_P, v);
         pid_P = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_I, 0.0);
-        logger.info("{} = {}", PreferenceNames.Shooter.pid_I, v);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_I, 0.005);
+        logger.info("{} = {}", PreferenceNames.Turret.pid_I, v);
         pid_I = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_D, 0.0);
-        logger.info("{} = {}", PreferenceNames.Shooter.pid_D, v);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_D, 1);
+        logger.info("{} = {}", PreferenceNames.Turret.pid_D, v);
         pid_D = v;
-        v = prefs.getDouble(PreferenceNames.Shooter.pid_F, 0.0);
-        logger.info("{} = {}", PreferenceNames.Shooter.pid_F, v);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_F, 0.0);
+        logger.info("{} = {}", PreferenceNames.Turret.pid_F, v);
         pid_F = v;
     }
 

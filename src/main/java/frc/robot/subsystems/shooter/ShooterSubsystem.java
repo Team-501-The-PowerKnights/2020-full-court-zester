@@ -11,19 +11,16 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.preferences.PreferenceNames.Shooter;
 import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
 class ShooterSubsystem extends BaseShooterSubsystem {
@@ -32,31 +29,15 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
 
     /**
-     * Shooter constant values
-     */
-
-    private static final double VPGearing = 1;
-    private static final double beltGearing = 1;
-    private static final double countsPerRevolution = 1;
-
-    private static final double turretMaxAngle = 270;
-    private static final double turretMinAngle = 0;
-
-    /**
      * Mechanisms and sensors
      */
 
-    private CANSparkMax leftMotor;
-    private CANSparkMax rightMotor;
+    private CANSparkMax shootMaster;
+    private CANSparkMax shootSlave;
+    private CANEncoder shootEncoder;
     private CANPIDController shooterPID;
 
-    private CANSparkMax turretMotor;
-    private CANEncoder turretEncoder;
-    private CANPIDController turretPID;
-
     // private TalonSRX incrementer; // Unused for now
-
-    private DigitalInput home;
 
     /**
      * Creates a new ShooterSubsystem.
@@ -64,38 +45,24 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public ShooterSubsystem() {
         logger.info("constructing");
 
-        turretMotor = new CANSparkMax(20, MotorType.kBrushless);
-        turretMotor.restoreFactoryDefaults();
-        // +CW +, CCW -
-        turretMotor.setInverted(true);
-        turretEncoder = new CANEncoder(turretMotor);
-
-        turretPID = new CANPIDController(turretMotor);
-        turretPID.setP(turretP);
-        turretPID.setI(turretI);
-        turretPID.setD(turretD);
-        turretPID.setFF(turretF);
-        turretPID.setOutputRange(-0.2, 0.2);
-
-        leftMotor = new CANSparkMax(21, MotorType.kBrushless);
-        leftMotor.restoreFactoryDefaults();
-        rightMotor = new CANSparkMax(22, MotorType.kBrushless);
-        rightMotor.restoreFactoryDefaults();
+        shootMaster = new CANSparkMax(21, MotorType.kBrushless);
+        shootMaster.restoreFactoryDefaults();
+        shootSlave = new CANSparkMax(22, MotorType.kBrushless);
+        shootSlave.restoreFactoryDefaults();
         // + spin out, - spin in
 
         // Slaved and inverted
-        rightMotor.follow(leftMotor, true);
+        shootSlave.follow(shootMaster, true);
 
-        shooterPID = new CANPIDController(leftMotor);
-        shooterPID.setP(shooterP);
-        shooterPID.setI(shooterI);
-        shooterPID.setD(shooterD);
-        shooterPID.setFF(shooterF);
+        shootEncoder = new CANEncoder(shootMaster);
+
+        shooterPID = new CANPIDController(shootMaster);
+        shooterPID.setP(pid_P);
+        shooterPID.setI(pid_I);
+        shooterPID.setD(pid_D);
+        shooterPID.setFF(pid_F);
 
         // incrementer = new TalonSRX(23); // Unused for now
-
-        // TODO - This should be sensor so it can telemetry
-        home = new DigitalInput(8);
 
         logger.info("constructed");
     }
@@ -107,9 +74,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
-        // FIXME - Add the encoder for the velocity
-        SmartDashboard.putNumber(TelemetryNames.Shooter.velocity, 0.0);
+        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, shootEncoder.getVelocity());
     }
 
     @Override
@@ -122,15 +87,13 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public void updatePreferences() {
         loadPreferences();
 
-        turretPID.setP(turretP);
-        turretPID.setI(turretI);
-        turretPID.setD(turretD);
-        turretPID.setFF(turretF);
+        if (shooterPID != null) {
+            shooterPID.setP(pid_P);
+            shooterPID.setI(pid_I);
+            shooterPID.setD(pid_D);
+            shooterPID.setFF(pid_F);
+        }
 
-        shooterPID.setP(shooterP);
-        shooterPID.setI(shooterI);
-        shooterPID.setD(shooterD);
-        shooterPID.setFF(shooterF);
     }
 
     @Override
@@ -141,11 +104,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
-        turretPID.setReference(0, ControlType.kVoltage);
-        turretMotor.set(0.0);
-
         shooterPID.setReference(0, ControlType.kVoltage);
-        leftMotor.set(0.0);
+        shootMaster.set(0.0);
     }
 
     @Override
@@ -161,84 +121,17 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void setTurretAngle(double angle) {
-        if (angle >= turretMaxAngle) {
-            angle = turretMaxAngle;
-        } else if (angle <= turretMinAngle) {
-            angle = turretMinAngle;
-        }
-
-        double targetCounts = convertTurretAngleToCounts(angle);
-
-        turretPID.setReference(targetCounts, ControlType.kPosition);
-    }
-
-    @Override
-    public void home() {
-
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, false);
-
-        turretMotor.setIdleMode(IdleMode.kBrake);
-
-        while (!(home.get())) {
-            turretMotor.set(0.55);
-        }
-
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(0);
-        }
-
-        while ((home.get())) {
-            turretMotor.set(-0.05);
-        }
-
-        if (home.get()) {
-            turretMotor.set(0.0);
-        }
-
-        while (!(home.get())) {
-            turretMotor.set(0.05);
-        }
-
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(0);
-        }
-
-        turretMotor.setIdleMode(IdleMode.kCoast);
-
-        SmartDashboard.putBoolean(TelemetryNames.Shooter.isHome, true);
-    }
-
-    private double convertTurretCountsToAngle(double counts) {
-        double angle = (counts / countsPerRevolution) * VPGearing * beltGearing
-                * 360 /* 360 degrees per 1 revolution */;
-
-        return angle;
-    }
-
-    private double convertTurretAngleToCounts(double angle) {
-        double counts = angle / 360 /* 360 degrees per 1 revolution */ / beltGearing / VPGearing * countsPerRevolution;
-
-        return counts;
-    }
-
-    @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 20:
-            turretMotor.set(speed);
-            break;
         case 21:
-            leftMotor.set(idleShooter(speed));
+            shootMaster.set(idleShooter(speed));
             break;
         case 22:
-            rightMotor.set(idleShooter(speed));
+            shootSlave.set(idleShooter(speed));
             break;
         case 29:
             // Assuming slaved
-            leftMotor.set(idleShooter(speed));
+            shootMaster.set(idleShooter(speed));
             break;
         default:
             break;

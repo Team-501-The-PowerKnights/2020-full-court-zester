@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.sensors.gyro.GyroFactory;
+import frc.robot.sensors.home.HomeFactory;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
@@ -41,6 +42,14 @@ public class SensorFactory {
         {
             GyroFactory.constructInstance();
             ISensor s = GyroFactory.getInstance();
+            tlmMgr.addProvider(s);
+            sensors.add(s);
+        }
+
+        SmartDashboard.putNumber(TelemetryNames.WheelColor.status, PKStatus.unknown.tlmValue);
+        {
+            HomeFactory.constructInstance();
+            ISensor s = HomeFactory.getInstance();
             tlmMgr.addProvider(s);
             sensors.add(s);
         }

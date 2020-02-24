@@ -5,20 +5,27 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.subsystems.turret;
 
 import frc.robot.subsystems.ISubsystem;
 
-/**
- * Add your docs here.
- **/
-public interface IShooterSubsystem extends ISubsystem {
+public interface ITurretSubsystem extends ISubsystem {
 
     public void stop();
 
-    public void shoot(double dist);
+    public void setTurretAngle(double angle);
 
-    public void shoot();
+    public void home();
 
     public void setSpeed(int canID, double speed);
+
+    public void jogCW();
+
+    public void jogCCW();
+
+    public void setAngleFromVision();
+
+    public void enableLimelight();
+
+    public void disableLimelight();
 }

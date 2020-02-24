@@ -58,8 +58,7 @@ WheelColor.className = StubWheelColorSensor
 #####################
 #Ballevator.className = StubBallevatorSubsystem
 Ballevator.className = BallevatorSubsystem
-#Ballevator.defaultCommandName = BallevatorDoNothing
-Ballevator.defaultCommandName = BallevatorSimpleManual
+Ballevator.defaultCommandName = BallevatorDoNothing
 
 
 #####################
@@ -67,8 +66,7 @@ Ballevator.defaultCommandName = BallevatorSimpleManual
 #####################
 #Climber.className = StubClimberSubsystem
 Climber.className = ClimberSubsystem
-#Climber.defaultCommandName = ClimberDoNothing
-Climber.defaultCommandName = ClimberSimpleManual
+Climber.defaultCommandName = ClimberDoNothing
 
 
 #####################
@@ -84,7 +82,7 @@ Drive.defaultCommandName = DriveJoystickControl
 #####################
 #Hopper.className = StubHopperSubsystem
 Hopper.className = HopperSubsystem
-Hopper.defaultCommandName = HopperDoNothing
+Hopper.defaultCommandName = HopperSimpleManual
 
 
 #####################
@@ -102,11 +100,16 @@ Intake.defaultCommandName = IntakeSimpleManual
 #Shooter.className = StubShooterSubsystem
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
-#Shooter.defaultCommandName = ShooterDoNothing
-#Shooter.defaultCommandName = TurretSimpleManual
+Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = ShooterSimpleManual
-Shooter.defaultCommandName = ShooterManual
+#Shooter.defaultCommandName = ShooterManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
+
+#####################
+# Turret
+#####################
+Shooter.className = TurretSubsystem
+Shooter.defaultCommandName = TurretDoNothing
 
 
 #####################

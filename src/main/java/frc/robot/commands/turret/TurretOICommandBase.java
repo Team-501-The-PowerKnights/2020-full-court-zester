@@ -5,35 +5,31 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
+import frc.robot.OI;
+
 import riolog.RioLogger;
 
-public class BallevatorSimpleManual extends BallevatorOICommandBase {
+/**
+ * Add your docs here.
+ */
+abstract class TurretOICommandBase extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretOICommandBase.class.getName());
 
-    public BallevatorSimpleManual() {
+    // Handle to the OI
+    protected OI oi;
+
+    public TurretOICommandBase() {
         logger.info("constructing {}", getName());
 
+        oi = OI.getInstance();
+
         logger.info("constructed");
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-
-        double speed = oi.getBallevatorSpeed();
-        if (speed > 0.0) {
-            ballevator.lift();
-        } else if (speed < 0.0) {
-            ballevator.lower();
-        } else {
-            ballevator.stop();
-        }
     }
 
 }

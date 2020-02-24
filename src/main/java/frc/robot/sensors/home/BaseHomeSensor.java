@@ -5,20 +5,25 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.sensors.home;
 
-import frc.robot.subsystems.ISubsystem;
+import org.slf4j.Logger;
 
-/**
- * Add your docs here.
- **/
-public interface IShooterSubsystem extends ISubsystem {
+import frc.robot.telemetry.TelemetryNames;
 
-    public void stop();
+import riolog.RioLogger;
 
-    public void shoot(double dist);
+abstract class BaseHomeSensor implements IHomeSensor {
 
-    public void shoot();
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BaseHomeSensor.class.getName());
 
-    public void setSpeed(int canID, double speed);
+    protected static final String myName = TelemetryNames.Home.name;
+
+    BaseHomeSensor() {
+        logger.info("constructing");
+
+        logger.info("constructed");
+    }
+
 }

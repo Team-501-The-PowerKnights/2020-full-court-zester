@@ -5,20 +5,15 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.sensors.home;
 
-import frc.robot.subsystems.ISubsystem;
+import frc.robot.sensors.ISensor;
 
 /**
  * Add your docs here.
  **/
-public interface IShooterSubsystem extends ISubsystem {
+public interface IHomeSensor extends ISensor {
 
-    public void stop();
+    public boolean get();
 
-    public void shoot(double dist);
-
-    public void shoot();
-
-    public void setSpeed(int canID, double speed);
 }

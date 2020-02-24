@@ -5,36 +5,32 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.shooter;
+package frc.robot.sensors.home;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-class StubShooterSubsystem extends BaseShooterSubsystem {
+/**
+ * Provides implementation of <code>IHomeSensor</code> which has no sensor or
+ * other useful functionality; but which won't blow up if instantiated and
+ * 'used'.
+ */
+class StubHomeSensor extends BaseHomeSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubShooterSubsystem.class.getName());
+    private static final Logger logger = RioLogger.getLogger(StubHomeSensor.class.getName());
 
-    public StubShooterSubsystem() {
+    StubHomeSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
     }
 
     @Override
-    public void periodic() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void updateTelemetry() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void validateCalibration() {
-        // Stub doesn't implement this
+    public boolean get() {
+        // Stub doesn't implement this - returns false
+        return false;
     }
 
     @Override
@@ -48,23 +44,9 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void stop() {
-        // Stub doesn't implement this
-    }
+    public void updateTelemetry() {
+        // TODO Auto-generated method stub
 
-    @Override
-    public void shoot(double dist) {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void shoot() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void setSpeed(int canID, double speed) {
-        // Stub doesn't implement this
     }
 
 }

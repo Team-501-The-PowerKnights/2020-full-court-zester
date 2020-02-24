@@ -44,7 +44,6 @@ public class IandTShooterJoystickControl extends PKManualCommand implements IIan
         super.execute();
 
         double speed = oi.getDriveSpeed();
-        double turn = oi.getDriveTurn();
 
         shooter.setSpeed(20, speed);
     }
