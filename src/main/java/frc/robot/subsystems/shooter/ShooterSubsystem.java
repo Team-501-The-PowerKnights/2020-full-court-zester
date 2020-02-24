@@ -74,7 +74,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Shooter.velocity, shootEncoder.getVelocity());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, shootEncoder.getVelocity());
     }
 
     @Override
