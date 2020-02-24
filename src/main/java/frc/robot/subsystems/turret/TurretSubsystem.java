@@ -69,13 +69,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setFF(pid_F, 1);
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
-        
+
         // TODO - This should be sensor so it can telemetry
         home = new DigitalInput(8);
 
-        setLED(1);
-
-        setCamMode(false);
+        disableLimelight();
 
         logger.info("constructed");
     }
@@ -119,12 +117,12 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
+        disableLimelight();
     }
 
     @Override
     public void stop() {
+        disableLimelight();
         turretPID.setReference(0, ControlType.kVoltage);
         turretMotor.set(0.0);
     }
@@ -151,12 +149,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         SmartDashboard.putNumber("Heading Error", x);
 
-        // if (table.getEntry("tv").getDouble(0.0) == 1) {
-        // double targetAngle = getAngle() + x;
-        // SmartDashboard.putNumber("Target", targetAngle);
-        // turretPID.setReference(targetAngle, ControlType.kPosition, 1);
-        // }
-
         float Kp = -0.75f;
         float min_command = 0.05f;
 
@@ -175,17 +167,15 @@ class TurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setLED(int isOn) {
-        table.getEntry("ledMode").setDouble(isOn);
+    public void enableLimelight() {
+        table.getEntry("ledMode").setDouble(3);
+        table.getEntry("camMode").setDouble(0);
     }
 
     @Override
-    public void setCamMode(boolean sight) {
-        if (sight) {
-            table.getEntry("camMode").setDouble(0);
-        } else {
-            table.getEntry("camMode").setDouble(1);
-        }
+    public void disableLimelight() {
+        table.getEntry("ledMode").setDouble(1);
+        table.getEntry("camMode").setDouble(1);
     }
 
     @Override
@@ -256,12 +246,12 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void jogCW() {
-        setTurretAngle(turretEncoder.getPosition() + 5);
+        setTurretAngle(getAngle() + 5);
     }
 
     @Override
     public void jogCCW() {
-        setTurretAngle(turretEncoder.getPosition() - 5);
+        setTurretAngle(getAngle() - 5);
     }
 
 }

@@ -169,13 +169,13 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setLED(int mode) {
+    public void enableLimelight() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void setCamMode(boolean sight) {
+    public void disableLimelight() {
         // TODO Auto-generated method stub
 
     }

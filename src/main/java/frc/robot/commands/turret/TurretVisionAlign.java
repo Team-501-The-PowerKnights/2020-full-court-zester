@@ -17,9 +17,7 @@ public class TurretVisionAlign extends TurretCommandBase {
   public void execute() {
     super.execute();
 
-    turret.setLED(3);
-
-    turret.setCamMode(true);
+    turret.enableLimelight();
 
     turret.setAngleFromVision();
   }
@@ -28,9 +26,7 @@ public class TurretVisionAlign extends TurretCommandBase {
   public void end(boolean interrupted) {
     super.end(interrupted);
 
-    turret.setLED(1);
-
-    turret.setCamMode(false);
+    turret.disableLimelight();
   }
 
 }

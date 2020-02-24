@@ -25,7 +25,7 @@ public interface ITurretSubsystem extends ISubsystem {
 
     public void setAngleFromVision();
 
-    public void setLED(int mode);
+    public void enableLimelight();
 
-    public void setCamMode(boolean sight);
+    public void disableLimelight();
 }

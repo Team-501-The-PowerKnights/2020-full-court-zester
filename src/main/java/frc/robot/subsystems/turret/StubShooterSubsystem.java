@@ -83,12 +83,12 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setLED(int mode) {
+    public void enableLimelight() {
         // Stub doesn't implement this
     }
 
     @Override
-    public void setCamMode(boolean sight) {
+    public void disableLimelight() {
         // Stub doesn't implement this
     }
 
