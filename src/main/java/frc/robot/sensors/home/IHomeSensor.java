@@ -5,21 +5,15 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors;
+package frc.robot.sensors.home;
+
+import frc.robot.sensors.ISensor;
 
 /**
- * Provides a standard way of defining names for the <i>Sensors</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
+ * Add your docs here.
  **/
-public class SensorNames {
+public interface IHomeSensor extends ISensor {
 
-    public static final String gyroName = "Gyro";
-
-    public static final String wheelColorName = "WheelColor";
-
-    public static final String homeName = "Home";
-
-    public static final String cameraName = "Camera";
+    public boolean get();
 
 }

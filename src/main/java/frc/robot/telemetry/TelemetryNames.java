@@ -145,6 +145,12 @@ public final class TelemetryNames {
         public static final String isHome = name + ".isHome";
     }
 
+    public final class Home {
+        public static final String name = SensorNames.homeName;
+
+        public static final String status = name + ".status";
+    }
+
     public final class Shooter {
         public static final String name = SubsystemNames.shooterName;
 

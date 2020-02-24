@@ -16,12 +16,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.sensors.home.HomeFactory;
+import frc.robot.sensors.home.IHomeSensor;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -46,7 +46,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
     private CANEncoder turretEncoder;
     private CANPIDController turretPID;
 
-    private DigitalInput home;
+    private IHomeSensor home;
 
     /**
      * Creates a new TurretSubsystem.
@@ -70,8 +70,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
 
-        // TODO - This should be sensor so it can telemetry
-        home = new DigitalInput(8);
+        home = HomeFactory.getInstance();
 
         disableLimelight();
 

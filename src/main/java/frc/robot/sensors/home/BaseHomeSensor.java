@@ -5,21 +5,25 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors;
+package frc.robot.sensors.home;
 
-/**
- * Provides a standard way of defining names for the <i>Sensors</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
- **/
-public class SensorNames {
+import org.slf4j.Logger;
 
-    public static final String gyroName = "Gyro";
+import frc.robot.telemetry.TelemetryNames;
 
-    public static final String wheelColorName = "WheelColor";
+import riolog.RioLogger;
 
-    public static final String homeName = "Home";
+abstract class BaseHomeSensor implements IHomeSensor {
 
-    public static final String cameraName = "Camera";
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BaseHomeSensor.class.getName());
+
+    protected static final String myName = TelemetryNames.Home.name;
+
+    BaseHomeSensor() {
+        logger.info("constructing");
+
+        logger.info("constructed");
+    }
 
 }
