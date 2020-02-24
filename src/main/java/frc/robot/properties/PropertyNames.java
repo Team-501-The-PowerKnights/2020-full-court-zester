@@ -55,6 +55,14 @@ public class PropertyNames {
         public static final String name = SubsystemNames.turretName;
     }
 
+    public final class TurretHome {
+        public static final String name = SensorNames.turretHomeName;
+    }
+
+    public final class Limelight {
+        public static final String name = SensorNames.limelightName;
+    }
+
     /***************
      * Control Panel
      ***************/

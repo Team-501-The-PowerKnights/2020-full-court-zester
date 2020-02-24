@@ -81,15 +81,4 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     public void setAngleFromVision() {
         // Stub doesn't implement this
     }
-
-    @Override
-    public void enableLimelight() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void disableLimelight() {
-        // Stub doesn't implement this
-    }
-
 }

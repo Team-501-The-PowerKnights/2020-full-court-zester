@@ -44,6 +44,16 @@ Gyro.className = StubGyroSensor
 #####################
 WheelColor.className = StubWheelColorSensor
 
+#####################
+# TurretHome
+#####################
+TurretHome.className = TurretHomeSensor
+
+#####################
+# Limelight
+#####################
+Limelight.className = LimelightSensor
+
 
 
 

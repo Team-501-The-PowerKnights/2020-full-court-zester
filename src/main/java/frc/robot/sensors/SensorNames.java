@@ -20,6 +20,8 @@ public class SensorNames {
 
     public static final String turretHomeName = "TurretHome";
 
+    public static final String limelightName = "Limelight";
+
     public static final String cameraName = "Camera";
 
 }

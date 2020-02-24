@@ -9,6 +9,8 @@ package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
+import frc.robot.sensors.limelight.ILimelightSensor;
+import frc.robot.sensors.limelight.LimelightFactory;
 import riolog.RioLogger;
 
 public class TurretVisionAlign extends TurretCommandBase {
@@ -16,17 +18,26 @@ public class TurretVisionAlign extends TurretCommandBase {
   /** Our classes' logger **/
   private static final Logger logger = RioLogger.getLogger(TurretVisionAlign.class.getName());
 
+  private ILimelightSensor limelight;
+
   public TurretVisionAlign() {
     logger.info("constructing {}", getName());
+
+    limelight = LimelightFactory.getInstance();
 
     logger.info("constructed");
   }
 
   @Override
+  public void initialize() {
+    super.initialize();
+
+    limelight.enable();
+  }
+
+  @Override
   public void execute() {
     super.execute();
-
-    turret.enableLimelight();
 
     turret.setAngleFromVision();
   }
@@ -35,7 +46,7 @@ public class TurretVisionAlign extends TurretCommandBase {
   public void end(boolean interrupted) {
     super.end(interrupted);
 
-    turret.disableLimelight();
+    limelight.disable();
   }
 
 }

@@ -5,23 +5,17 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.turret;
+package frc.robot.sensors.limelight;
 
-import frc.robot.subsystems.ISubsystem;
+import frc.robot.sensors.ISensor;
 
-public interface ITurretSubsystem extends ISubsystem {
+/**
+ * Add your docs here.
+ **/
+public interface ILimelightSensor extends ISensor {
 
-    public void stop();
+    public void enable();
 
-    public void setTurretAngle(double angle);
+    public double getError();
 
-    public void home();
-
-    public void setSpeed(int canID, double speed);
-
-    public void jogCW();
-
-    public void jogCCW();
-
-    public void setAngleFromVision();
 }

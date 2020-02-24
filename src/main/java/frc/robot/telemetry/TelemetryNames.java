@@ -142,13 +142,26 @@ public final class TelemetryNames {
         public static final String status = name + ".status";
         public static final String angle = name + ".angle";
         public static final String position = name + ".rawPosition";
-        public static final String isHome = name + ".isHome";
+        public static final String isHomed = name + ".isHomed";
+        public static final String visionPIDOutput = name + ".visionPIDOutput";
     }
 
     public final class TurretHome {
         public static final String name = SensorNames.turretHomeName;
 
         public static final String status = name + ".status";
+    }
+
+    public final class Limelight {
+        public static final String name = SensorNames.limelightName;
+
+        public static final String status = name + ".status";
+        public static final String x = name + ".x";
+        public static final String y = name + ".y";
+        public static final String area = name + ".area";
+        public static final String locked = name + ".locked";
+        public static final String ledOn = name + ".ledOn";
+        public static final String enabled = name + ".enabled";
     }
 
     public final class Shooter {

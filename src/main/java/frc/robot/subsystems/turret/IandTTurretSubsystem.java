@@ -168,16 +168,4 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
 
     }
 
-    @Override
-    public void enableLimelight() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disableLimelight() {
-        // TODO Auto-generated method stub
-
-    }
-
 }
