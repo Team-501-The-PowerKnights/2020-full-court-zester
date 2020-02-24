@@ -16,7 +16,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.DoNothingButton;
 import frc.robot.commands.InvalidButton;
+import frc.robot.commands.ballevator.BallevatorLift;
+import frc.robot.commands.ballevator.BallevatorLower;
 import frc.robot.commands.drive.DriveSwap;
+import frc.robot.commands.shooter.ShooterHome;
+import frc.robot.commands.shooter.TurretBackCommand;
+import frc.robot.commands.shooter.TurretFrontCommand;
+import frc.robot.commands.shooter.TurretJogCCWCommand;
+import frc.robot.commands.shooter.TurretJogCWCommand;
+import frc.robot.commands.shooter.TurretRightCommand;
+import frc.robot.commands.shooter.TurretVisionAlign;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKStatus;
@@ -70,9 +79,9 @@ public class OI implements ITelemetryProvider {
     private final Button fieldPositionMidButton;
     private final Button ballevatorUpButton;
     private final Button ballevatorDownButton;
-    private final Button robotOrientationBackButton;
-    private final Button robotOrientationRightButton;
-    private final Button robotOrientationFrontButton;
+    private final Button turretOrientationBackButton;
+    private final Button turretOrientationRightButton;
+    private final Button turretOrientationFrontButton;
     private final Button turretJogClockwiseButton;
     private final Button turretJogCounterClockwiseButton;
     private final Button visionEnableButton;
@@ -103,9 +112,9 @@ public class OI implements ITelemetryProvider {
         fieldPositionMidButton = new JoystickButton(operatorStick, 5);
         ballevatorUpButton = new JoystickButton(operatorStick, 6);
         ballevatorDownButton = new JoystickButton(operatorStick, 7);
-        robotOrientationBackButton = new JoystickButton(operatorStick, 8);
-        robotOrientationRightButton = new JoystickButton(operatorStick, 9);
-        robotOrientationFrontButton = new JoystickButton(operatorStick, 10);
+        turretOrientationBackButton = new JoystickButton(operatorStick, 8);
+        turretOrientationRightButton = new JoystickButton(operatorStick, 9);
+        turretOrientationFrontButton = new JoystickButton(operatorStick, 10);
         turretJogClockwiseButton = new JoystickButton(operatorStick, 11);
         turretJogCounterClockwiseButton = new JoystickButton(operatorStick, 12);
         visionEnableButton = new JoystickButton(operatorStick, 13);
@@ -136,26 +145,49 @@ public class OI implements ITelemetryProvider {
         // crawlButton - implemented in getting values speed & turn
         driveSwapButton.whenPressed(new DriveSwap());
 
+        /*
+         * Shooter Prep
+         */
         firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
         shooterRevButton.whenHeld(new DoNothingButton("shooterRevButton"));
+        visionEnableButton.whenHeld(new TurretVisionAlign());
+
+        /*
+         * Field Position
+         */
         fieldPositionFullButton.whenPressed(new DoNothingButton("fieldPositionFullButton"));
         fieldPositionTrenchButton.whenPressed(new DoNothingButton("fieldPositionTrenchButton"));
         fieldPositionMidButton.whenPressed(new DoNothingButton("fieldPositionMidButton"));
-        ballevatorUpButton.whenHeld(new DoNothingButton("ballevatorUpButton"));
-        ballevatorDownButton.whenHeld(new DoNothingButton("ballevatorDownButton"));
-        robotOrientationBackButton.whenPressed(new DoNothingButton("robotOrientationBackButton"));
-        robotOrientationRightButton.whenPressed(new DoNothingButton("robotOrientationRightButton"));
-        robotOrientationFrontButton.whenPressed(new DoNothingButton("robotOrientationFrontButton"));
-        turretJogClockwiseButton.whenPressed(new DoNothingButton("turretJogClockwiseButton"));
-        turretJogCounterClockwiseButton.whenPressed(new DoNothingButton("turretJogCounterClockwiseButton"));
-        visionEnableButton.whenHeld(new DoNothingButton("visionEnableButton"));
-        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
-        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
-        turretHomeButton.whenPressed(new DoNothingButton("turretHomeButton"));
-        reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
-        reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
+
+        /*
+         * Ballevator
+         */
+        ballevatorUpButton.whenHeld(new BallevatorLift());
+        ballevatorDownButton.whenHeld(new BallevatorLower());
+
+        /*
+         * Turret Manual Control
+         */
+        turretHomeButton.whenPressed(new ShooterHome());
+        turretOrientationBackButton.whenPressed(new TurretBackCommand());
+        turretOrientationRightButton.whenPressed(new TurretRightCommand());
+        turretOrientationFrontButton.whenPressed(new TurretFrontCommand());
+        turretJogClockwiseButton.whenPressed(new TurretJogCWCommand());
+        turretJogCounterClockwiseButton.whenPressed(new TurretJogCCWCommand());
+
+        /*
+         * Climber
+         */
         climberExtendButton.whenPressed(new DoNothingButton("climberExtendButton"));
         climberRetractButton.whenHeld(new DoNothingButton("climberRetractButton"));
+
+        /*
+         * Reserved
+         */
+        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
+        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
+        reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
+        reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
     }
 
     @Override

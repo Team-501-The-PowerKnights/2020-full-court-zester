@@ -74,8 +74,32 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
-        // TODO Auto-generated method stub
+        // Stub doesn't implement this
+    }
 
+    @Override
+    public void jogCW() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void jogCCW() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setAngleFromVision() {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setLED(int mode) {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void setCamMode(boolean sight) {
+        // Stub doesn't implement this
     }
 
 }

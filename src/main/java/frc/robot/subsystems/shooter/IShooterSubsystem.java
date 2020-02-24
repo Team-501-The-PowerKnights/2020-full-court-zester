@@ -25,4 +25,14 @@ public interface IShooterSubsystem extends ISubsystem {
     public void home();
 
     public void setSpeed(int canID, double speed);
+
+    public void jogCW();
+
+    public void jogCCW();
+
+    public void setAngleFromVision();
+
+    public void setLED(int mode);
+
+    public void setCamMode(boolean sight);
 }

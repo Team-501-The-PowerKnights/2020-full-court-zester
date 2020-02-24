@@ -39,9 +39,9 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     protected final Preferences prefs;
 
     /** Turret PID defaults for subystem **/
-    protected double turretP = 0;
-    protected double turretI = 0;
-    protected double turretD = 0;
+    protected double turretP = 0.5;
+    protected double turretI = 0.005;
+    protected double turretD = 1;
     protected double turretF = 0;
     /** Shooter PID defaults for subystem **/
     protected double shooterP = 0;
@@ -89,13 +89,13 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         double v;
 
         logger.info("new preferences for {}:", myName);
-        v = prefs.getDouble(PreferenceNames.Turret.pid_P, 0.0);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_P, 0.5);
         logger.info("{} = {}", PreferenceNames.Turret.pid_P, v);
         turretP = v;
-        v = prefs.getDouble(PreferenceNames.Turret.pid_I, 0.0);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_I, 0.005);
         logger.info("{} = {}", PreferenceNames.Turret.pid_I, v);
         turretI = v;
-        v = prefs.getDouble(PreferenceNames.Turret.pid_D, 0.0);
+        v = prefs.getDouble(PreferenceNames.Turret.pid_D, 1);
         logger.info("{} = {}", PreferenceNames.Turret.pid_D, v);
         turretD = v;
         v = prefs.getDouble(PreferenceNames.Turret.pid_F, 0.0);

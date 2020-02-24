@@ -14,6 +14,8 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Preferences;
@@ -35,9 +37,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
      * Shooter constant values
      */
 
-    private static final double VPGearing = 1;
-    private static final double beltGearing = 1;
-    private static final double countsPerRevolution = 1;
+    private static final double VPGearing = 100;
+    private static final double beltGearing = 8;
 
     private static final double turretMaxAngle = 270;
     private static final double turretMinAngle = 0;
@@ -71,11 +72,14 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         turretEncoder = new CANEncoder(turretMotor);
 
         turretPID = new CANPIDController(turretMotor);
-        turretPID.setP(turretP);
-        turretPID.setI(turretI);
-        turretPID.setD(turretD);
-        turretPID.setFF(turretF);
-        turretPID.setOutputRange(-0.2, 0.2);
+        turretPID.setIZone(0.25, 1);
+        turretPID.setIMaxAccum(1, 1);
+        turretPID.setP(turretP, 1);
+        turretPID.setI(turretI, 1);
+        turretPID.setD(turretD, 1);
+        turretPID.setFF(turretF, 1);
+        turretPID.setOutputRange(-1.0, 1.0, 1);
+        turretMotor.setSmartCurrentLimit(10);
 
         leftMotor = new CANSparkMax(21, MotorType.kBrushless);
         leftMotor.restoreFactoryDefaults();
@@ -97,6 +101,10 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         // TODO - This should be sensor so it can telemetry
         home = new DigitalInput(8);
 
+        setLED(1);
+
+        setCamMode(false);
+
         logger.info("constructed");
     }
 
@@ -107,7 +115,15 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Shooter.angle, convertTurretCountsToAngle(turretEncoder.getPosition()));
+        SmartDashboard.putNumber(TelemetryNames.Shooter.angle, getAngle());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.position, turretEncoder.getPosition());
+
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
+        // post to smart dashboard periodically
+        SmartDashboard.putNumber("LimelightX", table.getEntry("tx").getDouble(0.0));
+        SmartDashboard.putNumber("LimelightY", table.getEntry("ty").getDouble(0.0));
+        SmartDashboard.putNumber("LimelightArea", table.getEntry("ta").getDouble(0.0));
     }
 
     @Override
@@ -120,15 +136,18 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public void updatePreferences() {
         super.updatePreferences();
 
-        turretPID.setP(turretP);
-        turretPID.setI(turretI);
-        turretPID.setD(turretD);
-        turretPID.setFF(turretF);
+        if (turretPID != null) {
+            turretPID.setP(turretP);
+            turretPID.setI(turretI);
+            turretPID.setD(turretD);
+            turretPID.setFF(turretF);
 
-        shooterPID.setP(shooterP);
-        shooterPID.setI(shooterI);
-        shooterPID.setD(shooterD);
-        shooterPID.setFF(shooterF);
+            shooterPID.setP(shooterP);
+            shooterPID.setI(shooterI);
+            shooterPID.setD(shooterD);
+            shooterPID.setFF(shooterF);
+        }
+
     }
 
     @Override
@@ -160,15 +179,61 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setTurretAngle(double angle) {
-        if (angle >= turretMaxAngle) {
-            angle = turretMaxAngle;
-        } else if (angle <= turretMinAngle) {
-            angle = turretMinAngle;
-        }
+        // if (angle >= turretMaxAngle) {
+        // angle = turretMaxAngle;
+        // } else if (angle <= turretMinAngle) {
+        // angle = turretMinAngle;
+        // }
 
         double targetCounts = convertTurretAngleToCounts(angle);
 
-        turretPID.setReference(targetCounts, ControlType.kPosition);
+        turretPID.setReference(targetCounts, ControlType.kPosition, 1);
+    }
+
+    final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
+    @Override
+    public void setAngleFromVision() {
+
+        double x = table.getEntry("tx").getDouble(0.0);
+
+        SmartDashboard.putNumber("Heading Error", x);
+
+        // if (table.getEntry("tv").getDouble(0.0) == 1) {
+        // double targetAngle = getAngle() + x;
+        // SmartDashboard.putNumber("Target", targetAngle);
+        // turretPID.setReference(targetAngle, ControlType.kPosition, 1);
+        // }
+
+        float Kp = -0.75f;
+        float min_command = 0.05f;
+
+        double heading_error = -x;
+        double steering_adjust = 0.0f;
+
+        if (x > 0.5) {
+            steering_adjust = Kp * heading_error - min_command;
+        } else if (x < 0.5) {
+            steering_adjust = Kp * heading_error + min_command;
+        }
+
+        SmartDashboard.putNumber("Output", steering_adjust);
+
+        turretPID.setReference(steering_adjust, ControlType.kVoltage, 1);
+    }
+
+    @Override
+    public void setLED(int isOn) {
+        table.getEntry("ledMode").setDouble(isOn);
+    }
+
+    @Override
+    public void setCamMode(boolean sight) {
+        if (sight) {
+            table.getEntry("camMode").setDouble(0);
+        } else {
+            table.getEntry("camMode").setDouble(1);
+        }
     }
 
     @Override
@@ -196,12 +261,12 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         }
 
         while (!(home.get())) {
-            turretMotor.set(0.05);
+            turretMotor.set(0.03);
         }
 
         if (home.get()) {
             turretMotor.set(0.0);
-            turretEncoder.setPosition(0);
+            turretEncoder.setPosition(55);
         }
 
         turretMotor.setIdleMode(IdleMode.kCoast);
@@ -211,16 +276,19 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     private double convertTurretCountsToAngle(double counts) {
-        double angle = (counts / countsPerRevolution) * VPGearing * beltGearing
-                * 360 /* 360 degrees per 1 revolution */;
+        double angle = counts / VPGearing / beltGearing * 360 /* 360 degrees per 1 revolution */;
 
         return angle;
     }
 
     private double convertTurretAngleToCounts(double angle) {
-        double counts = angle / 360 /* 360 degrees per 1 revolution */ / beltGearing / VPGearing * countsPerRevolution;
+        double counts = angle / 360 /* 360 degrees per 1 revolution */ * beltGearing * VPGearing;
 
         return counts;
+    }
+
+    private double getAngle() {
+        return convertTurretCountsToAngle(turretEncoder.getPosition());
     }
 
     @Override
@@ -255,6 +323,16 @@ class ShooterSubsystem extends BaseShooterSubsystem {
             speed = Math.max(0.20, speed);
         }
         return speed;
+    }
+
+    @Override
+    public void jogCW() {
+        setTurretAngle(turretEncoder.getPosition() + 5);
+    }
+
+    @Override
+    public void jogCCW() {
+        setTurretAngle(turretEncoder.getPosition() - 5);
     }
 
 }

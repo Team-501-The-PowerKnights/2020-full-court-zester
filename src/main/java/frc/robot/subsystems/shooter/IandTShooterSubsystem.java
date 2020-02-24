@@ -202,4 +202,34 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
         }
     }
 
+    @Override
+    public void jogCW() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void jogCCW() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setAngleFromVision() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setLED(int mode) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setCamMode(boolean sight) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
