@@ -32,8 +32,8 @@ class ShooterSubsystem extends BaseShooterSubsystem {
      * Mechanisms and sensors
      */
 
-    private CANSparkMax shootMaster;
-    private CANSparkMax shootSlave;
+    private CANSparkMax leftShooterMotor;
+    private CANSparkMax rightShooterMotor;
     private CANEncoder shootEncoder;
     private CANPIDController shooterPID;
 
@@ -45,18 +45,18 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public ShooterSubsystem() {
         logger.info("constructing");
 
-        shootMaster = new CANSparkMax(21, MotorType.kBrushless);
-        shootMaster.restoreFactoryDefaults();
-        shootSlave = new CANSparkMax(22, MotorType.kBrushless);
-        shootSlave.restoreFactoryDefaults();
+        leftShooterMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftShooterMotor.restoreFactoryDefaults();
+        rightShooterMotor = new CANSparkMax(22, MotorType.kBrushless);
+        rightShooterMotor.restoreFactoryDefaults();
         // + spin out, - spin in
 
         // Slaved and inverted
-        shootSlave.follow(shootMaster, true);
+        rightShooterMotor.follow(leftShooterMotor, true);
 
-        shootEncoder = new CANEncoder(shootMaster);
+        shootEncoder = new CANEncoder(leftShooterMotor);
 
-        shooterPID = new CANPIDController(shootMaster);
+        shooterPID = new CANPIDController(leftShooterMotor);
         shooterPID.setP(pid_P);
         shooterPID.setI(pid_I);
         shooterPID.setD(pid_D);
@@ -105,7 +105,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void stop() {
         shooterPID.setReference(0, ControlType.kVoltage);
-        shootMaster.set(0.0);
+        leftShooterMotor.set(0.0);
     }
 
     @Override
@@ -124,14 +124,14 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public void setSpeed(int canID, double speed) {
         switch (canID) {
         case 21:
-            shootMaster.set(idleShooter(speed));
+            leftShooterMotor.set(idleShooter(speed));
             break;
         case 22:
-            shootSlave.set(idleShooter(speed));
+            rightShooterMotor.set(idleShooter(speed));
             break;
         case 29:
             // Assuming slaved
-            shootMaster.set(idleShooter(speed));
+            leftShooterMotor.set(idleShooter(speed));
             break;
         default:
             break;
