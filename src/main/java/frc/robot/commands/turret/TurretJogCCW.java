@@ -10,13 +10,13 @@ package frc.robot.commands.turret;
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
-
-public class TurretFrontCommand extends TurretCommandBase {
+    
+public class TurretJogCCW extends TurretCommandBase {
 
   /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(TurretFrontCommand.class.getName());
+  private static final Logger logger = RioLogger.getLogger(TurretJogCCW.class.getName());
 
-  public TurretFrontCommand() {
+  public TurretJogCCW() {
     logger.info("constructing {}", getName());
 
     logger.info("constructed");
@@ -26,7 +26,7 @@ public class TurretFrontCommand extends TurretCommandBase {
   public void execute() {
     super.execute();
 
-    turret.setTurretAngle(-180);
+    turret.jogCCW();
   }
 
   @Override

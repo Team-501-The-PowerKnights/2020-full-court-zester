@@ -145,8 +145,8 @@ public final class TelemetryNames {
         public static final String isHome = name + ".isHome";
     }
 
-    public final class Home {
-        public static final String name = SensorNames.homeName;
+    public final class TurretHome {
+        public static final String name = SensorNames.turretHomeName;
 
         public static final String status = name + ".status";
     }

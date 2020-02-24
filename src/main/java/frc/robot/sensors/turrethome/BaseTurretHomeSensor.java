@@ -5,33 +5,25 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.sensors.turrethome;
 
 import org.slf4j.Logger;
 
+import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
-public class TurretRightCommand extends TurretCommandBase {
+abstract class BaseTurretHomeSensor implements ITurretHomeSensor {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(TurretRightCommand.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BaseTurretHomeSensor.class.getName());
 
-  public TurretRightCommand() {
-    logger.info("constructing {}", getName());
+    protected static final String myName = TelemetryNames.TurretHome.name;
 
-    logger.info("constructed");
-  }
+    BaseTurretHomeSensor() {
+        logger.info("constructing");
 
-  @Override
-  public void execute() {
-    super.execute();
-
-    turret.setTurretAngle(-90);
-  }
-
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+        logger.info("constructed");
+    }
 
 }

@@ -11,12 +11,12 @@ import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class TurretJogCCWCommand extends TurretCommandBase {
+public class TurretBack extends TurretCommandBase {
 
   /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(TurretJogCCWCommand.class.getName());
-
-  public TurretJogCCWCommand() {
+  private static final Logger logger = RioLogger.getLogger(TurretBack.class.getName());
+    
+  public TurretBack() {
     logger.info("constructing {}", getName());
 
     logger.info("constructed");
@@ -26,7 +26,7 @@ public class TurretJogCCWCommand extends TurretCommandBase {
   public void execute() {
     super.execute();
 
-    turret.jogCCW();
+    turret.setTurretAngle(0);
   }
 
   @Override

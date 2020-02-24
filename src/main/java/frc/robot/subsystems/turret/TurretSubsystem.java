@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.home.HomeFactory;
-import frc.robot.sensors.home.IHomeSensor;
+import frc.robot.sensors.turrethome.TurretHomeFactory;
+import frc.robot.sensors.turrethome.ITurretHomeSensor;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -46,7 +46,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
     private CANEncoder turretEncoder;
     private CANPIDController turretPID;
 
-    private IHomeSensor home;
+    private ITurretHomeSensor home;
 
     /**
      * Creates a new TurretSubsystem.
@@ -70,7 +70,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
 
-        home = HomeFactory.getInstance();
+        home = TurretHomeFactory.getInstance();
 
         disableLimelight();
 
