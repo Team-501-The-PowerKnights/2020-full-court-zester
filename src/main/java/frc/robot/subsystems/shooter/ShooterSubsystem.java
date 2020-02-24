@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.shooter;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -14,11 +15,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
 import frc.robot.preferences.PreferenceNames.Shooter;
-
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 class ShooterSubsystem extends BaseShooterSubsystem {
@@ -30,8 +32,9 @@ class ShooterSubsystem extends BaseShooterSubsystem {
      * Mechanisms and sensors
      */
 
-    private CANSparkMax leftMotor;
-    private CANSparkMax rightMotor;
+    private CANSparkMax shootMaster;
+    private CANSparkMax shootSlave;
+    private CANEncoder shootEncoder;
     private CANPIDController shooterPID;
 
     // private TalonSRX incrementer; // Unused for now
@@ -42,16 +45,18 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public ShooterSubsystem() {
         logger.info("constructing");
 
-        leftMotor = new CANSparkMax(21, MotorType.kBrushless);
-        leftMotor.restoreFactoryDefaults();
-        rightMotor = new CANSparkMax(22, MotorType.kBrushless);
-        rightMotor.restoreFactoryDefaults();
+        shootMaster = new CANSparkMax(21, MotorType.kBrushless);
+        shootMaster.restoreFactoryDefaults();
+        shootSlave = new CANSparkMax(22, MotorType.kBrushless);
+        shootSlave.restoreFactoryDefaults();
         // + spin out, - spin in
 
         // Slaved and inverted
-        rightMotor.follow(leftMotor, true);
+        shootSlave.follow(shootMaster, true);
 
-        shooterPID = new CANPIDController(leftMotor);
+        shootEncoder = new CANEncoder(shootMaster);
+
+        shooterPID = new CANPIDController(shootMaster);
         shooterPID.setP(pid_P);
         shooterPID.setI(pid_I);
         shooterPID.setD(pid_D);
@@ -69,8 +74,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
+        SmartDashboard.putNumber(TelemetryNames.Shooter.velocity, shootEncoder.getVelocity());
     }
 
     @Override
@@ -81,7 +85,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updatePreferences() {
-        super.updatePreferences();
+        loadPreferences();
 
         if (shooterPID != null) {
             shooterPID.setP(pid_P);
@@ -101,7 +105,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void stop() {
         shooterPID.setReference(0, ControlType.kVoltage);
-        leftMotor.set(0.0);
+        shootMaster.set(0.0);
     }
 
     @Override
@@ -120,14 +124,14 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public void setSpeed(int canID, double speed) {
         switch (canID) {
         case 21:
-            leftMotor.set(idleShooter(speed));
+            shootMaster.set(idleShooter(speed));
             break;
         case 22:
-            rightMotor.set(idleShooter(speed));
+            shootSlave.set(idleShooter(speed));
             break;
         case 29:
             // Assuming slaved
-            leftMotor.set(idleShooter(speed));
+            shootMaster.set(idleShooter(speed));
             break;
         default:
             break;

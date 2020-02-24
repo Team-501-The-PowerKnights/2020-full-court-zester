@@ -71,7 +71,7 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updatePreferences() {
-        super.updatePreferences();
+        loadPreferences();
 
         shooterPID.setP(pid_P);
         shooterPID.setI(pid_I);

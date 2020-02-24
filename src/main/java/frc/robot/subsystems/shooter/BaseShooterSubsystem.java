@@ -48,8 +48,8 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         logger.info("constructing");
 
         prefs = Preferences.getInstance();
-        // Load the current preferences
-        updatePreferences();
+        // load the current preferences
+        loadPreferences();
 
         logger.info("constructed");
     }
@@ -79,8 +79,7 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         setDefaultCommand(ourCommand);
     }
 
-    @Override
-    public void updatePreferences() {
+    protected void loadPreferences() {
         double v;
 
         logger.info("new preferences for {}:", myName);

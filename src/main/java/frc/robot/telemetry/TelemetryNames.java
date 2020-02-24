@@ -149,6 +149,7 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.shooterName;
 
         public static final String status = name + ".status";
+        public static final String velocity = name + ".velocity";
     }
 
     /***************
