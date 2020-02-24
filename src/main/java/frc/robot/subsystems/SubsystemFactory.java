@@ -20,6 +20,7 @@ import frc.robot.subsystems.drive.DriveFactory;
 import frc.robot.subsystems.hopper.HopperFactory;
 import frc.robot.subsystems.intake.IntakeFactory;
 import frc.robot.subsystems.shooter.ShooterFactory;
+import frc.robot.subsystems.turret.TurretFactory;
 import frc.robot.subsystems.wheel.WheelFactory;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.telemetry.TelemetryManager;
@@ -78,6 +79,14 @@ public class SubsystemFactory {
         {
             BallevatorFactory.constructInstance();
             ISubsystem ss = BallevatorFactory.getInstance();
+            tlmMgr.addProvider(ss);
+            subsystems.add(ss);
+        }
+
+        SmartDashboard.putNumber(TelemetryNames.Shooter.status, PKStatus.unknown.tlmValue);
+        {
+            TurretFactory.constructInstance();
+            ISubsystem ss = TurretFactory.getInstance();
             tlmMgr.addProvider(ss);
             subsystems.add(ss);
         }
