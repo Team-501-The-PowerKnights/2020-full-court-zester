@@ -7,9 +7,36 @@
 
 package frc.robot.commands.shooter;
 
+import org.slf4j.Logger;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.commands.CommandingNames.Shooter;
+
+import riolog.RioLogger;
+
 /**
  * Add your docs here.
  */
 public class ShooterDashboardSpeed extends ShooterCommandBase {
+
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(ShooterDashboardSpeed.class.getName());
+
+    public ShooterDashboardSpeed() {
+        logger.info("constructing {}", getName());
+
+        SmartDashboard.putNumber(Shooter.speed, 0.0);
+
+        logger.info("constructed");
+    }
+
+    @Override
+    public void execute() {
+        super.execute();
+
+        double speed = SmartDashboard.getNumber(Shooter.speed, 0.0);
+        shooter.setSpeed(29, speed);
+    }
 
 }
