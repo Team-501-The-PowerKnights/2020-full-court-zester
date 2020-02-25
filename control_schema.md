@@ -38,12 +38,12 @@
 - [button] (button 7): Ballevator down *{whenHeld}*
   - cancels Fire Pose (but leaves shooter running)
   - button 6 & 7 simultaneous cancel
-- [button] (buttons 8): Select Robot Orientation back *{whenPressed}*
+- [button] (buttons 8): Select Turret Orientation back *{whenPressed}*
   - determines set_point for turret rotation
   - default
-- [button] (button 9): Select Robot Orientation right *{whenPressed}*
+- [button] (button 9): Select Turret Orientation right *{whenPressed}*
   - determines set_point for turret rotation
-- [button] (button 10) Select Robot Orientation front *{whenPressed}*
+- [button] (button 10) Select Turret Orientation front *{whenPressed}*
   - determines set_point for turret rotation
 - [analog] (pot 2): Turret fine angle adjustment off of baseline
   - +/- range **~3** degrees
