@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.limelight.LimelightFactory;
-import frc.robot.sensors.turrethome.TurretHomeFactory;
+import frc.robot.sensors.turretlocation.TurretLocationFactory;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
@@ -47,10 +47,10 @@ public class SensorFactory {
             sensors.add(s);
         }
 
-        SmartDashboard.putNumber(TelemetryNames.TurretHome.status, PKStatus.unknown.tlmValue);
+        SmartDashboard.putNumber(TelemetryNames.TurretLocation.status, PKStatus.unknown.tlmValue);
         {
-            TurretHomeFactory.constructInstance();
-            ISensor s = TurretHomeFactory.getInstance();
+            TurretLocationFactory.constructInstance();
+            ISensor s = TurretLocationFactory.getInstance();
             tlmMgr.addProvider(s);
             sensors.add(s);
         }

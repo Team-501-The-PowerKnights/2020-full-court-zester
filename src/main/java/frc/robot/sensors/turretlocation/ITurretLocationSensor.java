@@ -5,14 +5,14 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turrethome;
+package frc.robot.sensors.turretlocation;
 
 import frc.robot.sensors.ISensor;
 
 /**
  * Add your docs here.
  **/
-public interface ITurretHomeSensor extends ISensor {
+public interface ITurretLocationSensor extends ISensor {
 
     public boolean get();
 

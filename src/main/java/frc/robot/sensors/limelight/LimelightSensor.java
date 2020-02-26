@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 /**
@@ -24,7 +26,7 @@ class LimelightSensor extends BaseLimelightSensor {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(LimelightSensor.class.getName());
 
-    final NetworkTable table;
+    private final NetworkTable table;
 
     LimelightSensor() {
         logger.info("constructing");
@@ -32,18 +34,6 @@ class LimelightSensor extends BaseLimelightSensor {
         table = NetworkTableInstance.getDefault().getTable("limelight");
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        table.getEntry("ledMode").setDouble(1);
-        table.getEntry("camMode").setDouble(1);
     }
 
     @Override
@@ -60,6 +50,12 @@ class LimelightSensor extends BaseLimelightSensor {
     public void enable() {
         table.getEntry("ledMode").setDouble(3);
         table.getEntry("camMode").setDouble(0);
+    }
+
+    @Override
+    public void disable() {
+        table.getEntry("ledMode").setDouble(1);
+        table.getEntry("camMode").setDouble(1);
     }
 
     @Override

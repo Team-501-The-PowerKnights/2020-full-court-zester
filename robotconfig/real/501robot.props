@@ -21,6 +21,7 @@ Robot.name = Real-Bot
 PDP.className = PDPModule
 
 
+
 #####################
 #####################
 # Sensor Defines
@@ -32,20 +33,24 @@ PDP.className = PDPModule
 #####################
 Camera.className = StubCameraSensor
 
+
 #####################
 # Gyro
 #####################
 Gyro.className = StubGyroSensor
+
 
 #####################
 # WheelColor
 #####################
 WheelColor.className = StubWheelColorSensor
 
+
 #####################
-# TurretHome
+# TurretLocation
 #####################
-TurretHome.className = TurretHomeSensor
+TurretLocation.className = TurretLocationSensor
+
 
 #####################
 # Limelight
@@ -103,6 +108,14 @@ Intake.defaultCommandName = IntakeSimpleManual
 
 
 #####################
+# Turret
+#####################
+Turret.className = TurretSubsystem
+Turret.defaultCommandName = TurretDoNothing
+#Turret.defaultCommandName = TurretSimpleManual
+
+
+#####################
 # Shooter
 #####################
 #Shooter.className = StubShooterSubsystem
@@ -115,18 +128,11 @@ Shooter.defaultCommandName = ShooterDashboardSpeed
 
 
 #####################
-# Turret
-#####################
-Turret.className = TurretSubsystem
-Turret.defaultCommandName = TurretDoNothing
-#Turret.defaultCommandName = TurretSimpleManual
-
-
-#####################
 # Wheel
 #####################
 Wheel.className = StubWheelSubsystem
 Wheel.defaultCommandName = WheelDoNothing
+
 
 
 #####################
@@ -134,7 +140,6 @@ Wheel.defaultCommandName = WheelDoNothing
 # OI
 #####################
 #####################
-
 
 #####################
 # Driver Gamepad
