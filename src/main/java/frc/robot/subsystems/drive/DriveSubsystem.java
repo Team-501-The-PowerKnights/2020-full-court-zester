@@ -170,9 +170,11 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void swap() {
+        // FIXME - Can't just do this without ensuring robot is 'still'
         // FIXME - the API for this changed; needs to be in the follow?
-        leftFrontMotor.setInverted(leftFrontMotor.getInverted() ? false : true);
-        rightFrontMotor.setInverted(rightFrontMotor.getInverted() ? false : true);
+        logger.warn("not implemented yet");
+        // leftFrontMotor.setInverted(leftFrontMotor.getInverted() ? false : true);
+        // rightFrontMotor.setInverted(rightFrontMotor.getInverted() ? false : true);
     }
 
     /*
