@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.limelight;
+package frc.robot.sensors.vision;
 
 import org.slf4j.Logger;
 
@@ -13,14 +13,14 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-abstract class BaseLimelightSensor implements ILimelightSensor {
+abstract class BaseVisionSensor implements IVisionSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseLimelightSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BaseVisionSensor.class.getName());
 
-    protected static final String myName = TelemetryNames.Limelight.name;
+    protected static final String myName = TelemetryNames.Vision.name;
 
-    BaseLimelightSensor() {
+    BaseVisionSensor() {
         logger.info("constructing");
 
         logger.info("constructed");

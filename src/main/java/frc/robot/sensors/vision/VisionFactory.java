@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.limelight;
+package frc.robot.sensors.vision;
 
 import org.slf4j.Logger;
 
@@ -22,15 +22,15 @@ import riolog.RioLogger;
 /**
  * 
  */
-public class LimelightFactory {
+public class VisionFactory {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(LimelightFactory.class.getName());
+    private static final Logger logger = RioLogger.getLogger(VisionFactory.class.getName());
 
     /** Singleton instance of class for all to use **/
-    private static ILimelightSensor ourInstance;
+    private static IVisionSensor ourInstance;
     /** Name of our subsystem **/
-    private static final String myName = SensorNames.limelightName;
+    private static final String myName = SensorNames.visionName;
 
     /**
      * Constructs instance of the subsystem. Assumed to be called before any usage
@@ -38,7 +38,7 @@ public class LimelightFactory {
      * sequencing of the robot and all it's sensors.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putNumber(TelemetryNames.Limelight.status, PKStatus.inProgress.tlmValue);
+        SmartDashboard.putNumber(TelemetryNames.Vision.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -51,7 +51,7 @@ public class LimelightFactory {
     }
 
     private static void loadImplementationClass(String myClassName) {
-        String myPkgName = LimelightFactory.class.getPackage().getName();
+        String myPkgName = VisionFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load {}", classToLoad);
 
@@ -61,12 +61,12 @@ public class LimelightFactory {
             Class myClass = Class.forName(classToLoad);
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
-            ourInstance = (ILimelightSensor) myObject;
-            SmartDashboard.putNumber(TelemetryNames.Limelight.status, PKStatus.success.tlmValue);
+            ourInstance = (IVisionSensor) myObject;
+            SmartDashboard.putNumber(TelemetryNames.Vision.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for {}", myName);
-            ourInstance = new StubLimelightSensor();
-            SmartDashboard.putNumber(TelemetryNames.Limelight.status, PKStatus.degraded.tlmValue);
+            ourInstance = new StubVisionSensor();
+            SmartDashboard.putNumber(TelemetryNames.Vision.status, PKStatus.degraded.tlmValue);
         }
     }
 
@@ -77,7 +77,7 @@ public class LimelightFactory {
      *
      * @return singleton instance of sensor
      **/
-    public synchronized static ILimelightSensor getInstance() {
+    public synchronized static IVisionSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

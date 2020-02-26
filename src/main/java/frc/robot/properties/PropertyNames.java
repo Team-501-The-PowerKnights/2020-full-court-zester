@@ -59,10 +59,6 @@ public class PropertyNames {
         public static final String name = SensorNames.turretLocationName;
     }
 
-    public final class Limelight {
-        public static final String name = SensorNames.limelightName;
-    }
-
     /***************
      * Control Panel
      ***************/
@@ -87,8 +83,8 @@ public class PropertyNames {
      * Vision
      ***************/
 
-    public final class Camera {
-        public static final String name = SensorNames.cameraName;
+    public final class Vision {
+        public static final String name = SensorNames.visionName;
     }
 
 }

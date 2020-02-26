@@ -5,23 +5,23 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.limelight;
+package frc.robot.sensors.vision;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>ILimelightSensor</code> which has no sensor
- * or other useful functionality; but which won't blow up if instantiated and
+ * Provides implementation of <code>IVisionSensor</code> which has no sensor or
+ * other useful functionality; but which won't blow up if instantiated and
  * 'used'.
  */
-class StubLimelightSensor extends BaseLimelightSensor {
+class StubVisionSensor extends BaseVisionSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubLimelightSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(StubVisionSensor.class.getName());
 
-    StubLimelightSensor() {
+    StubVisionSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
@@ -35,6 +35,12 @@ class StubLimelightSensor extends BaseLimelightSensor {
 
     @Override
     public double getError() {
+        // Stub doesn't do anything useful
+        return 0;
+    }
+
+    @Override
+    public double getDistance() {
         // Stub doesn't do anything useful
         return 0;
     }

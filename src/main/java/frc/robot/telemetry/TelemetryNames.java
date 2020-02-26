@@ -7,7 +7,6 @@
 
 package frc.robot.telemetry;
 
-import frc.robot.modules.ModuleNames;
 import frc.robot.sensors.SensorNames;
 import frc.robot.subsystems.SubsystemNames;
 
@@ -153,18 +152,6 @@ public final class TelemetryNames {
         public static final String visionPIDOutput = name + ".visionPIDOutput";
     }
 
-    public final class Limelight {
-        public static final String name = SensorNames.limelightName;
-
-        public static final String status = name + ".status";
-        public static final String x = name + ".x";
-        public static final String y = name + ".y";
-        public static final String area = name + ".area";
-        public static final String locked = name + ".locked";
-        public static final String ledOn = name + ".ledOn";
-        public static final String enabled = name + ".enabled";
-    }
-
     public final class Shooter {
         public static final String name = SubsystemNames.shooterName;
 
@@ -208,21 +195,11 @@ public final class TelemetryNames {
     }
 
     /***************
-     * Camera
-     ***************/
-
-    public final class Camera {
-        public static final String name = SensorNames.cameraName;
-
-        public static final String status = name + ".status";
-    }
-
-    /***************
      * Vision
      ***************/
 
     public final class RPI {
-        public static final String name = ModuleNames.rpiName;
+        public static final String name = SensorNames.rpiName;
 
         //
         public static final String clockSpeed = name + ".clock_speed";
@@ -233,7 +210,7 @@ public final class TelemetryNames {
     }
 
     public final class Vision {
-        public static final String name = ModuleNames.visionName;
+        public static final String name = SensorNames.visionName;
 
         // Set by the vision program running on R-PI
         public static final String status = name + ".status";
@@ -245,6 +222,8 @@ public final class TelemetryNames {
         public static final String angle = name + ".angle";
         // Incremented every time
         public static final String count = name + ".count";
+
+        public static final String enabled = name + ".enabled";
     }
 
 }

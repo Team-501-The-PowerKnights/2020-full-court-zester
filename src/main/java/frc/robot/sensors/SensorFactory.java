@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.sensors.gyro.GyroFactory;
-import frc.robot.sensors.limelight.LimelightFactory;
+import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.sensors.turretlocation.TurretLocationFactory;
 import frc.robot.sensors.wheelcolor.WheelColorFactory;
 import frc.robot.telemetry.TelemetryManager;
@@ -55,10 +55,10 @@ public class SensorFactory {
             sensors.add(s);
         }
 
-        SmartDashboard.putNumber(TelemetryNames.Limelight.status, PKStatus.unknown.tlmValue);
+        SmartDashboard.putNumber(TelemetryNames.Vision.status, PKStatus.unknown.tlmValue);
         {
-            LimelightFactory.constructInstance();
-            ISensor s = LimelightFactory.getInstance();
+            VisionFactory.constructInstance();
+            ISensor s = VisionFactory.getInstance();
             tlmMgr.addProvider(s);
             sensors.add(s);
         }
