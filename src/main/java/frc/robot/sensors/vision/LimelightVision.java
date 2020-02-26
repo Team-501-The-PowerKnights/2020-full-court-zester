@@ -41,11 +41,11 @@ class LimelightVision {
     }
 
     protected boolean isLocked() {
-        return table.getEntry("tv").getDouble(0.0) == 1;
+        return (table.getEntry("tv").getDouble(0.0) == 1);
     }
 
     protected boolean isEnabled() {
-        return table.getEntry("camMode").getDouble(1) == 0 && table.getEntry("ledMode").getDouble(1) == 3;
+        return (table.getEntry("camMode").getDouble(1) == 0 && table.getEntry("ledMode").getDouble(1) == 3);
     }
 
     protected void enable() {
