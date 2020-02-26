@@ -14,8 +14,6 @@ import frc.robot.sensors.ISensor;
  **/
 public interface ILimelightSensor extends ISensor {
 
-    public void enable();
-
     public double getError();
 
 }

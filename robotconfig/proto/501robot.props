@@ -21,6 +21,7 @@ Robot.name = Proto-Bot
 PDP.className = StubPDPModule
 
 
+
 #####################
 #####################
 # Sensor Defines
@@ -44,6 +45,11 @@ Gyro.className = StubGyroSensor
 #####################
 WheelColor.className = StubWheelColorSensor
 
+
+#####################
+# TurretLocation
+#####################
+TurretLocation.className = TurretLocationSensor
 
 
 
@@ -89,6 +95,13 @@ Intake.defaultCommandName = IntakeDoNothing
 
 
 #####################
+# Turret
+#####################
+Turret.className = TurretSubsystem
+Turret.defaultCommandName = TurretDoNothing
+
+
+#####################
 # Shooter
 #####################
 Shooter.className = StubShooterSubsystem
@@ -100,6 +113,7 @@ Shooter.defaultCommandName = ShooterDoNothing
 #####################
 Wheel.className = StubWheelSubsystem
 Wheel.defaultCommandName = WheelDoNothing
+
 
 
 #####################

@@ -5,25 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turrethome;
+package frc.robot.sensors.turretlocation;
 
 import org.slf4j.Logger;
 
-import frc.robot.telemetry.TelemetryNames;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import riolog.RioLogger;
 
-abstract class BaseTurretHomeSensor implements ITurretHomeSensor {
+/**
+ * Provides implementation of <code>ITurretLocationSensor</code> for the
+ * <i>Real-Bot</i>.
+ */
+class TurretLocationSensor extends BaseTurretLocationSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseTurretHomeSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretLocationSensor.class.getName());
 
-    protected static final String myName = TelemetryNames.TurretHome.name;
+    private DigitalInput location;
 
-    BaseTurretHomeSensor() {
+    TurretLocationSensor() {
         logger.info("constructing");
 
+        location = new DigitalInput(8);
+
         logger.info("constructed");
+    }
+
+    @Override
+    public boolean get() {
+        return location.get();
     }
 
 }

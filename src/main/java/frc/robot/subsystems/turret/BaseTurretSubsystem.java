@@ -79,6 +79,7 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
         setDefaultCommand(ourCommand);
     }
 
+
     @Override
     public void updatePreferences() {
         double v;

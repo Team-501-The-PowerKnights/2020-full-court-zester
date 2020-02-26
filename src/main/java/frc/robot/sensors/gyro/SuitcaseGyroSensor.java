@@ -32,17 +32,6 @@ class SuitcaseGyroSensor extends BaseGyroSensor {
     }
 
     @Override
-    public void updatePreferences() {
-        // No preferences for this sensor
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public double getRoll() {
         return mySensor.ahrs.getRoll();
     }
