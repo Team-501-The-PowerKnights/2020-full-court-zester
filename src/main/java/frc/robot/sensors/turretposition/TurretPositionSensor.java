@@ -17,14 +17,14 @@ import riolog.RioLogger;
  * Provides implementation of <code>ITurretHomeSensor</code> for the
  * <i>Real-Bot</i>.
  */
-class TurretHomeSensor extends BaseTurretPositionSensor {
+class TurretPositionSensor extends BaseTurretPositionSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretHomeSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretPositionSensor.class.getName());
 
     private DigitalInput turrethome;
 
-    TurretHomeSensor() {
+    TurretPositionSensor() {
         logger.info("constructing");
 
         turrethome = new DigitalInput(8);

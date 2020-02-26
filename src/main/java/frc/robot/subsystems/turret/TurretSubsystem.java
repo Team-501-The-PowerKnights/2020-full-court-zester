@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.turrethome.TurretHomeFactory;
 import frc.robot.sensors.limelight.ILimelightSensor;
 import frc.robot.sensors.limelight.LimelightFactory;
-import frc.robot.sensors.turrethome.ITurretHomeSensor;
+import frc.robot.sensors.turretposition.ITurretPositionSensor;
+import frc.robot.sensors.turretposition.TurretPositionFactory;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -46,7 +46,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
     private CANEncoder turretEncoder;
     private CANPIDController turretPID;
 
-    private ITurretPositionSensor home;
+    private ITurretPositionSensor position;
     private ILimelightSensor limelight;
 
     /**
@@ -71,7 +71,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
 
-        home = TurretPositionFactory.getInstance();
+        position = TurretPositionFactory.getInstance();
 
         limelight = LimelightFactory.getInstance();
         limelight.disable();
@@ -166,24 +166,24 @@ class TurretSubsystem extends BaseTurretSubsystem {
         // TODO - Figure out why this doesn't work if no inner get()
 
         logger.debug("gross test");
-        while (!(home.get())) {
-            logger.debug("sensor = {}", home.get());
+        while (!(position.get())) {
+            logger.debug("sensor = {}", position.get());
             turretMotor.set(0.55);
         }
         turretMotor.set(0.0);
         logger.debug("found set point (gross)");
 
         logger.debug("back off");
-        while ((home.get())) {
-            logger.debug("sensor = {}", home.get());
+        while ((position.get())) {
+            logger.debug("sensor = {}", position.get());
             turretMotor.set(-0.05);
         }
         turretMotor.set(0.0);
         logger.debug("backed off set point");
 
         logger.debug("fine test");
-        while (!(home.get())) {
-            logger.debug("sensor = {}", home.get());
+        while (!(position.get())) {
+            logger.debug("sensor = {}", position.get());
             turretMotor.set(0.03);
         }
         turretMotor.set(0.0);

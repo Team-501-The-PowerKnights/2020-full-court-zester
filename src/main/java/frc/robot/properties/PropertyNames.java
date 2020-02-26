@@ -55,8 +55,8 @@ public class PropertyNames {
         public static final String name = SubsystemNames.turretName;
     }
 
-    public final class TurretHome {
-        public static final String name = SensorNames.turretHomeName;
+    public final class TurretPosition {
+        public static final String name = SensorNames.turretPositionName;
     }
 
     public final class Limelight {
