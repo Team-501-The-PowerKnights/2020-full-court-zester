@@ -7,6 +7,9 @@
 
 package frc.robot.preferences;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -113,10 +116,13 @@ public class PreferencesInitializer {
     }
 
     public static void listPreferences() {
-        for (String key : prefs.getKeys()) {
-            // TODO - Depends on preference being double value
-            logger.info("{} = {}", key, prefs.getDouble(key, 0.0));
+        StringBuilder buf = new StringBuilder();
+        buf.append(" preferences:");
+        for (String key : prefs.getKeys().stream().collect(Collectors.toCollection(ArrayList::new))) {
+            buf.append("\n..."); // logger gobbles up leading spaces
+            buf.append(key).append(" = ").append(prefs.getDouble(key, 3171960.));
         }
+        logger.info(buf.toString());
     }
 
 }
