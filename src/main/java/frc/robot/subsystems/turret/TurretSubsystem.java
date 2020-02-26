@@ -167,7 +167,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         logger.debug("gross test");
         while (!(home.get())) {
-            home.get();
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(0.55);
         }
         turretMotor.set(0.0);
@@ -175,7 +175,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         logger.debug("back off");
         while ((home.get())) {
-            home.get();
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(-0.05);
         }
         turretMotor.set(0.0);
@@ -183,7 +183,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         logger.debug("fine test");
         while (!(home.get())) {
-            home.get();
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(0.03);
         }
         turretMotor.set(0.0);
