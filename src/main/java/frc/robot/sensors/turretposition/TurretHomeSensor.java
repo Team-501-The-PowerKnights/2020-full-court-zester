@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turrethome;
+package frc.robot.sensors.turretposition;
 
 import org.slf4j.Logger;
 
@@ -17,7 +17,7 @@ import riolog.RioLogger;
  * Provides implementation of <code>ITurretHomeSensor</code> for the
  * <i>Real-Bot</i>.
  */
-class TurretHomeSensor extends BaseTurretHomeSensor {
+class TurretHomeSensor extends BaseTurretPositionSensor {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(TurretHomeSensor.class.getName());

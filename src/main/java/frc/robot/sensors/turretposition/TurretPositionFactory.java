@@ -5,7 +5,7 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turrethome;
+package frc.robot.sensors.turretposition;
 
 import org.slf4j.Logger;
 
@@ -22,15 +22,15 @@ import riolog.RioLogger;
 /**
  * 
  */
-public class TurretHomeFactory {
+public class TurretPositionFactory {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretHomeFactory.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretPositionFactory.class.getName());
 
     /** Singleton instance of class for all to use **/
-    private static ITurretHomeSensor ourInstance;
+    private static ITurretPositionSensor ourInstance;
     /** Name of our subsystem **/
-    private static final String myName = SensorNames.turretHomeName;
+    private static final String myName = SensorNames.turretPositionName;
 
     /**
      * Constructs instance of the subsystem. Assumed to be called before any usage
@@ -38,7 +38,7 @@ public class TurretHomeFactory {
      * sequencing of the robot and all it's sensors.
      **/
     public static synchronized void constructInstance() {
-        SmartDashboard.putNumber(TelemetryNames.TurretHome.status, PKStatus.inProgress.tlmValue);
+        SmartDashboard.putNumber(TelemetryNames.TurretPosition.status, PKStatus.inProgress.tlmValue);
 
         if (ourInstance != null) {
             throw new IllegalStateException(myName + " Already Constructed");
@@ -51,7 +51,7 @@ public class TurretHomeFactory {
     }
 
     private static void loadImplementationClass(String myClassName) {
-        String myPkgName = TurretHomeFactory.class.getPackage().getName();
+        String myPkgName = TurretPositionFactory.class.getPackage().getName();
         String classToLoad = new StringBuilder().append(myPkgName).append(".").append(myClassName).toString();
         logger.debug("class to load {}", classToLoad);
 
@@ -61,12 +61,12 @@ public class TurretHomeFactory {
             Class myClass = Class.forName(classToLoad);
             @SuppressWarnings("deprecation")
             Object myObject = myClass.newInstance();
-            ourInstance = (ITurretHomeSensor) myObject;
-            SmartDashboard.putNumber(TelemetryNames.TurretHome.status, PKStatus.success.tlmValue);
+            ourInstance = (ITurretPositionSensor) myObject;
+            SmartDashboard.putNumber(TelemetryNames.TurretPosition.status, PKStatus.success.tlmValue);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             logger.error("failed to load class; instantiating default stub for {}", myName);
-            ourInstance = new StubTurretHomeSensor();
-            SmartDashboard.putNumber(TelemetryNames.TurretHome.status, PKStatus.degraded.tlmValue);
+            ourInstance = new StubTurretPositionSensor();
+            SmartDashboard.putNumber(TelemetryNames.TurretPosition.status, PKStatus.degraded.tlmValue);
         }
     }
 
@@ -77,7 +77,7 @@ public class TurretHomeFactory {
      *
      * @return singleton instance of sensor
      **/
-    public synchronized static ITurretHomeSensor getInstance() {
+    public synchronized static ITurretPositionSensor getInstance() {
         if (ourInstance == null) {
             throw new IllegalStateException(myName + " Not Constructed Yet");
         }

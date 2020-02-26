@@ -46,7 +46,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
     private CANEncoder turretEncoder;
     private CANPIDController turretPID;
 
-    private ITurretHomeSensor home;
+    private ITurretPositionSensor home;
     private ILimelightSensor limelight;
 
     /**
@@ -71,7 +71,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
 
-        home = TurretHomeFactory.getInstance();
+        home = TurretPositionFactory.getInstance();
 
         limelight = LimelightFactory.getInstance();
         limelight.disable();

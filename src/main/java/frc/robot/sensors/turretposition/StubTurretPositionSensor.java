@@ -5,30 +5,32 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turrethome;
+package frc.robot.sensors.turretposition;
 
 import org.slf4j.Logger;
 
-import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
-abstract class BaseTurretHomeSensor implements ITurretHomeSensor {
+/**
+ * Provides implementation of <code>ITurretHomeSensor</code> which has no sensor
+ * or other useful functionality; but which won't blow up if instantiated and
+ * 'used'.
+ */
+class StubTurretPositionSensor extends BaseTurretPositionSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseTurretHomeSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(StubTurretPositionSensor.class.getName());
 
-    protected static final String myName = TelemetryNames.TurretHome.name;
-
-    BaseTurretHomeSensor() {
+    StubTurretPositionSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
     }
 
     @Override
-    public void updateTelemetry() {
-        // TODO Implement telemetry here with interface method
+    public boolean get() {
+        // Stub doesn't implement this - returns false
+        return false;
     }
 
 }

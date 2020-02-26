@@ -136,6 +136,13 @@ public final class TelemetryNames {
         public static final String speed = name + ".speed";
     }
 
+    public final class TurretPosition {
+        public static final String name = SensorNames.turretPositionName;
+
+        public static final String status = name + ".status";
+        public static final String isFound = name + ".isFound";
+    }
+
     public final class Turret {
         public static final String name = SubsystemNames.turretName;
 
@@ -144,12 +151,6 @@ public final class TelemetryNames {
         public static final String position = name + ".rawPosition";
         public static final String isHomed = name + ".isHomed";
         public static final String visionPIDOutput = name + ".visionPIDOutput";
-    }
-
-    public final class TurretHome {
-        public static final String name = SensorNames.turretHomeName;
-
-        public static final String status = name + ".status";
     }
 
     public final class Limelight {
