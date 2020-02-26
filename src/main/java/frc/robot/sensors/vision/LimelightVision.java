@@ -5,61 +5,59 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.limelight;
+package frc.robot.sensors.vision;
 
 import org.slf4j.Logger;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import frc.robot.telemetry.TelemetryNames;
-
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>ILimelightSensor</code> for the
- * <i>Real-Bot</i>.
+ * Wrapper for the Limelight Vision Sensor to provide ease when switching from
+ * Limelight and RPi vision. Additionally, provides access to the values sent
+ * through the NetworkTables by the Limelight.
  */
-class LimelightSensor extends BaseLimelightSensor {
+class LimelightVision {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(LimelightSensor.class.getName());
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(LimelightVision.class.getName());
 
-    private final NetworkTable table;
+    private NetworkTable table;
 
-    LimelightSensor() {
-        logger.info("constructing");
+    boolean limelightValid;
+
+    LimelightVision() {
 
         table = NetworkTableInstance.getDefault().getTable("limelight");
 
-        logger.info("constructed");
+        limelightValid = (table != null) ? true : false;
+
+        SmartDashboard.putBoolean("limelightValid", limelightValid);
+
     }
 
-    @Override
-    public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Limelight.x, table.getEntry("tx").getDouble(0.0));
-        SmartDashboard.putNumber(TelemetryNames.Limelight.y, table.getEntry("ty").getDouble(0.0));
-        SmartDashboard.putNumber(TelemetryNames.Limelight.area, table.getEntry("ta").getDouble(0.0));
-        SmartDashboard.putBoolean(TelemetryNames.Limelight.locked, table.getEntry("tv").getDouble(0.0) == 1);
-        SmartDashboard.putBoolean(TelemetryNames.Limelight.ledOn, table.getEntry("ledMode").getDouble(1) == 3);
-        SmartDashboard.putBoolean(TelemetryNames.Limelight.enabled, table.getEntry("camMode").getDouble(1) == 0);
+    protected void updateTelemetry() {
+        SmartDashboard.putBoolean(TelemetryNames.Vision.locked, table.getEntry("tv").getDouble(0.0) == 1);
+
+        SmartDashboard.putBoolean(TelemetryNames.Vision.enabled,
+                table.getEntry("camMode").getDouble(1) == 0 && table.getEntry("ledMode").getDouble(1) == 3);
     }
 
-    @Override
-    public void enable() {
+    protected void enable() {
         table.getEntry("ledMode").setDouble(3);
         table.getEntry("camMode").setDouble(0);
     }
 
-    @Override
-    public void disable() {
+    protected void disable() {
         table.getEntry("ledMode").setDouble(1);
         table.getEntry("camMode").setDouble(1);
     }
 
-    @Override
-    public double getError() {
+    protected double getError() {
         double x = table.getEntry("tx").getDouble(0.0);
 
         if (table.getEntry("tv").getDouble(0.0) == 1) {
