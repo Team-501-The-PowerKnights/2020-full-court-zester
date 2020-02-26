@@ -75,6 +75,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         location = TurretLocationFactory.getInstance();
 
         vision = VisionFactory.getInstance();
+        vision.disable();
 
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
@@ -217,11 +218,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 20:
-            motor.set(speed);
-            break;
-        default:
-            break;
+            case 20:
+                motor.set(speed);
+                break;
+            default:
+                break;
         }
     }
 
