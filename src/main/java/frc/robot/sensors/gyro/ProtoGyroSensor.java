@@ -26,15 +26,4 @@ class ProtoGyroSensor extends SuitcaseGyroSensor {
         logger.info("constructed");
     }
 
-    @Override
-    public void updatePreferences() {
-        // No preferences for this sensor
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

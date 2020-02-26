@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>ITurretHomeSensor</code> for the <i>Real-Bot</i>.
+ * Provides implementation of <code>ITurretHomeSensor</code> for the
+ * <i>Real-Bot</i>.
  */
 class TurretHomeSensor extends BaseTurretHomeSensor {
 
@@ -32,24 +33,8 @@ class TurretHomeSensor extends BaseTurretHomeSensor {
     }
 
     @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public boolean get() {
         return turrethome.get();
-    }
-
-    @Override
-    public void updateTelemetry() {
     }
 
 }

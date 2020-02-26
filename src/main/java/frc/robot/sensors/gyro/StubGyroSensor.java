@@ -28,16 +28,6 @@ class StubGyroSensor extends BaseGyroSensor {
     }
 
     @Override
-    public void updatePreferences() {
-        // Nothing to do here
-    }
-
-    @Override
-    public void disable() {
-        // Nothing to do here
-    }
-
-    @Override
     public double getRoll() {
         // Stub doesn't implement this
         return 0;

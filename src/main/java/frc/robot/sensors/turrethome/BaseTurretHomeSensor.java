@@ -26,4 +26,9 @@ abstract class BaseTurretHomeSensor implements ITurretHomeSensor {
         logger.info("constructed");
     }
 
+    @Override
+    public void updateTelemetry() {
+        // TODO Implement telemetry here with interface method
+    }
+
 }

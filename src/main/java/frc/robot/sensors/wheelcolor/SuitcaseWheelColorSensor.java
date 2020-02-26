@@ -56,18 +56,6 @@ class SuitcaseWheelColorSensor extends BaseWheelColorSensor {
     }
 
     @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public PKColor getColor() {
         color = mySensor.getColor();
         result = targetMatches.matchClosestColor(color);

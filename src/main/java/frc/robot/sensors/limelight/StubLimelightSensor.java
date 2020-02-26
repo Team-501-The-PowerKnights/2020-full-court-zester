@@ -28,30 +28,14 @@ class StubLimelightSensor extends BaseLimelightSensor {
     }
 
     @Override
-    public void updatePreferences() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void disable() {
-        // Stub doesn't implement this
-    }
-
-    @Override
     public void updateTelemetry() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void enable() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public double getError() {
-        // TODO Auto-generated method stub
+        // Stub doesn't do anything useful
         return 0;
     }
 

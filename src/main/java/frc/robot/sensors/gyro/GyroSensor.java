@@ -26,15 +26,4 @@ class GyroSensor extends SuitcaseGyroSensor {
         logger.info("constructed");
     }
 
-    @Override
-    public void updatePreferences() {
-        // No preferences for this module
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
 }
