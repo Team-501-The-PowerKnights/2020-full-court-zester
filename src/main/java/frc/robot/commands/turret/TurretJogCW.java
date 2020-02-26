@@ -13,25 +13,25 @@ import riolog.RioLogger;
 
 public class TurretJogCW extends TurretCommandBase {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(TurretJogCW.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(TurretJogCW.class.getName());
 
-  public TurretJogCW() {
-    logger.info("constructing {}", getName());
+    public TurretJogCW() {
+        logger.info("constructing {}", getName());
 
-    logger.info("constructed");
-  }
+        logger.info("constructed");
+    }
 
-  @Override
-  public void execute() {
-    super.execute();
+    @Override
+    public void execute() {
+        super.execute();
 
-    turret.jogCW();
-  }
+        turret.jogCW();
+    }
 
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 
 }

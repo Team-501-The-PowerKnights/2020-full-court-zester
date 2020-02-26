@@ -13,27 +13,27 @@ import riolog.RioLogger;
 
 public class BallevatorLift extends BallevatorCommandBase {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
 
-  public BallevatorLift() {
-    logger.info("constructing {}", getName());
+    public BallevatorLift() {
+        logger.info("constructing {}", getName());
 
-    logger.info("constructed");
-  }
+        logger.info("constructed");
+    }
 
-  @Override
-  public void execute() {
-    super.execute();
+    @Override
+    public void execute() {
+        super.execute();
 
-    ballevator.lift();
-  }
+        ballevator.lift();
+    }
 
-  @Override
-  public void end(boolean interrupted) {
-    super.end(interrupted);
+    @Override
+    public void end(boolean interrupted) {
+        super.end(interrupted);
 
-    ballevator.stop();
-  }
+        ballevator.stop();
+    }
 
 }

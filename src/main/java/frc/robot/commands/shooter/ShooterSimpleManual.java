@@ -30,7 +30,7 @@ public class ShooterSimpleManual extends ShooterOICommandBase {
         super.execute();
 
         double speed = oi.getShooterSpeed();
-        // Backdoor to the shooter motor
+        // Backdoor to the shooter motor; assumes speed controllers slaved
         shooter.setSpeed(29, speed);
     }
 

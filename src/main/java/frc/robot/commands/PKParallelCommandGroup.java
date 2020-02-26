@@ -1,62 +1,37 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2020 Team 501 - The PowerKnights. All Rights Reserved.       */
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the 2020 Team 501 - The PowerKnights BSD license    */
-/* file in the root directory of the project.                                 */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
 
-import java.util.HashSet;
-
 import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.Preferences;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import riolog.RioLogger;
 
 /**
- * 
+ * Add your docs here.
  */
-public abstract class PKCommandBase extends CommandBase {
+public class PKParallelCommandGroup extends ParallelCommandGroup {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(PKCommandBase.class.getName());
 
     // FIXME - Use handle to CommandTracker class (TBW)
-
-    //
-    private static final HashSet<PKCommandBase> activeCommands;
-    //
-    private static PKCommandBase[] activeCommandsList = new PKCommandBase[0];
-
-    static {
-        activeCommands = new HashSet<PKCommandBase>();
-    }
-
-    private static void add(PKCommandBase c) {
-        activeCommands.add(c);
-        activeCommandsList = activeCommands.toArray(new PKCommandBase[0]);
-    }
-
-    private static void remove(PKCommandBase c) {
-        activeCommands.remove(c);
-        activeCommandsList = activeCommands.toArray(new PKCommandBase[0]);
-    }
-
-    public static PKCommandBase[] getActiveCommands() {
-        return activeCommandsList;
-    }
+    // FIXME - Commands are handled differently (not through scheduler)
 
     // Handle to the preferences
     protected final Preferences prefs;
-    
+
     // Flag for whether the first execution has happened
     private boolean executeOnce;
 
-    protected PKCommandBase() {
+    public PKParallelCommandGroup() {
         logger.info("constructing for {}", getName());
 
         prefs = Preferences.getInstance();
@@ -64,18 +39,33 @@ public abstract class PKCommandBase extends CommandBase {
         logger.info("constructed");
     }
 
+    public PKParallelCommandGroup(Command... commands) {
+        super(commands);
+        logger.info("constructing for {}", getName());
+
+        prefs = Preferences.getInstance();
+
+        logger.info("constructed");
+    }
+
+    // FIXME - addCommands() is final in base class
+
     // Called once just before this Command runs the first time
     @Override
     public void initialize() {
         logger.debug("initializing {}", getName());
 
         executeOnce = false;
+
+        super.initialize();
     }
 
     // Called repeatedly while the Command is scheduled
     @Override
     public void execute() {
         logExecuteStart(logger);
+
+        super.execute();
     }
 
     protected void logExecuteStart(Logger logger) {
@@ -83,7 +73,7 @@ public abstract class PKCommandBase extends CommandBase {
             executeOnce = true;
             logger.trace("first execution of {}", getName());
 
-            add(this);
+            // add(this);
         }
     }
 
@@ -93,7 +83,9 @@ public abstract class PKCommandBase extends CommandBase {
     public void end(boolean interrupted) {
         logger.debug("ending {} interrupted={}", getName(), interrupted);
 
-        remove(this);
+        // remove(this);
+
+        super.end(interrupted);
     }
 
 }

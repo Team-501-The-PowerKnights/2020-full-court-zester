@@ -34,7 +34,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     private CANSparkMax leftShooterMotor;
     private CANSparkMax rightShooterMotor;
-    private CANEncoder shootEncoder;
+    private CANEncoder shooterEncoder;
     private CANPIDController shooterPID;
 
     // private TalonSRX incrementer; // Unused for now
@@ -54,7 +54,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         // Slaved and inverted
         rightShooterMotor.follow(leftShooterMotor, true);
 
-        shootEncoder = new CANEncoder(leftShooterMotor);
+        shooterEncoder = new CANEncoder(leftShooterMotor);
 
         shooterPID = new CANPIDController(leftShooterMotor);
         shooterPID.setP(pid_P);
@@ -74,7 +74,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, shootEncoder.getVelocity());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, shooterEncoder.getVelocity());
     }
 
     @Override

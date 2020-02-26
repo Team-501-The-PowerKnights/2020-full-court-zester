@@ -5,33 +5,27 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.shooter.ShooterSimpleManual;
+import frc.robot.commands.turret.TurretSimpleManual;
 import riolog.RioLogger;
 
-public class TurretBack extends TurretCommandBase {
+/**
+ * 
+ */
+public class ShootManual extends PKParallelCommandGroup {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(TurretBack.class.getName());
-    
-  public TurretBack() {
-    logger.info("constructing {}", getName());
+    /* Our classes logger */
+    private static final Logger logger = RioLogger.getLogger(ShootManual.class.getName());
 
-    logger.info("constructed");
-  }
+    public ShootManual() {
+        super(new TurretSimpleManual(), new ShooterSimpleManual());
+        logger.info("constructing for {}", getName());
 
-  @Override
-  public void execute() {
-    super.execute();
-
-    turret.setTurretAngle(0);
-  }
-
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+        logger.info("constructed");
+    }
 
 }
