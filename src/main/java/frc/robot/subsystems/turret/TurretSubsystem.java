@@ -76,6 +76,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
         limelight = LimelightFactory.getInstance();
         limelight.disable();
 
+        SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
+
         logger.info("constructed");
     }
 
@@ -153,41 +155,46 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void home() {
-
+        logger.debug("starting ...");
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
         turretMotor.setIdleMode(IdleMode.kBrake);
 
+        /*
+         * IMPORTANT - The inner loop get() needs to be there!
+         */
+        // TODO - Figure out why this doesn't work if no inner get()
+
+        logger.debug("gross test");
         while (!(home.get())) {
+            home.get();
             turretMotor.set(0.55);
         }
+        turretMotor.set(0.0);
+        logger.debug("found set point (gross)");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(0);
-        }
-
+        logger.debug("back off");
         while ((home.get())) {
+            home.get();
             turretMotor.set(-0.05);
         }
+        turretMotor.set(0.0);
+        logger.debug("backed off set point");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-        }
-
+        logger.debug("fine test");
         while (!(home.get())) {
+            home.get();
             turretMotor.set(0.03);
         }
+        turretMotor.set(0.0);
+        logger.debug("found set point (fine)");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(55);
-        }
+        turretEncoder.setPosition(55);
 
         turretMotor.setIdleMode(IdleMode.kCoast);
 
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, true);
-
+        logger.debug("... done");
     }
 
     private double convertTurretCountsToAngle(double counts) {

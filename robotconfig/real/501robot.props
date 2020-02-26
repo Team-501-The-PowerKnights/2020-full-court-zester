@@ -32,12 +32,10 @@ PDP.className = PDPModule
 #####################
 Camera.className = StubCameraSensor
 
-
 #####################
 # Gyro
 #####################
 Gyro.className = StubGyroSensor
-
 
 #####################
 # WheelColor
@@ -111,15 +109,17 @@ Intake.defaultCommandName = IntakeSimpleManual
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
 Shooter.defaultCommandName = ShooterDoNothing
+#Shooter.defaultCommand = ShooterDashboardSpeed
 #Shooter.defaultCommandName = ShooterSimpleManual
-#Shooter.defaultCommandName = ShooterManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
+
 
 #####################
 # Turret
 #####################
-Shooter.className = TurretSubsystem
-Shooter.defaultCommandName = TurretDoNothing
+Turret.className = TurretSubsystem
+Turret.defaultCommandName = TurretDoNothing
+#Turret.defaultCommandName = TurretSimpleManual
 
 
 #####################
