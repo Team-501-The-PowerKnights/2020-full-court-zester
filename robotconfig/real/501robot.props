@@ -108,8 +108,8 @@ Intake.defaultCommandName = IntakeSimpleManual
 #Shooter.className = StubShooterSubsystem
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
-Shooter.defaultCommandName = ShooterDoNothing
-#Shooter.defaultCommand = ShooterDashboardSpeed
+Shooter.defaultCommandName = ShooterDashboardSpeed
+#Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = ShooterSimpleManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
 
