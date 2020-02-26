@@ -9,6 +9,7 @@
 Robot.name = Suitcase-Bot
 
 
+
 #####################
 #####################
 # Module Defines
@@ -19,6 +20,7 @@ Robot.name = Suitcase-Bot
 # PDP
 #####################
 PDP.className = PDPModule
+
 
 
 #####################
@@ -43,6 +45,13 @@ Gyro.className = StubGyroSensor
 # WheelColor
 #####################
 WheelColor.className = StubWheelColorSensor
+
+
+#####################
+# TurretPosition
+#####################
+TurretPosition.className = TurretPositionSensor
+
 
 
 #####################
@@ -84,6 +93,13 @@ Hopper.defaultCommandName = HopperDoNothing
 #####################
 Intake.className = StubIntakeSubsystem
 Intake.defaultCommandName = IntakeDoNothing
+
+
+#####################
+# Turret
+#####################
+Turret.className = TurretSubsystem
+Turret.defaultCommandName = TurretDoNothing
 
 
 #####################
