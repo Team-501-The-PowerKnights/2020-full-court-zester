@@ -28,7 +28,7 @@ public class InvalidButton extends PKCommandBase {
 
         this.button = button;
 
-        logger.error("Invalid/unused button {}", button);
+        logger.warn("Invalid/unused button {}", button);
     }
 
     @Override

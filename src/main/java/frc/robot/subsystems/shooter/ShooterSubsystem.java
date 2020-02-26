@@ -28,16 +28,15 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
 
-    /**
-     * Mechanisms and sensors
-     */
+    // Left motor (master)
+    private CANSparkMax leftMotor;
+    // Right motor
+    private CANSparkMax rightMotor;
 
-    private CANSparkMax shootMaster;
-    private CANSparkMax shootSlave;
-    private CANEncoder shootEncoder;
-    private CANPIDController shooterPID;
-
-    // private TalonSRX incrementer; // Unused for now
+    // Encoder
+    private CANEncoder encoder;
+    // PID
+    private CANPIDController pid;
 
     /**
      * Creates a new ShooterSubsystem.
@@ -45,22 +44,22 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public ShooterSubsystem() {
         logger.info("constructing");
 
-        shootMaster = new CANSparkMax(21, MotorType.kBrushless);
-        shootMaster.restoreFactoryDefaults();
-        shootSlave = new CANSparkMax(22, MotorType.kBrushless);
-        shootSlave.restoreFactoryDefaults();
+        leftMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftMotor.restoreFactoryDefaults();
+        rightMotor = new CANSparkMax(22, MotorType.kBrushless);
+        rightMotor.restoreFactoryDefaults();
         // + spin out, - spin in
 
         // Slaved and inverted
-        shootSlave.follow(shootMaster, true);
+        rightMotor.follow(leftMotor, true);
 
-        shootEncoder = new CANEncoder(shootMaster);
+        encoder = new CANEncoder(leftMotor);
 
-        shooterPID = new CANPIDController(shootMaster);
-        shooterPID.setP(pid_P);
-        shooterPID.setI(pid_I);
-        shooterPID.setD(pid_D);
-        shooterPID.setFF(pid_F);
+        pid = new CANPIDController(leftMotor);
+        pid.setP(pid_P);
+        pid.setI(pid_I);
+        pid.setD(pid_D);
+        pid.setFF(pid_F);
 
         // incrementer = new TalonSRX(23); // Unused for now
 
@@ -74,7 +73,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, shootEncoder.getVelocity());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, encoder.getVelocity());
     }
 
     @Override
@@ -87,11 +86,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     public void updatePreferences() {
         loadPreferences();
 
-        if (shooterPID != null) {
-            shooterPID.setP(pid_P);
-            shooterPID.setI(pid_I);
-            shooterPID.setD(pid_D);
-            shooterPID.setFF(pid_F);
+        if (pid != null) {
+            pid.setP(pid_P);
+            pid.setI(pid_I);
+            pid.setD(pid_D);
+            pid.setFF(pid_F);
         }
 
     }
@@ -104,34 +103,34 @@ class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
-        shooterPID.setReference(0, ControlType.kVoltage);
-        shootMaster.set(0.0);
+        pid.setReference(0, ControlType.kVoltage);
+        leftMotor.set(0.0);
     }
 
     @Override
     public void shoot(double dist) {
         // TODO - Trajectory generation for speed
-        shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
     }
 
     @Override
     public void shoot() {
         // TODO - Trajectory generation from vision data
-        shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
     }
 
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
         case 21:
-            shootMaster.set(idleShooter(speed));
+            leftMotor.set(idleShooter(speed));
             break;
         case 22:
-            shootSlave.set(idleShooter(speed));
+            rightMotor.set(idleShooter(speed));
             break;
         case 29:
             // Assuming slaved
-            shootMaster.set(idleShooter(speed));
+            leftMotor.set(idleShooter(speed));
             break;
         default:
             break;
@@ -143,6 +142,7 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
         speed *= scale;
 
+        // FIXME - Make this a global method somewhere
         // Have to be connected to the field to idle
         final DriverStation ds = DriverStation.getInstance();
         if (ds.getMatchNumber() != 0) {

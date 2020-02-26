@@ -5,35 +5,27 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.shooter.ShooterSimpleManual;
+import frc.robot.commands.turret.TurretSimpleManual;
 import riolog.RioLogger;
 
-public class BallevatorLift extends BallevatorCommandBase {
+/**
+ * 
+ */
+public class ShootManual extends PKParallelCommandGroup {
 
-    /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
+    /* Our classes logger */
+    private static final Logger logger = RioLogger.getLogger(ShootManual.class.getName());
 
-    public BallevatorLift() {
-        logger.info("constructing {}", getName());
+    public ShootManual() {
+        super(new TurretSimpleManual(), new ShooterSimpleManual());
+        logger.info("constructing for {}", getName());
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-
-        ballevator.lift();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-
-        ballevator.stop();
     }
 
 }

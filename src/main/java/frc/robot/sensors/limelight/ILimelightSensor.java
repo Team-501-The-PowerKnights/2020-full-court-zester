@@ -5,15 +5,17 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.home;
+package frc.robot.sensors.limelight;
 
 import frc.robot.sensors.ISensor;
 
 /**
  * Add your docs here.
  **/
-public interface IHomeSensor extends ISensor {
+public interface ILimelightSensor extends ISensor {
 
-    public boolean get();
+    public void enable();
+
+    public double getError();
 
 }

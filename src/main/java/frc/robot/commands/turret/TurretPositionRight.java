@@ -5,36 +5,33 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-/**
- * Add your docs here.
- */
-public class ShooterManual extends ShooterOICommandBase {
+public class TurretPositionRight extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretPositionRight.class.getName());
 
-    public ShooterManual() {
+    public TurretPositionRight() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
-        double speed = oi.getShooterSpeed();
-        shooter.setSpeed(29, speed);
+        turret.setTurretAngle(-90);
+    }
 
-        speed = oi.getTurretSpeed();
-        shooter.setSpeed(20, speed);
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

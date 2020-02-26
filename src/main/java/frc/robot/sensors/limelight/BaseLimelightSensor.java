@@ -5,35 +5,25 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.sensors.limelight;
 
 import org.slf4j.Logger;
 
+import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
-public class BallevatorLift extends BallevatorCommandBase {
+abstract class BaseLimelightSensor implements ILimelightSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BaseLimelightSensor.class.getName());
 
-    public BallevatorLift() {
-        logger.info("constructing {}", getName());
+    protected static final String myName = TelemetryNames.Limelight.name;
+
+    BaseLimelightSensor() {
+        logger.info("constructing");
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-
-        ballevator.lift();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-
-        ballevator.stop();
     }
 
 }

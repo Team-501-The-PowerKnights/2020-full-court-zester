@@ -20,14 +20,16 @@ import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.turret.TurretHome;
-import frc.robot.commands.turret.TurretBackCommand;
-import frc.robot.commands.turret.TurretFrontCommand;
-import frc.robot.commands.turret.TurretJogCCWCommand;
-import frc.robot.commands.turret.TurretJogCWCommand;
-import frc.robot.commands.turret.TurretRightCommand;
+import frc.robot.commands.turret.TurretPositionBack;
+import frc.robot.commands.turret.TurretPositionFront;
+import frc.robot.commands.turret.TurretJogCCW;
+import frc.robot.commands.turret.TurretJogCW;
+import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
+
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
+
 import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
@@ -146,10 +148,8 @@ public class OI implements ITelemetryProvider {
         driveSwapButton.whenPressed(new DriveSwap());
 
         /*
-         * Shooter Prep
+         * Vision
          */
-        firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
-        shooterRevButton.whenHeld(new DoNothingButton("shooterRevButton"));
         visionEnableButton.whenHeld(new TurretVisionAlign());
 
         /*
@@ -166,20 +166,30 @@ public class OI implements ITelemetryProvider {
         ballevatorDownButton.whenHeld(new BallevatorLower());
 
         /*
-         * Turret Manual Control
+         * Turret
          */
         turretHomeButton.whenPressed(new TurretHome());
-        turretOrientationBackButton.whenPressed(new TurretBackCommand());
-        turretOrientationRightButton.whenPressed(new TurretRightCommand());
-        turretOrientationFrontButton.whenPressed(new TurretFrontCommand());
-        turretJogClockwiseButton.whenPressed(new TurretJogCWCommand());
-        turretJogCounterClockwiseButton.whenPressed(new TurretJogCCWCommand());
+        turretOrientationBackButton.whenPressed(new TurretPositionBack());
+        turretOrientationRightButton.whenPressed(new TurretPositionRight());
+        turretOrientationFrontButton.whenPressed(new TurretPositionFront());
+        turretJogClockwiseButton.whenPressed(new TurretJogCW());
+        turretJogCounterClockwiseButton.whenPressed(new TurretJogCCW());
+
+        /*
+         * Shooter
+         */
+        shooterRevButton.whenHeld(new DoNothingButton("shooterRevButton"));
 
         /*
          * Climber
          */
         climberExtendButton.whenPressed(new DoNothingButton("climberExtendButton"));
         climberRetractButton.whenHeld(new DoNothingButton("climberRetractButton"));
+
+        /*
+         * Poses
+         */
+        firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
 
         /*
          * Reserved

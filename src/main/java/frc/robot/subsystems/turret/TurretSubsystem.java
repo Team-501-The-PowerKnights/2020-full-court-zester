@@ -14,14 +14,14 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.home.HomeFactory;
-import frc.robot.sensors.home.IHomeSensor;
+import frc.robot.sensors.turrethome.TurretHomeFactory;
+import frc.robot.sensors.limelight.ILimelightSensor;
+import frc.robot.sensors.limelight.LimelightFactory;
+import frc.robot.sensors.turrethome.ITurretHomeSensor;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -46,7 +46,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
     private CANEncoder turretEncoder;
     private CANPIDController turretPID;
 
-    private IHomeSensor home;
+    private ITurretHomeSensor home;
+    private ILimelightSensor limelight;
 
     /**
      * Creates a new TurretSubsystem.
@@ -70,9 +71,12 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setOutputRange(-1.0, 1.0, 1);
         turretMotor.setSmartCurrentLimit(10);
 
-        home = HomeFactory.getInstance();
+        home = TurretHomeFactory.getInstance();
 
-        disableLimelight();
+        limelight = LimelightFactory.getInstance();
+        limelight.disable();
+
+        SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
         logger.info("constructed");
     }
@@ -86,13 +90,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Turret.angle, getAngle());
         SmartDashboard.putNumber(TelemetryNames.Turret.position, turretEncoder.getPosition());
-
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
-        // post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", table.getEntry("tx").getDouble(0.0));
-        SmartDashboard.putNumber("LimelightY", table.getEntry("ty").getDouble(0.0));
-        SmartDashboard.putNumber("LimelightArea", table.getEntry("ta").getDouble(0.0));
     }
 
     @Override
@@ -116,12 +113,10 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void disable() {
-        disableLimelight();
     }
 
     @Override
     public void stop() {
-        disableLimelight();
         turretPID.setReference(0, ControlType.kVoltage);
         turretMotor.set(0.0);
     }
@@ -139,81 +134,67 @@ class TurretSubsystem extends BaseTurretSubsystem {
         turretPID.setReference(targetCounts, ControlType.kPosition, 1);
     }
 
-    final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
     @Override
     public void setAngleFromVision() {
-
-        double x = table.getEntry("tx").getDouble(0.0);
-
-        SmartDashboard.putNumber("Heading Error", x);
-
         float Kp = -0.75f;
         float min_command = 0.05f;
 
-        double heading_error = -x;
+        double heading_error = limelight.getError();
         double steering_adjust = 0.0f;
 
-        if (x > 0.5) {
+        if (heading_error < 0.5) {
             steering_adjust = Kp * heading_error - min_command;
-        } else if (x < 0.5) {
+        } else if (heading_error > 0.5) {
             steering_adjust = Kp * heading_error + min_command;
         }
 
-        SmartDashboard.putNumber("Output", steering_adjust);
+        SmartDashboard.putNumber(TelemetryNames.Turret.visionPIDOutput, steering_adjust);
 
         turretPID.setReference(steering_adjust, ControlType.kVoltage, 1);
     }
 
     @Override
-    public void enableLimelight() {
-        table.getEntry("ledMode").setDouble(3);
-        table.getEntry("camMode").setDouble(0);
-    }
-
-    @Override
-    public void disableLimelight() {
-        table.getEntry("ledMode").setDouble(1);
-        table.getEntry("camMode").setDouble(1);
-    }
-
-    @Override
     public void home() {
-
-        SmartDashboard.putBoolean(TelemetryNames.Turret.isHome, false);
+        logger.debug("starting ...");
+        SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
         turretMotor.setIdleMode(IdleMode.kBrake);
 
+        /*
+         * IMPORTANT - The inner loop get() needs to be there!
+         */
+        // TODO - Figure out why this doesn't work if no inner get()
+
+        logger.debug("gross test");
         while (!(home.get())) {
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(0.55);
         }
+        turretMotor.set(0.0);
+        logger.debug("found set point (gross)");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(0);
-        }
-
+        logger.debug("back off");
         while ((home.get())) {
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(-0.05);
         }
+        turretMotor.set(0.0);
+        logger.debug("backed off set point");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-        }
-
+        logger.debug("fine test");
         while (!(home.get())) {
+            logger.debug("sensor = {}", home.get());
             turretMotor.set(0.03);
         }
+        turretMotor.set(0.0);
+        logger.debug("found set point (fine)");
 
-        if (home.get()) {
-            turretMotor.set(0.0);
-            turretEncoder.setPosition(55);
-        }
+        turretEncoder.setPosition(55);
 
         turretMotor.setIdleMode(IdleMode.kCoast);
 
-        SmartDashboard.putBoolean(TelemetryNames.Turret.isHome, true);
-
+        SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, true);
+        logger.debug("... done");
     }
 
     private double convertTurretCountsToAngle(double counts) {

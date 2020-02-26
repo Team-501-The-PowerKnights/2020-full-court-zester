@@ -24,8 +24,4 @@ public interface ITurretSubsystem extends ISubsystem {
     public void jogCCW();
 
     public void setAngleFromVision();
-
-    public void enableLimelight();
-
-    public void disableLimelight();
 }

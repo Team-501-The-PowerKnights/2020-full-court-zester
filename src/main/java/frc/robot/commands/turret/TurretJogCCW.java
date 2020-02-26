@@ -5,18 +5,18 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ballevator;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class BallevatorLift extends BallevatorCommandBase {
+public class TurretJogCCW extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BallevatorLift.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretJogCCW.class.getName());
 
-    public BallevatorLift() {
+    public TurretJogCCW() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
@@ -26,14 +26,12 @@ public class BallevatorLift extends BallevatorCommandBase {
     public void execute() {
         super.execute();
 
-        ballevator.lift();
+        turret.jogCCW();
     }
 
     @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-
-        ballevator.stop();
+    public boolean isFinished() {
+        return true;
     }
 
 }

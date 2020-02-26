@@ -5,23 +5,23 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.home;
+package frc.robot.sensors.turrethome;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>IHomeSensor</code> which has no sensor or
+ * Provides implementation of <code>ITurretHomeSensor</code> which has no sensor or
  * other useful functionality; but which won't blow up if instantiated and
  * 'used'.
  */
-class StubHomeSensor extends BaseHomeSensor {
+class StubTurretHomeSensor extends BaseTurretHomeSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubHomeSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(StubTurretHomeSensor.class.getName());
 
-    StubHomeSensor() {
+    StubTurretHomeSensor() {
         logger.info("constructing");
 
         logger.info("constructed");
