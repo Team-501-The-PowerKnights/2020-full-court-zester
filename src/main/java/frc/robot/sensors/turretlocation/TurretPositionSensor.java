@@ -5,32 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turretposition;
+package frc.robot.sensors.turretlocation;
 
 import org.slf4j.Logger;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import riolog.RioLogger;
 
 /**
- * Provides implementation of <code>ITurretHomeSensor</code> which has no sensor
- * or other useful functionality; but which won't blow up if instantiated and
- * 'used'.
+ * Provides implementation of <code>ITurretLocationSensor</code> for the
+ * <i>Real-Bot</i>.
  */
-class StubTurretPositionSensor extends BaseTurretPositionSensor {
+class TurretLocationSensor extends BaseTurretLocationSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(StubTurretPositionSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretLocationSensor.class.getName());
 
-    StubTurretPositionSensor() {
+    private DigitalInput location;
+
+    TurretLocationSensor() {
         logger.info("constructing");
+
+        location = new DigitalInput(8);
 
         logger.info("constructed");
     }
 
     @Override
     public boolean get() {
-        // Stub doesn't implement this - returns false
-        return false;
+        return location.get();
     }
 
 }

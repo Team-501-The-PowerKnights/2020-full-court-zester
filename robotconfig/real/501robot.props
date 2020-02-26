@@ -47,9 +47,9 @@ WheelColor.className = StubWheelColorSensor
 
 
 #####################
-# TurretPosition
+# TurretLocation
 #####################
-TurretPosition.className = TurretPositionSensor
+TurretLocation.className = TurretLocationSensor
 
 
 #####################

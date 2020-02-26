@@ -136,8 +136,8 @@ public final class TelemetryNames {
         public static final String speed = name + ".speed";
     }
 
-    public final class TurretPosition {
-        public static final String name = SensorNames.turretPositionName;
+    public final class TurretLocation {
+        public static final String name = SensorNames.turretLocationName;
 
         public static final String status = name + ".status";
         public static final String isFound = name + ".isFound";

@@ -18,7 +18,7 @@ public class SensorNames {
 
     public static final String wheelColorName = "WheelColor";
 
-    public static final String turretPositionName = "TurretPosition";
+    public static final String turretLocationName = "TurretPosition";
 
     public static final String limelightName = "Limelight";
 

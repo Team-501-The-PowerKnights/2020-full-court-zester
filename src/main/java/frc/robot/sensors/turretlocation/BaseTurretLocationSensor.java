@@ -5,36 +5,32 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.turretposition;
+package frc.robot.sensors.turretlocation;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-/**
- * Provides implementation of <code>ITurretHomeSensor</code> for the
- * <i>Real-Bot</i>.
- */
-class TurretPositionSensor extends BaseTurretPositionSensor {
+abstract class BaseTurretLocationSensor implements ITurretLocationSensor {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretPositionSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BaseTurretLocationSensor.class.getName());
 
-    private DigitalInput turrethome;
+    /** Our sensor's name **/
+    protected static final String myName = TelemetryNames.TurretLocation.name;
 
-    TurretPositionSensor() {
+    BaseTurretLocationSensor() {
         logger.info("constructing");
-
-        turrethome = new DigitalInput(8);
 
         logger.info("constructed");
     }
 
     @Override
-    public boolean get() {
-        return turrethome.get();
+    public void updateTelemetry() {
+        SmartDashboard.putBoolean(TelemetryNames.TurretLocation.isFound, get());
     }
 
 }
