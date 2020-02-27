@@ -106,4 +106,10 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   }
 
+  @Override
+  public boolean atTargetVelocity(double targetVelocity) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
 }

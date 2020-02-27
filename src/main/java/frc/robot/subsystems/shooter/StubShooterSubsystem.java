@@ -67,4 +67,10 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
         // Stub doesn't implement this
     }
 
+    @Override
+    public boolean atTargetVelocity(double targetVelocity) {
+        // Stub does nothing useful; returns false
+        return false;
+    }
+
 }

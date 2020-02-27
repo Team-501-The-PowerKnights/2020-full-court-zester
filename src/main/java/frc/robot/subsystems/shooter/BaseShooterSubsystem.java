@@ -39,10 +39,10 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     protected final Preferences prefs;
 
     /** Shooter PID defaults for subystem **/
-    protected double pid_P = 0;
+    protected double pid_P = 0.002;
     protected double pid_I = 0;
-    protected double pid_D = 0;
-    protected double pid_F = 0;
+    protected double pid_D = 1;
+    protected double pid_F = 0.0002;
 
     protected BaseShooterSubsystem() {
         logger.info("constructing");

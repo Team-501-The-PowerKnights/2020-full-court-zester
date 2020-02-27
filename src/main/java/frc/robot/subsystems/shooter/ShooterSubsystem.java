@@ -23,7 +23,7 @@ import frc.robot.preferences.PreferenceNames.Shooter;
 import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
-class ShooterSubsystem extends BaseShooterSubsystem {
+public class ShooterSubsystem extends BaseShooterSubsystem {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
@@ -56,10 +56,12 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         encoder = new CANEncoder(leftMotor);
 
         pid = new CANPIDController(leftMotor);
-        pid.setP(pid_P);
-        pid.setI(pid_I);
-        pid.setD(pid_D);
-        pid.setFF(pid_F);
+        pid.setP(pid_P, 1);
+        pid.setI(pid_I, 1);
+        pid.setD(pid_D, 1);
+        pid.setFF(pid_F, 1);
+        pid.setOutputRange(0, 1, 1);
+        // leftMotor.setSmartCurrentLimit(10);
 
         // incrementer = new TalonSRX(23); // Unused for now
 
@@ -87,10 +89,10 @@ class ShooterSubsystem extends BaseShooterSubsystem {
         loadPreferences();
 
         if (pid != null) {
-            pid.setP(pid_P);
-            pid.setI(pid_I);
-            pid.setD(pid_D);
-            pid.setFF(pid_F);
+            pid.setP(pid_P, 1);
+            pid.setI(pid_I, 1);
+            pid.setD(pid_D, 1);
+            pid.setFF(pid_F, 1);
         }
 
     }
@@ -108,9 +110,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double dist) {
+    public void shoot(double rpm) {
         // TODO - Trajectory generation for speed
-        pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        // pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        pid.setReference(rpm, ControlType.kVelocity, 1);
+        SmartDashboard.putNumber("Actual RPM", encoder.getVelocity());
     }
 
     @Override
@@ -122,18 +126,18 @@ class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            leftMotor.set(idleShooter(speed));
-            break;
-        case 22:
-            rightMotor.set(idleShooter(speed));
-            break;
-        case 29:
-            // Assuming slaved
-            leftMotor.set(idleShooter(speed));
-            break;
-        default:
-            break;
+            case 21:
+                leftMotor.set(idleShooter(speed));
+                break;
+            case 22:
+                rightMotor.set(idleShooter(speed));
+                break;
+            case 29:
+                // Assuming slaved
+                leftMotor.set(idleShooter(speed));
+                break;
+            default:
+                break;
         }
     }
 
@@ -149,6 +153,11 @@ class ShooterSubsystem extends BaseShooterSubsystem {
             speed = Math.max(0.20, speed);
         }
         return speed;
+    }
+
+    @Override
+    public boolean atTargetVelocity(double targetVelocity) {
+        return (((Math.abs(targetVelocity - encoder.getVelocity())) / targetVelocity) <= 0.05);
     }
 
 }
