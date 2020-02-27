@@ -28,11 +28,6 @@ PDP.className = PDPModule
 #####################
 #####################
 
-#####################
-# Camera
-#####################
-Camera.className = StubCameraSensor
-
 
 #####################
 # Gyro
@@ -53,9 +48,9 @@ TurretLocation.className = TurretLocationSensor
 
 
 #####################
-# Limelight
+# Vision
 #####################
-Limelight.className = LimelightSensor
+Vision.className = VisionSensor
 
 
 

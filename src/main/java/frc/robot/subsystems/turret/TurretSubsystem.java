@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.limelight.ILimelightSensor;
-import frc.robot.sensors.limelight.LimelightFactory;
+import frc.robot.sensors.vision.IVisionSensor;
+import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.sensors.turretlocation.ITurretLocationSensor;
 import frc.robot.sensors.turretlocation.TurretLocationFactory;
 import frc.robot.telemetry.TelemetryNames;
@@ -48,7 +48,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     private final ITurretLocationSensor location;
 
-    private final ILimelightSensor limelight;
+    private final IVisionSensor vision;
 
     /**
      * Creates a new TurretSubsystem.
@@ -74,7 +74,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         location = TurretLocationFactory.getInstance();
 
-        limelight = LimelightFactory.getInstance();
+        vision = VisionFactory.getInstance();
+        vision.disable();
 
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
@@ -140,7 +141,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         float Kp = -0.75f;
         float min_command = 0.05f;
 
-        double heading_error = limelight.getError();
+        double heading_error = vision.getError();
         double steering_adjust = 0.0f;
 
         if (heading_error < 0.5) {
@@ -217,11 +218,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 20:
-            motor.set(speed);
-            break;
-        default:
-            break;
+            case 20:
+                motor.set(speed);
+                break;
+            default:
+                break;
         }
     }
 
