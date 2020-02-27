@@ -33,6 +33,7 @@ class HopperSubsystem extends BaseHopperSubsystem {
         logger.info("constructing");
 
         motor = new TalonSRX(31);
+        motor.configFactoryDefault();
 
         tlmSpeed = 0.0;
 
@@ -75,7 +76,7 @@ class HopperSubsystem extends BaseHopperSubsystem {
     @Override
     public void agitate() {
         // TODO - Determine actual preset speed
-        setSpeed(0.5);
+        setSpeed(-0.30);
     }
 
     @Override
