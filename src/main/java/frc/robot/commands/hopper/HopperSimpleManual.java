@@ -27,14 +27,14 @@ public class HopperSimpleManual extends HopperOICommandBase {
     public void execute() {
         super.execute();
 
-        double speed = oi.getHopperSpeed();
+        boolean active = oi.getHopperActive();
 
-        if (Math.abs(speed) != 0) {
+        if (active) {
             hopper.agitate();
         } else {
             hopper.stop();
         }
-        
+
     }
 
 }
