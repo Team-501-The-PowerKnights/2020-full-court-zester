@@ -37,7 +37,8 @@ public class ShooterDashboardSpeed extends ShooterCommandBase {
 
         double speed = SmartDashboard.getNumber(Shooter.speed, 0.0);
         // Assumes that speed controllers are following
-        shooter.setSpeed(29, speed);
+        // shooter.setSpeed(29, speed);
+        shooter.shoot(speed);
     }
 
 }
