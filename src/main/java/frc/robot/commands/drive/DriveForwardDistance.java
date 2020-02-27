@@ -36,7 +36,7 @@ public class DriveForwardDistance extends DriveCommandBase {
     public void execute() {
         super.execute();
 
-        double speed = 0.15;
+        double speed = 0.20;
         double turn = 0.0;
 
         drive.drive(speed, turn);

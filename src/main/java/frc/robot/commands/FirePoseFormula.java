@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 import frc.robot.sensors.vision.IVisionSensor;
 import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
@@ -59,6 +61,11 @@ public class FirePoseFormula extends PKCommandBase {
     @Override
     public void execute() {
         super.execute();
+
+        if (DriverStation.getInstance().getMatchTime() >= 10) {
+            targetRpm = 3300;
+            shooter.shoot(targetRpm, "");
+        }
 
         if (shooter.atTargetVelocity(targetRpm) && vision.getLocked()) { // TODO - Implement rpm generation from
                                                                          // distance

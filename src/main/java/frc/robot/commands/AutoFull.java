@@ -18,7 +18,7 @@ public class AutoFull extends PKParallelCommandGroup {
     public AutoFull() {
         super(new PKParallelCommandGroup(new FirePoseFormula(),
                 new PKSequentialCommandGroup(new TurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
-                new DriveForwardDistance(16.2) // Confirm distance
+                new DriveForwardDistance(10.2) // Confirm distance
         );
     }
 }
