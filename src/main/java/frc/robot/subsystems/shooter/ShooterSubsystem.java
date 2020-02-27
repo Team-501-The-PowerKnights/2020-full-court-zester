@@ -109,10 +109,17 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         leftMotor.set(0.0);
     }
 
+    private String activePosition = "";
+
     @Override
-    public void shoot(double rpm) {
+    public String getActivePosition() {
+        return activePosition;
+    }
+
+    @Override
+    public void shoot(double rpm, String activePosition) {
         // TODO - Trajectory generation for speed
-        // pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        this.activePosition = activePosition;
         pid.setReference(rpm, ControlType.kVelocity, 1);
         SmartDashboard.putNumber("Actual RPM", encoder.getVelocity());
     }

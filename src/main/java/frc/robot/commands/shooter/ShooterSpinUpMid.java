@@ -27,7 +27,7 @@ public class ShooterSpinUpMid extends ShooterCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.shoot(3200);
+        shooter.shoot(3200, "Mid");
     }
 
 }

@@ -26,7 +26,7 @@ public class ShooterSpinUpNear extends ShooterCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.shoot(3050);
+        shooter.shoot(3050, "Near");
     }
 
 }
