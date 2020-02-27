@@ -22,6 +22,7 @@ import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
 import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
+import frc.robot.commands.shooter.ShooterEnableSpin;
 import frc.robot.commands.shooter.ShooterSpinUpFar;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
 import frc.robot.commands.shooter.ShooterSpinUpMid;
@@ -190,7 +191,7 @@ public class OI implements ITelemetryProvider {
         /*
          * Shooter
          */
-        shooterRevButton.whenHeld(new ShooterSpinUpFormula());
+        shooterRevButton.whenHeld(new ShooterEnableSpin());
 
         /*
          * Climber
