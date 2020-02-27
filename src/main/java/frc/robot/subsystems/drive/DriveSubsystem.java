@@ -225,7 +225,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     protected double convertInchesToEncoderClicks(double inches) {
         return inches * (1 / 12) // Conversion to feet
-                * 3.281 // Conversion to meters
+                * (1 / 3.281) // Conversion to meters
                 * (1 / (2 * Math.PI * wheelRadius)) // Convert to wheel revolutions (Circumference)
                 * (beltGearing) // Convert to output shaft revolutions (Belt gearing)
                 * (1 / gearboxGearing); // Convert to motor revolutions (TB Mini gearing)
@@ -282,6 +282,11 @@ class DriveSubsystem extends BaseDriveSubsystem {
         default:
             break;
         }
+    }
+
+    @Override
+    public double getEncoderClicks() {
+        return (leftEncoder.getPosition() + rightEncoder.getPosition() / 2);
     }
 
 }

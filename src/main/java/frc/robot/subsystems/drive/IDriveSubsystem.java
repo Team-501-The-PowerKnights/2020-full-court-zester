@@ -19,42 +19,44 @@ import frc.robot.subsystems.ISubsystem;
  **/
 public interface IDriveSubsystem extends ISubsystem {
 
-     /**
-      * Stop the drive from any motion it may have been running under.
-      */
-     public void stop();
+    /**
+     * Stop the drive from any motion it may have been running under.
+     */
+    public void stop();
 
-     /**
-      * Set the <i>brake</i> for the <code>DriveSubsystem</code> to the value
-      * provided.
-      * 
-      * @param brakeOn whether brake is on or off
-      */
-     public void setBrake(boolean brakeOn);
+    /**
+     * Set the <i>brake</i> for the <code>DriveSubsystem</code> to the value
+     * provided.
+     * 
+     * @param brakeOn whether brake is on or off
+     */
+    public void setBrake(boolean brakeOn);
 
-     /**
-      * "Swap" the drive (invert the sense of the motors)
-      * 
-      * @param hmiSpeed
-      * @param hmiTurn
-      */
-     public void swap();
+    /**
+     * "Swap" the drive (invert the sense of the motors)
+     * 
+     * @param hmiSpeed
+     * @param hmiTurn
+     */
+    public void swap();
 
-     /**
-      * 
-      * @param hmiSpeed
-      * @param hmiTurn
-      */
-     public void drive(double hmiSpeed, double hmiTurn);
+    /**
+     * 
+     * @param hmiSpeed
+     * @param hmiTurn
+     */
+    public void drive(double hmiSpeed, double hmiTurn);
 
-     /**
-      * 
-      * @param start
-      * @param interiorWaypoints
-      * @param end
-      */
-     public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end);
+    /**
+     * 
+     * @param start
+     * @param interiorWaypoints
+     * @param end
+     */
+    public void followPath(final Pose2d start, final List<Translation2d> interiorWaypoints, final Pose2d end);
 
-     public void setSpeed(int canID, double speed);
+    public void setSpeed(int canID, double speed);
+
+    public double getEncoderClicks();
 
 }

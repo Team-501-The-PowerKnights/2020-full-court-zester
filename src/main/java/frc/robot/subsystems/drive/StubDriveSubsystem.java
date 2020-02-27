@@ -82,4 +82,10 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
         // Stub doesn't implement this
     }
 
+    @Override
+    public double getEncoderClicks() {
+        // Stub doesn't implement this
+        return 0;
+    }
+
 }
