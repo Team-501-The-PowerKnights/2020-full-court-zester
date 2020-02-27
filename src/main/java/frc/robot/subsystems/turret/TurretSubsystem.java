@@ -102,7 +102,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void updatePreferences() {
-        super.updatePreferences();
+        loadPreferences();
 
         if (pid != null) {
             pid.setP(pid_P, 1);
