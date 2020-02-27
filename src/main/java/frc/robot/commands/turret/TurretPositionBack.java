@@ -23,15 +23,20 @@ public class TurretPositionBack extends TurretCommandBase {
     }
 
     @Override
+    public void initialize() {
+        super.initialize();
+    }
+
+    @Override
     public void execute() {
         super.execute();
 
-        turret.setTurretAngle(0);
+        turret.setTurretAngle(-10);
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return turret.isAtAngle(-10);
     }
 
 }

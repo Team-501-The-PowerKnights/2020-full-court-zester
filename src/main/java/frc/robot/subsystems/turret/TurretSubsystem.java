@@ -79,6 +79,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
+        encoder.setPosition(convertTurretAngleToCounts(-90));
+
         logger.info("constructed");
     }
 
@@ -160,40 +162,69 @@ class TurretSubsystem extends BaseTurretSubsystem {
         logger.debug("starting ...");
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
-        motor.setIdleMode(IdleMode.kBrake);
+        encoder.setPosition(convertTurretAngleToCounts(-90));
 
-        /*
-         * IMPORTANT - The inner loop get() needs to be there!
-         */
-        // TODO - Figure out why this doesn't work if no inner get()
+        // double firstAngle = getAngle();
 
-        logger.debug("gross test");
-        while (!(location.get())) {
-            logger.debug("sensor = {}", location.get());
-            motor.set(0.55);
-        }
-        motor.set(0.0);
-        logger.debug("found set point (gross)");
+        // /*
+        // * IMPORTANT - The inner loop get() needs to be there!
+        // */
+        // // TODO - Figure out why this doesn't work if no inner get()
 
-        logger.debug("back off");
-        while ((location.get())) {
-            logger.debug("sensor = {}", location.get());
-            motor.set(-0.05);
-        }
-        motor.set(0.0);
-        logger.debug("backed off set point");
+        // logger.debug("gross test");
+        // while (!(location.get())) {
+        // logger.debug("sensor = {}", location.get());
+        // motor.set(0.55);
+        // if (getAngle() - firstAngle >= 100) {
+        // return;
+        // }
+        // try {
+        // Thread.sleep(10);
+        // } catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // }
+        // motor.set(0.0);
+        // logger.debug("found set point (gross)");
 
-        logger.debug("fine test");
-        while (!(location.get())) {
-            logger.debug("sensor = {}", location.get());
-            motor.set(0.03);
-        }
-        motor.set(0.0);
-        logger.debug("found set point (fine)");
+        // logger.debug("back off");
+        // while ((location.get())) {
+        // logger.debug("sensor = {}", location.get());
+        // motor.set(-0.05);
+        // if (getAngle() - firstAngle >= 100) {
+        // return;
+        // }
+        // try {
+        // Thread.sleep(10);
+        // } catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // }
+        // motor.set(0.0);
+        // logger.debug("backed off set point");
 
-        encoder.setPosition(55);
+        // logger.debug("fine test");
+        // while (!(location.get())) {
+        // logger.debug("sensor = {}", location.get());
+        // motor.set(0.03);
+        // if (getAngle() - firstAngle >= 100) {
+        // return;
+        // }
+        // try {
+        // Thread.sleep(10);
+        // } catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // }
+        // motor.set(0.0);
+        // logger.debug("found set point (fine)");
 
-        motor.setIdleMode(IdleMode.kCoast);
+        // encoder.setPosition(55);
+
+        // motor.setIdleMode(IdleMode.kCoast);
 
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, true);
         logger.debug("... done");
@@ -241,6 +272,13 @@ class TurretSubsystem extends BaseTurretSubsystem {
         double currentAngle = getAngle();
 
         setTurretAngle(currentAngle);
+    }
+
+    @Override
+    public boolean isAtAngle(double targetAngle) {
+
+        return getAngle() >= targetAngle;
+
     }
 
 }

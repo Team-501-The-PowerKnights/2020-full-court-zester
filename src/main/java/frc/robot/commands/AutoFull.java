@@ -12,20 +12,13 @@ import frc.robot.commands.turret.TurretPositionBack;
 import frc.robot.commands.turret.TurretVisionAlign;
 
 public class AutoFull extends PKParallelCommandGroup {
-  /**
-   * Creates a new AutoSequence.
-   */
-  public AutoFull() {
-    super(
-        new PKParallelCommandGroup(
-          new PKSequentialCommandGroup(
-            new TurretPositionBack(),
-            new TurretVisionAlign(),
-            new FirePoseFormula()
-          )
-        ),
-        new IngestPose(),
-        new DriveForwardDistance(15) // Confirm distance
-      );
-  }
+    /**
+     * Creates a new AutoSequence.
+     */
+    public AutoFull() {
+        super(new PKParallelCommandGroup(new FirePoseFormula(),
+                new PKSequentialCommandGroup(new TurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
+                new DriveForwardDistance(16.2) // Confirm distance
+        );
+    }
 }
