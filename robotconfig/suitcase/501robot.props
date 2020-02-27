@@ -22,18 +22,18 @@ Robot.name = Suitcase-Bot
 PDP.className = PDPModule
 
 
+#####################
+# RPI
+#####################
+RPI.className = StubRPIModule
+
+
 
 #####################
 #####################
 # Sensor Defines
 #####################
 #####################
-
-#####################
-# Camera
-#####################
-Camera.className = StubCameraSensor
-
 
 #####################
 # Gyro
@@ -51,6 +51,12 @@ WheelColor.className = StubWheelColorSensor
 # TurretLocation
 #####################
 TurretLocation.className = TurretLocationSensor
+
+
+#####################
+# Vision
+#####################
+Vision.className = VisionSensor
 
 
 
@@ -114,6 +120,7 @@ Shooter.defaultCommandName = ShooterDoNothing
 #####################
 Wheel.className = StubWheelSubsystem
 Wheel.defaultCommandName = WheelDoNothing
+
 
 
 #####################

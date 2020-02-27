@@ -21,18 +21,18 @@ Robot.name = Proto-Bot
 PDP.className = StubPDPModule
 
 
+#####################
+# RPI
+#####################
+RPI.className = StubRPIModule
+
+
 
 #####################
 #####################
 # Sensor Defines
 #####################
 #####################
-
-#####################
-# Camera
-#####################
-Camera.className = StubCameraSensor
-
 
 #####################
 # Gyro
@@ -50,6 +50,12 @@ WheelColor.className = StubWheelColorSensor
 # TurretLocation
 #####################
 TurretLocation.className = TurretLocationSensor
+
+
+#####################
+# Vision
+#####################
+Vision.className = VisionSensor
 
 
 

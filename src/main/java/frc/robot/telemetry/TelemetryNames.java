@@ -7,9 +7,15 @@
 
 package frc.robot.telemetry;
 
+import frc.robot.modules.ModuleNames;
 import frc.robot.sensors.SensorNames;
 import frc.robot.subsystems.SubsystemNames;
 
+/**
+ * Provides a standard way of defining names for the <i>Telemetry</i> used in
+ * the program. No code should define or use a hard-coded string outside of the
+ * ones defined in this class.
+ **/
 public final class TelemetryNames {
 
     public final class Misc {
@@ -25,12 +31,21 @@ public final class TelemetryNames {
      ***************/
 
     public final class PDP {
-        public static final String name = "PDP";
+        public static final String name = ModuleNames.pdpName;
 
         public static final String status = name + ".status";
         public static final String busVoltage = name + ".busVoltage";
         public static final String totalCurrent = name + ".totalCurrent";
         public static final String totalEnergy = name + ".totalEnergy";
+    }
+
+    public final class RPI {
+        public static final String name = ModuleNames.rpiName;
+
+        public static final String status = name + ".status";
+        public static final String clockSpeed = name + ".clock_speed";
+        public static final String freeMemory = name + ".free_memory";
+        public static final String socTemp = name + ".soc_temp";
     }
 
     /***************
@@ -197,17 +212,6 @@ public final class TelemetryNames {
     /***************
      * Vision
      ***************/
-
-    public final class RPI {
-        public static final String name = SensorNames.rpiName;
-
-        //
-        public static final String clockSpeed = name + ".clock_speed";
-        //
-        public static final String freeMemory = name + ".free_memory";
-        //
-        public static final String socTemp = name + ".soc_temp";
-    }
 
     public final class Vision {
         public static final String name = SensorNames.visionName;

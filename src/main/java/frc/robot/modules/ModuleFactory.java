@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.modules.pdp.PDPFactory;
+import frc.robot.modules.rpi.RPIFactory;
 import frc.robot.telemetry.TelemetryManager;
 import frc.robot.telemetry.TelemetryNames;
 import frc.robot.utils.PKStatus;
@@ -40,6 +41,14 @@ public class ModuleFactory {
         {
             PDPFactory.constructInstance();
             IModule m = PDPFactory.getInstance();
+            tlmMgr.addProvider(m);
+            modules.add(m);
+        }
+
+        SmartDashboard.putNumber(TelemetryNames.RPI.status, PKStatus.unknown.tlmValue);
+        {
+            RPIFactory.constructInstance();
+            IModule m = RPIFactory.getInstance();
             tlmMgr.addProvider(m);
             modules.add(m);
         }

@@ -5,17 +5,19 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.modules;
+package frc.robot.modules.rpi;
+
+import org.slf4j.Logger;
+
+import riolog.RioLogger;
 
 /**
- * Provides a standard way of defining names for the <i>Modules</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
- **/
-public class ModuleNames {
+ * Add your docs here.
+ */
+abstract class BaseRPIModule implements IRPIModule {
 
-    public static final String pdpName = "PDP";
-
-    public static final String rpiName = "RPI";
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(BaseRPIModule.class.getName());
 
 }
