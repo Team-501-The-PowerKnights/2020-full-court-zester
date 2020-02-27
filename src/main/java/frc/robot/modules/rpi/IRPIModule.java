@@ -5,17 +5,15 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.modules;
+package frc.robot.modules.rpi;
+
+import frc.robot.modules.IModule;
 
 /**
- * Provides a standard way of defining names for the <i>Modules</i> used in the
- * program. No code should define or use a hard-coded string outside of the ones
- * defined in this class.
- **/
-public class ModuleNames {
+ * Add your docs here.
+ */
+public interface IRPIModule extends IModule {
 
-    public static final String pdpName = "PDP";
-
-    public static final String rpiName = "RPI";
+    // No generic methods to interface
 
 }

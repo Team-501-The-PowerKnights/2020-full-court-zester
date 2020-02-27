@@ -22,6 +22,4 @@ public class SensorNames {
 
     public static final String visionName = "Vision";
 
-    public static final String rpiName = "RPI";
-
 }
