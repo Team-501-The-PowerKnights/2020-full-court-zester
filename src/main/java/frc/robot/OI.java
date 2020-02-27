@@ -313,8 +313,8 @@ public class OI implements ITelemetryProvider {
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
 
-    public double getHopperSpeed() {
-        return deadBand(getDriverBumperAxis(), 0.05);
+    public boolean getHopperActive() {
+        return deadBand(getDriverBumperAxis(), 0.05) != 0;
     }
 
     public double getTurretIncrement() {
