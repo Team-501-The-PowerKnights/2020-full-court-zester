@@ -24,6 +24,8 @@ public final class TelemetryNames {
         public static final String programmer = name + ".programmer";
         public static final String codeVersion = name + ".codeVersion";
         public static final String robotName = name + ".robotName";
+
+        public static final String fmsConnected = name + ".fmsConnected";
     }
 
     /***************

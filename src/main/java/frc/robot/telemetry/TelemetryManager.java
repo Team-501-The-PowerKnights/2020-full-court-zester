@@ -11,7 +11,9 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.telemetry.TelemetryNames.Misc;
 import frc.robot.utils.PKStatus;
 
 import riolog.RioLogger;
@@ -72,6 +74,8 @@ public class TelemetryManager {
     public void sendTelemetry() {
         if (counter >= 10) {
             counter = 0;
+
+            SmartDashboard.putBoolean(Misc.fmsConnected, DriverStation.getInstance().isFMSAttached());
 
             for (ITelemetryProvider provider : providerList) {
                 // logger.trace("calling w/ provider {}", provider);
