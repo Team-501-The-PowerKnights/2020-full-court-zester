@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import frc.robot.commands.drive.DriveForwardDistance;
-import frc.robot.commands.turret.TurretPositionBack;
+import frc.robot.commands.turret.AutoTurretPositionBack;
 import frc.robot.commands.turret.TurretVisionAlign;
 
 public class AutoFull extends PKParallelCommandGroup {
@@ -16,9 +16,15 @@ public class AutoFull extends PKParallelCommandGroup {
      * Creates a new AutoSequence.
      */
     public AutoFull() {
-        super(new PKParallelCommandGroup(new FirePoseFormula(),
-                new PKSequentialCommandGroup(new TurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
+        super(new PKParallelCommandGroup(new AutoFirePosePreset(),
+                new PKSequentialCommandGroup(new AutoTurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
                 new DriveForwardDistance(10.2) // Confirm distance
         );
+
+        // super(new PKParallelCommandGroup(new FirePoseFormula(),
+        // new PKSequentialCommandGroup(new AutoTurretPositionBack(), new
+        // TurretVisionAlign())), new IngestPose(),
+        // new DriveForwardDistance(10.2)
+        // );
     }
 }
