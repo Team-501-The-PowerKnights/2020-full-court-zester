@@ -21,13 +21,18 @@ Robot.name = Real-Bot
 PDP.className = PDPModule
 
 
+#####################
+# RPI
+#####################
+RPI.className = StubRPIModule
+
+
 
 #####################
 #####################
 # Sensor Defines
 #####################
 #####################
-
 
 #####################
 # Gyro
@@ -51,8 +56,6 @@ TurretLocation.className = TurretLocationSensor
 # Vision
 #####################
 Vision.className = VisionSensor
-
-
 
 
 #####################
