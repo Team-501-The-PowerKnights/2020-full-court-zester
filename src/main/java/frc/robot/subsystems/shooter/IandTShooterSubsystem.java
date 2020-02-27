@@ -92,7 +92,7 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double dist) {
+    public void shoot(double dist, String activePosition) {
         // TODO - Trajectory generation for speed
         shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
     }
@@ -117,6 +117,18 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
         default:
             break;
         }
+    }
+
+    @Override
+    public boolean atTargetVelocity(double targetVelocity) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public String getActivePosition() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

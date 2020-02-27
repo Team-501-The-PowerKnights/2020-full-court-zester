@@ -68,4 +68,9 @@ class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
         return false;
     }
 
+    @Override
+    public void liftToLimit() {
+        // Stub doesn't implement this
+    }
+
 }

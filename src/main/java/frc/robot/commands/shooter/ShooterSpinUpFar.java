@@ -5,36 +5,28 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hopper;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class HopperSimpleManual extends HopperOICommandBase {
+public class ShooterSpinUpFar extends ShooterCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(HopperSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSpinUpFar.class.getName());
 
-    public HopperSimpleManual() {
+    public ShooterSpinUpFar() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
-        double speed = oi.getHopperSpeed();
-
-        if (Math.abs(speed) != 0) {
-            hopper.agitate();
-        } else {
-            hopper.stop();
-        }
-        
+        shooter.shoot(3295, "Far");
     }
 
 }

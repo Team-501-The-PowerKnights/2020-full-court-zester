@@ -15,10 +15,14 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.DoNothingButton;
+import frc.robot.commands.FirePosePreset;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
 import frc.robot.commands.drive.DriveSwap;
+import frc.robot.commands.shooter.ShooterSpinUpFar;
+import frc.robot.commands.shooter.ShooterSpinUpMid;
+import frc.robot.commands.shooter.ShooterSpinUpNear;
 import frc.robot.commands.turret.TurretHome;
 import frc.robot.commands.turret.TurretPositionBack;
 import frc.robot.commands.turret.TurretPositionFront;
@@ -76,9 +80,9 @@ public class OI implements ITelemetryProvider {
     private final Joystick operatorStick;
     private final Button firePoseButton;
     private final Button shooterRevButton;
-    private final Button fieldPositionFullButton;
-    private final Button fieldPositionTrenchButton;
+    private final Button fieldPositionFarButton;
     private final Button fieldPositionMidButton;
+    private final Button fieldPositionNearButton;
     private final Button ballevatorUpButton;
     private final Button ballevatorDownButton;
     private final Button turretOrientationBackButton;
@@ -109,9 +113,9 @@ public class OI implements ITelemetryProvider {
         operatorStick = new Joystick(1);
         firePoseButton = new JoystickButton(operatorStick, 1);
         shooterRevButton = new JoystickButton(operatorStick, 2);
-        fieldPositionFullButton = new JoystickButton(operatorStick, 3);
-        fieldPositionTrenchButton = new JoystickButton(operatorStick, 4);
+        fieldPositionFarButton = new JoystickButton(operatorStick, 3);
         fieldPositionMidButton = new JoystickButton(operatorStick, 5);
+        fieldPositionNearButton = new JoystickButton(operatorStick, 4);
         ballevatorUpButton = new JoystickButton(operatorStick, 6);
         ballevatorDownButton = new JoystickButton(operatorStick, 7);
         turretOrientationBackButton = new JoystickButton(operatorStick, 8);
@@ -155,9 +159,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Field Position
          */
-        fieldPositionFullButton.whenPressed(new DoNothingButton("fieldPositionFullButton"));
-        fieldPositionTrenchButton.whenPressed(new DoNothingButton("fieldPositionTrenchButton"));
-        fieldPositionMidButton.whenPressed(new DoNothingButton("fieldPositionMidButton"));
+        fieldPositionFarButton.whenPressed(new ShooterSpinUpFar());
+        fieldPositionMidButton.whenPressed(new ShooterSpinUpMid());
+        fieldPositionNearButton.whenPressed(new ShooterSpinUpNear());
 
         /*
          * Ballevator
@@ -189,7 +193,7 @@ public class OI implements ITelemetryProvider {
         /*
          * Poses
          */
-        firePoseButton.whenHeld(new DoNothingButton("firePoseButton"));
+        firePoseButton.whenHeld(new FirePosePreset());
 
         /*
          * Reserved
@@ -236,7 +240,7 @@ public class OI implements ITelemetryProvider {
     }
 
     public double getDriveTurn() {
-        double hmiTurn = getRawDriveTurn();
+        final double hmiTurn = getRawDriveTurn();
         double calcTurn;
         if (turboButton.get()) {
             calcTurn = hmiTurn * 0.60; // * 0.50 in 2019
@@ -257,7 +261,7 @@ public class OI implements ITelemetryProvider {
      * @param cutOff
      * @return
      */
-    private final double deadBand(double value, double cutOff) {
+    private final double deadBand(final double value, final double cutOff) {
         double retValue;
         if (value < cutOff && value > (cutOff * (-1))) {
             retValue = 0;
@@ -277,7 +281,7 @@ public class OI implements ITelemetryProvider {
 
     public double getTurretSpeed() {
         // FIXME - No longer same button scheme or manual control
-        double hmiSpeed = getRawTurretSpeed();
+        final double hmiSpeed = getRawTurretSpeed();
         double calcSpeed;
         // if (turretTurboButton.get()) {
         // calcSpeed = hmiSpeed * 0.35;

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoFull;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.drive.DriveForwardTimed;
 import frc.robot.modules.IModule;
@@ -163,6 +164,7 @@ public class Robot extends TimedRobot {
 
         autoChooser.setDefaultOption("Do Nothing", new DoNothing());
         autoChooser.addOption("Drive Forward (timed)", new DriveForwardTimed());
+        autoChooser.addOption("Full Auto", new AutoFull());
 
         SmartDashboard.putData("Auto Mode", autoChooser);
     }
@@ -285,6 +287,8 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
+        // CommandScheduler.getInstance().schedule(true, new DriveForwardTimed());
+        // CommandScheduler.getInstance().schedule(true, new AutoFull());
         autoCommand = autoChooser.getSelected();
         logger.info("auto command is {}", autoCommand.getName());
         if (autoCommand != null) {

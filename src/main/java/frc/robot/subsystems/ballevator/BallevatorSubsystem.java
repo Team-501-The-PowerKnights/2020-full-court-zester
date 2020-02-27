@@ -36,7 +36,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
         motor = new TalonSRX(51);
 
-        limit = new DigitalInput(0); // TODO - Determine actual channel
+        limit = new DigitalInput(9);
 
         tlmSpeed = 0.0;
 
@@ -78,14 +78,12 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
     @Override
     public void lift() {
-        // TODO - determine actual predefined value to run ballevator at
-        setSpeed(-0.7);
+        setSpeed(-1.0);
     }
 
     @Override
     public void lower() {
-        // TODO - determine actual predefined value to run ballevator at
-        setSpeed(0.7);
+        setSpeed(1.0);
     }
 
     @Override
@@ -96,6 +94,15 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     private void setSpeed(double speed) {
         tlmSpeed = speed;
         motor.set(ControlMode.PercentOutput, tlmSpeed);
+    }
+
+    @Override
+    public void liftToLimit() {
+        if (!isFull()) {
+            lift();
+        } else {
+            stop();
+        }
     }
 
 }

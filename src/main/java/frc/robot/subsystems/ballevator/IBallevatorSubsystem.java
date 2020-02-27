@@ -22,4 +22,6 @@ public interface IBallevatorSubsystem extends ISubsystem {
 
     public boolean isFull();
 
+    public void liftToLimit();
+
 }

@@ -53,7 +53,7 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double dist) {
+    public void shoot(double dist, String activePosition) {
         // Stub doesn't implement this
     }
 
@@ -65,6 +65,18 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         // Stub doesn't implement this
+    }
+
+    @Override
+    public boolean atTargetVelocity(double targetVelocity) {
+        // Stub does nothing useful; returns false
+        return false;
+    }
+
+    @Override
+    public String getActivePosition() {
+        // Stub doesn't implement this; returns an empty string
+        return "";
     }
 
 }
