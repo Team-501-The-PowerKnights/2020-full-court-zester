@@ -22,7 +22,7 @@
 
 | Mechanism  | Sensor Type  | Port      |
 | ---------- | ------------ | --------- |
-| Ballevator | Limit Switch | ???       |
+| Ballevator | Limit Switch | 9         |
 | Climber    | ???          | ???       |
 | Climber    | ???          | ???       |
 | Drive      | IMU          | MXP       |
