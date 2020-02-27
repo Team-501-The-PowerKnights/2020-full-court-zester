@@ -49,7 +49,7 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
 
         prefs = Preferences.getInstance();
         // Load the current preferences
-        updatePreferences();
+        loadPreferences();
 
         logger.info("constructed");
     }
@@ -79,9 +79,7 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
         setDefaultCommand(ourCommand);
     }
 
-
-    @Override
-    public void updatePreferences() {
+    protected void loadPreferences() {
         double v;
 
         logger.info("new preferences for {}:", myName);
