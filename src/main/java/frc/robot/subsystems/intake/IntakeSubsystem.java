@@ -78,7 +78,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     @Override
     public void pullIn() {
         // TODO - determine actual preset speed values
-        setSpeed(0.2);
+        setSpeed(0.8);
     }
 
     @Override

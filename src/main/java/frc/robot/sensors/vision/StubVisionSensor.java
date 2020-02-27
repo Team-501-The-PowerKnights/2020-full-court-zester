@@ -40,9 +40,15 @@ class StubVisionSensor extends BaseVisionSensor {
     }
 
     @Override
-    public double getDistance() {
+    public double getY() {
         // Stub doesn't do anything useful
         return 0;
+    }
+
+    @Override
+    public boolean getLocked() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

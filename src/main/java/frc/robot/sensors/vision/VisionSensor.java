@@ -54,9 +54,13 @@ class VisionSensor extends BaseVisionSensor {
     }
 
     @Override
-    public double getDistance() {
-        // TODO - Add Vision Team calculation, or get it straight from them through NT
-        return 0;
+    public double getY() {
+        return mySensor.getY();
+    }
+
+    @Override
+    public boolean getLocked() {
+        return mySensor.isLocked();
     }
 
 }

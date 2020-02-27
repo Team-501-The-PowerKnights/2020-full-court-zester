@@ -24,4 +24,8 @@ public interface ITurretSubsystem extends ISubsystem {
     public void jogCCW();
 
     public void setAngleFromVision();
+
+    public void holdAngle();
+
+    public boolean isAtAngle(double targetAngle);
 }

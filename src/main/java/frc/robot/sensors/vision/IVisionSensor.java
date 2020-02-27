@@ -16,6 +16,8 @@ public interface IVisionSensor extends ISensor {
 
     public double getError();
 
-    public double getDistance();
+    public double getY();
+
+    public boolean getLocked();
 
 }

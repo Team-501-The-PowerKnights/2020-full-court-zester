@@ -144,9 +144,9 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 20:
-            turretMotor.set(speed);
-            break;
+            case 20:
+                turretMotor.set(speed);
+                break;
         }
     }
 
@@ -166,6 +166,18 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     public void setAngleFromVision() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void holdAngle() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean isAtAngle(double targetAngle) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

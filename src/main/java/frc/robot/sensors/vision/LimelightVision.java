@@ -58,6 +58,10 @@ class LimelightVision {
         table.getEntry("camMode").setDouble(1);
     }
 
+    protected double getY() {
+        return table.getEntry("ty").getDouble(0.0);
+    }
+
     protected double getError() {
         double x = table.getEntry("tx").getDouble(0.0);
 

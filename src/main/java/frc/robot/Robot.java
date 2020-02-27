@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoFull;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.PKSequentialCommandGroup;
 import frc.robot.commands.drive.DriveForwardTimed;
+import frc.robot.commands.turret.TurretHome;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
 import frc.robot.preferences.PreferencesInitializer;
@@ -293,7 +295,7 @@ public class Robot extends TimedRobot {
         logger.info("auto command is {}", autoCommand.getName());
         if (autoCommand != null) {
             // FIXME - Make a SequentialCommand group on the fly w/ TurretHome
-            CommandScheduler.getInstance().schedule(true, autoCommand);
+            CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
         }
 
         logger.info("initialized");

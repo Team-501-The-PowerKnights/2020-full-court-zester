@@ -5,50 +5,28 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.vision.IVisionSensor;
-import frc.robot.sensors.vision.VisionFactory;
-
 import riolog.RioLogger;
 
-public class TurretVisionAlign extends TurretCommandBase {
+public class ShooterSpinUpFormula extends ShooterCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretVisionAlign.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSpinUpFormula.class.getName());
 
-    private IVisionSensor vision;
-
-    public TurretVisionAlign() {
+    public ShooterSpinUpFormula() {
         logger.info("constructing {}", getName());
 
-        vision = VisionFactory.getInstance();
-
         logger.info("constructed");
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        vision.enable();
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        turret.setAngleFromVision();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-
-        vision.disable();
-        turret.holdAngle();
+        shooter.shoot(3295, "Far"); // TODO - Formula generation of rpm
     }
 
 }
