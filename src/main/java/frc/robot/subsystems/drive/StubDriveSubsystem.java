@@ -74,14 +74,12 @@ class StubDriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void setSpeed(int canID, double speed) {
-        // TODO Auto-generated method stub
-
+        // Stub doesn't implement this
     }
 
     @Override
     public void swap() {
-        // TODO Auto-generated method stub
-
+        // Stub doesn't implement this
     }
 
 }
