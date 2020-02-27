@@ -48,6 +48,7 @@ public class TurretVisionAlign extends TurretCommandBase {
         super.end(interrupted);
 
         vision.disable();
+        turret.holdAngle();
     }
 
 }

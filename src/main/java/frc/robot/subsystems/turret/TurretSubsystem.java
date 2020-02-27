@@ -236,4 +236,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
         setTurretAngle(getAngle() - 5);
     }
 
+    @Override
+    public void holdAngle() {
+        double currentAngle = getAngle();
+
+        setTurretAngle(currentAngle);
+    }
+
 }

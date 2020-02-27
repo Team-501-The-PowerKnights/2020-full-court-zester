@@ -168,4 +168,10 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
 
     }
 
+    @Override
+    public void holdAngle() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

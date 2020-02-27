@@ -81,4 +81,10 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     public void setAngleFromVision() {
         // Stub doesn't implement this
     }
+
+    @Override
+    public void holdAngle() {
+        // TODO Auto-generated method stub
+
+    }
 }
