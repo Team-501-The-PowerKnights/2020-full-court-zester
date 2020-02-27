@@ -32,7 +32,7 @@ PDP.className = PDPModule
 #####################
 # Gyro
 #####################
-Gyro.className = StubGyroSensor
+Gyro.className = GyroSensor
 
 
 #####################
@@ -116,7 +116,7 @@ Turret.defaultCommandName = TurretDoNothing
 #Shooter.className = StubShooterSubsystem
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
-Shooter.defaultCommandName = ShooterDashboardSpeed
+Shooter.defaultCommandName = ShooterIdle
 #Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = ShooterSimpleManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
