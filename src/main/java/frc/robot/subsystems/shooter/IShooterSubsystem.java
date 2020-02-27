@@ -16,13 +16,13 @@ public interface IShooterSubsystem extends ISubsystem {
 
     public void stop();
 
-    public void shoot(double rpm, String activePosition);
+    public void setRpm(double rpm);
 
     public void shoot();
 
     public void setSpeed(int canID, double speed);
 
-    public boolean atTargetVelocity(double targetVelocity);
+    public boolean atTargetVelocity();
 
     public String getActivePosition();
 }

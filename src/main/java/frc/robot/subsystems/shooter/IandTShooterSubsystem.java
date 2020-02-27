@@ -92,7 +92,7 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double dist, String activePosition) {
+    public void setRpm(double rpm) {
         // TODO - Trajectory generation for speed
         shooterPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
     }
@@ -106,21 +106,21 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            // motor.set(speed);
-            // motor.set(0.1);
-            break;
-        case 22:
-            rightMotor.set(speed);
-            // shootSlave0.set(0.1);
-            break;
-        default:
-            break;
+            case 21:
+                // motor.set(speed);
+                // motor.set(0.1);
+                break;
+            case 22:
+                rightMotor.set(speed);
+                // shootSlave0.set(0.1);
+                break;
+            default:
+                break;
         }
     }
 
     @Override
-    public boolean atTargetVelocity(double targetVelocity) {
+    public boolean atTargetVelocity() {
         // TODO Auto-generated method stub
         return false;
     }

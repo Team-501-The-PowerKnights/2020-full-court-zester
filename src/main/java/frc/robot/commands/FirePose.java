@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import frc.robot.sensors.vision.IVisionSensor;
+import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
@@ -16,61 +18,34 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class FirePosePreset extends PKCommandBase {
+public class FirePose extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(FirePosePreset.class.getName());
+    private static final Logger logger = RioLogger.getLogger(FirePose.class.getName());
 
     private IShooterSubsystem shooter;
     private IBallevatorSubsystem ballevator;
+    private IVisionSensor vision;
 
-    private double targetRPM;
-
-    public FirePosePreset() {
+    public FirePose() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
         ballevator = BallevatorFactory.getInstance();
+        vision = VisionFactory.getInstance();
 
         addRequirements(shooter, ballevator);
 
-        targetRPM = 0.0;
-
         logger.info("constructed {}", getName());
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        switch (shooter.getActivePosition()) {
-            case "Near":
-                targetRPM = 3050;
-                break;
-
-            case "Mid":
-                targetRPM = 3200;
-                break;
-
-            case "Far":
-                targetRPM = 3295;
-                break;
-
-            default:
-                targetRPM = 0.0;
-                break;
-        }
-
-        if (!(shooter.atTargetVelocity(targetRPM))) {
-            shooter.shoot(targetRPM, shooter.getActivePosition());
-        }
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        if (shooter.atTargetVelocity(targetRPM)) {
+        shooter.shoot();
+
+        if (shooter.atTargetVelocity() && vision.getLocked()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();

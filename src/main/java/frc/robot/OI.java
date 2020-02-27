@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.DoNothingButton;
-import frc.robot.commands.FirePosePreset;
+import frc.robot.commands.FirePose;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
@@ -201,7 +201,7 @@ public class OI implements ITelemetryProvider {
         /*
          * Poses
          */
-        firePoseButton.whenHeld(new FirePosePreset());
+        firePoseButton.whenHeld(new FirePose());
 
         /*
          * Reserved

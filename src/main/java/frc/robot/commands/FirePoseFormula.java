@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 import frc.robot.sensors.vision.IVisionSensor;
 import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
@@ -49,26 +47,20 @@ public class FirePoseFormula extends PKCommandBase {
     public void initialize() {
         super.initialize();
 
-        // double ty = vision.getY();
+        double ty = vision.getY();
 
-        // targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
+        targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
 
-        targetRpm = 3200;
-
-        shooter.shoot(targetRpm, "");
+        shooter.setRpm(targetRpm);
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        if (DriverStation.getInstance().getMatchTime() >= 10) {
-            targetRpm = 3300;
-            shooter.shoot(targetRpm, "");
-        }
+        shooter.shoot();
 
-        if (shooter.atTargetVelocity(targetRpm) && vision.getLocked()) { // TODO - Implement rpm generation from
-                                                                         // distance
+        if (shooter.atTargetVelocity() && vision.getLocked()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();

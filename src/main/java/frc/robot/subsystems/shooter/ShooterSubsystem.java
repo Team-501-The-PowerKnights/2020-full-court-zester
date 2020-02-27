@@ -38,6 +38,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     // PID
     private CANPIDController pid;
 
+    private double setRpm;
+
     /**
      * Creates a new ShooterSubsystem.
      */
@@ -61,7 +63,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         pid.setD(pid_D, 1);
         pid.setFF(pid_F, 1);
         pid.setOutputRange(0, 1, 1);
-        // leftMotor.setSmartCurrentLimit(10);
+
+        setRpm = 0;
 
         // incrementer = new TalonSRX(23); // Unused for now
 
@@ -117,17 +120,13 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void shoot(double rpm, String activePosition) {
-        // TODO - Trajectory generation for speed
-        this.activePosition = activePosition;
-        pid.setReference(rpm, ControlType.kVelocity, 1);
-        SmartDashboard.putNumber("Actual RPM", encoder.getVelocity());
+    public void setRpm(double rpm) {
+        this.setRpm = rpm; // Save off value for enabling
     }
 
     @Override
     public void shoot() {
-        // TODO - Trajectory generation from vision data
-        pid.setReference(0.2 /* generated speed */, ControlType.kVelocity);
+        pid.setReference(setRpm /* generated speed */, ControlType.kVelocity);
     }
 
     @Override
@@ -163,8 +162,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public boolean atTargetVelocity(double targetVelocity) {
-        return (((Math.abs(targetVelocity - encoder.getVelocity())) / targetVelocity) <= 0.05);
+    public boolean atTargetVelocity() {
+        return (((Math.abs(setRpm - encoder.getVelocity())) / setRpm) <= 0.05);
     }
 
 }

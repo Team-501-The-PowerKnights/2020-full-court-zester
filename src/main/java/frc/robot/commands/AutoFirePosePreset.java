@@ -9,42 +9,34 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
+import frc.robot.sensors.vision.IVisionSensor;
+import frc.robot.sensors.vision.VisionFactory;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
-import frc.robot.subsystems.drive.DriveFactory;
-import frc.robot.subsystems.drive.IDriveSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
 import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class FirePoseIncrement extends PKCommandBase {
+public class AutoFirePosePreset extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(FirePoseIncrement.class.getName());
+    private static final Logger logger = RioLogger.getLogger(AutoFirePosePreset.class.getName());
 
     private IShooterSubsystem shooter;
     private IBallevatorSubsystem ballevator;
-    private IDriveSubsystem drive;
+    private IVisionSensor vision;
 
-    private double targetRPM;
-    private double targetClicks = 1 // 1 foot per 10 rpm increase
-    * (1 / 3.281) // Conversion to meters
-    * (1 / (2 * Math.PI * 0.1524 /* Wheel radius */)) // Convert to wheel revolutions (Circumference)
-    * (1 /* Belt gearing */) // Convert to output shaft revolutions (Belt gearing)
-    * (1 / 10.71 /* Gearbox gearing */); // Convert to motor revolutions (TB Mini gearing)
-    private double previousClicks;
-
-    public FirePoseIncrement() {
+    public AutoFirePosePreset() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
         ballevator = BallevatorFactory.getInstance();
-        drive = DriveFactory.getInstance();
+        vision = VisionFactory.getInstance();
 
         addRequirements(shooter, ballevator);
-
-        targetRPM = 0.0;
 
         logger.info("constructed {}", getName());
     }
@@ -53,24 +45,23 @@ public class FirePoseIncrement extends PKCommandBase {
     public void initialize() {
         super.initialize();
 
-        targetRPM = 3050;
-        previousClicks = 0.0;
+        shooter.setRpm(3200);
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        shooter.shoot(targetRPM, "");
+        if (DriverStation.getInstance().getMatchTime() >= 10) {
+            shooter.setRpm(3300);
+        }
 
-        if (shooter.atTargetVelocity(targetRPM)) {
+        shooter.shoot();
+
+        if (shooter.atTargetVelocity() && vision.getLocked()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();
-        }
-
-        if ((drive.getEncoderClicks() - previousClicks) == targetClicks) {
-            previousClicks = drive.getEncoderClicks();
         }
     }
 

@@ -89,7 +89,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public void shoot(double dist, String activePosition) {
+  public void setRpm(double rpm) {
     // TODO - Trajectory generation for speed
     shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
@@ -107,7 +107,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public boolean atTargetVelocity(double targetVelocity) {
+  public boolean atTargetVelocity() {
     // TODO Auto-generated method stub
     return false;
   }

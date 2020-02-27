@@ -26,7 +26,7 @@ public class ShooterSpinUpFar extends ShooterCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.shoot(3295, "Far");
+        shooter.setRpm(3295);
     }
 
 }
