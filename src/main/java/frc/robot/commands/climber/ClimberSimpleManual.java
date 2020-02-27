@@ -30,7 +30,9 @@ public class ClimberSimpleManual extends ClimberOICommandBase {
     public void execute() {
         super.execute();
 
-        int value = oi.getClimberCommand();
+        // FIXME - Get Climber Command re-implemented
+        // int value = oi.getClimberCommand();
+        int value = 0;
         switch (value) {
         case 0:
             climber.stop();

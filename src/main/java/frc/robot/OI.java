@@ -9,6 +9,7 @@ package frc.robot;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -19,6 +20,7 @@ import frc.robot.commands.FirePosePreset;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
+import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterSpinUpFar;
 import frc.robot.commands.shooter.ShooterSpinUpMid;
@@ -76,6 +78,9 @@ public class OI implements ITelemetryProvider {
     private final Button turboButton;
     private final Button crawlButton;
     private final Button driveSwapButton;
+    // Only in the pits
+    private final Button pitClimberEnableButton;
+    private final Button pitClimberRetractButton;
 
     private final Joystick operatorStick;
     private final Button firePoseButton;
@@ -106,9 +111,9 @@ public class OI implements ITelemetryProvider {
         turboButton = new JoystickButton(driverStick, 5);
         crawlButton = new JoystickButton(driverStick, 6);
         driveSwapButton = new JoystickButton(driverStick, 3);
-        // FIXME - Implement for only Driver stick
-        // pitClimberEnableButton = new JoystickButton(driverStick, 8);
-        // pitClimberRetractButton = new JoystickButton(operatorStick, 8);
+        // Only for use in the pit
+        pitClimberRetractButton = new JoystickButton(driverStick, 7);
+        pitClimberEnableButton = new JoystickButton(driverStick, 8);
 
         operatorStick = new Joystick(1);
         firePoseButton = new JoystickButton(operatorStick, 1);
@@ -129,8 +134,8 @@ public class OI implements ITelemetryProvider {
         turretHomeButton = new JoystickButton(operatorStick, 16);
         reserved17Button = new JoystickButton(operatorStick, 17);
         reserved18Button = new JoystickButton(operatorStick, 18);
-        climberExtendButton = new JoystickButton(operatorStick, 17);
-        climberRetractButton = new JoystickButton(operatorStick, 18);
+        climberExtendButton = new JoystickButton(operatorStick, 19);
+        climberRetractButton = new JoystickButton(operatorStick, 20);
 
         logger.info("constructed");
     }
@@ -150,6 +155,8 @@ public class OI implements ITelemetryProvider {
         // turboButton - implemented in getting values speed & turn
         // crawlButton - implemented in getting values speed & turn
         driveSwapButton.whenPressed(new DriveSwap());
+
+        pitClimberRetractButton.whenHeld(new ClimberRetractInPit());
 
         /*
          * Vision
@@ -297,20 +304,9 @@ public class OI implements ITelemetryProvider {
 
     /**
      * 
-     * @return 0 - neutral, 1 - extend
-     * 
      */
-    public int getClimberCommand() {
-        // int value = operatorStick.getPOV();
-        // if (value == 0) {
-        // return 1;
-        // // FIXME - No longer using both control for this
-        // } else if ((pitClimberEnableButton.get()) && (pitClimberRetractButton.get()))
-        // {
-        // return 2;
-        // } else {
-        return 0;
-        // }
+    public boolean getClimberRetractEnable() {
+        return pitClimberEnableButton.get();
     }
 
     //////////////////////////////////////////////////////////////////
