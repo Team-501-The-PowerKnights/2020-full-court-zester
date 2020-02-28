@@ -36,6 +36,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
         logger.info("constructing");
 
         motor = new TalonSRX(41);
+        motor.configFactoryDefault();
 
         tlmSpeed = 0.0;
 
@@ -78,7 +79,7 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     @Override
     public void pullIn() {
         // TODO - determine actual preset speed values
-        setSpeed(0.8);
+        setSpeed(1.0);
     }
 
     @Override
