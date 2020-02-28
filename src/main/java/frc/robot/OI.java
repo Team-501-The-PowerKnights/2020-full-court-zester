@@ -22,6 +22,7 @@ import frc.robot.commands.RobotSetNear;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
+import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberExtend;
 import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
@@ -34,7 +35,6 @@ import frc.robot.commands.turret.TurretJogCCW;
 import frc.robot.commands.turret.TurretJogCW;
 import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
-
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -104,7 +104,7 @@ public class OI implements ITelemetryProvider {
     private final Button reserved17Button;
     private final Button reserved18Button;
     private final Button climberExtendButton;
-    private final Button climberRetractButton;
+    private final Button climberClimbButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -137,7 +137,7 @@ public class OI implements ITelemetryProvider {
         reserved17Button = new JoystickButton(operatorStick, 17);
         reserved18Button = new JoystickButton(operatorStick, 18);
         climberExtendButton = new JoystickButton(operatorStick, 19);
-        climberRetractButton = new JoystickButton(operatorStick, 20);
+        climberClimbButton = new JoystickButton(operatorStick, 20);
 
         logger.info("constructed");
     }
@@ -196,8 +196,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Climber
          */
-        climberExtendButton.whenPressed(new ClimberExtend());
-        climberRetractButton.whenHeld(new ClimberExtend());
+        // climberExtendButton.whenPressed(new ClimberExtend());
+        climberExtendButton.whenHeld(new ClimberExtend());
+        climberClimbButton.whenHeld(new ClimberClimb());
 
         /*
          * Poses

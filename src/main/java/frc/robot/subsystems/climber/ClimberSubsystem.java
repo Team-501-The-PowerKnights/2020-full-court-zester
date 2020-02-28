@@ -8,6 +8,7 @@
 package frc.robot.subsystems.climber;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
@@ -35,6 +36,8 @@ class ClimberSubsystem extends BaseClimberSubsystem {
         logger.info("constructing");
 
         motor = new CANSparkMax(55, MotorType.kBrushless);
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(IdleMode.kBrake);
 
         limitUp = new AnalogInput(0);
         limitDown = new AnalogInput(1);
@@ -51,8 +54,8 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void updateTelemetry() {
-        SmartDashboard.putBoolean(TelemetryNames.Climber.topLimit, limitUp.getValue() == 1);
-        SmartDashboard.putBoolean(TelemetryNames.Climber.bottomLimit, limitDown.getValue() == 1);
+        SmartDashboard.putBoolean(TelemetryNames.Climber.topLimit, (limitUp.getValue() == 1));
+        SmartDashboard.putBoolean(TelemetryNames.Climber.bottomLimit, (limitDown.getValue() == 1));
         SmartDashboard.putNumber(TelemetryNames.Climber.speed, tlmSpeed);
     }
 
@@ -80,12 +83,17 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void extend() {
+        setSpeed(0.25);
+    }
+
+    @Override
+    public void climb() {
         setSpeed(1.0);
     }
 
     @Override
     public void retract() {
-        setSpeed(-0.2);
+        setSpeed(-0.20);
     }
 
     private void setSpeed(double speed) {

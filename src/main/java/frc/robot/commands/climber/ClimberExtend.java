@@ -22,10 +22,21 @@ public class ClimberExtend extends ClimberCommandBase {
     logger.info("constructed");
   }
 
+  // Called repeatedly after execute to determine if command is finished
   @Override
   public void execute() {
     super.execute();
 
     climber.extend();
   }
+
+  // Called once when either the Command finishes normally, or when it
+  // is interrupted/canceled.
+  @Override
+  public void end(boolean interrupted) {
+    super.end(interrupted);
+
+    climber.stop();
+  }
+
 }
