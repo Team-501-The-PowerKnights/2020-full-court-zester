@@ -29,7 +29,7 @@ public class AutoFullShort extends PKParallelCommandGroup {
     public AutoFullShort() {
         super(new PKParallelCommandGroup(new AutoFirePosePreset(),
                 new PKSequentialCommandGroup(new AutoTurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
-                new DriveForwardDistance(1.0) // Confirm distance
+                new DriveForwardDistance(8.0) // Confirm distance
         );
     }
 

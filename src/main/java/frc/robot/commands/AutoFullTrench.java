@@ -32,7 +32,7 @@ public class AutoFullTrench extends PKParallelCommandGroup {
     public AutoFullTrench() {
         super(new PKParallelCommandGroup(new AutoFirePosePreset(),
                 new PKSequentialCommandGroup(new AutoTurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
-                new DriveForwardDistance(10.2) // Confirm distance
+                new DriveForwardDistance(16.2) // Confirm distance
         );
 
         // super(new PKParallelCommandGroup(new FirePoseFormula(),
