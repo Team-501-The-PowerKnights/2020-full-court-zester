@@ -18,16 +18,16 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class FirePose extends PKCommandBase {
+public class FirePosePit extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(FirePose.class.getName());
+    private static final Logger logger = RioLogger.getLogger(FirePosePit.class.getName());
 
     private IShooterSubsystem shooter;
     private IBallevatorSubsystem ballevator;
     private IVisionSensor vision;
 
-    public FirePose() {
+    public FirePosePit() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();

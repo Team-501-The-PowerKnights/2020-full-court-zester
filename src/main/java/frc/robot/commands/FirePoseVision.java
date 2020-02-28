@@ -5,50 +5,57 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
 import frc.robot.sensors.vision.IVisionSensor;
 import frc.robot.sensors.vision.VisionFactory;
+import frc.robot.subsystems.ballevator.BallevatorFactory;
+import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
 import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-public class ShooterSpinUpFormula extends PKCommandBase {
+public class FirePoseVision extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSpinUpFormula.class.getName());
+    private static final Logger logger = RioLogger.getLogger(FirePoseVision.class.getName());
 
     private IShooterSubsystem shooter;
-
+    private IBallevatorSubsystem ballevator;
     private IVisionSensor vision;
-    private double targetRpm;
 
-    public ShooterSpinUpFormula() {
+    public FirePoseVision() {
         logger.info("constructing {}", getName());
 
-        vision = VisionFactory.getInstance();
         shooter = ShooterFactory.getInstance();
+        ballevator = BallevatorFactory.getInstance();
+        vision = VisionFactory.getInstance();
 
-        logger.info("constructed");
+        addRequirements(shooter, ballevator);
+
+        logger.info("constructed {}", getName());
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        double ty = vision.getY();
+        shooter.shoot();
 
-        targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
-
-        shooter.setRpm(targetRpm);
+        if (shooter.atTargetVelocity() && vision.getLocked()) {
+            ballevator.lift();
+        } else {
+            ballevator.liftToLimit();
+        }
     }
 
     @Override
-    public boolean isFinished() {
-        return true;
-    }
+    public void end(boolean interrupted) {
+        super.end(interrupted);
 
+        ballevator.stop();
+    }
 }

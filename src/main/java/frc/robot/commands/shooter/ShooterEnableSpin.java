@@ -32,4 +32,11 @@ public class ShooterEnableSpin extends ShooterCommandBase {
     shooter.shoot();
   }
 
+  @Override
+  public void end(boolean interrupted) {
+    super.end(interrupted);
+
+    shooter.stop();
+  }
+
 }
