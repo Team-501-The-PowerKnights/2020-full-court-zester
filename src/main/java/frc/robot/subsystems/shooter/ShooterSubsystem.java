@@ -132,7 +132,6 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setTargetRpm(double rpm) {
         this.targetRpm = rpm; // Save off value for enabling
-        logger.debug("RPM = {}", rpm);
 
         if (isActive) {
             pid.setReference(targetRpm, ControlType.kVelocity, slotID);

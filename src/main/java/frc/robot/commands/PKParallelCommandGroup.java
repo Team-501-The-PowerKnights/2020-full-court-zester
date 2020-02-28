@@ -20,7 +20,7 @@ import riolog.RioLogger;
 public class PKParallelCommandGroup extends ParallelCommandGroup {
 
     /* Our classes logger */
-    private static final Logger logger = RioLogger.getLogger(PKCommandBase.class.getName());
+    private static final Logger logger = RioLogger.getLogger(PKParallelCommandGroup.class.getName());
 
     // FIXME - Use handle to CommandTracker class (TBW)
     // FIXME - Commands are handled differently (not through scheduler)
