@@ -7,24 +7,30 @@
 
 package frc.robot.commands;
 
+import org.slf4j.Logger;
+
 import frc.robot.commands.drive.DriveForwardDistance;
 import frc.robot.commands.turret.AutoTurretPositionBack;
 import frc.robot.commands.turret.TurretVisionAlign;
+import riolog.RioLogger;
 
-public class AutoFull extends PKParallelCommandGroup {
-    /**
-     * Creates a new AutoSequence.
-     */
-    public AutoFull() {
+/**
+ * Standard Auto w/ Everything
+ * @formatter:off
+ * - Drives "short" distance (not trench)
+ * @formatter:on
+ */
+public class AutoFullShort extends PKParallelCommandGroup {
+
+    /** Our classes' logger **/
+    @SuppressWarnings("unused")
+    private static final Logger logger = RioLogger.getLogger(AutoFullShort.class.getName());
+
+    public AutoFullShort() {
         super(new PKParallelCommandGroup(new AutoFirePosePreset(),
                 new PKSequentialCommandGroup(new AutoTurretPositionBack(), new TurretVisionAlign())), new IngestPose(),
-                new DriveForwardDistance(10.2) // Confirm distance
+                new DriveForwardDistance(1.0) // Confirm distance
         );
-
-        // super(new PKParallelCommandGroup(new FirePoseFormula(),
-        // new PKSequentialCommandGroup(new AutoTurretPositionBack(), new
-        // TurretVisionAlign())), new IngestPose(),
-        // new DriveForwardDistance(10.2)
-        // );
     }
+
 }

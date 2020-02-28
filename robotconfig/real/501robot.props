@@ -75,9 +75,9 @@ Ballevator.defaultCommandName = BallevatorDoNothing
 #####################
 # Climber
 #####################
-#Climber.className = StubClimberSubsystem
+Climber.className = StubClimberSubsystem
 Climber.className = ClimberSubsystem
-Climber.defaultCommandName = ClimberDoNothing
+#Climber.defaultCommandName = ClimberDoNothing
 
 
 #####################
@@ -119,8 +119,8 @@ Turret.defaultCommandName = TurretDoNothing
 #Shooter.className = StubShooterSubsystem
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
-#Shooter.defaultCommandName = ShooterIdle
-Shooter.defaultCommandName = ShooterDashboardSpeed
+Shooter.defaultCommandName = ShooterIdle
+#Shooter.defaultCommandName = ShooterDashboardSpeed
 #Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = ShooterSimpleManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl

@@ -20,6 +20,12 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
+/**
+ * Auto Fire Pose
+ * @formatter:off
+ * - Increase shooter speed after distance to still hit target
+ * @formatter:on
+ */
 public class AutoFirePosePreset extends PKCommandBase {
 
     /** Our classes' logger **/
