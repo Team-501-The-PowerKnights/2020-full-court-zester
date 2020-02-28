@@ -9,14 +9,19 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
 import frc.robot.sensors.vision.IVisionSensor;
 import frc.robot.sensors.vision.VisionFactory;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 import riolog.RioLogger;
 
-public class ShooterSpinUpFormula extends ShooterCommandBase {
+public class ShooterSpinUpFormula extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSpinUpFormula.class.getName());
+
+    private IShooterSubsystem shooter;
 
     private IVisionSensor vision;
     private double targetRpm;
@@ -25,6 +30,7 @@ public class ShooterSpinUpFormula extends ShooterCommandBase {
         logger.info("constructing {}", getName());
 
         vision = VisionFactory.getInstance();
+        shooter = ShooterFactory.getInstance();
 
         logger.info("constructed");
     }
@@ -38,6 +44,11 @@ public class ShooterSpinUpFormula extends ShooterCommandBase {
         targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
 
         shooter.setRpm(targetRpm);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

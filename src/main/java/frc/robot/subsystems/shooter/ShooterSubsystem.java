@@ -40,6 +40,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     private double setRpm;
 
+    private boolean isShooting;
+
     /**
      * Creates a new ShooterSubsystem.
      */
@@ -65,6 +67,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         pid.setOutputRange(0, 1, 1);
 
         setRpm = 0;
+        isShooting = false;
 
         // incrementer = new TalonSRX(23); // Unused for now
 
@@ -110,6 +113,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     public void stop() {
         pid.setReference(0, ControlType.kVoltage);
         leftMotor.set(0.0);
+        isShooting = false;
     }
 
     private String activePosition = "";
@@ -122,28 +126,34 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setRpm(double rpm) {
         this.setRpm = rpm; // Save off value for enabling
+        logger.debug("RPM = {}", rpm);
+
+        if (isShooting) {
+            pid.setReference(setRpm, ControlType.kVelocity, 1);
+        }
     }
 
     @Override
     public void shoot() {
-        pid.setReference(setRpm /* generated speed */, ControlType.kVelocity);
+        isShooting = true;
+        pid.setReference(setRpm /* generated speed */, ControlType.kVelocity, 1);
     }
 
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-            case 21:
-                leftMotor.set(idleShooter(speed));
-                break;
-            case 22:
-                rightMotor.set(idleShooter(speed));
-                break;
-            case 29:
-                // Assuming slaved
-                leftMotor.set(idleShooter(speed));
-                break;
-            default:
-                break;
+        case 21:
+            leftMotor.set(idleShooter(speed));
+            break;
+        case 22:
+            rightMotor.set(idleShooter(speed));
+            break;
+        case 29:
+            // Assuming slaved
+            leftMotor.set(idleShooter(speed));
+            break;
+        default:
+            break;
         }
     }
 

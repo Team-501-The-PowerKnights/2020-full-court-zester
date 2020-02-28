@@ -9,16 +9,22 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 import riolog.RioLogger;
 
-public class ShooterSpinUpMid extends ShooterCommandBase {
+public class ShooterSpinUpMid extends PKCommandBase {
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSpinUpMid.class.getName());
 
-    public ShooterSpinUpMid() {
+    private IShooterSubsystem shooter;
 
+    public ShooterSpinUpMid() {
         logger.info("constructing {}", getName());
+
+        shooter = ShooterFactory.getInstance();
 
         logger.info("constructed");
     }
@@ -29,5 +35,11 @@ public class ShooterSpinUpMid extends ShooterCommandBase {
 
         shooter.setRpm(3200);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 
 }
