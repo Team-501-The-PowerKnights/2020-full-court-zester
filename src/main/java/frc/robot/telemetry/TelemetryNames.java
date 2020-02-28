@@ -26,6 +26,8 @@ public final class TelemetryNames {
         public static final String robotName = name + ".robotName";
 
         public static final String fmsConnected = name + ".fmsConnected";
+
+        public static final String realAuto = name + ".realAuto";
     }
 
     /***************

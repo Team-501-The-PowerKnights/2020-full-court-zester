@@ -212,8 +212,8 @@ public class OI implements ITelemetryProvider {
          * Wheel
          */
 
-        wheelClockwiseButton.whenPressed(new WheelRunClockwise());
-        wheelCounterClockwiseButton.whenPressed(new WheelRunCounterClockwise());
+        wheelClockwiseButton.whenHeld(new WheelRunClockwise());
+        wheelCounterClockwiseButton.whenHeld(new WheelRunCounterClockwise());
 
         /*
          * Reserved
