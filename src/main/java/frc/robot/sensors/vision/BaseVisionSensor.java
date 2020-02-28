@@ -20,10 +20,29 @@ abstract class BaseVisionSensor implements IVisionSensor {
 
     protected static final String myName = TelemetryNames.Vision.name;
 
+    // Flag for whether active
+    protected boolean isActive;
+
     BaseVisionSensor() {
         logger.info("constructing");
 
+        isActive = false;
+
         logger.info("constructed");
+    }
+
+    @Override
+    public void enable() {
+        isActive = true;
+    }
+
+    @Override
+    public void disable() {
+        isActive = false;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
 }

@@ -14,6 +14,13 @@ import frc.robot.sensors.ISensor;
  **/
 public interface IVisionSensor extends ISensor {
 
+    /**
+     * Whether the vision sensor is active or not?
+     * 
+     * @return
+     **/
+    public boolean isActive();
+
     public double getError();
 
     public double getY();

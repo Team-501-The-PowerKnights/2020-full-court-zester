@@ -40,11 +40,15 @@ class VisionSensor extends BaseVisionSensor {
 
     @Override
     public void enable() {
+        super.enable();
+
         mySensor.enable();
     }
 
     @Override
     public void disable() {
+        super.disable();
+
         mySensor.disable();
     }
 
