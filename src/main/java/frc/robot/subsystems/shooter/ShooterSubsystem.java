@@ -116,10 +116,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
-        // FIXME - Why are we calling this if set does the same?
-        // pid.setReference(0, ControlType.kVoltage);
-        pid.setReference(0, ControlType.kVoltage, slotID);
+        // set() implemented by setReference() call
         leftMotor.set(0.0);
+
         isActive = false;
     }
 
@@ -144,6 +143,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     public void shoot() {
         isActive = true;
         /* generated speed */
+        System.out.println("targetRpm");
         pid.setReference(targetRpm, ControlType.kVelocity, slotID);
     }
 
