@@ -114,6 +114,9 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.driveName;
 
         public static final String status = name + ".status";
+        public static final String encoderClicks = name + ".encoderClicks";
+        public static final String distanceClicks = name + ".distanceClicks";
+        public static final String targetClicks = name + ".targetClicks";
     }
 
     public final class Gyro {
