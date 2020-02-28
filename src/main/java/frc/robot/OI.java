@@ -20,6 +20,7 @@ import frc.robot.commands.InvalidButton;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
+import frc.robot.commands.climber.ClimberExtend;
 import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
@@ -196,8 +197,8 @@ public class OI implements ITelemetryProvider {
         /*
          * Climber
          */
-        climberExtendButton.whenPressed(new DoNothingButton("climberExtendButton"));
-        climberRetractButton.whenHeld(new DoNothingButton("climberRetractButton"));
+        climberExtendButton.whenPressed(new ClimberExtend());
+        climberRetractButton.whenHeld(new ClimberExtend());
 
         /*
          * Poses
