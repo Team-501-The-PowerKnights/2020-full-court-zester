@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.FirePoseVision;
+import frc.robot.commands.IngestPose;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.RobotSetFar;
 import frc.robot.commands.RobotSetMid;

@@ -64,7 +64,8 @@ public class AutoFirePosePreset extends PKCommandBase {
 
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.isLocked()) {
+        boolean visionGood = (vision.isActive() && vision.isLocked()) || !(vision.isActive());
+        if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();
