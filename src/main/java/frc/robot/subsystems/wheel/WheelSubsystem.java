@@ -9,9 +9,6 @@ package frc.robot.subsystems.wheel;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
 
@@ -112,7 +109,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void runCounterClockwise() {
-        motor.set(ControlMode.PercentOutput, 0.5);
+        motor.set(ControlMode.PercentOutput, 0.00);
     }
 
     @Override
@@ -122,7 +119,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void runClockwise() {
-        motor.set(ControlMode.PercentOutput, -0.5);
+        motor.set(ControlMode.PercentOutput, -0.75);
     }
 
     @Override
