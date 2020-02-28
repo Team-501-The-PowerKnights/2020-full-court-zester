@@ -35,6 +35,8 @@ import frc.robot.commands.turret.TurretJogCCW;
 import frc.robot.commands.turret.TurretJogCW;
 import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
+import frc.robot.commands.wheel.WheelRunClockwise;
+import frc.robot.commands.wheel.WheelRunCounterClockwise;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -98,8 +100,8 @@ public class OI implements ITelemetryProvider {
     private final Button turretJogClockwiseButton;
     private final Button turretJogCounterClockwiseButton;
     private final Button visionEnableButton;
-    private final Button reserved14Button; // 14 - wheelPositionButton
-    private final Button reserved15Button; // 15 - wheelRotationButton
+    private final Button wheelClockwiseButton; // 14 - wheelPositionButton
+    private final Button wheelCounterClockwiseButton; // 15 - wheelRotationButton
     private final Button turretHomeButton;
     private final Button reserved17Button;
     private final Button reserved18Button;
@@ -131,8 +133,8 @@ public class OI implements ITelemetryProvider {
         turretJogClockwiseButton = new JoystickButton(operatorStick, 11);
         turretJogCounterClockwiseButton = new JoystickButton(operatorStick, 12);
         visionEnableButton = new JoystickButton(operatorStick, 13);
-        reserved14Button = new JoystickButton(operatorStick, 14);
-        reserved15Button = new JoystickButton(operatorStick, 15);
+        wheelClockwiseButton = new JoystickButton(operatorStick, 14);
+        wheelCounterClockwiseButton = new JoystickButton(operatorStick, 15);
         turretHomeButton = new JoystickButton(operatorStick, 16);
         reserved17Button = new JoystickButton(operatorStick, 17);
         reserved18Button = new JoystickButton(operatorStick, 18);
@@ -206,10 +208,16 @@ public class OI implements ITelemetryProvider {
         firePoseButton.whenHeld(new FirePoseVision());
 
         /*
+         * Wheel
+         */
+
+        wheelClockwiseButton.whenPressed(new WheelRunClockwise());
+        wheelCounterClockwiseButton.whenPressed(new WheelRunCounterClockwise());
+
+        /*
          * Reserved
          */
-        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
-        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
+
         reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
         reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
     }

@@ -7,7 +7,10 @@
 
 package frc.robot.subsystems.wheel;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
@@ -25,7 +28,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     private IWheelColorSensor colorSensor;
 
-    private CANSparkMax motor;
+    private TalonSRX motor;
 
     /**
      * Creates a new WheelSubsystem.
@@ -35,7 +38,8 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
         colorSensor = WheelColorFactory.getInstance();
 
-        motor = new CANSparkMax(61, MotorType.kBrushless);
+        motor = new TalonSRX(42);
+        motor.configFactoryDefault();
 
         logger.info("constructed");
     }
@@ -70,7 +74,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void stop() {
-        motor.set(0.0);
+        motor.set(ControlMode.PercentOutput, 0.0);
     }
 
     @Override
@@ -79,11 +83,11 @@ class WheelSubsystem extends BaseWheelSubsystem {
         PKColor targetColor = generateColorOffset(color);
 
         while (colorSensor.getColor() != targetColor) {
-            motor.set(0.5);
+            motor.set(ControlMode.PercentOutput, 0.5);
         }
 
         if (colorSensor.getColor() == targetColor) {
-            motor.set(0.0);
+            motor.set(ControlMode.PercentOutput, 0.0);
         }
     }
 
@@ -94,7 +98,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
         double count = 0;
 
         while (count < 10) {
-            motor.set(0.5);
+            motor.set(ControlMode.PercentOutput, 0.5);
 
             if (colorSensor.getColor() == origColor) {
                 count++;
@@ -102,28 +106,28 @@ class WheelSubsystem extends BaseWheelSubsystem {
         }
 
         if (count >= 10) {
-            motor.set(0.0);
+            motor.set(ControlMode.PercentOutput, 0.0);
         }
     }
 
     @Override
     public void runCounterClockwise() {
-        motor.set(0.5);
+        motor.set(ControlMode.PercentOutput, 0.5);
     }
 
     @Override
     public void runCounterClockwise(double speed) {
-        motor.set(speed);
+        motor.set(ControlMode.PercentOutput, speed);
     }
 
     @Override
     public void runClockwise() {
-        motor.set(-0.5);
+        motor.set(ControlMode.PercentOutput, -0.5);
     }
 
     @Override
     public void runClockwise(double speed) {
-        motor.set(-speed);
+        motor.set(ControlMode.PercentOutput, -speed);
     }
 
     private PKColor generateColorOffset(PKColor color) {
