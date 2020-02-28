@@ -28,6 +28,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
 
+    //
+    private static final int slotID = 1;
+
     // Left motor (master)
     private CANSparkMax leftMotor;
     // Right motor
@@ -38,9 +41,11 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     // PID
     private CANPIDController pid;
 
-    private double setRpm;
+    // Value of the RPM to use for speed
+    private double targetRpm;
 
-    private boolean isShooting;
+    // Flag for whether active (i.e., spinning)
+    private boolean isActive;
 
     /**
      * Creates a new ShooterSubsystem.
@@ -60,16 +65,12 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         encoder = new CANEncoder(leftMotor);
 
         pid = new CANPIDController(leftMotor);
-        pid.setP(pid_P, 1);
-        pid.setI(pid_I, 1);
-        pid.setD(pid_D, 1);
-        pid.setFF(pid_F, 1);
-        pid.setOutputRange(0, 1, 1);
+        pid.setOutputRange(0, 1, slotID);
 
-        setRpm = 3295; // TODO - Make the values
-        isShooting = false;
+        updatePreferences();
 
-        // incrementer = new TalonSRX(23); // Unused for now
+        targetRpm = 3295; // TODO - Make the values
+        isActive = false;
 
         logger.info("constructed");
     }
@@ -81,7 +82,10 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void updateTelemetry() {
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.isActive, isActive);
         SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, encoder.getVelocity());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.targetRpm, targetRpm);
+        SmartDashboard.putBoolean(TelemetryNames.Shooter.atTarget, atTargetVelocity());
     }
 
     @Override
@@ -95,12 +99,13 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         loadPreferences();
 
         if (pid != null) {
-            pid.setP(pid_P, 1);
-            pid.setI(pid_I, 1);
-            pid.setD(pid_D, 1);
-            pid.setFF(pid_F, 1);
+            pid.setP(pid_P, slotID);
+            pid.setI(pid_I, slotID);
+            pid.setD(pid_D, slotID);
+            pid.setFF(pid_F, slotID);
         }
 
+        // TODO - Should this also (re)set targetRpm?
     }
 
     @Override
@@ -111,9 +116,11 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
-        pid.setReference(0, ControlType.kVoltage);
+        // FIXME - Why are we calling this if set does the same?
+        // pid.setReference(0, ControlType.kVoltage);
+        pid.setReference(0, ControlType.kVoltage, slotID);
         leftMotor.set(0.0);
-        isShooting = false;
+        isActive = false;
     }
 
     private String activePosition = "";
@@ -125,20 +132,22 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void setRpm(double rpm) {
-        this.setRpm = rpm; // Save off value for enabling
+        this.targetRpm = rpm; // Save off value for enabling
         logger.debug("RPM = {}", rpm);
 
-        if (isShooting) {
-            pid.setReference(setRpm, ControlType.kVelocity, 1);
+        if (isActive) {
+            pid.setReference(targetRpm, ControlType.kVelocity, slotID);
         }
     }
 
     @Override
     public void shoot() {
-        isShooting = true;
-        pid.setReference(setRpm /* generated speed */, ControlType.kVelocity, 1);
+        isActive = true;
+        /* generated speed */
+        pid.setReference(targetRpm, ControlType.kVelocity, slotID);
     }
 
+    // FIXME - Was supposed to be for manual; no idleShooter scaling
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
@@ -158,22 +167,21 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     private double idleShooter(double speed) {
+        // Have to be connected to the field to idle
+        if (!DriverStation.getInstance().isFMSAttached()) {
+            return 0.0;
+        }
+
         // Dashboard provides scale for shooter speed
         double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
         speed *= scale;
-
-        // FIXME - Make this a global method somewhere
-        // Have to be connected to the field to idle
-        final DriverStation ds = DriverStation.getInstance();
-        if (ds.getMatchNumber() != 0) {
-            speed = Math.max(0.20, speed);
-        }
+        speed = Math.max(0.20, speed);
         return speed;
     }
 
     @Override
     public boolean atTargetVelocity() {
-        return (((Math.abs(setRpm - encoder.getVelocity())) / setRpm) <= 0.05);
+        return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= 0.05);
     }
 
 }

@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.commands.DoNothingButton;
 import frc.robot.commands.FirePoseVision;
 import frc.robot.commands.InvalidButton;
+import frc.robot.commands.RobotSetFar;
+import frc.robot.commands.RobotSetMid;
+import frc.robot.commands.RobotSetNear;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
@@ -24,10 +26,7 @@ import frc.robot.commands.climber.ClimberExtend;
 import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
-import frc.robot.commands.shooter.ShooterSpinUpFar;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
-import frc.robot.commands.shooter.ShooterSpinUpMid;
-import frc.robot.commands.shooter.ShooterSpinUpNear;
 import frc.robot.commands.turret.TurretHome;
 import frc.robot.commands.turret.TurretPositionBack;
 import frc.robot.commands.turret.TurretPositionFront;
@@ -169,9 +168,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Field Position
          */
-        fieldPositionFarButton.whenPressed(new ShooterSpinUpFar());
-        fieldPositionMidButton.whenPressed(new ShooterSpinUpMid());
-        fieldPositionNearButton.whenPressed(new ShooterSpinUpNear());
+        fieldPositionFarButton.whenPressed(new RobotSetFar());
+        fieldPositionMidButton.whenPressed(new RobotSetMid());
+        fieldPositionNearButton.whenPressed(new RobotSetNear());
 
         /*
          * Ballevator

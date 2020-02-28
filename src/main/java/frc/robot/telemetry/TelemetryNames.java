@@ -173,7 +173,10 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.shooterName;
 
         public static final String status = name + ".status";
+        public static final String isActive = name + ".isActive";
         public static final String rpm = name + ".rpm";
+        public static final String targetRpm = name + ".targetRpm";
+        public static final String atTarget = name + ".atTarget";
     }
 
     /***************
