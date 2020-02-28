@@ -81,7 +81,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
     @Override
     public void lift() {
-        setSpeed(-1.0);
+        setSpeed(-0.90);
     }
 
     @Override
