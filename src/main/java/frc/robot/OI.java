@@ -333,6 +333,11 @@ public class OI implements ITelemetryProvider {
         return getOperatorBumperAxis();
     }
 
+    public boolean isShooterRevEnabled()
+    {
+        return shooterRevButton.get();
+    }
+
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////

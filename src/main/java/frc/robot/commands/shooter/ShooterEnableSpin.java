@@ -36,7 +36,10 @@ public class ShooterEnableSpin extends ShooterCommandBase {
   public void end(boolean interrupted) {
     super.end(interrupted);
 
+    // Some other command with shooter coming into play
+    // if (!interrupted) {
     shooter.stop();
+    // }
   }
 
 }

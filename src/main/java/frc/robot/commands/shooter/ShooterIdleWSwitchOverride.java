@@ -9,31 +9,36 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.OI;
 
 import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public class ShooterIdle extends ShooterCommandBase {
+public class ShooterIdleWSwitchOverride extends ShooterIdle {
 
-  /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(ShooterIdle.class.getName());
+    /** Our classes' logger **/
+    private static final Logger logger = RioLogger.getLogger(ShooterIdleWSwitchOverride.class.getName());
 
-  public ShooterIdle() {
-    logger.info("constructing {}", getName());
+    private final OI oi;
 
-    logger.info("constructed");
-  }
+    public ShooterIdleWSwitchOverride() {
+        logger.info("constructing {}", getName());
 
-  @Override
-  public void execute() {
-    super.execute();
+        oi = OI.getInstance();
 
-    if (DriverStation.getInstance().isFMSAttached()) {
-      shooter.setSpeed(29, 0.2);
+        logger.info("constructed");
     }
-  }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        if ( oi.isShooterRevEnabled())
+        {
+            new ShooterEnableSpin().schedule();
+        }
+    }
 
 }
