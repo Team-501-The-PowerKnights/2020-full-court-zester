@@ -75,9 +75,9 @@ Ballevator.defaultCommandName = BallevatorDoNothing
 #####################
 # Climber
 #####################
-Climber.className = StubClimberSubsystem
+#Climber.className = StubClimberSubsystem
 Climber.className = ClimberSubsystem
-#Climber.defaultCommandName = ClimberDoNothing
+Climber.defaultCommandName = ClimberDoNothing
 
 
 #####################
@@ -129,7 +129,7 @@ Shooter.defaultCommandName = ShooterIdle
 #####################
 # Wheel
 #####################
-Wheel.className = StubWheelSubsystem
+Wheel.className = WheelSubsystem
 Wheel.defaultCommandName = WheelDoNothing
 
 
