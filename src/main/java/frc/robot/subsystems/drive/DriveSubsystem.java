@@ -92,9 +92,13 @@ class DriveSubsystem extends BaseDriveSubsystem {
         logger.info("constructing");
 
         leftFrontMotor = new CANSparkMax(11, MotorType.kBrushless);
+        leftFrontMotor.restoreFactoryDefaults();
         leftRearMotor = new CANSparkMax(12, MotorType.kBrushless);
+        leftRearMotor.restoreFactoryDefaults();
         rightFrontMotor = new CANSparkMax(13, MotorType.kBrushless);
+        rightFrontMotor.restoreFactoryDefaults();
         rightRearMotor = new CANSparkMax(14, MotorType.kBrushless);
+        rightRearMotor.restoreFactoryDefaults();
 
         rightFrontMotor.setInverted(true);
 
