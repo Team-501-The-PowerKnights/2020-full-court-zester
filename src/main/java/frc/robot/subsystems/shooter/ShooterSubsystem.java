@@ -66,7 +66,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         pid.setFF(pid_F, 1);
         pid.setOutputRange(0, 1, 1);
 
-        setRpm = 0;
+        setRpm = 3295; // TODO - Make the values
         isShooting = false;
 
         // incrementer = new TalonSRX(23); // Unused for now
