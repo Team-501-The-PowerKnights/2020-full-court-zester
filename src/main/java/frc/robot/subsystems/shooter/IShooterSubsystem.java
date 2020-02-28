@@ -16,7 +16,7 @@ public interface IShooterSubsystem extends ISubsystem {
 
     public void stop();
 
-    public void setRpm(double rpm);
+    public void setTargetRpm(double rpm);
 
     public void shoot();
 

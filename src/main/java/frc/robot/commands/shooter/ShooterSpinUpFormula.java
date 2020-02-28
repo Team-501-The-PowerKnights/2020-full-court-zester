@@ -43,7 +43,7 @@ public class ShooterSpinUpFormula extends PKCommandBase {
 
         targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
 
-        shooter.setRpm(targetRpm);
+        shooter.setTargetRpm(targetRpm);
     }
 
     @Override

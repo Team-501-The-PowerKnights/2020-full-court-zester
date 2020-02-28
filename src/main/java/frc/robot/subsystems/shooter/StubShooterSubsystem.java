@@ -53,7 +53,7 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void setRpm(double rpm) {
+    public void setTargetRpm(double rpm) {
         // Stub doesn't implement this
     }
 

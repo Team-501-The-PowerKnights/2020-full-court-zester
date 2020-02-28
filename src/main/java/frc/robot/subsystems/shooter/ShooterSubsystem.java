@@ -131,7 +131,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void setRpm(double rpm) {
+    public void setTargetRpm(double rpm) {
         this.targetRpm = rpm; // Save off value for enabling
         logger.debug("RPM = {}", rpm);
 

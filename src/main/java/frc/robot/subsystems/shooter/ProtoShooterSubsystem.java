@@ -89,7 +89,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public void setRpm(double rpm) {
+  public void setTargetRpm(double rpm) {
     // TODO - Trajectory generation for speed
     shootPID.setReference(0.2 /* generated speed */, ControlType.kVelocity);
   }
