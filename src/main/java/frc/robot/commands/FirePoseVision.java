@@ -47,7 +47,7 @@ public class FirePoseVision extends PKCommandBase {
 
         shooter.shoot();
 
-        boolean visionGood = vision.isLocked();
+        boolean visionGood = (vision.isActive() && vision.isLocked()) || !(vision.isActive());
         if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
