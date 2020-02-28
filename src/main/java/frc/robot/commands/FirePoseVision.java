@@ -23,16 +23,18 @@ public class FirePoseVision extends PKCommandBase {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(FirePoseVision.class.getName());
 
-    private IShooterSubsystem shooter;
-    private IBallevatorSubsystem ballevator;
-    private IVisionSensor vision;
+    private final IVisionSensor vision;
+
+    private final IShooterSubsystem shooter;
+    private final IBallevatorSubsystem ballevator;
 
     public FirePoseVision() {
         logger.info("constructing {}", getName());
 
+        vision = VisionFactory.getInstance();
+
         shooter = ShooterFactory.getInstance();
         ballevator = BallevatorFactory.getInstance();
-        vision = VisionFactory.getInstance();
 
         addRequirements(shooter, ballevator);
 
@@ -45,7 +47,8 @@ public class FirePoseVision extends PKCommandBase {
 
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.getLocked()) {
+        boolean visionGood = vision.isLocked();
+        if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();

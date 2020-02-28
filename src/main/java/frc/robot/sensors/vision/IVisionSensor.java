@@ -25,6 +25,6 @@ public interface IVisionSensor extends ISensor {
 
     public double getY();
 
-    public boolean getLocked();
+    public boolean isLocked();
 
 }

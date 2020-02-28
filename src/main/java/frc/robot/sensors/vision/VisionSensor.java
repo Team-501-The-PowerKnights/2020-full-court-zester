@@ -63,7 +63,7 @@ class VisionSensor extends BaseVisionSensor {
     }
 
     @Override
-    public boolean getLocked() {
+    public boolean isLocked() {
         return mySensor.isLocked();
     }
 

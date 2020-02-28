@@ -46,7 +46,7 @@ class StubVisionSensor extends BaseVisionSensor {
     }
 
     @Override
-    public boolean getLocked() {
+    public boolean isLocked() {
         // TODO Auto-generated method stub
         return false;
     }
