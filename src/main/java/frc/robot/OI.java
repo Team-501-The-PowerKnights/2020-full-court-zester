@@ -30,10 +30,12 @@ import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
 import frc.robot.commands.turret.TurretHome;
-import frc.robot.commands.turret.TurretPositionBack;
-import frc.robot.commands.turret.TurretPositionFront;
 import frc.robot.commands.turret.TurretJogCCW;
 import frc.robot.commands.turret.TurretJogCW;
+import frc.robot.commands.turret.TurretPositionBack;
+import frc.robot.commands.turret.TurretPositionFront;
+import frc.robot.commands.turret.TurretRotateCCW;
+import frc.robot.commands.turret.TurretRotateCW;
 import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
 import frc.robot.commands.wheel.WheelRunClockwise;
@@ -188,8 +190,10 @@ public class OI implements ITelemetryProvider {
         turretOrientationBackButton.whenPressed(new TurretPositionBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
         turretOrientationFrontButton.whenPressed(new TurretPositionFront());
-        turretJogClockwiseButton.whenHeld(new TurretJogCW());
-        turretJogCounterClockwiseButton.whenHeld(new TurretJogCCW());
+        // turretJogClockwiseButton.whenPressed(new TurretJogCW());
+        // turretJogCounterClockwiseButton.whenPressed(new TurretJogCCW());
+        turretJogClockwiseButton.whenHeld(new TurretRotateCW());
+        turretJogCounterClockwiseButton.whenHeld(new TurretRotateCCW());
 
         /*
          * Shooter

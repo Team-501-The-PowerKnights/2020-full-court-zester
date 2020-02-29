@@ -11,12 +11,12 @@ import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class TurretJogCW extends TurretCommandBase {
+public class TurretRotateCW extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretJogCW.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretRotateCW.class.getName());
 
-    public TurretJogCW() {
+    public TurretRotateCW() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
@@ -26,12 +26,14 @@ public class TurretJogCW extends TurretCommandBase {
     public void execute() {
         super.execute();
 
-        turret.jogCW();
+        turret.setSpeed(20, -0.20);
     }
 
     @Override
-    public boolean isFinished() {
-        return true;
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+
+        turret.holdAngle();
     }
 
 }
