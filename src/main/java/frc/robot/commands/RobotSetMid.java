@@ -34,7 +34,7 @@ public class RobotSetMid extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3200);
+        shooter.setTargetRpm(3295); // 3200
     }
 
     @Override

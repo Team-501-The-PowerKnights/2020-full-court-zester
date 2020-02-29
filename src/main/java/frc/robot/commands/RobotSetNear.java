@@ -34,7 +34,7 @@ public class RobotSetNear extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3050);
+        shooter.setTargetRpm(3200); // 3050
     }
 
     @Override
