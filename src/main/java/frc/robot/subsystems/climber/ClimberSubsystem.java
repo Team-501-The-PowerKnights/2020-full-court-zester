@@ -83,7 +83,7 @@ class ClimberSubsystem extends BaseClimberSubsystem {
 
     @Override
     public void extend() {
-        setSpeed(0.25);
+        setSpeed(0.40);
     }
 
     @Override

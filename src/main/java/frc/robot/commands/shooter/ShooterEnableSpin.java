@@ -9,6 +9,7 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.OI;
 import riolog.RioLogger;
 
 /**
@@ -19,10 +20,19 @@ public class ShooterEnableSpin extends ShooterCommandBase {
   /** Our classes' logger **/
   private static final Logger logger = RioLogger.getLogger(ShooterEnableSpin.class.getName());
 
+  private boolean switchIsActive;
+
   public ShooterEnableSpin() {
     logger.info("constructing {}", getName());
 
     logger.info("constructed");
+  }
+
+  @Override
+  public void initialize() {
+    super.initialize();
+
+    switchIsActive = OI.getInstance().isShooterRevEnabled();
   }
 
   @Override
@@ -36,10 +46,13 @@ public class ShooterEnableSpin extends ShooterCommandBase {
   public void end(boolean interrupted) {
     super.end(interrupted);
 
-    // Some other command with shooter coming into play
-    // if (!interrupted) {
-    shooter.stop();
-    // }
+    // Never stop the shooter, as default is idle
+  }
+
+  @Override
+  public boolean isFinished() {
+    // Scheduler will interrupt command when switch is turned off
+    return !switchIsActive;
   }
 
 }

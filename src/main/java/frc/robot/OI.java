@@ -207,6 +207,7 @@ public class OI implements ITelemetryProvider {
          * Poses
          */
         firePoseButton.whenHeld(new FirePoseVision());
+        firePoseButton.whenReleased(new ShooterEnableSpin());
 
         /*
          * Wheel
@@ -333,8 +334,7 @@ public class OI implements ITelemetryProvider {
         return getOperatorBumperAxis();
     }
 
-    public boolean isShooterRevEnabled()
-    {
+    public boolean isShooterRevEnabled() {
         return shooterRevButton.get();
     }
 

@@ -172,9 +172,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         }
 
         // Dashboard provides scale for shooter speed
-        double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
-        speed *= scale;
-        speed = Math.max(0.20, speed);
+        // double scale = Preferences.getInstance().getDouble(Shooter.scale, 1.0);
+        // speed *= scale;
+        speed = Math.min(0.20, speed);
         return speed;
     }
 
