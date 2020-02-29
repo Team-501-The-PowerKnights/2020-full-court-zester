@@ -9,8 +9,6 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 import riolog.RioLogger;
 
 /**

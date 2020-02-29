@@ -9,8 +9,7 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
+import frc.robot.OI;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
@@ -45,7 +44,7 @@ public class FirePosePit extends PKCommandBase {
         shooter.shoot();
 
         // We only do this in pit and no Vision used
-        if (!DriverStation.getInstance().isFMSAttached() && shooter.atTargetVelocity()) {
+        if (!OI.getInstance().isFieldConnected() && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();

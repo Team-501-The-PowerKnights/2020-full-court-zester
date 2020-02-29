@@ -13,14 +13,13 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
 
-import frc.robot.preferences.PreferenceNames.Shooter;
+import frc.robot.OI;
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 public class ShooterSubsystem extends BaseShooterSubsystem {
@@ -167,7 +166,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     private double idleShooter(double speed) {
         // Have to be connected to the field to idle
-        if (!DriverStation.getInstance().isFMSAttached()) {
+        if (!OI.getInstance().isFieldConnected()) {
             return 0.0;
         }
 

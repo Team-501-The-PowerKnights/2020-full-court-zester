@@ -9,8 +9,8 @@ package frc.robot.commands.climber;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.OI;
+
 import riolog.RioLogger;
 
 /**
@@ -33,7 +33,7 @@ public class ClimberRetractInPit extends ClimberOICommandBase {
         super.execute();
 
         // TODO - Can we just call end from here?
-        if (DriverStation.getInstance().isFMSAttached()) {
+        if (OI.getInstance().isFieldConnected()) {
             return;
         }
 
@@ -47,7 +47,7 @@ public class ClimberRetractInPit extends ClimberOICommandBase {
     // Called repeatedly after execute to determine if command is finished
     @Override
     public boolean isFinished() {
-        return DriverStation.getInstance().isFMSAttached();
+        return OI.getInstance().isFieldConnected();
     }
 
     // Called once when either the Command finishes normally, or when it

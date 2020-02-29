@@ -234,6 +234,11 @@ public class OI implements ITelemetryProvider {
         SmartDashboard.putNumber(TelemetryNames.HMI.oiTurn, getDriveTurn());
     }
 
+    public boolean isFieldConnected() {
+        // return DriverStation.getInstance().isFMSAttached(); // FOR field
+        return true; // FOR pit testing
+    }
+
     /*****************
      * Drive Stuff
      *****************/
