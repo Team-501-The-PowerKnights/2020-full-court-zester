@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.AutoFull;
+
+import frc.robot.commands.AutoFullShort;
+import frc.robot.commands.AutoFullTrench;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.PKSequentialCommandGroup;
 import frc.robot.commands.drive.DriveForwardTimed;
@@ -30,6 +32,7 @@ import frc.robot.sensors.ISensor;
 import frc.robot.sensors.SensorFactory;
 import frc.robot.telemetry.SchedulerProvider;
 import frc.robot.telemetry.TelemetryManager;
+import frc.robot.telemetry.TelemetryNames;
 import frc.robot.telemetry.TelemetryNames.Preferences;
 import frc.robot.utils.PKStatus;
 import frc.robot.subsystems.ISubsystem;
@@ -48,6 +51,9 @@ public class Robot extends TimedRobot {
 
     /* Our classes logger */
     private static final Logger logger = RioLogger.getLogger(Robot.class.getName());
+
+    // Handle to the dashboard
+    private DriverStation ds;
 
     private OI oi;
 
@@ -131,8 +137,11 @@ public class Robot extends TimedRobot {
      * data, which holds the run-spinTime configuration.
      **/
     private void waitForDriverStationData() {
+        // Save off a copy for class to use
+        ds = DriverStation.getInstance();
+
         long count = 0;
-        while (!DriverStation.getInstance().isNewControlData()) {
+        while (!ds.isNewControlData()) {
             if ((count % 100) == 0) {
                 logger.trace("Waiting ...");
             }
@@ -164,9 +173,10 @@ public class Robot extends TimedRobot {
     private void createAutoChooser() {
         autoChooser = new SendableChooser<>();
 
-        autoChooser.setDefaultOption("Do Nothing", new DoNothing());
+        autoChooser.addOption("Do Nothing", new DoNothing());
+        autoChooser.addOption("Full Auto (Trench)", new AutoFullTrench());
+        autoChooser.setDefaultOption("Full Auto (Short)", new AutoFullShort());
         autoChooser.addOption("Drive Forward (timed)", new DriveForwardTimed());
-        autoChooser.addOption("Full Auto", new AutoFull());
 
         SmartDashboard.putData("Auto Mode", autoChooser);
     }
@@ -191,6 +201,10 @@ public class Robot extends TimedRobot {
 
         // Update the telemetry
         tlmMgr.sendTelemetry();
+
+        // Add an indicator about what auto command is current selected
+        SmartDashboard.putBoolean(TelemetryNames.Misc.realAuto,
+                !autoChooser.getSelected().getName().equalsIgnoreCase("DoNothing"));
     }
 
     /**
@@ -246,7 +260,6 @@ public class Robot extends TimedRobot {
      * was.
      **/
     private void logMatchData() {
-        final DriverStation ds = DriverStation.getInstance();
         logger.info("EventName:     {}", ds.getEventName());
         logger.info("MatchType:     {}", ds.getMatchType());
         logger.info("MatchNumber:   {}", ds.getMatchNumber());

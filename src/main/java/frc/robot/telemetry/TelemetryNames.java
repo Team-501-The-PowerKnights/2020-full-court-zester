@@ -26,6 +26,8 @@ public final class TelemetryNames {
         public static final String robotName = name + ".robotName";
 
         public static final String fmsConnected = name + ".fmsConnected";
+
+        public static final String realAuto = name + ".realAuto";
     }
 
     /***************
@@ -114,6 +116,9 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.driveName;
 
         public static final String status = name + ".status";
+        public static final String encoderClicks = name + ".encoderClicks";
+        public static final String distanceClicks = name + ".distanceClicks";
+        public static final String targetClicks = name + ".targetClicks";
     }
 
     public final class Gyro {
@@ -150,6 +155,7 @@ public final class TelemetryNames {
 
         public static final String status = name + ".status";
         public static final String speed = name + ".speed";
+        public static final String atLimit = name + ".atLimit";
     }
 
     public final class TurretLocation {
@@ -173,7 +179,10 @@ public final class TelemetryNames {
         public static final String name = SubsystemNames.shooterName;
 
         public static final String status = name + ".status";
+        public static final String isActive = name + ".isActive";
         public static final String rpm = name + ".rpm";
+        public static final String targetRpm = name + ".targetRpm";
+        public static final String atTarget = name + ".atTarget";
     }
 
     /***************

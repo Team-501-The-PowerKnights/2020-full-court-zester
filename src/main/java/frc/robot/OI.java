@@ -14,20 +14,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.commands.DoNothingButton;
 import frc.robot.commands.FirePoseVision;
+import frc.robot.commands.IngestPose;
 import frc.robot.commands.InvalidButton;
+import frc.robot.commands.RobotSetFar;
+import frc.robot.commands.RobotSetMid;
+import frc.robot.commands.RobotSetNear;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
+import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberExtend;
 import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
-import frc.robot.commands.shooter.ShooterSpinUpFar;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
-import frc.robot.commands.shooter.ShooterSpinUpMid;
-import frc.robot.commands.shooter.ShooterSpinUpNear;
 import frc.robot.commands.turret.TurretHome;
 import frc.robot.commands.turret.TurretPositionBack;
 import frc.robot.commands.turret.TurretPositionFront;
@@ -35,7 +36,8 @@ import frc.robot.commands.turret.TurretJogCCW;
 import frc.robot.commands.turret.TurretJogCW;
 import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
-
+import frc.robot.commands.wheel.WheelRunClockwise;
+import frc.robot.commands.wheel.WheelRunCounterClockwise;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -99,13 +101,13 @@ public class OI implements ITelemetryProvider {
     private final Button turretJogClockwiseButton;
     private final Button turretJogCounterClockwiseButton;
     private final Button visionEnableButton;
-    private final Button reserved14Button; // 14 - wheelPositionButton
-    private final Button reserved15Button; // 15 - wheelRotationButton
+    private final Button wheelClockwiseButton; // 14 - wheelPositionButton
+    private final Button wheelCounterClockwiseButton; // 15 - wheelRotationButton
     private final Button turretHomeButton;
     private final Button reserved17Button;
     private final Button reserved18Button;
     private final Button climberExtendButton;
-    private final Button climberRetractButton;
+    private final Button climberClimbButton;
 
     private OI() {
         logger.info("constructing {}", myName);
@@ -132,13 +134,13 @@ public class OI implements ITelemetryProvider {
         turretJogClockwiseButton = new JoystickButton(operatorStick, 11);
         turretJogCounterClockwiseButton = new JoystickButton(operatorStick, 12);
         visionEnableButton = new JoystickButton(operatorStick, 13);
-        reserved14Button = new JoystickButton(operatorStick, 14);
-        reserved15Button = new JoystickButton(operatorStick, 15);
+        wheelClockwiseButton = new JoystickButton(operatorStick, 14);
+        wheelCounterClockwiseButton = new JoystickButton(operatorStick, 15);
         turretHomeButton = new JoystickButton(operatorStick, 16);
         reserved17Button = new JoystickButton(operatorStick, 17);
         reserved18Button = new JoystickButton(operatorStick, 18);
         climberExtendButton = new JoystickButton(operatorStick, 19);
-        climberRetractButton = new JoystickButton(operatorStick, 20);
+        climberClimbButton = new JoystickButton(operatorStick, 20);
 
         logger.info("constructed");
     }
@@ -169,9 +171,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Field Position
          */
-        fieldPositionFarButton.whenPressed(new ShooterSpinUpFar());
-        fieldPositionMidButton.whenPressed(new ShooterSpinUpMid());
-        fieldPositionNearButton.whenPressed(new ShooterSpinUpNear());
+        fieldPositionFarButton.whenPressed(new RobotSetFar());
+        fieldPositionMidButton.whenPressed(new RobotSetMid());
+        fieldPositionNearButton.whenPressed(new RobotSetNear());
 
         /*
          * Ballevator
@@ -197,19 +199,27 @@ public class OI implements ITelemetryProvider {
         /*
          * Climber
          */
-        climberExtendButton.whenPressed(new ClimberExtend());
-        climberRetractButton.whenHeld(new ClimberExtend());
+        // climberExtendButton.whenPressed(new ClimberExtend());
+        climberExtendButton.whenHeld(new ClimberExtend());
+        climberClimbButton.whenHeld(new ClimberClimb());
 
         /*
          * Poses
          */
         firePoseButton.whenHeld(new FirePoseVision());
+        firePoseButton.whenReleased(new ShooterEnableSpin());
+
+        /*
+         * Wheel
+         */
+
+        wheelClockwiseButton.whenHeld(new WheelRunClockwise());
+        wheelCounterClockwiseButton.whenHeld(new WheelRunCounterClockwise());
 
         /*
          * Reserved
          */
-        reserved14Button.whenPressed(new InvalidButton("reserved15Button"));
-        reserved15Button.whenPressed(new InvalidButton("reserved16Button"));
+
         reserved17Button.whenPressed(new InvalidButton("reserved17Button"));
         reserved18Button.whenPressed(new InvalidButton("reserved18Button"));
     }
@@ -222,6 +232,11 @@ public class OI implements ITelemetryProvider {
         SmartDashboard.putBoolean(TelemetryNames.HMI.crawl, crawlButton.get());
         SmartDashboard.putNumber(TelemetryNames.HMI.oiSpeed, getDriveSpeed());
         SmartDashboard.putNumber(TelemetryNames.HMI.oiTurn, getDriveTurn());
+    }
+
+    public boolean isFieldConnected() {
+        // return DriverStation.getInstance().isFMSAttached(); // FOR field
+        return true; // FOR pit testing
     }
 
     /*****************
@@ -322,6 +337,10 @@ public class OI implements ITelemetryProvider {
 
     public double getTurretIncrement() {
         return getOperatorBumperAxis();
+    }
+
+    public boolean isShooterRevEnabled() {
+        return shooterRevButton.get();
     }
 
     //////////////////////////////////////////////////////////////////

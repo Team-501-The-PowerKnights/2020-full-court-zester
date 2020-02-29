@@ -9,8 +9,7 @@ package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import frc.robot.sensors.vision.IVisionSensor;
-import frc.robot.sensors.vision.VisionFactory;
+import frc.robot.OI;
 import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
@@ -23,16 +22,14 @@ public class FirePosePit extends PKCommandBase {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(FirePosePit.class.getName());
 
-    private IShooterSubsystem shooter;
-    private IBallevatorSubsystem ballevator;
-    private IVisionSensor vision;
+    private final IShooterSubsystem shooter;
+    private final IBallevatorSubsystem ballevator;
 
     public FirePosePit() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
         ballevator = BallevatorFactory.getInstance();
-        vision = VisionFactory.getInstance();
 
         addRequirements(shooter, ballevator);
 
@@ -43,9 +40,11 @@ public class FirePosePit extends PKCommandBase {
     public void execute() {
         super.execute();
 
+        // Rotate shooter
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.getLocked()) {
+        // We only do this in pit and no Vision used
+        if (!OI.getInstance().isFieldConnected() && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();
@@ -58,4 +57,5 @@ public class FirePosePit extends PKCommandBase {
 
         ballevator.stop();
     }
+
 }

@@ -15,6 +15,10 @@ import frc.robot.subsystems.ballevator.BallevatorFactory;
 import frc.robot.subsystems.ballevator.IBallevatorSubsystem;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
 import frc.robot.subsystems.shooter.ShooterFactory;
+import frc.robot.subsystems.hopper.HopperFactory;
+import frc.robot.subsystems.hopper.IHopperSubsystem;
+import frc.robot.subsystems.intake.IIntakeSubsystem;
+import frc.robot.subsystems.intake.IntakeFactory;
 
 import riolog.RioLogger;
 
@@ -23,18 +27,24 @@ public class FirePoseVision extends PKCommandBase {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(FirePoseVision.class.getName());
 
-    private IShooterSubsystem shooter;
-    private IBallevatorSubsystem ballevator;
-    private IVisionSensor vision;
+    private final IVisionSensor vision;
+
+    private final IShooterSubsystem shooter;
+    private final IBallevatorSubsystem ballevator;
+    private final IIntakeSubsystem intake;
+    private final IHopperSubsystem hopper;
 
     public FirePoseVision() {
         logger.info("constructing {}", getName());
 
-        shooter = ShooterFactory.getInstance();
-        ballevator = BallevatorFactory.getInstance();
         vision = VisionFactory.getInstance();
 
-        addRequirements(shooter, ballevator);
+        shooter = ShooterFactory.getInstance();
+        ballevator = BallevatorFactory.getInstance();
+        intake = IntakeFactory.getInstance();
+        hopper = HopperFactory.getInstance();
+
+        addRequirements(shooter, ballevator, intake, hopper);
 
         logger.info("constructed {}", getName());
     }
@@ -43,12 +53,17 @@ public class FirePoseVision extends PKCommandBase {
     public void execute() {
         super.execute();
 
+        intake.pullIn();
+        hopper.agitate();
+
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.getLocked()) {
+        boolean visionGood = (vision.isActive() && vision.isLocked()) || !(vision.isActive());
+        if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
-            ballevator.liftToLimit();
+            // ballevator.liftToLimit();
+            ballevator.stop();
         }
     }
 
@@ -57,5 +72,12 @@ public class FirePoseVision extends PKCommandBase {
         super.end(interrupted);
 
         ballevator.stop();
+
+        // Don't stop shooter (default is idle command)
+        // shooter.stop();
+
+        hopper.stop();
+        intake.stop();
     }
+
 }

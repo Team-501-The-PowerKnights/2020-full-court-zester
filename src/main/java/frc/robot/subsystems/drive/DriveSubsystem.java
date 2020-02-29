@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -35,7 +36,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.gyro.IGyroSensor;
-
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 class DriveSubsystem extends BaseDriveSubsystem {
@@ -91,9 +92,13 @@ class DriveSubsystem extends BaseDriveSubsystem {
         logger.info("constructing");
 
         leftFrontMotor = new CANSparkMax(11, MotorType.kBrushless);
+        leftFrontMotor.restoreFactoryDefaults();
         leftRearMotor = new CANSparkMax(12, MotorType.kBrushless);
+        leftRearMotor.restoreFactoryDefaults();
         rightFrontMotor = new CANSparkMax(13, MotorType.kBrushless);
+        rightFrontMotor.restoreFactoryDefaults();
         rightRearMotor = new CANSparkMax(14, MotorType.kBrushless);
+        rightRearMotor.restoreFactoryDefaults();
 
         rightFrontMotor.setInverted(true);
 
@@ -101,7 +106,9 @@ class DriveSubsystem extends BaseDriveSubsystem {
         rightRearMotor.follow(rightFrontMotor);
 
         leftEncoder = new CANEncoder(leftFrontMotor);
+        leftEncoder.setPosition(0.0);
         rightEncoder = new CANEncoder(rightFrontMotor);
+        rightEncoder.setPosition(0.0);
 
         nav = GyroFactory.getInstance();
 
@@ -130,7 +137,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
+        SmartDashboard.putNumber(TelemetryNames.Drive.encoderClicks, getEncoderClicks());
     }
 
     @Override
@@ -286,7 +293,7 @@ class DriveSubsystem extends BaseDriveSubsystem {
 
     @Override
     public double getEncoderClicks() {
-        return (leftEncoder.getPosition() + rightEncoder.getPosition() / 2);
+        return ((leftEncoder.getPosition() + rightEncoder.getPosition()) / 2);
     }
 
 }

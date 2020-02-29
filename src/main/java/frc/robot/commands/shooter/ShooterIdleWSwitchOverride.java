@@ -9,36 +9,36 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.IShooterSubsystem;
-import frc.robot.subsystems.shooter.ShooterFactory;
+import frc.robot.OI;
+
 import riolog.RioLogger;
 
-public class ShooterSpinUpNear extends PKCommandBase {
+/**
+ * Add your docs here.
+ */
+public class ShooterIdleWSwitchOverride extends ShooterIdle {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSpinUpNear.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterIdleWSwitchOverride.class.getName());
 
-    private IShooterSubsystem shooter;
+    private final OI oi;
 
-    public ShooterSpinUpNear() {
+    public ShooterIdleWSwitchOverride() {
         logger.info("constructing {}", getName());
 
-        shooter = ShooterFactory.getInstance();
+        oi = OI.getInstance();
 
         logger.info("constructed");
     }
 
     @Override
-    public void execute() {
-        super.execute();
+    public void initialize() {
+        super.initialize();
 
-        shooter.setRpm(3050);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
+        if ( oi.isShooterRevEnabled())
+        {
+            new ShooterEnableSpin().schedule();
+        }
     }
 
 }

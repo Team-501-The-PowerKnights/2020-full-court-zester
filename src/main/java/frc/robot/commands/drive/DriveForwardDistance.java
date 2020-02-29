@@ -9,6 +9,8 @@ package frc.robot.commands.drive;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 /**
@@ -19,17 +21,27 @@ public class DriveForwardDistance extends DriveCommandBase {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(DriveForwardDistance.class.getName());
 
+    // Distance to drive (from current position) in clicks
+    private double distanceClicks;
+    // Target position in clicks (current + distance)
     private double targetClicks;
 
     public DriveForwardDistance(double distanceInFeet) {
         logger.info("constructing {}", getName());
 
-        targetClicks = distanceInFeet * (1 / 3.281) // Conversion to meters
-                * (1 / (2 * Math.PI * 0.1524 /* Wheel radius */)) // Convert to wheel revolutions (Circumference)
-                * (1 /* Belt gearing */) // Convert to output shaft revolutions (Belt gearing)
-                * (1 / 10.71 /* Gearbox gearing */); // Convert to motor revolutions (TB Mini gearing);
+        distanceClicks = distanceInFeet * 6.849; // motor revolutions per foot
+
+        SmartDashboard.putNumber(TelemetryNames.Drive.distanceClicks, distanceClicks);
 
         logger.info("constructed");
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        targetClicks = drive.getEncoderClicks() + distanceClicks;
+        SmartDashboard.putNumber(TelemetryNames.Drive.targetClicks, targetClicks);
     }
 
     @Override
@@ -44,7 +56,7 @@ public class DriveForwardDistance extends DriveCommandBase {
 
     @Override
     public boolean isFinished() {
-        return drive.getEncoderClicks() == targetClicks;
+        return (drive.getEncoderClicks() >= targetClicks);
     }
 
     @Override

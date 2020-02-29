@@ -40,11 +40,15 @@ class VisionSensor extends BaseVisionSensor {
 
     @Override
     public void enable() {
+        super.enable();
+
         mySensor.enable();
     }
 
     @Override
     public void disable() {
+        super.disable();
+
         mySensor.disable();
     }
 
@@ -59,7 +63,7 @@ class VisionSensor extends BaseVisionSensor {
     }
 
     @Override
-    public boolean getLocked() {
+    public boolean isLocked() {
         return mySensor.isLocked();
     }
 

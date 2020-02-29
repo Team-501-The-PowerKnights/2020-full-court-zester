@@ -262,12 +262,12 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void jogCW() {
-        setTurretAngle(getAngle() + 5);
+        setTurretAngle(getAngle() + 2.5);
     }
 
     @Override
     public void jogCCW() {
-        setTurretAngle(getAngle() - 5);
+        setTurretAngle(getAngle() - 2.5);
     }
 
     @Override

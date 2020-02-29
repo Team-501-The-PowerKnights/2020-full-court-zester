@@ -5,23 +5,24 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKCommandBase;
 import frc.robot.subsystems.shooter.IShooterSubsystem;
 import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-public class ShooterSpinUpFar extends PKCommandBase {
+public class RobotSetNear extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSpinUpFar.class.getName());
+    private static final Logger logger = RioLogger.getLogger(RobotSetNear.class.getName());
 
     private IShooterSubsystem shooter;
 
-    public ShooterSpinUpFar() {
+    public RobotSetNear() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
@@ -33,13 +34,12 @@ public class ShooterSpinUpFar extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setRpm(3295);
+        shooter.setTargetRpm(3050);
     }
 
     @Override
     public boolean isFinished() {
         return true;
     }
-
 
 }

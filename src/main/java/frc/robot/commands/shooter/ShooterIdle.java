@@ -9,7 +9,6 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import riolog.RioLogger;
 
 /**
@@ -30,9 +29,7 @@ public class ShooterIdle extends ShooterCommandBase {
   public void execute() {
     super.execute();
 
-    if (DriverStation.getInstance().isFMSAttached()) {
-      shooter.setSpeed(29, 0.2);
-    }
+    shooter.setSpeed(29, 0.20);
   }
 
 }

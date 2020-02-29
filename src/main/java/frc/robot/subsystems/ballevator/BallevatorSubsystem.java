@@ -8,6 +8,7 @@
 package frc.robot.subsystems.ballevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.slf4j.Logger;
@@ -35,6 +36,8 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
         logger.info("constructing");
 
         motor = new TalonSRX(51);
+        motor.configFactoryDefault();
+        motor.setNeutralMode(NeutralMode.Brake);
 
         limit = new DigitalInput(9);
 
@@ -51,6 +54,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Ballevator.speed, tlmSpeed);
+        SmartDashboard.putBoolean(TelemetryNames.Ballevator.atLimit, limit.get());
     }
 
     @Override
@@ -78,7 +82,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
 
     @Override
     public void lift() {
-        setSpeed(-1.0);
+        setSpeed(-0.85);
     }
 
     @Override

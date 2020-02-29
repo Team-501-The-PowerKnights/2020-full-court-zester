@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import riolog.RioLogger;
@@ -64,6 +65,10 @@ class LimelightVision {
 
     protected double getError() {
         double x = table.getEntry("tx").getDouble(0.0);
+
+        if (DriverStation.getInstance().isOperatorControl()) {
+            x += 1.0;
+        }
 
         if (table.getEntry("tv").getDouble(0.0) == 1) {
             return -x;

@@ -51,7 +51,7 @@ public class FirePoseFormula extends PKCommandBase {
 
         targetRpm = (13.5 * (ty * ty)) - (111.3 * ty) + 3352.4;
 
-        shooter.setRpm(targetRpm);
+        shooter.setTargetRpm(targetRpm);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FirePoseFormula extends PKCommandBase {
 
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.getLocked()) {
+        if (shooter.atTargetVelocity() && vision.isLocked()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();

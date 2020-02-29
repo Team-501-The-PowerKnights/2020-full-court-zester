@@ -5,44 +5,41 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.sensors.vision;
+package frc.robot.commands;
 
 import org.slf4j.Logger;
 
-import frc.robot.telemetry.TelemetryNames;
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-abstract class BaseVisionSensor implements IVisionSensor {
+public class RobotSetMid extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(BaseVisionSensor.class.getName());
+    private static final Logger logger = RioLogger.getLogger(RobotSetMid.class.getName());
 
-    protected static final String myName = TelemetryNames.Vision.name;
+    private IShooterSubsystem shooter;
 
-    // Flag for whether active
-    protected boolean isActive;
+    public RobotSetMid() {
+        logger.info("constructing {}", getName());
 
-    BaseVisionSensor() {
-        logger.info("constructing");
-
-        isActive = false;
+        shooter = ShooterFactory.getInstance();
 
         logger.info("constructed");
     }
 
     @Override
-    public void enable() {
-        isActive = true;
+    public void execute() {
+        super.execute();
+
+        shooter.setTargetRpm(3200);
     }
 
     @Override
-    public void disable() {
-        isActive = false;
-    }
-
-    public boolean isActive() {
-        return isActive;
+    public boolean isFinished() {
+        return true;
     }
 
 }

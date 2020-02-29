@@ -5,45 +5,40 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.wheel;
 
 import org.slf4j.Logger;
 
-import frc.robot.OI;
 import riolog.RioLogger;
 
-/**
- * Add your docs here.
- */
-public class ShooterEnableSpin extends ShooterCommandBase {
+public class WheelRunCounterClockwise extends WheelCommandBase {
 
   /** Our classes' logger **/
-  private static final Logger logger = RioLogger.getLogger(ShooterEnableSpin.class.getName());
+  private static final Logger logger = RioLogger.getLogger(WheelRunCounterClockwise.class.getName());
 
-  public ShooterEnableSpin() {
+  /**
+   * Creates a new WheelRunCounterClockwise.
+   */
+  public WheelRunCounterClockwise() {
     logger.info("constructing {}", getName());
 
     logger.info("constructed");
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     super.execute();
 
-    shooter.shoot();
+    wheel.runCounterClockwise();
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     super.end(interrupted);
 
-    // Never stop the shooter, as default is idle
-  }
-
-  @Override
-  public boolean isFinished() {
-    // Scheduler will interrupt command when switch is turned off
-    return !(OI.getInstance().isShooterRevEnabled());
+    wheel.stop();
   }
 
 }

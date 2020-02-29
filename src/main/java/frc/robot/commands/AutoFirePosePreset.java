@@ -20,6 +20,12 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
+/**
+ * Auto Fire Pose
+ * @formatter:off
+ * - Increase shooter speed after distance to still hit target
+ * @formatter:on
+ */
 public class AutoFirePosePreset extends PKCommandBase {
 
     /** Our classes' logger **/
@@ -45,20 +51,21 @@ public class AutoFirePosePreset extends PKCommandBase {
     public void initialize() {
         super.initialize();
 
-        shooter.setRpm(3200);
+        shooter.setTargetRpm(3200);
     }
 
     @Override
     public void execute() {
         super.execute();
 
-        if (DriverStation.getInstance().getMatchTime() >= 10) {
-            shooter.setRpm(3300);
+        if (DriverStation.getInstance().getMatchTime() >= 8) {
+            shooter.setTargetRpm(3300);
         }
 
         shooter.shoot();
 
-        if (shooter.atTargetVelocity() && vision.getLocked()) {
+        boolean visionGood = (vision.isActive() && vision.isLocked()) || !(vision.isActive());
+        if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
             ballevator.liftToLimit();
