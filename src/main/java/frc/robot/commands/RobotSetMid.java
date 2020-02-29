@@ -15,6 +15,7 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
+// FIXME - Make these Shooter commands
 public class RobotSetMid extends PKCommandBase {
 
     /** Our classes' logger **/

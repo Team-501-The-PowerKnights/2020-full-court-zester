@@ -16,14 +16,14 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 import riolog.RioLogger;
 
 // FIXME - Make these Shooter commands
-public class RobotSetFar extends PKCommandBase {
+public class RobotSetVeryFar extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(RobotSetFar.class.getName());
+    private static final Logger logger = RioLogger.getLogger(RobotSetVeryFar.class.getName());
 
     private IShooterSubsystem shooter;
 
-    public RobotSetFar() {
+    public RobotSetVeryFar() {
         logger.info("constructing {}", getName());
 
         shooter = ShooterFactory.getInstance();
@@ -35,7 +35,7 @@ public class RobotSetFar extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3345); // 3295
+        shooter.setTargetRpm(3395); // 3200
     }
 
     @Override
