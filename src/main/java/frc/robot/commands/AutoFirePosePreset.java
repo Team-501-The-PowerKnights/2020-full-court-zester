@@ -51,7 +51,7 @@ public class AutoFirePosePreset extends PKCommandBase {
     public void initialize() {
         super.initialize();
 
-        shooter.setTargetRpm(3200);
+        shooter.setTargetRpm(3220);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AutoFirePosePreset extends PKCommandBase {
         super.execute();
 
         if (DriverStation.getInstance().getMatchTime() >= 8) {
-            shooter.setTargetRpm(3300);
+            shooter.setTargetRpm(3340);
         }
 
         shooter.shoot();
