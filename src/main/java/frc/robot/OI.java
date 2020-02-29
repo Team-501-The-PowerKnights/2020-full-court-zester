@@ -188,8 +188,8 @@ public class OI implements ITelemetryProvider {
         turretOrientationBackButton.whenPressed(new TurretPositionBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
         turretOrientationFrontButton.whenPressed(new TurretPositionFront());
-        turretJogClockwiseButton.whenPressed(new TurretJogCW());
-        turretJogCounterClockwiseButton.whenPressed(new TurretJogCCW());
+        turretJogClockwiseButton.whenHeld(new TurretJogCW());
+        turretJogCounterClockwiseButton.whenHeld(new TurretJogCCW());
 
         /*
          * Shooter
