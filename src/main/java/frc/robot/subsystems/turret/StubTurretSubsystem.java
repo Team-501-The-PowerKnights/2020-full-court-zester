@@ -84,13 +84,12 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void holdAngle() {
-        // TODO Auto-generated method stub
-
+        // Stub doesn't implement this
     }
 
     @Override
     public boolean isAtAngle(double targetAngle) {
-        // TODO Auto-generated method stub
+        // Stub doesn't implement this
         return false;
     }
 }

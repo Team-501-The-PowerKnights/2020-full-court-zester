@@ -29,8 +29,7 @@ class StubVisionSensor extends BaseVisionSensor {
 
     @Override
     public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
+        // Stub doesn't implement anything useful
     }
 
     @Override
@@ -47,7 +46,7 @@ class StubVisionSensor extends BaseVisionSensor {
 
     @Override
     public boolean isLocked() {
-        // TODO Auto-generated method stub
+        // Stub doesn't do anything useful
         return false;
     }
 
