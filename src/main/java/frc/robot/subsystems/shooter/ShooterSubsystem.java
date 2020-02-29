@@ -43,11 +43,11 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     // Value of the RPM to use for speed
     private double targetRpm;
+    // Value to compare RPM actual to target
+    private double tolerance;
 
     // Flag for whether active (i.e., spinning)
     private boolean isActive;
-
-    private double tolerance;
 
     /**
      * Creates a new ShooterSubsystem.
@@ -74,7 +74,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         targetRpm = 3295; // TODO - Make the values
         isActive = false;
 
-        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.02);
+        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.015);
 
         logger.info("constructed");
     }
@@ -182,7 +182,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public boolean atTargetVelocity() {
-        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.02);
+        // FIXME - Find a way to only get a change via GUI
+        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
 
         return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
     }
