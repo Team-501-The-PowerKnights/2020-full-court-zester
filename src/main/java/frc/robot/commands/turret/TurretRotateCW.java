@@ -16,8 +16,12 @@ public class TurretRotateCW extends TurretCommandBase {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(TurretRotateCW.class.getName());
 
+    private double speed;
+
     public TurretRotateCW() {
         logger.info("constructing {}", getName());
+
+        speed = 0;
 
         logger.info("constructed");
     }
@@ -26,7 +30,11 @@ public class TurretRotateCW extends TurretCommandBase {
     public void execute() {
         super.execute();
 
-        turret.setSpeed(20, -0.20);
+        turret.setSpeed(20, -speed);
+
+        if (speed < 0.20) {
+            speed += 0.01;
+        }
     }
 
     @Override
