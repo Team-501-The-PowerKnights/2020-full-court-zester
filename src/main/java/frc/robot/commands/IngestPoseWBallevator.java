@@ -42,6 +42,8 @@ public class IngestPoseWBallevator extends PKCommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        super.execute();
+        
         intake.pullIn();
         hopper.agitate();
         ballevator.liftToLimit();
@@ -49,11 +51,11 @@ public class IngestPoseWBallevator extends PKCommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        super.end(interrupted);
+
         hopper.stop();
         intake.stop();
         ballevator.stop();
-
-        super.end(interrupted);
     }
 
 }
