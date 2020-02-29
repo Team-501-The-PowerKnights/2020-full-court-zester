@@ -20,19 +20,10 @@ public class ShooterEnableSpin extends ShooterCommandBase {
   /** Our classes' logger **/
   private static final Logger logger = RioLogger.getLogger(ShooterEnableSpin.class.getName());
 
-  private boolean switchIsActive;
-
   public ShooterEnableSpin() {
     logger.info("constructing {}", getName());
 
     logger.info("constructed");
-  }
-
-  @Override
-  public void initialize() {
-    super.initialize();
-
-    switchIsActive = OI.getInstance().isShooterRevEnabled();
   }
 
   @Override
@@ -52,7 +43,7 @@ public class ShooterEnableSpin extends ShooterCommandBase {
   @Override
   public boolean isFinished() {
     // Scheduler will interrupt command when switch is turned off
-    return !switchIsActive;
+    return !(OI.getInstance().isShooterRevEnabled());
   }
 
 }
