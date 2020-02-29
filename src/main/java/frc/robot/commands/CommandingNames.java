@@ -15,15 +15,16 @@ import frc.robot.subsystems.SubsystemNames;
 public final class CommandingNames {
 
     private static final String cmdPrefix = ".cmd-";
- 
+
     /***************
      * Power Cells
      ***************/
-    
+
     public final class Shooter {
         public static final String name = SubsystemNames.shooterName;
 
         public static final String speed = name + cmdPrefix + "speed";
+        public static final String tolerance = name + cmdPrefix + "tolerance";
     }
 
 }
