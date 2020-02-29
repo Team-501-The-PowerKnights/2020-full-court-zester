@@ -9,6 +9,7 @@ package frc.robot;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -238,9 +239,13 @@ public class OI implements ITelemetryProvider {
         SmartDashboard.putNumber(TelemetryNames.HMI.oiTurn, getDriveTurn());
     }
 
+    // FIXME - Change for pit testing like field
     public boolean isFieldConnected() {
-        // return DriverStation.getInstance().isFMSAttached(); // FOR field
-        return true; // FOR pit testing
+        // For Field Running
+        return DriverStation.getInstance().isFMSAttached();
+
+        // For Pit Testing (be careful)
+        // return true; // FOR pit testing
     }
 
     /*****************
