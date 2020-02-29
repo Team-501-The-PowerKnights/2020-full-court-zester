@@ -32,8 +32,8 @@ public class TurretRotateCCW extends TurretCommandBase {
 
         turret.setSpeed(20, speed);
 
-        if (speed < 0.20) {
-            speed += 0.01;
+        if (speed < 0.35) {
+            speed += 0.002;
         }
     }
 
