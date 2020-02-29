@@ -293,6 +293,10 @@ public class OI implements ITelemetryProvider {
         return deadBand(getDriverTriggerAxis(), 0.05) != 0;
     }
 
+    public boolean getBallevatorActive() {
+        return deadBand(getDriverTriggerAxis(), 0.05) > 0;
+    }
+
     /*****************
      * Turret
      *****************/
