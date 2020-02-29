@@ -240,7 +240,7 @@ public class OI implements ITelemetryProvider {
     }
 
     /*****************
-     * Drive Stuff
+     * Drive
      *****************/
 
     public double getRawDriveSpeed() {
@@ -277,6 +277,62 @@ public class OI implements ITelemetryProvider {
         return calcTurn;
     }
 
+    /*****************
+     * Power Cells
+     *****************/
+
+    public double getIntakeSpeed() {
+        return deadBand(getDriverTriggerAxis(), 0.05);
+    }
+
+    public boolean getHopperActive() {
+        return deadBand(getDriverTriggerAxis(), 0.05) != 0;
+    }
+
+    /*****************
+     * Turret
+     *****************/
+
+    public double getRawTurretSpeed() {
+        return deadBand(getOperatorLeftXAxis(), 0.05);
+    }
+
+    public double getTurretSpeed() {
+        // FIXME - No longer same button scheme or manual control
+        final double hmiSpeed = getRawTurretSpeed();
+        double calcSpeed;
+        // if (turretTurboButton.get()) {
+        // calcSpeed = hmiSpeed * 0.35;
+        // } else {
+        calcSpeed = hmiSpeed * 0.15;
+        // }
+        return calcSpeed;
+    }
+
+    public double getTurretFineAdjustment() {
+        return deadBand(getOperatorPotentiometer2(), 0.05);
+    }
+
+    /*****************
+     * Shooter
+     *****************/
+
+    public double getShooterSpeed() {
+        return deadBand(getOperatorRightYAxis(), 0.05);
+    }
+
+    public double getShooterFineAdjustment() {
+        return deadBand(getOperatorPotentiometer3(), 0.05);
+    }
+
+    /*****************
+     * Climber
+     *****************/
+
+    public boolean getClimberRetractEnable() {
+        return pitClimberEnableButton.get();
+    }
+
     /**
      * 
      * Lifted from:
@@ -296,47 +352,12 @@ public class OI implements ITelemetryProvider {
         return retValue;
     }
 
-    public double getIntakeSpeed() {
-        return deadBand(getDriverBumperAxis(), 0.05);
-    }
-
-    public double getRawTurretSpeed() {
-        return deadBand(getOperatorLeftXAxis(), 0.05);
-    }
-
-    public double getTurretSpeed() {
-        // FIXME - No longer same button scheme or manual control
-        final double hmiSpeed = getRawTurretSpeed();
-        double calcSpeed;
-        // if (turretTurboButton.get()) {
-        // calcSpeed = hmiSpeed * 0.35;
-        // } else {
-        calcSpeed = hmiSpeed * 0.15;
-        // }
-        return calcSpeed;
-    }
-
-    public double getShooterSpeed() {
-        return deadBand(getOperatorRightYAxis(), 0.05);
-    }
-
-    /**
-     * 
-     */
-    public boolean getClimberRetractEnable() {
-        return pitClimberEnableButton.get();
-    }
-
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
 
-    public boolean getHopperActive() {
-        return deadBand(getDriverBumperAxis(), 0.05) != 0;
-    }
-
     public double getTurretIncrement() {
-        return getOperatorBumperAxis();
+        return getOperatorTriggerAxis();
     }
 
     public boolean isShooterRevEnabled() {
@@ -371,15 +392,7 @@ public class OI implements ITelemetryProvider {
         return driverStick.getRawAxis(3);
     }
 
-    private double getDriverLeftBumper() {
-        return driverStick.getRawAxis(2);
-    }
-
-    private double getDriverRightBumper() {
-        return driverStick.getRawAxis(3);
-    }
-
-    private double getDriverBumperAxis() {
+    private double getDriverTriggerAxis() {
         if (driverStick.getRawAxis(2) > 0.05) {
             return driverStick.getRawAxis(2);
         } else if (driverStick.getRawAxis(3) > 0.05) {
@@ -388,6 +401,17 @@ public class OI implements ITelemetryProvider {
             return 0;
         }
     }
+
+    private double getOperatorPotentiometer2() {
+        return operatorStick.getRawAxis(2);
+    }
+
+    private double getOperatorPotentiometer3() {
+        return operatorStick.getRawAxis(3);
+    }
+
+    // TODO - Get rid of references to these, or add a joystick on port 2 for
+    // operator testing
 
     private double getOperatorLeftYAxis() {
         return -operatorStick.getRawAxis(1);
@@ -405,15 +429,7 @@ public class OI implements ITelemetryProvider {
         return operatorStick.getRawAxis(4);
     }
 
-    private double getOperatorLeftBumper() {
-        return operatorStick.getRawAxis(2);
-    }
-
-    private double getOperatorRightBumper() {
-        return operatorStick.getRawAxis(3);
-    }
-
-    private double getOperatorBumperAxis() {
+    private double getOperatorTriggerAxis() {
         if (operatorStick.getRawAxis(2) > 0.05) {
             return operatorStick.getRawAxis(2);
         } else if (operatorStick.getRawAxis(3) > 0.05) {
