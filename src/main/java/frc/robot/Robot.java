@@ -307,7 +307,6 @@ public class Robot extends TimedRobot {
         autoCommand = autoChooser.getSelected();
         logger.info("auto command is {}", autoCommand.getName());
         if (autoCommand != null) {
-            // FIXME - Make a SequentialCommand group on the fly w/ TurretHome
             CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
         }
 
