@@ -35,7 +35,7 @@ public class RobotSetVeryFar extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3395); // 3200
+        shooter.setTargetRpm(3435); // 3200
     }
 
     @Override
