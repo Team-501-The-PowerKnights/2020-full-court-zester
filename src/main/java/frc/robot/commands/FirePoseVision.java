@@ -62,7 +62,8 @@ public class FirePoseVision extends PKCommandBase {
         if (visionGood && shooter.atTargetVelocity()) {
             ballevator.lift();
         } else {
-            ballevator.liftToLimit();
+            // ballevator.liftToLimit();
+            ballevator.stop();
         }
     }
 

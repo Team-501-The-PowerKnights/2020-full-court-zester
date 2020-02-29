@@ -155,6 +155,7 @@ public final class TelemetryNames {
 
         public static final String status = name + ".status";
         public static final String speed = name + ".speed";
+        public static final String atLimit = name + ".atLimit";
     }
 
     public final class TurretLocation {

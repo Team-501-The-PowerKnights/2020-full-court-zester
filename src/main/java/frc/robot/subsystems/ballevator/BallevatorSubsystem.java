@@ -54,6 +54,7 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putNumber(TelemetryNames.Ballevator.speed, tlmSpeed);
+        SmartDashboard.putBoolean(TelemetryNames.Ballevator.atLimit, limit.get());
     }
 
     @Override
