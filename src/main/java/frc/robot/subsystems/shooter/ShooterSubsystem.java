@@ -141,7 +141,6 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     public void shoot() {
         isActive = true;
         /* generated speed */
-        System.out.println("targetRpm");
         pid.setReference(targetRpm, ControlType.kVelocity, slotID);
     }
 
