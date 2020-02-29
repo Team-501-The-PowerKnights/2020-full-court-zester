@@ -49,13 +49,13 @@
   - +/- range **~3** degrees
   - funky start enable processing
 - [analog] (pot 3): Shooter RPM fine adjustment off of baseline
-  - +/- range **~xxx** RPM
+  - +/- range **~50** RPM
   - funky start enable processing
-- [button] (buttons 11): Turret jog *{whenPressed}*
+- [button] (buttons 11): Turret jog *{whenHeld}*
   - clockwise at constant preset in code
   - additive to final turret rotation value
   - stays from one shot sequence to next
-- [button] (button 12): Turret jog *{whenPressed}*
+- [button] (button 12): Turret jog *{whenHeld}*
   - counter-clockwise at constant preset in code
   - additive to final turret rotation value
   - stays from one shot sequence to next
