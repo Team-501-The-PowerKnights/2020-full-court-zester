@@ -279,9 +279,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public boolean isAtAngle(double targetAngle) {
-
         return getAngle() >= targetAngle;
-
     }
 
 }

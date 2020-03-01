@@ -29,4 +29,9 @@ public class TurretJogCW extends TurretCommandBase {
         turret.jogCW();
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

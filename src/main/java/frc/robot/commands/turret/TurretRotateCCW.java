@@ -5,28 +5,23 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.IShooterSubsystem;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-// FIXME - Make these Shooter commands
-public class RobotSetNear extends PKCommandBase {
+public class TurretRotateCCW extends TurretCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(RobotSetNear.class.getName());
+    private static final Logger logger = RioLogger.getLogger(TurretRotateCCW.class.getName());
 
-    private IShooterSubsystem shooter;
+    private double speed;
 
-    public RobotSetNear() {
+    public TurretRotateCCW() {
         logger.info("constructing {}", getName());
 
-        shooter = ShooterFactory.getInstance();
+        speed = 0;
 
         logger.info("constructed");
     }
@@ -35,12 +30,18 @@ public class RobotSetNear extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3250); // 3050
+        turret.setSpeed(20, speed);
+
+        if (speed < 0.35) {
+            speed += 0.002;
+        }
     }
 
     @Override
-    public boolean isFinished() {
-        return true;
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+
+        turret.holdAngle();
     }
 
 }

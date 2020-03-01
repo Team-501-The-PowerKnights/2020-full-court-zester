@@ -15,6 +15,7 @@ import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
+// FIXME - Make these Shooter commands
 public class RobotSetMid extends PKCommandBase {
 
     /** Our classes' logger **/
@@ -34,7 +35,7 @@ public class RobotSetMid extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3200);
+        shooter.setTargetRpm(3345); // 3200
     }
 
     @Override

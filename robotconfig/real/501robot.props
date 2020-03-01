@@ -69,7 +69,8 @@ Vision.className = VisionSensor
 #####################
 #Ballevator.className = StubBallevatorSubsystem
 Ballevator.className = BallevatorSubsystem
-Ballevator.defaultCommandName = BallevatorDoNothing
+Ballevator.defaultCommandName = BallevatorSimpleManual
+#Ballevator.defaultCommandName = BallevatorDoNothing
 
 
 #####################
@@ -120,6 +121,7 @@ Turret.defaultCommandName = TurretDoNothing
 #Shooter.className = IandTShooterSubsystem
 Shooter.className = ShooterSubsystem
 Shooter.defaultCommandName = ShooterIdle
+#Shooter.defaultCommandName = ShooterIdleWSwitchOverride
 #Shooter.defaultCommandName = ShooterDashboardSpeed
 #Shooter.defaultCommandName = ShooterDoNothing
 #Shooter.defaultCommandName = ShooterSimpleManual

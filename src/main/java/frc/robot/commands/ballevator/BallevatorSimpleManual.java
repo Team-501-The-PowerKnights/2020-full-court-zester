@@ -5,42 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ballevator;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.IShooterSubsystem;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-// FIXME - Make these Shooter commands
-public class RobotSetNear extends PKCommandBase {
+public class BallevatorSimpleManual extends BallevatorOICommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(RobotSetNear.class.getName());
+    private static final Logger logger = RioLogger.getLogger(BallevatorSimpleManual.class.getName());
 
-    private IShooterSubsystem shooter;
-
-    public RobotSetNear() {
+    public BallevatorSimpleManual() {
         logger.info("constructing {}", getName());
-
-        shooter = ShooterFactory.getInstance();
 
         logger.info("constructed");
     }
 
+    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3250); // 3050
-    }
+        boolean active = oi.getBallevatorActive();
 
-    @Override
-    public boolean isFinished() {
-        return true;
+        if (active) {
+            ballevator.liftToLimit();
+        } else {
+            ballevator.stop();
+        }
+
     }
 
 }

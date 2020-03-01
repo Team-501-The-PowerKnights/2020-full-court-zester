@@ -224,6 +224,16 @@ public class Robot extends TimedRobot {
             logPreferences();
 
             logMatchData();
+
+            for (IModule m : modules) {
+                m.disable();
+            }
+            for (ISensor s : sensors) {
+                s.disable();
+            }
+            for (ISubsystem s : subsystems) {
+                s.disable();
+            }
         }
 
         logger.info("disabled");
@@ -287,7 +297,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        logger.info("initializing");
+        logger.info("initializing autonomous");
         autonomousComplete = true;
         autonomousFirstRun = false;
 
@@ -310,7 +320,7 @@ public class Robot extends TimedRobot {
             CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
         }
 
-        logger.info("initialized");
+        logger.info("initialized autonomous");
     }
 
     /**
@@ -320,7 +330,7 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
         if (!autonomousFirstRun) {
             autonomousFirstRun = true;
-            logger.info("first run of periodic");
+            logger.info("first run of autonomous periodic");
         }
 
         // Runs the Scheduler. This is responsible for polling buttons, adding
@@ -336,7 +346,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
-        logger.info("initializing");
+        logger.info("initializing teleop");
         teleopComplete = true;
         teleopFirstRun = false;
 
@@ -359,7 +369,7 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
-        logger.info("initialized");
+        logger.info("initialized teleop");
     }
 
     /**
@@ -369,7 +379,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         if (!teleopFirstRun) {
             teleopFirstRun = true;
-            logger.info("first run of periodic");
+            logger.info("first run of teleop periodic");
         }
 
         // Runs the Scheduler. This is responsible for polling buttons, adding
@@ -385,7 +395,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testInit() {
-        logger.info("initializing");
+        logger.info("initializing test");
 
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
@@ -401,7 +411,7 @@ public class Robot extends TimedRobot {
             s.updatePreferences();
         }
 
-        logger.info("initialized");
+        logger.info("initialized test");
     }
 
     /**

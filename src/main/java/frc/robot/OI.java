@@ -9,6 +9,7 @@ package frc.robot;
 
 import org.slf4j.Logger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -20,6 +21,7 @@ import frc.robot.commands.InvalidButton;
 import frc.robot.commands.RobotSetFar;
 import frc.robot.commands.RobotSetMid;
 import frc.robot.commands.RobotSetNear;
+import frc.robot.commands.RobotSetVeryFar;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
@@ -29,11 +31,10 @@ import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
-import frc.robot.commands.turret.TurretHome;
 import frc.robot.commands.turret.TurretPositionBack;
 import frc.robot.commands.turret.TurretPositionFront;
-import frc.robot.commands.turret.TurretJogCCW;
-import frc.robot.commands.turret.TurretJogCW;
+import frc.robot.commands.turret.TurretRotateCCW;
+import frc.robot.commands.turret.TurretRotateCW;
 import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
 import frc.robot.commands.wheel.WheelRunClockwise;
@@ -184,12 +185,15 @@ public class OI implements ITelemetryProvider {
         /*
          * Turret
          */
-        turretHomeButton.whenPressed(new TurretHome());
+        // turretHomeButton.whenPressed(new TurretHome());
+        turretHomeButton.whenPressed(new RobotSetVeryFar());
         turretOrientationBackButton.whenPressed(new TurretPositionBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
         turretOrientationFrontButton.whenPressed(new TurretPositionFront());
-        turretJogClockwiseButton.whenHeld(new TurretJogCW());
-        turretJogCounterClockwiseButton.whenHeld(new TurretJogCCW());
+        // turretJogClockwiseButton.whenPressed(new TurretJogCW());
+        // turretJogCounterClockwiseButton.whenPressed(new TurretJogCCW());
+        turretJogClockwiseButton.whenHeld(new TurretRotateCW());
+        turretJogCounterClockwiseButton.whenHeld(new TurretRotateCCW());
 
         /*
          * Shooter
@@ -234,9 +238,13 @@ public class OI implements ITelemetryProvider {
         SmartDashboard.putNumber(TelemetryNames.HMI.oiTurn, getDriveTurn());
     }
 
+    // FIXME - Change for pit testing like field
     public boolean isFieldConnected() {
-        // return DriverStation.getInstance().isFMSAttached(); // FOR field
-        return true; // FOR pit testing
+        // For Field Running
+        return DriverStation.getInstance().isFMSAttached();
+
+        // For Pit Testing (be careful)
+        // return true; // FOR pit testing
     }
 
     /*****************
@@ -287,6 +295,10 @@ public class OI implements ITelemetryProvider {
 
     public boolean getHopperActive() {
         return deadBand(getDriverTriggerAxis(), 0.05) != 0;
+    }
+
+    public boolean getBallevatorActive() {
+        return deadBand(getDriverTriggerAxis(), 0.05) > 0;
     }
 
     /*****************

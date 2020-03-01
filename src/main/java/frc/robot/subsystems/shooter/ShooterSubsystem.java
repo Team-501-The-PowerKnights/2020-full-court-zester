@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.slf4j.Logger;
 
 import frc.robot.OI;
+import frc.robot.commands.CommandingNames;
 import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
@@ -42,6 +43,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     // Value of the RPM to use for speed
     private double targetRpm;
+    // Value to compare RPM actual to target
+    private double tolerance;
 
     // Flag for whether active (i.e., spinning)
     private boolean isActive;
@@ -70,6 +73,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
         targetRpm = 3295; // TODO - Make the values
         isActive = false;
+
+        SmartDashboard.putNumber(CommandingNames.Shooter.tolerance, 0.015);
 
         logger.info("constructed");
     }
@@ -109,8 +114,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
+        logger.info("last value of RPM tolerance: {}", tolerance);
     }
 
     @Override
@@ -178,7 +182,10 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public boolean atTargetVelocity() {
-        return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= 0.05);
+        // FIXME - Find a way to only get a change via GUI
+        tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
+
+        return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
     }
 
 }
