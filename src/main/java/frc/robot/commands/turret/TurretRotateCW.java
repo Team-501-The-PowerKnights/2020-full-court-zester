@@ -30,7 +30,7 @@ public class TurretRotateCW extends TurretCommandBase {
     public void execute() {
         super.execute();
 
-        turret.setSpeed(20, -speed);
+        turret.setSpeed(20, speed);
 
         if (speed < 0.35) {
             speed += 0.002;
