@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.FirePoseVision;
-import frc.robot.commands.IngestPose;
 import frc.robot.commands.InvalidButton;
 import frc.robot.commands.RobotSetFar;
 import frc.robot.commands.RobotSetMid;
@@ -305,22 +304,6 @@ public class OI implements ITelemetryProvider {
      * Turret
      *****************/
 
-    public double getRawTurretSpeed() {
-        return deadBand(getOperatorLeftXAxis(), 0.05);
-    }
-
-    public double getTurretSpeed() {
-        // FIXME - No longer same button scheme or manual control
-        final double hmiSpeed = getRawTurretSpeed();
-        double calcSpeed;
-        // if (turretTurboButton.get()) {
-        // calcSpeed = hmiSpeed * 0.35;
-        // } else {
-        calcSpeed = hmiSpeed * 0.15;
-        // }
-        return calcSpeed;
-    }
-
     public double getTurretFineAdjustment() {
         return deadBand(getOperatorPotentiometer2(), 0.05);
     }
@@ -328,10 +311,6 @@ public class OI implements ITelemetryProvider {
     /*****************
      * Shooter
      *****************/
-
-    public double getShooterSpeed() {
-        return deadBand(getOperatorRightYAxis(), 0.05);
-    }
 
     public double getShooterFineAdjustment() {
         return deadBand(getOperatorPotentiometer3(), 0.05);
@@ -367,10 +346,6 @@ public class OI implements ITelemetryProvider {
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
-
-    public double getTurretIncrement() {
-        return getOperatorTriggerAxis();
-    }
 
     public boolean isShooterRevEnabled() {
         return shooterRevButton.get();
@@ -419,43 +394,6 @@ public class OI implements ITelemetryProvider {
     }
 
     private double getOperatorPotentiometer3() {
-        return operatorStick.getRawAxis(3);
-    }
-
-    // TODO - Get rid of references to these, or add a joystick on port 2 for
-    // operator testing
-
-    private double getOperatorLeftYAxis() {
-        return -operatorStick.getRawAxis(1);
-    }
-
-    private double getOperatorRightYAxis() {
-        return -operatorStick.getRawAxis(5);
-    }
-
-    private double getOperatorLeftXAxis() {
-        return operatorStick.getRawAxis(0);
-    }
-
-    private double getOperatorRightXAxis() {
-        return operatorStick.getRawAxis(4);
-    }
-
-    private double getOperatorTriggerAxis() {
-        if (operatorStick.getRawAxis(2) > 0.05) {
-            return operatorStick.getRawAxis(2);
-        } else if (operatorStick.getRawAxis(3) > 0.05) {
-            return -operatorStick.getRawAxis(3);
-        } else {
-            return 0;
-        }
-    }
-
-    private double getOperatorLeftTrigger() {
-        return operatorStick.getRawAxis(2);
-    }
-
-    private double getOperatorRightTrigger() {
         return operatorStick.getRawAxis(3);
     }
 
