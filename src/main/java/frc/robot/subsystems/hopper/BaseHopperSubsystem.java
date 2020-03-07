@@ -79,4 +79,10 @@ abstract class BaseHopperSubsystem extends SubsystemBase implements IHopperSubsy
         // Default is to do nothing
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

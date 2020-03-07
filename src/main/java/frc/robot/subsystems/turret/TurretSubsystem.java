@@ -110,11 +110,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         pid.setReference(0, ControlType.kVoltage);
         motor.set(0.0);

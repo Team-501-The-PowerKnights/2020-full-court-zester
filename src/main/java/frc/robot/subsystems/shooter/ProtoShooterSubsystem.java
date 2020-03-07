@@ -59,11 +59,6 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public void disable() {
-    stop();
-  }
-
-  @Override
   public void stop() {
     shootPID.setReference(0, ControlType.kVelocity);
     motor.set(0.0);

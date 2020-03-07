@@ -108,9 +108,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void disable() {
-        logger.info("last value of RPM tolerance: {}", tolerance);
+        super.disable();
 
-        stop();
+        logger.info("last value of RPM tolerance: {}", tolerance);
     }
 
     @Override

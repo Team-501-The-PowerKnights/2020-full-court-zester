@@ -70,11 +70,6 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         shooterPID.setReference(0, ControlType.kVoltage);
         leftMotor.set(0);

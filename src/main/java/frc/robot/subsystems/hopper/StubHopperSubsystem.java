@@ -28,11 +28,6 @@ public class StubHopperSubsystem extends BaseHopperSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         // Stub doesn't implement this
     }

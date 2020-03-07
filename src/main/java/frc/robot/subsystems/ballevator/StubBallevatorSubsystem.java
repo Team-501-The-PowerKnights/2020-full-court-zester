@@ -28,11 +28,6 @@ class StubBallevatorSubsystem extends BaseBallevatorSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         // Stub doesn't implement this
     }

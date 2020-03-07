@@ -79,4 +79,10 @@ abstract class BaseWheelSubsystem extends SubsystemBase implements IWheelSubsyst
         // Default is to do nothing
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

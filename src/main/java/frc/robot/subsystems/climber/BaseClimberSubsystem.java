@@ -79,4 +79,10 @@ abstract class BaseClimberSubsystem extends SubsystemBase implements IClimberSub
         // Default is to do nothing
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

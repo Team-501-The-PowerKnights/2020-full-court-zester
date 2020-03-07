@@ -112,4 +112,10 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         pid_F = v;
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

@@ -112,4 +112,10 @@ abstract class BaseTurretSubsystem extends SubsystemBase implements ITurretSubsy
         pid_F = v;
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

@@ -47,18 +47,13 @@ class WheelSubsystem extends BaseWheelSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         motor.set(ControlMode.PercentOutput, 0.0);
     }
 
+    // FIXME - Can't tie up thread like this; needs to be commanded
     @Override
     public void runToColor(PKColor color) {
-
         PKColor targetColor = generateColorOffset(color);
 
         while (colorSensor.getColor() != targetColor) {
@@ -70,6 +65,7 @@ class WheelSubsystem extends BaseWheelSubsystem {
         }
     }
 
+    // FIXME - Can't tie up thread like this; needs to be commanded
     @Override
     public void runRevolutions(double numRevolutions) {
         PKColor origColor = colorSensor.getColor();

@@ -60,11 +60,6 @@ class ClimberSubsystem extends BaseClimberSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         motor.set(0.0);
     }

@@ -142,11 +142,6 @@ class DriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         drive.tankDrive(0, 0);
     }

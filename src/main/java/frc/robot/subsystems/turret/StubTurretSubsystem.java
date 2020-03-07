@@ -28,11 +28,6 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         // Stub doesn't implement this
     }

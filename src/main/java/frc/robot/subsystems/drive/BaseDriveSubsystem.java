@@ -78,4 +78,10 @@ abstract class BaseDriveSubsystem extends SubsystemBase implements IDriveSubsyst
         // Default is to do nothing
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

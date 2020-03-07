@@ -79,4 +79,10 @@ abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBalleva
         // Default is to do nothing
     }
 
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
+    }
+
 }

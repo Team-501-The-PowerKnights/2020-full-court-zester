@@ -30,11 +30,6 @@ class StubWheelSubsystem extends BaseWheelSubsystem {
     }
 
     @Override
-    public void disable() {
-        // Stub doesn't implement this
-    }
-
-    @Override
     public void stop() {
         // Stub doesn't implement this
     }

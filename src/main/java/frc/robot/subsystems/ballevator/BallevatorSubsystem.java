@@ -58,11 +58,6 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         motor.set(ControlMode.PercentOutput, 0);
     }

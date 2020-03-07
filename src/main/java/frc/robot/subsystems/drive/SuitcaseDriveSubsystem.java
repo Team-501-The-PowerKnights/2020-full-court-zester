@@ -56,11 +56,6 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         leftFrontMotor.set(ControlMode.PercentOutput, 0);
 

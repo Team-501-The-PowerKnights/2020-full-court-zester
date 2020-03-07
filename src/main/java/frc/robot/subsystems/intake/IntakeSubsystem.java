@@ -54,11 +54,6 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     }
 
     @Override
-    public void disable() {
-        stop();
-    }
-
-    @Override
     public void stop() {
         setSpeed(0.0);
     }
