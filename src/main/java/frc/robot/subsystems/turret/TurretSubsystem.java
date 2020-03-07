@@ -98,12 +98,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void updatePreferences() {
         loadPreferences();
 
@@ -113,11 +107,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
             pid.setD(pid_D, 1);
             pid.setFF(pid_F, 1);
         }
-
     }
 
     @Override
     public void disable() {
+        stop();
     }
 
     @Override
@@ -158,6 +152,7 @@ class TurretSubsystem extends BaseTurretSubsystem {
         pid.setReference(steering_adjust, ControlType.kVoltage, 1);
     }
 
+    // FIXME - So not done with Thread.sleep()
     @Override
     public void home() {
         logger.debug("starting ...");
@@ -252,11 +247,11 @@ class TurretSubsystem extends BaseTurretSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-            case 20:
-                motor.set(speed);
-                break;
-            default:
-                break;
+        case 20:
+            motor.set(speed);
+            break;
+        default:
+            break;
         }
     }
 

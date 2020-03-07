@@ -56,69 +56,48 @@ class SuitcaseDriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void updateTelemetry() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
+        stop();
     }
 
     @Override
     public void stop() {
-        // Nothing is actually moving on the suitcase bot for drive
+        leftFrontMotor.set(ControlMode.PercentOutput, 0);
+
+        rightFrontMotor.set(0);
+        rightRearMotor.set(0);
     }
 
     @Override
     public void setBrake(boolean brakeOn) {
-        // No implementation - Suitcase has no Spark Max on its drive
+        // No implementation - We have no Spark Max on its drive
     }
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
         // Really no heavy implementation, just need to see that the controllers can be
-        // sent
-        // instructions
+        // sent instructions
         leftFrontMotor.set(ControlMode.PercentOutput, hmiSpeed);
         right.set(hmiTurn);
     }
 
     @Override
     public void followPath(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
-        // No implementation - Suitcase has no motors, so testing path following makes
-        // no sense
+        // No implementation - we have no motors, so path following makes no sense
     }
 
     @Override
     public void setSpeed(int canID, double speed) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void swap() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public double getEncoderClicks() {
-        // TODO Auto-generated method stub
         return 0;
     }
 

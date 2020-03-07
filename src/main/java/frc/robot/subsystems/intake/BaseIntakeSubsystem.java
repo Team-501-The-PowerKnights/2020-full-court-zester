@@ -40,6 +40,11 @@ abstract class BaseIntakeSubsystem extends SubsystemBase implements IIntakeSubsy
     }
 
     @Override
+    public void updateTelemetry() {
+        // Default is to do nothing
+    }
+
+    @Override
     public void loadDefaultCommand() {
         PKProperties props = PropertiesManager.getInstance().getProperties(myName);
         String myClassName = props.getString("defaultCommandName");
@@ -62,6 +67,16 @@ abstract class BaseIntakeSubsystem extends SubsystemBase implements IIntakeSubsy
         }
 
         setDefaultCommand(ourCommand);
+    }
+
+    @Override
+    public void validateCalibration() {
+        // Default is to do nothing
+    }
+
+    @Override
+    public void updatePreferences() {
+        // Default is to do nothing
     }
 
 }

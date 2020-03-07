@@ -54,21 +54,8 @@ public class IntakeSubsystem extends BaseIntakeSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Get PID values from preferences
-
-    }
-
-    @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
+        stop();
     }
 
     @Override

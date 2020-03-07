@@ -58,21 +58,8 @@ class BallevatorSubsystem extends BaseBallevatorSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void disable() {
-        // TODO Auto-generated method stub
-
+        stop();
     }
 
     @Override

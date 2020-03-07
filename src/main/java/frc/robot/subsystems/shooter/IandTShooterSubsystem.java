@@ -60,16 +60,6 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void updateTelemetry() {
-    }
-
-    @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void updatePreferences() {
         loadPreferences();
 
@@ -81,14 +71,14 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void disable() {
-        leftMotor.set(0);
-        rightMotor.set(0);
+        stop();
     }
 
     @Override
     public void stop() {
         shooterPID.setReference(0, ControlType.kVoltage);
-        leftMotor.set(0.0);
+        leftMotor.set(0);
+        rightMotor.set(0);
     }
 
     @Override
@@ -106,16 +96,16 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-            case 21:
-                // motor.set(speed);
-                // motor.set(0.1);
-                break;
-            case 22:
-                rightMotor.set(speed);
-                // shootSlave0.set(0.1);
-                break;
-            default:
-                break;
+        case 21:
+            // motor.set(speed);
+            // motor.set(0.1);
+            break;
+        case 22:
+            rightMotor.set(speed);
+            // shootSlave0.set(0.1);
+            break;
+        default:
+            break;
         }
     }
 

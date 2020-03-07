@@ -28,23 +28,8 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void updateTelemetry() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void validateCalibration() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void updatePreferences() {
-        // Stub doesn't implement this
-    }
-
-    @Override
     public void disable() {
-        // Stub doesn't implement this
+        stop();
     }
 
     @Override
@@ -92,4 +77,5 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
         // Stub doesn't implement this
         return false;
     }
+
 }
