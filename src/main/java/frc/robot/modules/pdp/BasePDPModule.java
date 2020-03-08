@@ -32,14 +32,4 @@ abstract class BasePDPModule implements IPDPModule {
         // Default is to do nothing
     }
 
-    @Override
-    public void updatePreferences() {
-        // Default is to do nothing
-    }
-
-    @Override
-    public void disable() {
-        // Default is to do nothing
-    }
-
 }
