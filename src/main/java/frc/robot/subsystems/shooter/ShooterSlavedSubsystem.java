@@ -11,7 +11,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,10 +23,10 @@ import frc.robot.telemetry.TelemetryNames;
 
 import riolog.RioLogger;
 
-public class ShooterSubsystem extends BaseShooterSubsystem {
+public class ShooterSlavedSubsystem extends BaseShooterSubsystem {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSubsystem.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSlavedSubsystem.class.getName());
 
     //
     private static final int slotID = 1;
@@ -38,14 +37,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     private CANSparkMax rightMotor;
 
     // Encoder
-    private CANEncoder leftEncoder;
+    private CANEncoder encoder;
     // PID
-    private CANPIDController leftPid;
-
-    // Encoder
-    private CANEncoder rightEncoder;
-    // PID
-    private CANPIDController rightPid;
+    private CANPIDController pid;
 
     // Value of the RPM to use for speed
     private double targetRpm;
@@ -58,28 +52,22 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     /**
      * Creates a new ShooterSubsystem.
      */
-    public ShooterSubsystem() {
+    public ShooterSlavedSubsystem() {
         logger.info("constructing");
 
         leftMotor = new CANSparkMax(21, MotorType.kBrushless);
-        // + spin out, - spin in
         leftMotor.restoreFactoryDefaults();
-        leftMotor.setIdleMode(IdleMode.kBrake);
-
-        leftEncoder = new CANEncoder(leftMotor);
-
-        leftPid = new CANPIDController(leftMotor);
-        leftPid.setOutputRange(0, 1, slotID);
-
         rightMotor = new CANSparkMax(22, MotorType.kBrushless);
         rightMotor.restoreFactoryDefaults();
-        rightMotor.setIdleMode(IdleMode.kBrake);
-        rightMotor.setInverted(true);
+        // + spin out, - spin in
 
-        rightEncoder = new CANEncoder(rightMotor);
+        // Slaved and inverted
+        rightMotor.follow(leftMotor, true);
 
-        rightPid = new CANPIDController(rightMotor);
-        rightPid.setOutputRange(0, 1, slotID);
+        encoder = new CANEncoder(leftMotor);
+
+        pid = new CANPIDController(leftMotor);
+        pid.setOutputRange(0, 1, slotID);
 
         updatePreferences();
 
@@ -99,7 +87,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void updateTelemetry() {
         SmartDashboard.putBoolean(TelemetryNames.Shooter.isActive, isActive);
-        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, leftEncoder.getVelocity());
+        SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, encoder.getVelocity());
         SmartDashboard.putNumber(TelemetryNames.Shooter.targetRpm, targetRpm);
         SmartDashboard.putBoolean(TelemetryNames.Shooter.atTarget, atTargetVelocity());
 
@@ -114,17 +102,11 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     public void updatePreferences() {
         loadPreferences();
 
-        if (leftPid != null) {
-            leftPid.setP(pid_P, slotID);
-            leftPid.setI(pid_I, slotID);
-            leftPid.setD(pid_D, slotID);
-            leftPid.setFF(pid_F, slotID);
-        }
-        if (rightPid != null) {
-            rightPid.setP(pid_P, slotID);
-            rightPid.setI(pid_I, slotID);
-            rightPid.setD(pid_D, slotID);
-            rightPid.setFF(pid_F, slotID);
+        if (pid != null) {
+            pid.setP(pid_P, slotID);
+            pid.setI(pid_I, slotID);
+            pid.setD(pid_D, slotID);
+            pid.setFF(pid_F, slotID);
         }
 
         // TODO - Should this also (re)set targetRpm?
@@ -139,12 +121,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void stop() {
-        leftMotor.setIdleMode(IdleMode.kBrake);
-        rightMotor.setIdleMode(IdleMode.kBrake);
-
         // set() implemented by setReference() call
         leftMotor.set(0.0);
-        rightMotor.set(0.0);
 
         isActive = false;
     }
@@ -161,24 +139,15 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         this.targetRpm = rpm; // Save off value for enabling
 
         if (isActive) {
-            leftPid.setReference(targetRpm, ControlType.kVelocity, slotID);
-            rightPid.setReference(targetRpm, ControlType.kVelocity, slotID);
+            pid.setReference(targetRpm, ControlType.kVelocity, slotID);
         }
     }
 
     @Override
     public void shoot() {
         isActive = true;
-
-        leftMotor.setIdleMode(IdleMode.kCoast);
-        rightMotor.setIdleMode(IdleMode.kCoast);
-
-        leftPid.setOutputRange(0.10, 1.0, slotID);
-        rightPid.setOutputRange(0.10, 1.0, slotID);
-
         /* generated speed */
-        leftPid.setReference(targetRpm, ControlType.kVelocity, slotID);
-        rightPid.setReference(targetRpm, ControlType.kVelocity, slotID);
+        pid.setReference(targetRpm, ControlType.kVelocity, slotID);
     }
 
     // FIXME - Was supposed to be for manual; no idleShooter scaling
@@ -192,11 +161,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
             rightMotor.set(idleShooter(speed));
             break;
         case 29:
-            leftMotor.setIdleMode(IdleMode.kBrake);
-            rightMotor.setIdleMode(IdleMode.kBrake);
-            // Not slaved
+            // Assuming slaved
             leftMotor.set(idleShooter(speed));
-            rightMotor.set(idleShooter(speed));
             break;
         default:
             break;
@@ -221,11 +187,7 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         // FIXME - Find a way to only get a change via GUI
         tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
 
-        // double velocity = (leftEncoder.getVelocity() + rightEncoder.getVelocity()) /
-        // 2;
-        double velocity = leftEncoder.getVelocity();
-
-        return (((Math.abs(targetRpm - velocity)) / targetRpm) <= tolerance);
+        return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
     }
 
 }
