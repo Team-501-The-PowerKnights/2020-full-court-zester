@@ -5,28 +5,19 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.IShooterSubsystem;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-// FIXME - Make these Shooter commands
-public class RobotSetMid extends PKCommandBase {
+public class ShooterSetMid extends ShooterCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(RobotSetMid.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSetMid.class.getName());
 
-    private IShooterSubsystem shooter;
-
-    public RobotSetMid() {
+    public ShooterSetMid() {
         logger.info("constructing {}", getName());
-
-        shooter = ShooterFactory.getInstance();
 
         logger.info("constructed");
     }
