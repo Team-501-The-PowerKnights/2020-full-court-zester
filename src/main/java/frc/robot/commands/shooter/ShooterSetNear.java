@@ -9,9 +9,13 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-public class ShooterSetNear extends ShooterCommandBase {
+public class ShooterSetNear extends PKCommandBase {
+    // TODO - This should be a real Shooter subsystem command
 
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(ShooterSetNear.class.getName());
@@ -26,7 +30,7 @@ public class ShooterSetNear extends ShooterCommandBase {
     public void execute() {
         super.execute();
 
-        shooter.setTargetRpm(3250); // 3050
+        ShooterFactory.getInstance().setTargetRpm(3250); // 3050
     }
 
     @Override
