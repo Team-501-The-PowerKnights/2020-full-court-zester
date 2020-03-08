@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.FirePoseVision;
 import frc.robot.commands.InvalidButton;
-import frc.robot.commands.RobotSetFar;
-import frc.robot.commands.RobotSetMid;
-import frc.robot.commands.RobotSetNear;
-import frc.robot.commands.RobotSetVeryFar;
+import frc.robot.commands.shooter.ShooterSetFar;
+import frc.robot.commands.shooter.ShooterSetMid;
+import frc.robot.commands.shooter.ShooterSetNear;
+import frc.robot.commands.shooter.ShooterSetVeryFar;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
@@ -171,9 +171,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Field Position
          */
-        fieldPositionFarButton.whenPressed(new RobotSetFar());
-        fieldPositionMidButton.whenPressed(new RobotSetMid());
-        fieldPositionNearButton.whenPressed(new RobotSetNear());
+        fieldPositionFarButton.whenPressed(new ShooterSetFar());
+        fieldPositionMidButton.whenPressed(new ShooterSetMid());
+        fieldPositionNearButton.whenPressed(new ShooterSetNear());
 
         /*
          * Ballevator
@@ -185,7 +185,7 @@ public class OI implements ITelemetryProvider {
          * Turret
          */
         // turretHomeButton.whenPressed(new TurretHome());
-        turretHomeButton.whenPressed(new RobotSetVeryFar());
+        turretHomeButton.whenPressed(new ShooterSetVeryFar());
         turretOrientationBackButton.whenPressed(new TurretPositionBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
         turretOrientationFrontButton.whenPressed(new TurretPositionFront());
