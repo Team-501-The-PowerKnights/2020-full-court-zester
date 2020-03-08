@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.gyro.IGyroSensor;
 import frc.robot.telemetry.TelemetryNames;
+
 import riolog.RioLogger;
 
 class DriveSubsystem extends BaseDriveSubsystem {
@@ -141,18 +142,8 @@ class DriveSubsystem extends BaseDriveSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
+    public void stop() {
+        drive.tankDrive(0, 0);
     }
 
     @Override
@@ -168,11 +159,6 @@ class DriveSubsystem extends BaseDriveSubsystem {
             rightFrontMotor.setIdleMode(IdleMode.kCoast);
             rightRearMotor.setIdleMode(IdleMode.kCoast);
         }
-    }
-
-    @Override
-    public void stop() {
-        drive.tankDrive(0, 0);
     }
 
     @Override

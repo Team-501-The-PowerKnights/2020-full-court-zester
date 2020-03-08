@@ -93,12 +93,6 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void updatePreferences() {
         loadPreferences();
 
@@ -114,6 +108,8 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public void disable() {
+        super.disable();
+
         logger.info("last value of RPM tolerance: {}", tolerance);
     }
 

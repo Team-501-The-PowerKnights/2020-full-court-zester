@@ -18,11 +18,22 @@ public interface IModule extends ITelemetryProvider {
      * Called to update any preferences associated with the module. This will be
      * used at a minimum to update any PID values.
      **/
-    public void updatePreferences();
+    default public void updatePreferences() {
+        // Default is to do nothing
+    }
+
+    /**
+     * Enable the module.
+     **/
+    default public void enable() {
+        // Default is to do nothing
+    };
 
     /**
      * Disable the module.
      **/
-    public void disable();
+    default public void disable() {
+        // Default is to do nothing
+    }
 
 }

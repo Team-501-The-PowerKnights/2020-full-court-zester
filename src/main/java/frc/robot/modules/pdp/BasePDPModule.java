@@ -9,12 +9,27 @@ package frc.robot.modules.pdp;
 
 import org.slf4j.Logger;
 
+import frc.robot.modules.ModuleNames;
+
 import riolog.RioLogger;
 
 abstract class BasePDPModule implements IPDPModule {
 
     /** Our classes' logger **/
-    @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(BasePDPModule.class.getName());
+
+    /** Our subsystem's name **/
+    protected static final String myName = ModuleNames.pdpName;
+
+    BasePDPModule() {
+        logger.info("constructing");
+
+        logger.info("constructed");
+    }
+
+    @Override
+    public void updateTelemetry() {
+        // Default is to do nothing
+    }
 
 }

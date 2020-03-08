@@ -21,6 +21,7 @@ class PDPModule extends BasePDPModule {
     /** Our classes' logger **/
     private static final Logger logger = RioLogger.getLogger(PDPModule.class.getName());
 
+    // Handle to our module
     private final PowerDistributionPanel pdp;
 
     public PDPModule() {
@@ -36,16 +37,6 @@ class PDPModule extends BasePDPModule {
         SmartDashboard.putNumber(TelemetryNames.PDP.busVoltage, getBusVoltage());
         SmartDashboard.putNumber(TelemetryNames.PDP.totalCurrent, getTotalEnergy());
         SmartDashboard.putNumber(TelemetryNames.PDP.totalEnergy, getTotalEnergy());
-    }
-
-    @Override
-    public void updatePreferences() {
-        // No preferences for this module
-    }
-
-    @Override
-    public void disable() {
-        // Nothing active so nothing to disable
     }
 
     @Override

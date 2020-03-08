@@ -55,6 +55,11 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     }
 
     @Override
+    public void updateTelemetry() {
+        // Default is to do nothing
+    }
+
+    @Override
     public void loadDefaultCommand() {
         PKProperties props = PropertiesManager.getInstance().getProperties(myName);
         String myClassName = props.getString("defaultCommandName");
@@ -79,6 +84,16 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         setDefaultCommand(ourCommand);
     }
 
+    @Override
+    public void validateCalibration() {
+        // Default is to do nothing
+    }
+
+    @Override
+    public void updatePreferences() {
+        // Default is to do nothing
+    }
+
     protected void loadPreferences() {
         double v;
 
@@ -95,6 +110,12 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         v = prefs.getDouble(PreferenceNames.Shooter.pid_F, 0.0002);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_F, v);
         pid_F = v;
+    }
+
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
     }
 
 }
