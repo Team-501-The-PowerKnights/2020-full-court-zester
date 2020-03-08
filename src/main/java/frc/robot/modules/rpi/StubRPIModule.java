@@ -25,19 +25,4 @@ class StubRPIModule extends BaseRPIModule {
         logger.info("constructed");
     }
 
-    @Override
-    public void updateTelemetry() {
-        // No stub implementation
-    }
-
-    @Override
-    public void updatePreferences() {
-        // No stub implementation
-    }
-
-    @Override
-    public void disable() {
-        // No stub implementation
-    }
-
 }

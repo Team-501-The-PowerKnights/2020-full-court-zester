@@ -23,22 +23,6 @@ class StubPDPModule extends BasePDPModule {
     }
 
     @Override
-    public void updateTelemetry() {
-        // No stub implementation
-    }
-
-    @Override
-    public void updatePreferences() {
-        // No stub implementation
-    }
-
-    @Override
-    public void disable() {
-        // No stub implementation
-
-    }
-
-    @Override
     public double getBusVoltage() {
         // No stub implementation
         return 0;
