@@ -246,6 +246,14 @@ public class OI implements ITelemetryProvider {
         // return true; // FOR pit testing
     }
 
+    public boolean isInPits() {
+        // For Field Running
+        return !DriverStation.getInstance().isFMSAttached();
+
+        // For Pit Testing (forced)
+        // return true;
+    }
+
     /*****************
      * Drive
      *****************/
