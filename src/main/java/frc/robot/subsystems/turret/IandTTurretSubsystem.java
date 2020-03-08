@@ -145,31 +145,27 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void jogCW() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void jogCCW() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void setAngleFromVision() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void holdAngle() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public boolean isAtAngle(double targetAngle) {
-        // TODO Auto-generated method stub
+        // Not implemented in this variant
         return false;
     }
 

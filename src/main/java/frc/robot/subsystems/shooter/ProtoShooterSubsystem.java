@@ -78,7 +78,7 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void setSpeed(int canID, double speed) {
-    // TODO Auto-generated method stub
+    // Not implemented
   }
 
   @Override

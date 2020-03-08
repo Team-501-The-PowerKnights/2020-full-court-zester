@@ -106,13 +106,13 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
 
     @Override
     public boolean atTargetVelocity() {
-        // TODO Auto-generated method stub
+        // Not implemented in this variant
         return false;
     }
 
     @Override
     public String getActivePosition() {
-        // TODO Auto-generated method stub
+        // Not implemented in this variant
         return null;
     }
 
