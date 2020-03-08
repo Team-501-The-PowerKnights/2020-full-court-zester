@@ -183,6 +183,10 @@ public final class TelemetryNames {
         public static final String rpm = name + ".rpm";
         public static final String targetRpm = name + ".targetRpm";
         public static final String atTarget = name + ".atTarget";
+
+        // For I&T Only
+        public static final String leftMotorCurrent = name + ".leftMotorCurrent";
+        public static final String rightMotorCurrent = name + ".rightMotorCurrent";
     }
 
     /***************

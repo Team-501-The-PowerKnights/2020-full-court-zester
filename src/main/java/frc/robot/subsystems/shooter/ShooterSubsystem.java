@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.slf4j.Logger;
@@ -90,6 +91,12 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         SmartDashboard.putNumber(TelemetryNames.Shooter.rpm, encoder.getVelocity());
         SmartDashboard.putNumber(TelemetryNames.Shooter.targetRpm, targetRpm);
         SmartDashboard.putBoolean(TelemetryNames.Shooter.atTarget, atTargetVelocity());
+
+        // TODO - Optimize this / put in I&T Subsystem
+        if (OI.getInstance().isInPits()) {
+            SmartDashboard.putNumber(TelemetryNames.Shooter.leftMotorCurrent, leftMotor.getOutputCurrent());
+            SmartDashboard.putNumber(TelemetryNames.Shooter.rightMotorCurrent, rightMotor.getOutputCurrent());
+        }
     }
 
     @Override
