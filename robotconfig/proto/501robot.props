@@ -49,13 +49,13 @@ WheelColor.className = StubWheelColorSensor
 #####################
 # TurretLocation
 #####################
-TurretLocation.className = TurretLocationSensor
+TurretLocation.className = StubTurretLocationSensor
 
 
 #####################
 # Vision
 #####################
-Vision.className = VisionSensor
+Vision.className = StubVisionSensor
 
 
 
@@ -82,8 +82,8 @@ Climber.defaultCommandName = ClimberDoNothing
 #####################
 # Drive
 #####################
-Drive.className = StubDriveSubsystem
-Drive.defaultCommandName = DriveDoNothing
+Drive.className = ProtoDriveSubsystem
+Drive.defaultCommandName = DriveJoystickControl
 
 
 #####################
@@ -103,7 +103,7 @@ Intake.defaultCommandName = IntakeDoNothing
 #####################
 # Turret
 #####################
-Turret.className = TurretSubsystem
+Turret.className = StubTurretSubsystem
 Turret.defaultCommandName = TurretDoNothing
 
 
