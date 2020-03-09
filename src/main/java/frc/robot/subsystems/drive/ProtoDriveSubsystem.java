@@ -47,11 +47,11 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     /**
      * Drive Constants
      */
-    private static final double s = 0.0645; // Volts
-    private static final double v = 2.84; // VoltSeconds Per Meter
-    private static final double a = 0.28; // VoltSecondsSquared Per Meter
-    private static final double p = 2.53; // Drive Velocity
-    private static final double trackWidth = 0.616; // Meters
+    private static final double s = 0.111; // Volts
+    private static final double v = 2.78; // VoltSeconds Per Meter
+    private static final double a = 0.13; // VoltSecondsSquared Per Meter
+    private static final double p = 4.29; // Drive Velocity
+    private static final double trackWidth = 0.61; // Meters
     private static final double ramseteB = 2;
     private static final double ramseteZeta = 0.7;
     private static final double maxSpeed = 3.04; // Meters Per Second
