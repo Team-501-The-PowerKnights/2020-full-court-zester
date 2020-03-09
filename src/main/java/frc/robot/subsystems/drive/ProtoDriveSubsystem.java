@@ -10,14 +10,14 @@ package frc.robot.subsystems.drive;
 import java.util.List;
 
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -77,46 +77,64 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     private final CANSparkMax rightFrontMotor;
     private final CANSparkMax rightRearMotor;
 
-    private final SpeedControllerGroup left;
-    private final SpeedControllerGroup right;
-
     private final CANEncoder leftEncoder;
     private final CANEncoder rightEncoder;
+
+    private final CANPIDController leftPIDController;
+    private final CANPIDController rightPIDController;
 
     private final IGyroSensor nav;
 
     private final DifferentialDrive drive;
     private final DifferentialDriveKinematics driveKinematics;
     private final DifferentialDriveOdometry driveOdometry;
+    private final RamseteController ramseteController;
+
+    private final SimpleMotorFeedforward feedforward;
+
+    private final DriveHelper helper;
 
     ProtoDriveSubsystem() {
         logger.info("constructing");
 
-        leftFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
-        leftRearMotor = new CANSparkMax(22, MotorType.kBrushless);
-        rightFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
-        rightRearMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
+        leftFrontMotor.restoreFactoryDefaults();
+        leftRearMotor = new CANSparkMax(21, MotorType.kBrushless);
+        leftRearMotor.restoreFactoryDefaults();
+        rightFrontMotor = new CANSparkMax(23, MotorType.kBrushless);
+        rightFrontMotor.restoreFactoryDefaults();
+        rightRearMotor = new CANSparkMax(22, MotorType.kBrushless);
+        rightRearMotor.restoreFactoryDefaults();
 
-        left = new SpeedControllerGroup(leftFrontMotor, leftRearMotor);
-        right = new SpeedControllerGroup(rightFrontMotor, rightRearMotor);
+        leftFrontMotor.setInverted(false);
+        rightFrontMotor.setInverted(false);
 
-        left.setInverted(false);
-        right.setInverted(true);
+        leftRearMotor.follow(leftFrontMotor);
+        rightRearMotor.follow(rightFrontMotor);
 
         leftEncoder = new CANEncoder(leftFrontMotor);
         rightEncoder = new CANEncoder(rightFrontMotor);
 
+        leftPIDController = new CANPIDController(leftFrontMotor);
+        leftPIDController.setP(p);
+        rightPIDController = new CANPIDController(rightFrontMotor);
+        rightPIDController.setP(p);
+
         nav = GyroFactory.getInstance();
 
-        drive = new DifferentialDrive(left, right);
+        drive = new DifferentialDrive(leftFrontMotor, rightFrontMotor);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
+        ramseteController = new RamseteController(ramseteB, ramseteZeta);
 
-        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(s, v, a),
-                driveKinematics, 10);
+        feedforward = new SimpleMotorFeedforward(s, v, a);
+
+        autoVoltageConstraint = new DifferentialDriveVoltageConstraint(feedforward, driveKinematics, 10);
 
         trajectoryConfig = new TrajectoryConfig(maxSpeed, maxAcceleration).setKinematics(driveKinematics)
                 .addConstraint(autoVoltageConstraint);
+
+        helper = new DriveHelper();
 
         logger.info("constructed");
     }
@@ -172,13 +190,32 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         }
     }
 
-    /*
-     * Drive constraint values
-     */
+    private static double speed;
+    private static double turn;
+    private static double leftSpeed;
+    private static double rightSpeed;
+
+    private final double quickTurnThreshold = 0.2;
 
     @Override
     public void drive(double hmiSpeed, double hmiTurn) {
-        drive.arcadeDrive(hmiSpeed, hmiTurn);
+        // Save off passed values for telemetry
+        speed = hmiSpeed;
+        turn = hmiTurn;
+
+        boolean quickTurn = (Math.abs(speed) < quickTurnThreshold);
+        DriveSignal driveSignal = helper.cheesyDrive(speed, turn, quickTurn, false);
+
+        arcadeDrive(driveSignal);
+    }
+
+    private void arcadeDrive(DriveSignal driveSignal) {
+        // Save values for telemetry
+        leftSpeed = driveSignal.getLeft();
+        rightSpeed = driveSignal.getRight();
+
+        leftFrontMotor.set(leftSpeed);
+        rightFrontMotor.set(rightSpeed);
     }
 
     @Override
@@ -188,11 +225,15 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         final Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end,
                 trajectoryConfig);
 
-        // return the RamseteCommand to run
-        CommandScheduler.getInstance()
-                .schedule(new RamseteCommand(trajectory, this::getPose, new RamseteController(ramseteB, ramseteZeta),
-                        new SimpleMotorFeedforward(s, v, a), driveKinematics, this::getVelocity,
-                        new PIDController(p, 0, 0), new PIDController(p, 0, 0), this::tankDriveVolts, this));
+        // Schedule a RamseteCommand that executes the necessary trajectory
+        CommandScheduler.getInstance().schedule(new RamseteCommand(trajectory, this::getPose, ramseteController,
+                driveKinematics, this::setPIDVelocity, this));
+
+    }
+
+    private void setPIDVelocity(double leftVelocity, double rightVelocity) {
+        leftPIDController.setReference(feedforward.calculate(leftVelocity), ControlType.kVelocity);
+        rightPIDController.setReference(feedforward.calculate(rightVelocity), ControlType.kVelocity);
     }
 
     protected double convertInchesToEncoderClicks(double inches) {
