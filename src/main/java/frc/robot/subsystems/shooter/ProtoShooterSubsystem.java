@@ -93,4 +93,10 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
     return null;
   }
 
+  @Override
+  public void fineTuneTargetRpm(double axisVal) {
+    // Not doing anything
+
+  }
+
 }

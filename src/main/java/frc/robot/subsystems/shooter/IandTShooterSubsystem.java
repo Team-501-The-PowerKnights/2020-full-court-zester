@@ -91,16 +91,16 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            // motor.set(speed);
-            // motor.set(0.1);
-            break;
-        case 22:
-            rightMotor.set(speed);
-            // shootSlave0.set(0.1);
-            break;
-        default:
-            break;
+            case 21:
+                // motor.set(speed);
+                // motor.set(0.1);
+                break;
+            case 22:
+                rightMotor.set(speed);
+                // shootSlave0.set(0.1);
+                break;
+            default:
+                break;
         }
     }
 
@@ -114,6 +114,11 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     public String getActivePosition() {
         // Not implemented in this variant
         return null;
+    }
+
+    @Override
+    public void fineTuneTargetRpm(double axisVal) {
+        // Not implemented
     }
 
 }
