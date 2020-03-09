@@ -290,7 +290,7 @@ public class Robot extends TimedRobot {
         // for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        if (!(DriverStation.getInstance().isFMSAttached())) {
+        if (OI.getInstance().isInPits()) {
             SmartDashboard.updateValues();
         }
     }
