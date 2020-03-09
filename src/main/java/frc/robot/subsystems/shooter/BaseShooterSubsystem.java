@@ -43,6 +43,8 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
     protected double pid_I = 0;
     protected double pid_D = 1;
     protected double pid_F = 0.0002;
+    protected double pid_IZone = 0; // TODO - tune for default values
+    protected double pid_IMaxAccum = 0; // TODO - tune for default values
 
     protected BaseShooterSubsystem() {
         logger.info("constructing");
@@ -110,6 +112,12 @@ abstract class BaseShooterSubsystem extends SubsystemBase implements IShooterSub
         v = prefs.getDouble(PreferenceNames.Shooter.pid_F, 0.0002);
         logger.info("{} = {}", PreferenceNames.Shooter.pid_F, v);
         pid_F = v;
+        v = prefs.getDouble(PreferenceNames.Shooter.pid_IZone, 0); // TODO - tune for default values
+        logger.info("{} = {}", PreferenceNames.Shooter.pid_IZone, v);
+        pid_IZone = v;
+        v = prefs.getDouble(PreferenceNames.Shooter.pid_IMaxAccum, 0); // TODO - tune for default values
+        logger.info("{} = {}", PreferenceNames.Shooter.pid_IMaxAccum, v);
+        pid_IMaxAccum = v;
     }
 
     @Override

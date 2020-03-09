@@ -119,12 +119,16 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
             leftPid.setI(pid_I, slotID);
             leftPid.setD(pid_D, slotID);
             leftPid.setFF(pid_F, slotID);
+            leftPid.setIZone(pid_IZone, slotID);
+            leftPid.setIZone(pid_IMaxAccum, slotID);
         }
         if (rightPid != null) {
             rightPid.setP(pid_P, slotID);
             rightPid.setI(pid_I, slotID);
             rightPid.setD(pid_D, slotID);
             rightPid.setFF(pid_F, slotID);
+            rightPid.setIZone(pid_IZone, slotID);
+            rightPid.setIZone(pid_IMaxAccum, slotID);
         }
 
         // TODO - Should this also (re)set targetRpm?
