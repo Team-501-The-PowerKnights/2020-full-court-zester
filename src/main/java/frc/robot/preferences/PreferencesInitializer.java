@@ -109,6 +109,16 @@ public class PreferencesInitializer {
             prefs.putDouble(Shooter.pid_F, 0.0);
         }
 
+        if (!prefs.containsKey(Shooter.pid_IZone)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_IZone);
+            prefs.putDouble(Shooter.pid_IZone, 0.0);
+        }
+
+        if (!prefs.containsKey(Shooter.pid_IMaxAccum)) {
+            logger.warn("{} doesn't exist; creating with default", Shooter.pid_IMaxAccum);
+            prefs.putDouble(Shooter.pid_IMaxAccum, 0.0);
+        }
+
         logger.info("preferences as initialized:\n");
         listPreferences();
 
