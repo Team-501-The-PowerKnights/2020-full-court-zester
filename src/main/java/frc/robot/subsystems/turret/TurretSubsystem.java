@@ -51,6 +51,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     private final IVisionSensor vision;
 
+    private double targetAngle;
+
     /**
      * Creates a new TurretSubsystem.
      */
@@ -81,6 +83,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
         SmartDashboard.putBoolean(TelemetryNames.Turret.isHomed, false);
 
         encoder.setPosition(convertTurretAngleToCounts(-90));
+
+        targetAngle = 0;
 
         logger.info("constructed");
     }
@@ -122,6 +126,8 @@ class TurretSubsystem extends BaseTurretSubsystem {
         // } else if (angle <= turretMinAngle) {
         // angle = turretMinAngle;
         // }
+
+        targetAngle = angle;
 
         double targetCounts = convertTurretAngleToCounts(angle);
 
@@ -267,6 +273,14 @@ class TurretSubsystem extends BaseTurretSubsystem {
     @Override
     public boolean isAtAngle(double targetAngle) {
         return getAngle() >= targetAngle;
+    }
+
+    @Override
+    public void fineTuneTargetAngle(double axisVal) {
+        double initTargetAngle = targetAngle;
+        double adjustment = axisVal * (0.1 * targetAngle);
+        if (targetAngle == initTargetAngle)
+            targetAngle += adjustment;
     }
 
 }
