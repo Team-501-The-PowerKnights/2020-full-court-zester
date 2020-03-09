@@ -82,12 +82,6 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void validateCalibration() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void updatePreferences() {
         loadPreferences();
 
@@ -95,12 +89,11 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
         turretPID.setI(pid_I);
         turretPID.setD(pid_D);
         turretPID.setFF(pid_F);
-
     }
 
     @Override
     public void disable() {
-        turretMotor.set(0);
+        stop();
     }
 
     @Override
@@ -144,39 +137,35 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-            case 20:
-                turretMotor.set(speed);
-                break;
+        case 20:
+            turretMotor.set(speed);
+            break;
         }
     }
 
     @Override
     public void jogCW() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void jogCCW() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void setAngleFromVision() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public void holdAngle() {
-        // TODO Auto-generated method stub
-
+        // Not implemented
     }
 
     @Override
     public boolean isAtAngle(double targetAngle) {
-        // TODO Auto-generated method stub
+        // Not implemented in this variant
         return false;
     }
 

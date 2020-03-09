@@ -16,12 +16,11 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.FirePoseVision;
-import frc.robot.commands.IngestPose;
 import frc.robot.commands.InvalidButton;
-import frc.robot.commands.RobotSetFar;
-import frc.robot.commands.RobotSetMid;
-import frc.robot.commands.RobotSetNear;
-import frc.robot.commands.RobotSetVeryFar;
+import frc.robot.commands.shooter.ShooterSetFar;
+import frc.robot.commands.shooter.ShooterSetMid;
+import frc.robot.commands.shooter.ShooterSetNear;
+import frc.robot.commands.shooter.ShooterSetVeryFar;
 import frc.robot.commands.PKParallelCommandGroup;
 import frc.robot.commands.ballevator.BallevatorLift;
 import frc.robot.commands.ballevator.BallevatorLower;
@@ -172,9 +171,9 @@ public class OI implements ITelemetryProvider {
         /*
          * Field Position
          */
-        fieldPositionFarButton.whenPressed(new RobotSetFar());
-        fieldPositionMidButton.whenPressed(new RobotSetMid());
-        fieldPositionNearButton.whenPressed(new RobotSetNear());
+        fieldPositionFarButton.whenPressed(new ShooterSetFar());
+        fieldPositionMidButton.whenPressed(new ShooterSetMid());
+        fieldPositionNearButton.whenPressed(new ShooterSetNear());
 
         /*
          * Ballevator
@@ -186,7 +185,7 @@ public class OI implements ITelemetryProvider {
          * Turret
          */
         // turretHomeButton.whenPressed(new TurretHome());
-        turretHomeButton.whenPressed(new RobotSetVeryFar());
+        turretHomeButton.whenPressed(new ShooterSetVeryFar());
         turretOrientationBackButton.whenPressed(new TurretPositionBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
         turretOrientationFrontButton.whenPressed(new TurretPositionFront());
@@ -247,6 +246,14 @@ public class OI implements ITelemetryProvider {
         // return true; // FOR pit testing
     }
 
+    public boolean isInPits() {
+        // For Field Running
+        return !DriverStation.getInstance().isFMSAttached();
+
+        // For Pit Testing (forced)
+        // return true;
+    }
+
     /*****************
      * Drive
      *****************/
@@ -305,22 +312,6 @@ public class OI implements ITelemetryProvider {
      * Turret
      *****************/
 
-    public double getRawTurretSpeed() {
-        return deadBand(getOperatorLeftXAxis(), 0.05);
-    }
-
-    public double getTurretSpeed() {
-        // FIXME - No longer same button scheme or manual control
-        final double hmiSpeed = getRawTurretSpeed();
-        double calcSpeed;
-        // if (turretTurboButton.get()) {
-        // calcSpeed = hmiSpeed * 0.35;
-        // } else {
-        calcSpeed = hmiSpeed * 0.15;
-        // }
-        return calcSpeed;
-    }
-
     public double getTurretFineAdjustment() {
         return deadBand(getOperatorPotentiometer2(), 0.05);
     }
@@ -328,10 +319,6 @@ public class OI implements ITelemetryProvider {
     /*****************
      * Shooter
      *****************/
-
-    public double getShooterSpeed() {
-        return deadBand(getOperatorRightYAxis(), 0.05);
-    }
 
     public double getShooterFineAdjustment() {
         return deadBand(getOperatorPotentiometer3(), 0.05);
@@ -367,10 +354,6 @@ public class OI implements ITelemetryProvider {
     //////////////////////////////////////////////////////////////////
     // TODO - Finish cleaning up these
     //////////////////////////////////////////////////////////////////
-
-    public double getTurretIncrement() {
-        return getOperatorTriggerAxis();
-    }
 
     public boolean isShooterRevEnabled() {
         return shooterRevButton.get();
@@ -419,43 +402,6 @@ public class OI implements ITelemetryProvider {
     }
 
     private double getOperatorPotentiometer3() {
-        return operatorStick.getRawAxis(3);
-    }
-
-    // TODO - Get rid of references to these, or add a joystick on port 2 for
-    // operator testing
-
-    private double getOperatorLeftYAxis() {
-        return -operatorStick.getRawAxis(1);
-    }
-
-    private double getOperatorRightYAxis() {
-        return -operatorStick.getRawAxis(5);
-    }
-
-    private double getOperatorLeftXAxis() {
-        return operatorStick.getRawAxis(0);
-    }
-
-    private double getOperatorRightXAxis() {
-        return operatorStick.getRawAxis(4);
-    }
-
-    private double getOperatorTriggerAxis() {
-        if (operatorStick.getRawAxis(2) > 0.05) {
-            return operatorStick.getRawAxis(2);
-        } else if (operatorStick.getRawAxis(3) > 0.05) {
-            return -operatorStick.getRawAxis(3);
-        } else {
-            return 0;
-        }
-    }
-
-    private double getOperatorLeftTrigger() {
-        return operatorStick.getRawAxis(2);
-    }
-
-    private double getOperatorRightTrigger() {
         return operatorStick.getRawAxis(3);
     }
 

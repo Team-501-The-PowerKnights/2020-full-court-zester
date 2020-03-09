@@ -9,17 +9,18 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-/**
- * Add your docs here.
- */
-public class ShooterSimpleManual extends ShooterOICommandBase {
+public class ShooterSetMid extends PKCommandBase {
+    // TODO - This should be a real Shooter subsystem command
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSetMid.class.getName());
 
-    public ShooterSimpleManual() {
+    public ShooterSetMid() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
@@ -29,9 +30,12 @@ public class ShooterSimpleManual extends ShooterOICommandBase {
     public void execute() {
         super.execute();
 
-        double speed = oi.getShooterSpeed();
-        // Backdoor to the shooter motor; assumes speed controllers slaved
-        shooter.setSpeed(29, speed);
+        ShooterFactory.getInstance().setTargetRpm(3345); // 3200
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

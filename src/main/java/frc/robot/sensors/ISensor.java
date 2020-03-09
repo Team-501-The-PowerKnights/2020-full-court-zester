@@ -15,21 +15,24 @@ import frc.robot.telemetry.ITelemetryProvider;
 public interface ISensor extends ITelemetryProvider {
 
     /**
+     * Called to update any preferences associated with the sensor.
+     **/
+    default public void updatePreferences() {
+        // Default is to do nothing
+    };
+
+    /**
      * Enable the sensor.
      **/
     default public void enable() {
+        // Default is to do nothing
     };
 
     /**
      * Disable the sensor.
      **/
     default public void disable() {
-    };
-
-    /**
-     * Called to update any preferences associated with the sensor.
-     **/
-    default public void updatePreferences() {
+        // Default is to do nothing
     };
 
 }

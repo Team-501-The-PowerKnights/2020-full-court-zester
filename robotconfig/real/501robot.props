@@ -111,7 +111,6 @@ Intake.defaultCommandName = IntakeSimpleManual
 #####################
 Turret.className = TurretSubsystem
 Turret.defaultCommandName = TurretDoNothing
-#Turret.defaultCommandName = TurretSimpleManual
 
 
 #####################
@@ -124,7 +123,6 @@ Shooter.defaultCommandName = ShooterIdle
 #Shooter.defaultCommandName = ShooterIdleWSwitchOverride
 #Shooter.defaultCommandName = ShooterDashboardSpeed
 #Shooter.defaultCommandName = ShooterDoNothing
-#Shooter.defaultCommandName = ShooterSimpleManual
 #Shooter.defaultCommandName = IandTShooterJoystickControl
 
 

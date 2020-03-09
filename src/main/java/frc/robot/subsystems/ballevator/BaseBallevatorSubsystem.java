@@ -40,6 +40,11 @@ abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBalleva
     }
 
     @Override
+    public void updateTelemetry() {
+        // Default is to do nothing
+    }
+
+    @Override
     public void loadDefaultCommand() {
         PKProperties props = PropertiesManager.getInstance().getProperties(myName);
         String myClassName = props.getString("defaultCommandName");
@@ -62,6 +67,22 @@ abstract class BaseBallevatorSubsystem extends SubsystemBase implements IBalleva
         }
 
         setDefaultCommand(ourCommand);
+    }
+
+    @Override
+    public void validateCalibration() {
+        // Default is to do nothing
+    }
+
+    @Override
+    public void updatePreferences() {
+        // Default is to do nothing
+    }
+
+    @Override
+    public void disable() {
+        // Default is to call stop method
+        stop();
     }
 
 }

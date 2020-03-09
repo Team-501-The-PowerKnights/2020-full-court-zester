@@ -9,6 +9,8 @@ package frc.robot.modules.rpi;
 
 import org.slf4j.Logger;
 
+import frc.robot.modules.ModuleNames;
+
 import riolog.RioLogger;
 
 /**
@@ -17,7 +19,20 @@ import riolog.RioLogger;
 abstract class BaseRPIModule implements IRPIModule {
 
     /** Our classes' logger **/
-    @SuppressWarnings("unused")
     private static final Logger logger = RioLogger.getLogger(BaseRPIModule.class.getName());
+
+    /** Our subsystem's name **/
+    protected static final String myName = ModuleNames.rpiName;
+
+    BaseRPIModule() {
+        logger.info("constructing");
+
+        logger.info("constructed");
+    }
+
+    @Override
+    public void updateTelemetry() {
+        // Default is to do nothing
+    }
 
 }

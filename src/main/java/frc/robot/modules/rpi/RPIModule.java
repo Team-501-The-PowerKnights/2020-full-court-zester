@@ -36,16 +36,4 @@ class RPIModule extends BaseRPIModule {
         SmartDashboard.putNumber(TelemetryNames.RPI.socTemp, 0);
     }
 
-    @Override
-    public void updatePreferences() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

@@ -5,31 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.ShooterFactory;
+
 import riolog.RioLogger;
 
-public class TurretSimpleManual extends TurretOICommandBase {
+public class ShooterSetVeryFar extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretSimpleManual.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSetVeryFar.class.getName());
 
-    public TurretSimpleManual() {
+    public ShooterSetVeryFar() {
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
         super.execute();
 
-        double speed = oi.getTurretSpeed();
-        // Backdoor to the turret motor
-        turret.setSpeed(20, speed);
+        ShooterFactory.getInstance().setTargetRpm(3435); // 3200
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

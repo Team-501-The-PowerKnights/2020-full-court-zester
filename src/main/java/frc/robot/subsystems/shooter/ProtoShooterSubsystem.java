@@ -59,30 +59,6 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
   }
 
   @Override
-  public void updateTelemetry() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void validateCalibration() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void updatePreferences() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void disable() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public void stop() {
     shootPID.setReference(0, ControlType.kVelocity);
     motor.set(0.0);
@@ -102,19 +78,18 @@ class ProtoShooterSubsystem extends BaseShooterSubsystem {
 
   @Override
   public void setSpeed(int canID, double speed) {
-    // TODO Auto-generated method stub
-
+    // Not implemented
   }
 
   @Override
   public boolean atTargetVelocity() {
-    // TODO Auto-generated method stub
+    // Not doing anything
     return false;
   }
 
   @Override
   public String getActivePosition() {
-    // TODO Auto-generated method stub
+    // Not doing anything
     return null;
   }
 
