@@ -38,6 +38,8 @@ public class PreferenceNames {
         public static final String pid_I = name + ".I";
         public static final String pid_D = name + ".D";
         public static final String pid_F = name + ".F";
+        public static final String pid_IZone = name + ".IZone";
+        public static final String pid_IMaxAccum = name + ".IMaxAccum";
         // Scale applied to shooter speed when in manual
         public static final String scale = name + ".scale";
     }
