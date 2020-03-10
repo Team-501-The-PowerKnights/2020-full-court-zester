@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -36,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 import frc.robot.sensors.gyro.GyroFactory;
 import frc.robot.sensors.gyro.IGyroSensor;
-
+import frc.robot.telemetry.TelemetryNames;
 import riolog.RioLogger;
 
 class ProtoDriveSubsystem extends BaseDriveSubsystem {
@@ -50,7 +51,8 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     private static final double s = 0.111; // Volts
     private static final double v = 2.78; // VoltSeconds Per Meter
     private static final double a = 0.13; // VoltSecondsSquared Per Meter
-    private static final double p = 4.29; // Drive Velocity
+    // private static final double p = 4.29; // Drive Velocity
+    private static final double p = 0;
     private static final double trackWidth = 0.61; // Meters
     private static final double ramseteB = 2;
     private static final double ramseteZeta = 0.7;
@@ -123,6 +125,7 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         nav = GyroFactory.getInstance();
 
         drive = new DifferentialDrive(leftFrontMotor, rightFrontMotor);
+        drive.setSafetyEnabled(false);
         driveKinematics = new DifferentialDriveKinematics(trackWidth);
         driveOdometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(nav.getAngle()));
         ramseteController = new RamseteController(ramseteB, ramseteZeta);
@@ -136,6 +139,10 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
 
         helper = new DriveHelper();
 
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+        driveOdometry.resetPosition(new Pose2d(0, 0, new Rotation2d(0)), new Rotation2d(0));
+
         logger.info("constructed");
     }
 
@@ -144,6 +151,12 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
         // This method will be called once per scheduler run
         driveOdometry.update(Rotation2d.fromDegrees(nav.getAngle()), leftEncoder.getPosition(),
                 rightEncoder.getPosition());
+    }
+
+    @Override
+    public void updateTelemetry() {
+        SmartDashboard.putNumber(TelemetryNames.Drive.distanceMeters,
+                convertEncoderClicksToMeters(leftEncoder.getPosition()));
     }
 
     @Override
@@ -208,8 +221,15 @@ class ProtoDriveSubsystem extends BaseDriveSubsystem {
     }
 
     private void setPIDVelocity(double leftVelocity, double rightVelocity) {
+        leftPIDController.setFF(feedforward.calculate(leftVelocity));
+        rightPIDController.setFF(feedforward.calculate(rightVelocity));
+
         leftPIDController.setReference(feedforward.calculate(leftVelocity), ControlType.kVelocity);
         rightPIDController.setReference(feedforward.calculate(rightVelocity), ControlType.kVelocity);
+    }
+
+    protected double convertEncoderClicksToMeters(double encoderClicks) {
+        return encoderClicks * (1 / gearboxGearing) * beltGearing * (2 * Math.PI * wheelRadius) / 2;
     }
 
     protected double convertInchesToEncoderClicks(double inches) {

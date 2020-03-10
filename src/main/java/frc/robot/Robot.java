@@ -13,6 +13,9 @@ import org.slf4j.Logger;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,7 +40,7 @@ import frc.robot.telemetry.TelemetryNames.Preferences;
 import frc.robot.utils.PKStatus;
 import frc.robot.subsystems.ISubsystem;
 import frc.robot.subsystems.SubsystemFactory;
-
+import frc.robot.subsystems.drive.DriveFactory;
 import riolog.RioLogger;
 
 /**
@@ -314,11 +317,15 @@ public class Robot extends TimedRobot {
 
         // CommandScheduler.getInstance().schedule(true, new DriveForwardTimed());
         // CommandScheduler.getInstance().schedule(true, new AutoFull());
-        autoCommand = autoChooser.getSelected();
-        logger.info("auto command is {}", autoCommand.getName());
-        if (autoCommand != null) {
-            CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
-        }
+        // autoCommand = autoChooser.getSelected();
+        // logger.info("auto command is {}", autoCommand.getName());
+        // if (autoCommand != null) {
+        // CommandScheduler.getInstance().schedule(true, new
+        // PKSequentialCommandGroup(new TurretHome(), autoCommand));
+        // }
+        DriveFactory.getInstance().followPath(new Pose2d(0, 0, new Rotation2d(0)), // For testing
+                List.of(new Translation2d(0.25, 0), new Translation2d(0.5, 0), new Translation2d(0.75, 0)),
+                new Pose2d(1, 0, new Rotation2d(0)));
 
         logger.info("initialized autonomous");
     }
