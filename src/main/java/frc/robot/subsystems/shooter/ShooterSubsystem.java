@@ -233,9 +233,9 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void fineTuneTargetRpm(double axisVal) {
+    public void fineTuneTargetRpm(double percentUpdate) {
         double initTargetRpm = targetRpm;
-        double adjustment = axisVal * (0.1 * targetRpm);
+        double adjustment = percentUpdate * (0.1 * targetRpm);
         if (targetRpm == initTargetRpm)
             targetRpm += adjustment;
     }

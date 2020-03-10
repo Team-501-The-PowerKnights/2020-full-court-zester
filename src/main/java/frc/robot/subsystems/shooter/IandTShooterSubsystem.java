@@ -117,7 +117,7 @@ class IandTShooterSubsystem extends BaseShooterSubsystem {
     }
 
     @Override
-    public void fineTuneTargetRpm(double axisVal) {
+    public void fineTuneTargetRpm(double percentUpdate) {
         // Not implemented
     }
 
