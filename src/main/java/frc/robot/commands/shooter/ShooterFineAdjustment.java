@@ -23,8 +23,8 @@ public class ShooterFineAdjustment extends PKCommandBase {
   private final OI oi;
   private final IShooterSubsystem shooter;
 
-  private double firstVal;
-  private boolean hasEscaped;
+  private double firstVal, lastVal;
+  private boolean passedInitialDeadband;
 
   public ShooterFineAdjustment() {
     logger.info("constructing {}", getName());
@@ -39,19 +39,24 @@ public class ShooterFineAdjustment extends PKCommandBase {
   @Override
   public void initialize() {
     firstVal = oi.getShooterFineAdjustment();
-    hasEscaped = false;
+    lastVal = firstVal;
+    passedInitialDeadband = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if ((Math.abs(oi.getShooterFineAdjustment() - firstVal) / firstVal) <= 0.05 && !(hasEscaped)) {
-      hasEscaped = true;
+    double currentVal = oi.getShooterFineAdjustment();
+
+    if (!(passedInitialDeadband) && (Math.abs(currentVal - firstVal) / firstVal) <= 0.05) {
+      passedInitialDeadband = true;
     }
 
-    if (hasEscaped) {
-      shooter.fineTuneTargetRpm(oi.getShooterFineAdjustment());
+    if (passedInitialDeadband && (lastVal != currentVal)) {
+      shooter.fineTuneTargetRpm(currentVal);
     }
+
+    lastVal = currentVal;
   }
 
 }

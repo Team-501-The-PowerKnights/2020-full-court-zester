@@ -170,7 +170,7 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void fineTuneTargetAngle(double axisVal) {
+    public void fineTuneTargetAngle(double percentUpdate) {
         // Not implemented
 
     }

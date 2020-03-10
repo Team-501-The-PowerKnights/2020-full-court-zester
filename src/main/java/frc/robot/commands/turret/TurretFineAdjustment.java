@@ -23,8 +23,8 @@ public class TurretFineAdjustment extends PKCommandBase {
   private final OI oi;
   private final ITurretSubsystem turret;
 
-  private double firstVal;
-  private boolean hasEscaped;
+  private double firstVal, lastVal;
+  private boolean passedInitialDeadband;
 
   public TurretFineAdjustment() {
     logger.info("constructing {}", getName());
@@ -39,18 +39,21 @@ public class TurretFineAdjustment extends PKCommandBase {
   @Override
   public void initialize() {
     firstVal = oi.getTurretFineAdjustment();
-    hasEscaped = false;
+    lastVal = firstVal;
+    passedInitialDeadband = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if ((Math.abs(oi.getTurretFineAdjustment() - firstVal) / firstVal) <= 0.05 && !(hasEscaped)) {
-      hasEscaped = true;
+    double currentVal = oi.getTurretFineAdjustment();
+
+    if (!(passedInitialDeadband) && (Math.abs(currentVal - firstVal) / firstVal) <= 0.05) {
+      passedInitialDeadband = true;
     }
 
-    if (hasEscaped) {
-      turret.fineTuneTargetAngle(oi.getTurretFineAdjustment());
+    if (passedInitialDeadband && (lastVal != currentVal)) {
+      turret.fineTuneTargetAngle(currentVal);
     }
   }
 

@@ -74,7 +74,7 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void fineTuneTargetAngle(double axisVal) {
+    public void fineTuneTargetAngle(double percentUpdate) {
         // Stub doesn't implement this
 
     }
