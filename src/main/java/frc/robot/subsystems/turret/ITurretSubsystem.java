@@ -15,6 +15,8 @@ public interface ITurretSubsystem extends ISubsystem {
 
     public void setTurretAngle(double angle);
 
+    public void fineTuneTargetAngle(double axisVal);
+
     public void home();
 
     public void setSpeed(int canID, double speed);

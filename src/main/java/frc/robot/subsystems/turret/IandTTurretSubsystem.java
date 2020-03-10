@@ -169,4 +169,10 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
         return false;
     }
 
+    @Override
+    public void fineTuneTargetAngle(double axisVal) {
+        // Not implemented
+
+    }
+
 }

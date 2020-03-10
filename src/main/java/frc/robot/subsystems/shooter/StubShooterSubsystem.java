@@ -59,4 +59,9 @@ class StubShooterSubsystem extends BaseShooterSubsystem {
         return "";
     }
 
+    @Override
+    public void fineTuneTargetRpm(double axisVal) {
+        // Stub doesn't implement this
+    }
+
 }

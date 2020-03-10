@@ -18,6 +18,8 @@ public interface IShooterSubsystem extends ISubsystem {
 
     public void setTargetRpm(double rpm);
 
+    public void fineTuneTargetRpm(double axisVal);
+
     public void shoot();
 
     public void setSpeed(int canID, double speed);

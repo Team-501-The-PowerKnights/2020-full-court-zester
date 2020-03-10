@@ -189,21 +189,21 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            leftMotor.set(idleShooter(speed));
-            break;
-        case 22:
-            rightMotor.set(idleShooter(speed));
-            break;
-        case 29:
-            leftMotor.setIdleMode(IdleMode.kBrake);
-            rightMotor.setIdleMode(IdleMode.kBrake);
-            // Not slaved
-            leftMotor.set(idleShooter(speed));
-            rightMotor.set(idleShooter(speed));
-            break;
-        default:
-            break;
+            case 21:
+                leftMotor.set(idleShooter(speed));
+                break;
+            case 22:
+                rightMotor.set(idleShooter(speed));
+                break;
+            case 29:
+                leftMotor.setIdleMode(IdleMode.kBrake);
+                rightMotor.setIdleMode(IdleMode.kBrake);
+                // Not slaved
+                leftMotor.set(idleShooter(speed));
+                rightMotor.set(idleShooter(speed));
+                break;
+            default:
+                break;
         }
     }
 
@@ -230,6 +230,14 @@ public class ShooterSubsystem extends BaseShooterSubsystem {
         double velocity = leftEncoder.getVelocity();
 
         return (((Math.abs(targetRpm - velocity)) / targetRpm) <= tolerance);
+    }
+
+    @Override
+    public void fineTuneTargetRpm(double axisVal) {
+        double initTargetRpm = targetRpm;
+        double adjustment = axisVal * (0.1 * targetRpm);
+        if (targetRpm == initTargetRpm)
+            targetRpm += adjustment;
     }
 
 }

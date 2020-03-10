@@ -154,18 +154,18 @@ public class ShooterSlavedSubsystem extends BaseShooterSubsystem {
     @Override
     public void setSpeed(int canID, double speed) {
         switch (canID) {
-        case 21:
-            leftMotor.set(idleShooter(speed));
-            break;
-        case 22:
-            rightMotor.set(idleShooter(speed));
-            break;
-        case 29:
-            // Assuming slaved
-            leftMotor.set(idleShooter(speed));
-            break;
-        default:
-            break;
+            case 21:
+                leftMotor.set(idleShooter(speed));
+                break;
+            case 22:
+                rightMotor.set(idleShooter(speed));
+                break;
+            case 29:
+                // Assuming slaved
+                leftMotor.set(idleShooter(speed));
+                break;
+            default:
+                break;
         }
     }
 
@@ -188,6 +188,14 @@ public class ShooterSlavedSubsystem extends BaseShooterSubsystem {
         tolerance = SmartDashboard.getNumber(CommandingNames.Shooter.tolerance, 0.015);
 
         return (((Math.abs(targetRpm - encoder.getVelocity())) / targetRpm) <= tolerance);
+    }
+
+    @Override
+    public void fineTuneTargetRpm(double axisVal) {
+        double initTargetRpm = targetRpm;
+        double adjustment = axisVal * (0.1 * targetRpm);
+        if (targetRpm == initTargetRpm)
+            targetRpm += adjustment;
     }
 
 }
