@@ -119,6 +119,7 @@ public final class TelemetryNames {
         public static final String encoderClicks = name + ".encoderClicks";
         public static final String distanceClicks = name + ".distanceClicks";
         public static final String targetClicks = name + ".targetClicks";
+        public static final String distanceMeters = name + ".distanceMeters";
     }
 
     public final class Gyro {
