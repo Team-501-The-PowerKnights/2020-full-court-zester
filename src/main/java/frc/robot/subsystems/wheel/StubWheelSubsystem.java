@@ -40,11 +40,6 @@ class StubWheelSubsystem extends BaseWheelSubsystem {
     }
 
     @Override
-    public void runRevolutions(double numRevolutions) {
-        // Stub doesn't implement this
-    }
-
-    @Override
     public void runCounterClockwise() {
         // Stub doesn't implement this
     }

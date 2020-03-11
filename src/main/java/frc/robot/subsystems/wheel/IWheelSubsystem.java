@@ -19,8 +19,6 @@ public interface IWheelSubsystem extends ISubsystem {
 
     public void runToColor(PKColor color);
 
-    public void runRevolutions(double numRevolutions);
-
     public void runCounterClockwise();
 
     public void runCounterClockwise(double speed);

@@ -65,26 +65,6 @@ class WheelSubsystem extends BaseWheelSubsystem {
         }
     }
 
-    // FIXME - Can't tie up thread like this; needs to be commanded
-    @Override
-    public void runRevolutions(double numRevolutions) {
-        PKColor origColor = colorSensor.getColor();
-
-        double count = 0;
-
-        while (count < 10) {
-            motor.set(ControlMode.PercentOutput, 0.5);
-
-            if (colorSensor.getColor() == origColor) {
-                count++;
-            }
-        }
-
-        if (count >= 10) {
-            motor.set(ControlMode.PercentOutput, 0.0);
-        }
-    }
-
     @Override
     public void runCounterClockwise() {
         motor.set(ControlMode.PercentOutput, 0.00);
