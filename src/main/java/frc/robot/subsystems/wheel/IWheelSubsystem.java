@@ -8,7 +8,6 @@
 package frc.robot.subsystems.wheel;
 
 import frc.robot.subsystems.ISubsystem;
-import frc.robot.utils.PKColor;
 
 /**
  * Add your docs here.
@@ -16,8 +15,6 @@ import frc.robot.utils.PKColor;
 public interface IWheelSubsystem extends ISubsystem {
 
     public void stop();
-
-    public void runToColor(PKColor color);
 
     public void runCounterClockwise();
 

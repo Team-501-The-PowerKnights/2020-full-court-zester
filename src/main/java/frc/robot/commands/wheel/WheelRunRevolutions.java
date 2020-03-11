@@ -54,14 +54,10 @@ public class WheelRunRevolutions extends WheelCommandBase {
 
         PKColor currentColor = colorSensor.getColor();
 
-        if (count < 10) {
+        wheel.runClockwise();
 
-            wheel.runClockwise();
-
-            if (currentColor == targetColor && currentColor != lastColor) {
-                count++;
-            }
-
+        if (currentColor == targetColor && currentColor != lastColor) {
+            count++;
         }
 
         lastColor = currentColor;
@@ -69,7 +65,7 @@ public class WheelRunRevolutions extends WheelCommandBase {
 
     @Override
     public boolean isFinished() {
-        return count >= 10;
+        return count >= 10 || targetColor == PKColor.invalidTarget;
     }
 
     @Override
