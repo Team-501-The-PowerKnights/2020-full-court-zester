@@ -5,19 +5,19 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class TurretPositionRight extends SetTurretPosition {
+public class SetShooterMid extends SetShooterSpeed {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretPositionRight.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetShooterMid.class.getName());
 
-    public TurretPositionRight() {
-        super(-90);
+    public SetShooterMid() {
+        super(3345); // 3200
 
         logger.info("constructing {}", getName());
 

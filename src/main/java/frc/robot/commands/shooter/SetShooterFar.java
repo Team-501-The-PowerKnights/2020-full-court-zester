@@ -9,32 +9,19 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.ShooterFactory;
-
 import riolog.RioLogger;
 
-public class ShooterSetVeryFar extends PKCommandBase {
+public class SetShooterFar extends SetShooterSpeed {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSetVeryFar.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetShooterFar.class.getName());
 
-    public ShooterSetVeryFar() {
+    public SetShooterFar() {
+        super(3395);
+
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-
-        ShooterFactory.getInstance().setTargetRpm(3435); // 3200
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
     }
 
 }

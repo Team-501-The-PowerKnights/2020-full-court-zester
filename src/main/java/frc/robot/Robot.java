@@ -23,6 +23,7 @@ import frc.robot.commands.AutoFullTrench;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.PKSequentialCommandGroup;
 import frc.robot.commands.drive.DriveForwardTimed;
+import frc.robot.commands.turret.TurretFindLocation;
 import frc.robot.commands.turret.TurretHome;
 import frc.robot.modules.IModule;
 import frc.robot.modules.ModuleFactory;
@@ -321,7 +322,10 @@ public class Robot extends TimedRobot {
         autoCommand = autoChooser.getSelected();
         logger.info("auto command is {}", autoCommand.getName());
         if (autoCommand != null) {
-            CommandScheduler.getInstance().schedule(true, new PKSequentialCommandGroup(new TurretHome(), autoCommand));
+            // CommandScheduler.getInstance().schedule(true, new
+            // PKSequentialCommandGroup(new TurretHome(), autoCommand));
+            CommandScheduler.getInstance().schedule(true,
+                    new PKSequentialCommandGroup(new TurretFindLocation(0.25), new DoNothing()));
         }
 
         logger.info("initialized autonomous");

@@ -10,18 +10,31 @@ package frc.robot.commands.shooter;
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
 import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
-public class ShooterSetMid extends PKCommandBase {
-    // TODO - This should be a real Shooter subsystem command
+/**
+ * Add your docs here.
+ */
+class SetShooterSpeed extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSetMid.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetShooterSpeed.class.getName());
 
-    public ShooterSetMid() {
-        logger.info("constructing {}", getName());
+    // Handle to Shooter (we need but don't require)
+    private final IShooterSubsystem shooter;
+
+    // Set point for RPM
+    private final double target;
+
+    public SetShooterSpeed(double target) {
+        logger.info("constructing {} with target = {}", getName(), target);
+
+        shooter = ShooterFactory.getInstance();
+
+        this.target = target;
 
         logger.info("constructed");
     }
@@ -30,7 +43,7 @@ public class ShooterSetMid extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        ShooterFactory.getInstance().setTargetRpm(3345); // 3200
+        shooter.setTargetRpm(target);
     }
 
     @Override

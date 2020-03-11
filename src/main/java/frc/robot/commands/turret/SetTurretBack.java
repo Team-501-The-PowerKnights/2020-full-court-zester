@@ -11,13 +11,13 @@ import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class TurretPositionRight extends SetTurretPosition {
+public class SetTurretBack extends SetTurretPosition {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretPositionRight.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetTurretBack.class.getName());
 
-    public TurretPositionRight() {
-        super(-90);
+    public SetTurretBack() {
+        super(-10);
 
         logger.info("constructing {}", getName());
 

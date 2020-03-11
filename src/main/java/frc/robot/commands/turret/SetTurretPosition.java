@@ -5,23 +5,36 @@
 /* file in the root directory of the project.                                 */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands.turret;
 
 import org.slf4j.Logger;
 
 import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.ShooterFactory;
+import frc.robot.subsystems.turret.ITurretSubsystem;
+import frc.robot.subsystems.turret.TurretFactory;
 
 import riolog.RioLogger;
 
-public class ShooterSetNear extends PKCommandBase {
-    // TODO - This should be a real Shooter subsystem command
+/**
+ * Add your docs here.
+ */
+class SetTurretPosition extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSetNear.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetTurretPosition.class.getName());
 
-    public ShooterSetNear() {
-        logger.info("constructing {}", getName());
+    // Handle to Turret (we need but don't require)
+    private final ITurretSubsystem turret;
+
+    // Set point for position
+    private final double target;
+
+    public SetTurretPosition(double target) {
+        logger.info("constructing {} with target = {}", getName(), target);
+
+        turret = TurretFactory.getInstance();
+
+        this.target = target;
 
         logger.info("constructed");
     }
@@ -30,7 +43,7 @@ public class ShooterSetNear extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        ShooterFactory.getInstance().setTargetRpm(3250); // 3050
+        turret.setTargetAngle(target);
     }
 
     @Override

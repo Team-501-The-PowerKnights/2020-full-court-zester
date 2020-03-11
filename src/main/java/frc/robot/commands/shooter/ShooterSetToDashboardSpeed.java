@@ -18,12 +18,12 @@ import riolog.RioLogger;
 /**
  * Add your docs here.
  */
-public class ShooterDashboardSpeed extends ShooterCommandBase {
+public class ShooterSetToDashboardSpeed extends ShooterCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterDashboardSpeed.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSetToDashboardSpeed.class.getName());
 
-    public ShooterDashboardSpeed() {
+    public ShooterSetToDashboardSpeed() {
         logger.info("constructing {}", getName());
 
         SmartDashboard.putNumber(Shooter.speed, 0.0);

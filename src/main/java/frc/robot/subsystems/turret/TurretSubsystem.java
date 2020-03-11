@@ -120,18 +120,30 @@ class TurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setTurretAngle(double angle) {
+    public void setTargetAngle(double angle) {
         // if (angle >= turretMaxAngle) {
         // angle = turretMaxAngle;
         // } else if (angle <= turretMinAngle) {
         // angle = turretMinAngle;
         // }
-
         targetAngle = angle;
 
+        // FIXME - Make this based on active state like shooter?
+        // FIXME - Add a private method to handle this
         double targetCounts = convertTurretAngleToCounts(angle);
-
         pid.setReference(targetCounts, ControlType.kPosition, 1);
+    }
+
+    @Override
+    public void fineTuneTargetAngle(double percentUpdate) {
+        double initTargetAngle = targetAngle;
+        double adjustment = percentUpdate * (0.1 * targetAngle);
+        if (targetAngle == initTargetAngle) {
+            targetAngle += adjustment;
+        }
+        // FIXME - I think we need to update the PID set point
+        // FIXME - But only if active
+        // FIXME - Add a private method to handle this
     }
 
     @Override
@@ -255,32 +267,24 @@ class TurretSubsystem extends BaseTurretSubsystem {
 
     @Override
     public void jogCW() {
-        setTurretAngle(getAngle() + 2.5);
+        setTargetAngle(getAngle() + 2.5);
     }
 
     @Override
     public void jogCCW() {
-        setTurretAngle(getAngle() - 2.5);
+        setTargetAngle(getAngle() - 2.5);
     }
 
     @Override
     public void holdAngle() {
         double currentAngle = getAngle();
 
-        setTurretAngle(currentAngle);
+        setTargetAngle(currentAngle);
     }
 
     @Override
     public boolean isAtAngle(double targetAngle) {
         return getAngle() >= targetAngle;
-    }
-
-    @Override
-    public void fineTuneTargetAngle(double axisVal) {
-        double initTargetAngle = targetAngle;
-        double adjustment = axisVal * (0.1 * targetAngle);
-        if (targetAngle == initTargetAngle)
-            targetAngle += adjustment;
     }
 
 }
