@@ -9,24 +9,32 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.commands.CommandingNames.Shooter;
+import frc.robot.commands.PKCommandBase;
+import frc.robot.subsystems.shooter.IShooterSubsystem;
+import frc.robot.subsystems.shooter.ShooterFactory;
 
 import riolog.RioLogger;
 
 /**
  * Add your docs here.
  */
-public class ShooterDashboardSpeed extends ShooterCommandBase {
+class SetShooterSpeed extends PKCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterDashboardSpeed.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetShooterSpeed.class.getName());
 
-    public ShooterDashboardSpeed() {
-        logger.info("constructing {}", getName());
+    // Handle to Shooter (we need but don't require)
+    private final IShooterSubsystem shooter;
 
-        SmartDashboard.putNumber(Shooter.speed, 0.0);
+    // Set point for RPM
+    private final double target;
+
+    public SetShooterSpeed(double target) {
+        logger.info("constructing {} with target = {}", getName(), target);
+
+        shooter = ShooterFactory.getInstance();
+
+        this.target = target;
 
         logger.info("constructed");
     }
@@ -35,10 +43,12 @@ public class ShooterDashboardSpeed extends ShooterCommandBase {
     public void execute() {
         super.execute();
 
-        double speed = SmartDashboard.getNumber(Shooter.speed, 0.0);
-        // Assumes that speed controllers are following
-        // shooter.setSpeed(29, speed);
-        shooter.setTargetRpm(speed);
+        shooter.setTargetRpm(target);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

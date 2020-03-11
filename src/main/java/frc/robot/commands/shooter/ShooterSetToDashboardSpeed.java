@@ -9,19 +9,24 @@ package frc.robot.commands.shooter;
 
 import org.slf4j.Logger;
 
-import frc.robot.commands.PKCommandBase;
-import frc.robot.subsystems.shooter.ShooterFactory;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.commands.CommandingNames.Shooter;
 
 import riolog.RioLogger;
 
-public class ShooterSetNear extends PKCommandBase {
-    // TODO - This should be a real Shooter subsystem command
+/**
+ * Add your docs here.
+ */
+public class ShooterSetToDashboardSpeed extends ShooterCommandBase {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(ShooterSetNear.class.getName());
+    private static final Logger logger = RioLogger.getLogger(ShooterSetToDashboardSpeed.class.getName());
 
-    public ShooterSetNear() {
+    public ShooterSetToDashboardSpeed() {
         logger.info("constructing {}", getName());
+
+        SmartDashboard.putNumber(Shooter.speed, 0.0);
 
         logger.info("constructed");
     }
@@ -30,12 +35,10 @@ public class ShooterSetNear extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        ShooterFactory.getInstance().setTargetRpm(3250); // 3050
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
+        double speed = SmartDashboard.getNumber(Shooter.speed, 0.0);
+        // Assumes that speed controllers are following
+        // shooter.setSpeed(29, speed);
+        shooter.setTargetRpm(speed);
     }
 
 }
