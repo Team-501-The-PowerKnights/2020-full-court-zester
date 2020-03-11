@@ -324,6 +324,10 @@ public class OI implements ITelemetryProvider {
         return deadBand(getOperatorPotentiometer3(), 0.05);
     }
 
+    public boolean isShooterRevEnabled() {
+        return shooterRevButton.get();
+    }
+
     /*****************
      * Climber
      *****************/
@@ -331,6 +335,10 @@ public class OI implements ITelemetryProvider {
     public boolean getClimberRetractEnable() {
         return pitClimberEnableButton.get();
     }
+
+    /*****************
+     * Deadband utility
+     *****************/
 
     /**
      * 
@@ -351,28 +359,12 @@ public class OI implements ITelemetryProvider {
         return retValue;
     }
 
-    //////////////////////////////////////////////////////////////////
-    // TODO - Finish cleaning up these
-    //////////////////////////////////////////////////////////////////
-
-    public boolean isShooterRevEnabled() {
-        return shooterRevButton.get();
-    }
-
-    //////////////////////////////////////////////////////////////////
-    // TODO - Finish cleaning up these
-    //////////////////////////////////////////////////////////////////
+    /*****************
+     * Raw Axes
+     *****************/
 
     private double getDriverLeftYAxis() {
         return -driverStick.getRawAxis(1);
-    }
-
-    private double getDriverRightYAxis() {
-        return -driverStick.getRawAxis(5);
-    }
-
-    private double getDriverLeftXAxis() {
-        return driverStick.getRawAxis(0);
     }
 
     private double getDriverRightXAxis() {
@@ -388,10 +380,10 @@ public class OI implements ITelemetryProvider {
     }
 
     private double getDriverTriggerAxis() {
-        if (driverStick.getRawAxis(2) > 0.05) {
-            return driverStick.getRawAxis(2);
-        } else if (driverStick.getRawAxis(3) > 0.05) {
-            return -driverStick.getRawAxis(3);
+        if (getDriverLeftTrigger() > 0.05) {
+            return getDriverLeftTrigger();
+        } else if (getDriverRightTrigger() > 0.05) {
+            return -getDriverRightTrigger();
         } else {
             return 0;
         }
