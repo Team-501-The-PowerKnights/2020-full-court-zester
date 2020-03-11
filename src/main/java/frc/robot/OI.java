@@ -30,8 +30,8 @@ import frc.robot.commands.climber.ClimberRetractInPit;
 import frc.robot.commands.drive.DriveSwap;
 import frc.robot.commands.shooter.ShooterEnableSpin;
 import frc.robot.commands.shooter.ShooterSpinUpFormula;
-import frc.robot.commands.turret.TurretPositionBack;
-import frc.robot.commands.turret.TurretPositionFront;
+import frc.robot.commands.turret.SetTurretBack;
+import frc.robot.commands.turret.SetTurretFront;
 import frc.robot.commands.turret.TurretRotateCCW;
 import frc.robot.commands.turret.TurretRotateCW;
 import frc.robot.commands.turret.TurretPositionRight;
@@ -186,9 +186,9 @@ public class OI implements ITelemetryProvider {
          */
         // turretHomeButton.whenPressed(new TurretHome());
         turretHomeButton.whenPressed(new SetShooterVeryFar());
-        turretOrientationBackButton.whenPressed(new TurretPositionBack());
+        turretOrientationBackButton.whenPressed(new SetTurretBack());
         turretOrientationRightButton.whenPressed(new TurretPositionRight());
-        turretOrientationFrontButton.whenPressed(new TurretPositionFront());
+        turretOrientationFrontButton.whenPressed(new SetTurretFront());
         // turretJogClockwiseButton.whenPressed(new TurretJogCW());
         // turretJogCounterClockwiseButton.whenPressed(new TurretJogCCW());
         turretJogClockwiseButton.whenHeld(new TurretRotateCW());

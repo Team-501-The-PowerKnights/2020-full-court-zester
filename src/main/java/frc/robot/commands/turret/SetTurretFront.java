@@ -11,27 +11,17 @@ import org.slf4j.Logger;
 
 import riolog.RioLogger;
 
-public class TurretPositionBack extends TurretCommandBase {
+public class SetTurretFront extends SetTurretPosition {
 
     /** Our classes' logger **/
-    private static final Logger logger = RioLogger.getLogger(TurretPositionBack.class.getName());
+    private static final Logger logger = RioLogger.getLogger(SetTurretFront.class.getName());
 
-    public TurretPositionBack() {
+    public SetTurretFront() {
+        super(-180);
+
         logger.info("constructing {}", getName());
 
         logger.info("constructed");
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-    }
-
-    @Override
-    public void execute() {
-        super.execute();
-
-        turret.setTurretAngle(-10);
     }
 
 }
