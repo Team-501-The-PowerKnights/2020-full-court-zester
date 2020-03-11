@@ -128,8 +128,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
         // }
         targetAngle = angle;
 
-        // FIXME - Make this based on active state like shooter?
-        // FIXME - Add a private method to handle this
         double targetCounts = convertTurretAngleToCounts(angle);
         pid.setReference(targetCounts, ControlType.kPosition, 1);
     }
@@ -141,9 +139,6 @@ class TurretSubsystem extends BaseTurretSubsystem {
         if (targetAngle == initTargetAngle) {
             targetAngle += adjustment;
         }
-        // FIXME - I think we need to update the PID set point
-        // FIXME - But only if active
-        // FIXME - Add a private method to handle this
     }
 
     @Override
