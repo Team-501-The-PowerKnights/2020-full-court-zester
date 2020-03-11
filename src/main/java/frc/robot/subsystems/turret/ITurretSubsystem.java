@@ -13,7 +13,7 @@ public interface ITurretSubsystem extends ISubsystem {
 
     public void stop();
 
-    public void setTurretAngle(double angle);
+    public void setTargetAngle(double angle);
 
     public void fineTuneTargetAngle(double percentUpdate);
 

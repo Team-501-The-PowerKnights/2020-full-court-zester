@@ -102,7 +102,7 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setTurretAngle(double angle) {
+    public void setTargetAngle(double angle) {
         // if (angle >= turretMaxAngle) {
         // angle = turretMaxAngle;
         // } else if (angle <= turretMinAngle) {
@@ -113,6 +113,11 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
 
         // turretPID.setReference(targetCounts, ControlType.kPosition);
         turretMotor.set(angle);
+    }
+
+    @Override
+    public void fineTuneTargetAngle(double percentUpdate) {
+        // Not implemented
     }
 
     @Override
@@ -167,12 +172,6 @@ class IandTTurretSubsystem extends BaseTurretSubsystem {
     public boolean isAtAngle(double targetAngle) {
         // Not implemented in this variant
         return false;
-    }
-
-    @Override
-    public void fineTuneTargetAngle(double percentUpdate) {
-        // Not implemented
-
     }
 
 }

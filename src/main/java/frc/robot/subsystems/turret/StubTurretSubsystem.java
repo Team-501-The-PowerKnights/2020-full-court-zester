@@ -33,7 +33,12 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     }
 
     @Override
-    public void setTurretAngle(double angle) {
+    public void setTargetAngle(double angle) {
+        // Stub doesn't implement this
+    }
+
+    @Override
+    public void fineTuneTargetAngle(double percentUpdate) {
         // Stub doesn't implement this
     }
 
@@ -71,12 +76,6 @@ class StubTurretSubsystem extends BaseTurretSubsystem {
     public boolean isAtAngle(double targetAngle) {
         // Stub doesn't implement this
         return false;
-    }
-
-    @Override
-    public void fineTuneTargetAngle(double percentUpdate) {
-        // Stub doesn't implement this
-
     }
 
 }

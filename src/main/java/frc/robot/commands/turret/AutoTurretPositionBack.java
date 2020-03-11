@@ -31,7 +31,7 @@ public class AutoTurretPositionBack extends TurretCommandBase {
     public void execute() {
         super.execute();
 
-        turret.setTurretAngle(-10);
+        turret.setTargetAngle(-10);
     }
 
     @Override

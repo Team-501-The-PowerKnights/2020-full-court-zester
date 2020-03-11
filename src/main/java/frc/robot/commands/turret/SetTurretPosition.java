@@ -43,7 +43,7 @@ class SetTurretPosition extends PKCommandBase {
     public void execute() {
         super.execute();
 
-        turret.setTurretAngle(target);
+        turret.setTargetAngle(target);
     }
 
     @Override
