@@ -9,8 +9,6 @@ package frc.robot.subsystems.wheel;
 
 import org.slf4j.Logger;
 
-import frc.robot.utils.PKColor;
-
 import riolog.RioLogger;
 
 class StubWheelSubsystem extends BaseWheelSubsystem {
@@ -31,16 +29,6 @@ class StubWheelSubsystem extends BaseWheelSubsystem {
 
     @Override
     public void stop() {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void runToColor(PKColor color) {
-        // Stub doesn't implement this
-    }
-
-    @Override
-    public void runRevolutions(double numRevolutions) {
         // Stub doesn't implement this
     }
 

@@ -38,6 +38,8 @@ import frc.robot.commands.turret.TurretPositionRight;
 import frc.robot.commands.turret.TurretVisionAlign;
 import frc.robot.commands.wheel.WheelRunClockwise;
 import frc.robot.commands.wheel.WheelRunCounterClockwise;
+import frc.robot.commands.wheel.WheelRunRevolutions;
+import frc.robot.commands.wheel.WheelRunToColor;
 import frc.robot.telemetry.ITelemetryProvider;
 import frc.robot.telemetry.TelemetryNames;
 
@@ -101,8 +103,8 @@ public class OI implements ITelemetryProvider {
     private final Button turretJogClockwiseButton;
     private final Button turretJogCounterClockwiseButton;
     private final Button visionEnableButton;
-    private final Button wheelClockwiseButton; // 14 - wheelPositionButton
-    private final Button wheelCounterClockwiseButton; // 15 - wheelRotationButton
+    private final Button wheelPositionButton; // 14 - wheelClockwiseButton
+    private final Button wheelRotationButton; // 15 - wheelCounterClockwiseButton
     private final Button turretHomeButton;
     private final Button reserved17Button;
     private final Button reserved18Button;
@@ -113,32 +115,45 @@ public class OI implements ITelemetryProvider {
         logger.info("constructing {}", myName);
 
         driverStick = new Joystick(0);
+
         turboButton = new JoystickButton(driverStick, 5);
         crawlButton = new JoystickButton(driverStick, 6);
         driveSwapButton = new JoystickButton(driverStick, 3);
+
         // Only for use in the pit
         pitClimberRetractButton = new JoystickButton(driverStick, 7);
         pitClimberEnableButton = new JoystickButton(driverStick, 8);
 
         operatorStick = new Joystick(1);
+
         firePoseButton = new JoystickButton(operatorStick, 1);
+
         shooterRevButton = new JoystickButton(operatorStick, 2);
+
         fieldPositionFarButton = new JoystickButton(operatorStick, 3);
         fieldPositionMidButton = new JoystickButton(operatorStick, 5);
         fieldPositionNearButton = new JoystickButton(operatorStick, 4);
+
         ballevatorUpButton = new JoystickButton(operatorStick, 6);
         ballevatorDownButton = new JoystickButton(operatorStick, 7);
+
         turretOrientationBackButton = new JoystickButton(operatorStick, 8);
         turretOrientationRightButton = new JoystickButton(operatorStick, 9);
         turretOrientationFrontButton = new JoystickButton(operatorStick, 10);
+
         turretJogClockwiseButton = new JoystickButton(operatorStick, 11);
         turretJogCounterClockwiseButton = new JoystickButton(operatorStick, 12);
+
         visionEnableButton = new JoystickButton(operatorStick, 13);
-        wheelClockwiseButton = new JoystickButton(operatorStick, 14);
-        wheelCounterClockwiseButton = new JoystickButton(operatorStick, 15);
+
+        wheelPositionButton = new JoystickButton(operatorStick, 14); // TODO - Move this to driver controller
+        wheelRotationButton = new JoystickButton(operatorStick, 15); // TODO - Move this to driver controller
+
         turretHomeButton = new JoystickButton(operatorStick, 16);
+
         reserved17Button = new JoystickButton(operatorStick, 17);
         reserved18Button = new JoystickButton(operatorStick, 18);
+
         climberExtendButton = new JoystickButton(operatorStick, 19);
         climberClimbButton = new JoystickButton(operatorStick, 20);
 
@@ -216,8 +231,8 @@ public class OI implements ITelemetryProvider {
          * Wheel
          */
 
-        wheelClockwiseButton.whenHeld(new WheelRunClockwise());
-        wheelCounterClockwiseButton.whenHeld(new WheelRunCounterClockwise());
+        wheelPositionButton.whenHeld(new WheelRunToColor());
+        wheelRotationButton.whenHeld(new WheelRunRevolutions());
 
         /*
          * Reserved
@@ -324,6 +339,10 @@ public class OI implements ITelemetryProvider {
         return deadBand(getOperatorPotentiometer3(), 0.05);
     }
 
+    public boolean isShooterRevEnabled() {
+        return shooterRevButton.get();
+    }
+
     /*****************
      * Climber
      *****************/
@@ -331,6 +350,10 @@ public class OI implements ITelemetryProvider {
     public boolean getClimberRetractEnable() {
         return pitClimberEnableButton.get();
     }
+
+    /*****************
+     * Deadband utility
+     *****************/
 
     /**
      * 
@@ -351,28 +374,12 @@ public class OI implements ITelemetryProvider {
         return retValue;
     }
 
-    //////////////////////////////////////////////////////////////////
-    // TODO - Finish cleaning up these
-    //////////////////////////////////////////////////////////////////
-
-    public boolean isShooterRevEnabled() {
-        return shooterRevButton.get();
-    }
-
-    //////////////////////////////////////////////////////////////////
-    // TODO - Finish cleaning up these
-    //////////////////////////////////////////////////////////////////
+    /*****************
+     * Raw Axes
+     *****************/
 
     private double getDriverLeftYAxis() {
         return -driverStick.getRawAxis(1);
-    }
-
-    private double getDriverRightYAxis() {
-        return -driverStick.getRawAxis(5);
-    }
-
-    private double getDriverLeftXAxis() {
-        return driverStick.getRawAxis(0);
     }
 
     private double getDriverRightXAxis() {
@@ -388,10 +395,10 @@ public class OI implements ITelemetryProvider {
     }
 
     private double getDriverTriggerAxis() {
-        if (driverStick.getRawAxis(2) > 0.05) {
-            return driverStick.getRawAxis(2);
-        } else if (driverStick.getRawAxis(3) > 0.05) {
-            return -driverStick.getRawAxis(3);
+        if (getDriverLeftTrigger() > 0.05) {
+            return getDriverLeftTrigger();
+        } else if (getDriverRightTrigger() > 0.05) {
+            return -getDriverRightTrigger();
         } else {
             return 0;
         }

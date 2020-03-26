@@ -57,7 +57,6 @@ class HopperSubsystem extends BaseHopperSubsystem {
 
     @Override
     public void agitate() {
-        // TODO - Determine actual preset speed
         setSpeed(-0.30);
     }
 
