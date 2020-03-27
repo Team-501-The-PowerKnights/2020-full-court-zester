@@ -6,7 +6,6 @@
 	<p>
 		<b>🤖 Source code for the 2020 robot playing Infinite Recharge</b>
 	</p>
-    <br>
     <a href="https://github.com/Team-501-The-PowerKnights/2020-robot/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Team-501-The-PowerKnights/2020-robot"></a>
     <a href="https://github.com/Team-501-The-PowerKnights/2020-robot/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Team-501-The-PowerKnights/2020-Robot?style=social"></a>
     <br>
